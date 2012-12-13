@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import urllib2
+import urllib
 import webapp2
 
 jinja_environment = jinja2.Environment(
@@ -14,7 +15,7 @@ class MainPage( webapp2.RequestHandler ):
 
         template = jinja_environment.get_template( 'index.html' )
         template_values = {}
-        DataSource('cock').fetch_data()
+        DataSource('').fetch_data()
         self.response.out.write( template.render( template_values ) )
 
 
@@ -30,19 +31,25 @@ class PageRenderer:
     def render (self):
         # iterate through map. call fetch on each data_source.
         # turn json into map
-        # string and map onto view
+        # put string and map onto view
         pass
 
 
 class DataSource:
 
-    def __init__(self, api_url):
-        self.api_url = api_url
+    base_url = 'http://content.guardianapis.com/'
+    api_key = '***REMOVED***'
+
+    #fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
+
+
+    def __init__(self, end_point, params):
+        params['api-key'] = api_key
+        self.api_url = base_url + endpoint + urllib.urlencode(params)
 
     def fetch_data(self):
-        url = 'http://content.guardianapis.com/search?tag=type%2Farticle&section=culture&format=json&show-fields=all&lead-content=culture%2Fculture&api-key=***REMOVED***'
         try:
-            response = urllib2.urlopen(url)
+            response = urllib2.urlopen(api_url)
             response_body = response.read()
             json_response = json.loads(response_body)
 
@@ -50,10 +57,8 @@ class DataSource:
             status = response_object['status']
             results = response_object['results']
 
-            fields = results[0]['fields'].keys()
-
             logging.info(fields)
-
+            return results
 
         except urllib2.URLError, e:
             pass
