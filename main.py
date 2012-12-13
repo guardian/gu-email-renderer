@@ -1,10 +1,12 @@
+from google.appengine.api import memcache
 import jinja2
 import json
 import logging
 import os
-import urllib2
 import urllib
+import urllib2
 import webapp2
+
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) ) )
@@ -16,8 +18,13 @@ class MainPage( webapp2.RequestHandler ):
 
         culture_source = DataSource('search', {'tag': 'type/article', 'section': 'culture', 'show-fields': 'all', 'lead-content': 'culture/culture'})
 
-        page_renderer = PageRenderer({'culture': culture_source}, 'index.html')
-        page = page_renderer.render()
+        page = memcache.get('gu-daily-email')
+
+        if not page:
+            logging.info('Cache miss')
+            page_renderer = PageRenderer({'culture': culture_source}, 'index.html')
+            page = page_renderer.render()
+            memcache.add('gu-daily-email', page)
 
         self.response.out.write(page)
 
@@ -47,6 +54,8 @@ class PageRenderer:
         template specified by *template_name*
         """
         data = self._fetch_data()
+        #print("Here is the data: " + data['culture'])
+
         return self.template.render(**data)
 
     def _fetch_data(self):
@@ -68,13 +77,12 @@ class DataSource:
 
     base_url = 'http://content.guardianapis.com/%s?%s'
     api_key = '***REMOVED***'
-
-    #fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
-
+    fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
 
     def __init__(self, endpoint, params):
         params['api-key'] = self.api_key
         params['format'] = 'json'
+        params['show-fields'] = ','.join(self.fields)
         self.api_url = self.base_url  % (endpoint, urllib.urlencode(params))
 
     def fetch(self):
