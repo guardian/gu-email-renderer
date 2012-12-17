@@ -10,12 +10,12 @@
 
 <body style="background: #faf9f8; margin: 0; padding: 0;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
-		<tr>
+		<tr><td>
 			<!-- header -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td width="50%" style="padding-bottom: 20px;"><img src="/static/img/logo.png" width="50" height="95" alt="" border="0" /></td>
-					<td width="50%" style="padding-bottom: 20px;">
+					<td width="50%"><img src="/static/img/logo.png" width="50" height="95" alt="" border="0" /></td>
+					<td width="50%">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
 							<tr>
 								<td width="100%">
@@ -37,8 +37,75 @@
 				</tr>
 			</table>
 			<!-- /header -->
-		</tr>
+		</td></tr>
 		
 		{{ layout.story_trail('Top Stories', top_stories) }}
+		{{ layout.story_trail('Most viewed in last 24 hours', most_viewed_stories) }}
+		{{ layout.picture_of_day(picture_of_day) }}
+		{{ layout.story_trail('Sport', sport_stories) }}
+		{{ layout.story_trail('Culture', culture_stories) }}
+
+		<tr></td>
+			<!-- footer -->
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#444" style="padding: 20px 15px; margin-top: 20px;">
+				<!-- logo-social -->
+				<tr>
+					<td style="padding-bottom: 20px">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td width="50%">
+									<a href="http://www.guardian.co.uk"><img src="/static/img/logo-footer.png" width="134" height="24" alt="The Guardian" border="0" /></a>
+								</td>
+
+								<td width="50%" align="right">
+									<table cellpadding="0" cellspacing="0" border="0">
+										<tr>
+											<td>
+												<a href="http://www.twitter.com/guardian"><img src="/static/img/twitter.png" border="0" /></a>
+											</td>
+											<td>
+												<a href="http://www.guardian.co.uk/guardian"><img src="/static/img/fb.png" border="0" /></a>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- /logo-social -->
+
+				<!-- sections -->
+				<tr>
+					<td align="center">
+						<table cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 20px;">
+							<tr>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/business">Business</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/technology">Tech</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/sport">Sport</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/travel">Travel</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px;" href="http://www.guardian.co.uk/lifeandstyle">Life &amp; style</a></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- /sections -->
+			</table>
+
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#333" style="padding: 20px 15px;">
+				<tr><td>
+					<a href="http://id.guardian.co.uk/email/list" style="font: 13px Arial; color: #fff; text-decoration: none;"><img src="/static/img/email.png" border="0" style="vertical-align: -8px; margin-right: 5px;" /> Get more Guardian emails</a>
+				</td></tr>
+				<tr><td>
+					<table cellpadding="0" cellspacing="0" border="0" style="padding: 20px 0;">
+						<tr>
+							<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px 5px 0; border-right: 1px solid #bebebe" href="#Unsubscribe">Unsubscribe</a></td>
+							<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px;" href="http://id.guardian.co.uk/dashboard">Manage your account</a></td>
+						</tr>
+					</table>
+				</td></tr>
+			</table>
+			<!-- /footer -->
+		</td></tr>
 	</table>
 </body>
