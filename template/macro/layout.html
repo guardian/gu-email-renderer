@@ -33,7 +33,7 @@
 {% macro story_trail(heading_text, stories) -%}
 <tr><td style="padding-top: 20px;">{{ heading(heading_text) }}<td></tr>
 
-<tr><td style="padding-top: 20px;">
+<tr><td>
 {% for story in stories %}
 	{{ story_blocks.thumb(story, loop.index == 1) }}
 {% endfor %}
