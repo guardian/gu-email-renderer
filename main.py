@@ -9,20 +9,27 @@ import webapp2
 
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) ) )
+    loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) + '/template' ) )
 
 
 class MainPage( webapp2.RequestHandler ):
     def get( self ):
-        template = jinja_environment.get_template( 'index.html' )
-
-        culture_source = DataSource('search', {'tag': 'type/article', 'section': 'culture', 'show-fields': 'all', 'lead-content': 'culture/culture'})
+        story_count = 3
+        template = jinja_environment.get_template( 'master.html' )
+        top_stories = DataSource('search', {
+            'tag': 'type/article',
+            'show-fields': 'all',
+            'lead-content': 'culture/culture',
+            'page-size': story_count,
+        })
 
         page = memcache.get('gu-daily-email')
 
         if not page:
             logging.info('Cache miss')
-            page_renderer = PageRenderer({'culture': culture_source}, 'index.html')
+            page_renderer = PageRenderer({
+                'top_stories': top_stories
+            }, 'master.html')
             page = page_renderer.render()
             memcache.add('gu-daily-email', page)
 
@@ -77,7 +84,7 @@ class DataSource:
 
     base_url = 'http://content.guardianapis.com/%s?%s'
     api_key = '***REMOVED***'
-    fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
+    fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail']
 
     def __init__(self, endpoint, params):
         params['api-key'] = self.api_key
