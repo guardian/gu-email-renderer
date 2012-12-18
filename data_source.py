@@ -9,14 +9,13 @@ class DataSource:
         self.page_size = 10
         self.show_media = None
         self.lead_content = None
-        self.section_name = None
+        self.sections = []
         self.from_date = None
-        self.show_editors_pics = False
         self.show_most_viewed = False
 
     def fetch_data(self, client):
         criteria = self._build_criteria()
-        data = client.search(**criteria)
+        data = self._do_call(client, **criteria)
         return list(data)
 
     def _build_criteria(self):
@@ -25,17 +24,14 @@ class DataSource:
         if self.fields:
             criteria['show-fields'] = ','.join(self.fields)
 
-        if self.section_name:
-            criteria['section'] = self.section_name
+        if self.sections:
+            criteria['section'] = '|'.join(self.sections)
 
         if self.content_type:
             self.tags.append('type/%s' % self.content_type)
 
         if self.tags:
             criteria['tag'] = ','.join(self.tags)
-
-        if self.show_editors_pics:
-            criteria['show-editors-picks'] = 'true'
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
@@ -55,19 +51,29 @@ class DataSource:
         return criteria
 
 
-class CultureDataSource(DataSource):
+class SearchDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.search(**criteria)
+
+
+class EditorsPicksDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.editors_picks(**criteria)
+
+
+class CultureDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        self.section_name = 'culture'
+        self.sections = ['culture']
 
 
-class SportDataSource(DataSource):
+class SportDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        self.section_name = 'sport'
+        self.sections = ['sport']
 
 
-class PicOfDayDataSource(DataSource):
+class PicOfDayDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
         self.content_type = 'picture'
@@ -76,9 +82,18 @@ class PicOfDayDataSource(DataSource):
         self.show_media = 'picture'
 
 
-class MostViewedDataSource(DataSource):
+class MostViewedDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
         today = str(datetime.now().date())
         self.from_date = today
         self.show_most_viewed = True
+
+
+class TopStoriesDataSource(EditorsPicksDataSource):
+    def __init__(self):
+        DataSource.__init__(self)
+        self.sections = ['uk', 'world']
+#        today = str(datetime.now().date())
+#        self.from_date = today
+#        self.show_most_viewed = True

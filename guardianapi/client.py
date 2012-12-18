@@ -53,6 +53,11 @@ class Client(object):
         json = self._do_call('search', **kwargs)
         return SearchResults(self, kwargs, json)
 
+    def editors_picks(self, **kwargs):
+        kwargs['show-editors-picks'] = 'true'
+        json = self._do_call('', **kwargs)
+        return SearchResults(self, kwargs, json)
+
     def tags(self, **kwargs):
         json = self._do_call('/content/tags', **kwargs)
         return TagResults(self, kwargs, json)
