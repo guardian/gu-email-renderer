@@ -1,46 +1,20 @@
 #! /usr/bin/python
 
 import sys
-import urllib
-from urllib2 import urlparse
-from data_source import CultureDataSource, SportDataSource, MostViewedDataSource, PicOfDayDataSource, TopStoriesDataSource
+from data_source import \
+    CultureDataSource, SportDataSource, MostViewedDataSource, \
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource
 from guardianapi.client import Client
 from datetime import datetime
+from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
 
 #API_KEY = 'dummy_api_key'
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 
-class UrlCheckingStubFetcher:
-    def __init__(self, expected_path, **expected_args):
-        self.expected_path = expected_path
-        self.expected_args = self._quote_params(expected_args)
 
-    def assert_expected_url_equals(self, actual_url):
-        (scheme, netloc, path, params, query, fragment) = urlparse.urlparse(actual_url)
-        actual_args = dict([arg.split('=') for arg in query.split('&')])
 
-        assert len(actual_args) == len(self.expected_args), 'actual: %d, expected: %d' \
-            % (len(actual_args), len(self.expected_args))
-        for key in actual_args:
-            actual_arg = actual_args[key]
-            expected_arg = self.expected_args[key]
-            assert actual_arg == expected_arg, 'actual: %s, expected: %s' % (actual_arg, expected_arg)
 
-        assert self.expected_path == path
-
-    def get(self, url):
-        print 'Url is: %s' % url
-        self.assert_expected_url_equals(url)
-        return (None, '{"response": {"results": []}}')
-
-    def _quote_params(self, query_params):
-        quoted_params = {}
-        for key in query_params.keys():
-            new_key = key.replace('_', '-')
-            new_value = urllib.quote_plus(query_params[key])
-            quoted_params[new_key] = new_value
-        return quoted_params
 
 
 def test_should_call_api_with_correct_url_for_culture_section():
@@ -88,12 +62,27 @@ def test_should_call_api_with_correct_url_for_top_stories():
                            section='uk|world')
 
 
+def test_a_search_data_source_should_know_how_to_process_response():
+    fetcher = ApiStubFetcher()
+    client = Client(API_KEY, fetcher)
+    data_source = SearchDataSource()
+    data = data_source.fetch_data(client)
+    assert len(data) == 2
+    result = data[1]
+    assert result.has_key('id')
+    assert result.has_key('apiUrl')
+    assert result.has_key('webPublicationDate')
+    assert result.has_key('sectionName')
+    assert result.has_key('webTitle')
+    assert result.has_key('fields')
+    assert result.has_key('sectionName')
+
 
 def _check_data_source_url(data_source, expected_path, **expected_args):
     print 'Testing url for %s' % data_source.__class__
     expected_args['api-key'] = API_KEY
     expected_args['format'] = 'json'
-    fetcher = UrlCheckingStubFetcher(expected_path, **expected_args)
+    fetcher = UrlCheckingFetcher(expected_path, **expected_args)
     client = Client(API_KEY, fetcher)
     data_source.fetch_data(client)
 
@@ -104,3 +93,8 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_most_viewed()
     test_should_call_api_with_correct_url_for_pic_of_the_day()
     test_should_call_api_with_correct_url_for_top_stories()
+    test_a_search_data_source_should_know_how_to_process_response()
+
+
+
+
