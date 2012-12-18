@@ -9,12 +9,12 @@ import webapp2
 
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) ) )
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 
 class MainPage( webapp2.RequestHandler ):
     def get( self ):
-        template = jinja_environment.get_template( 'index.html' )
+        template = jinja_environment.get_template('index.html')
 
         culture_source = DataSource('search', {'tag': 'type/article', 'section': 'culture', 'show-fields': 'all', 'lead-content': 'culture/culture'})
 
@@ -29,7 +29,7 @@ class MainPage( webapp2.RequestHandler ):
         self.response.out.write(page)
 
 
-app = webapp2.WSGIApplication( [ ( '/', MainPage ) ], debug=True )
+app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
 
 
 class PageRenderer:
@@ -77,7 +77,7 @@ class DataSource:
 
     base_url = 'http://content.guardianapis.com/%s?%s'
     api_key = '***REMOVED***'
-    fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
+    fields = ['section', 'trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
 
     def __init__(self, endpoint, params):
         params['api-key'] = self.api_key

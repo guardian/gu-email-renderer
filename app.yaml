@@ -6,7 +6,7 @@ threadsafe: true
 
 handlers:
 - url: /.*
-  script: main.app
+  script: mail_renderer.app
 
 libraries:
 - name: jinja2
