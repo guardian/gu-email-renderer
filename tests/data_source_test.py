@@ -3,7 +3,7 @@
 import sys
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
-    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -11,10 +11,6 @@ from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
 #API_KEY = 'dummy_api_key'
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
-
-
-
-
 
 
 def test_should_call_api_with_correct_url_for_culture_section():
@@ -78,6 +74,22 @@ def test_a_search_data_source_should_know_how_to_process_response():
     assert result.has_key('sectionName')
 
 
+def test_an_editors_picks_data_source_should_know_how_to_process_response():
+    fetcher = ApiStubFetcher()
+    client = Client(API_KEY, fetcher)
+    data_source = EditorsPicksDataSource()
+    data = data_source.fetch_data(client)
+    assert len(data) == 3
+    result = data[2]
+    assert result.has_key('id')
+    assert result.has_key('apiUrl')
+    assert result.has_key('webPublicationDate')
+    assert result.has_key('sectionName')
+    assert result.has_key('webTitle')
+    assert result.has_key('fields')
+    assert result.has_key('sectionName')
+
+
 def _check_data_source_url(data_source, expected_path, **expected_args):
     print 'Testing url for %s' % data_source.__class__
     expected_args['api-key'] = API_KEY
@@ -94,6 +106,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_pic_of_the_day()
     test_should_call_api_with_correct_url_for_top_stories()
     test_a_search_data_source_should_know_how_to_process_response()
+    test_an_editors_picks_data_source_should_know_how_to_process_response()
 
 
 

@@ -56,7 +56,7 @@ class Client(object):
     def editors_picks(self, **kwargs):
         kwargs['show-editors-picks'] = 'true'
         json = self._do_call('', **kwargs)
-        return SearchResults(self, kwargs, json)
+        return EditorsPicksResults(self, kwargs, json)
 
     def tags(self, **kwargs):
         json = self._do_call('/content/tags', **kwargs)
@@ -164,6 +164,24 @@ class SearchResults(Results):
 
     def filters(self):
         return self.json['response']['filters']
+
+
+class EditorsPicksResults(Results):
+    client_method = 'search'
+    default_per_page = 10
+
+    def count(self):
+        return self.json['response']['total']
+
+    def start_index(self):
+        return self.json['response']['startIndex']
+
+    def results(self):
+        return self.json['response']['editorsPicks']
+
+    def filters(self):
+        return self.json['response']['filters']
+
 
 class TagResults(Results):
     client_method = 'tags'

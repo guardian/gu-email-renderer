@@ -23,7 +23,7 @@ class UrlCheckingFetcher:
     def get(self, url):
         print 'Url is: %s' % url
         self.assert_expected_url_equals(url)
-        return (None, '{"response": {"results": []}}')
+        return (None, '{"response": {"results": [], "editorsPicks": []}}')
 
     def _quote_params(self, query_params):
         quoted_params = {}
@@ -37,16 +37,7 @@ class UrlCheckingFetcher:
 
 class ApiStubFetcher:
 
-    def get(self, url):
-        (_, _, path, _, query, _) = urlparse.urlparse(url)
-        if path == '/search':
-            return self.search_results()
-        if path == '/' and 'show-editors-picks' in query:
-            return self.editors_picks_results()
-
-    def search_results(self):
-
-        status = """
+    status = """
         {'status': '200', 'content-length': '10614', 'x-content-api-build': '1998', 'proxy-connection': 'keep-alive',
          'vary': 'Accept,Accept-Encoding', 'x-lift-version': '2.4', 'x-gu-jas': 'ea12a9802fea0a87cff65d3d23752cec!600461558@qtp-1761506447-286',
          'keep-alive': '60', 'expires': 'Tue, 18 Dec 2012 15:19:33 GMT', 'server': 'Mashery Proxy', 'date': 'Tue, 18 Dec 2012 15:18:33 GMT',
@@ -55,6 +46,79 @@ class ApiStubFetcher:
          'content-location': 'http://content.guardianapis.com/search?page-size=10&format=json&section=culture&api-key=***REMOVED***&tag=type%2Farticle&show-fields=trailText%2Cheadline%2CliveBloggingNow%2Cstandfirst%2Ccommentable%2Cthumbnail%2Cbyline'}
         """
 
+
+
+    def get(self, url):
+        (_, _, path, _, query, _) = urlparse.urlparse(url)
+        if path == '/search':
+            return self.search_results()
+        if path == '/' and 'show-editors-picks' in query:
+            return self.editors_picks_results()
+
+    def editors_picks_results(self):
+        response = """
+            {
+              "response":{
+                "status":"ok",
+                "userTier":"internal",
+                "total":1,
+                "editorsPicks":[{
+                  "id":"world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "sectionId":"world",
+                  "sectionName":"World news",
+                  "webPublicationDate":"2012-12-17T20:24:00Z",
+                  "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
+                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "fields":{
+                    "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
+                    "headline":"White House says Obama will move swiftly on gun control after Newtown",
+                    "standfirst":"First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/maps_and_graphs/2012/12/17/1355705992584/Barack-Obama-attends-a-vi-005.jpg",
+                    "commentable":"true",
+                    "byline":"Ewen MacAskill in Washington",
+                    "liveBloggingNow":"false"
+                  }
+                },{
+                  "id":"uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "sectionId":"uk",
+                  "sectionName":"UK news",
+                  "webPublicationDate":"2012-12-18T14:07:09Z",
+                  "webTitle":"Antarctic territory named for the Queen as monarch attends cabinet",
+                  "webUrl":"http://www.guardian.co.uk/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "apiUrl":"http://content.guardianapis.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "fields":{
+                    "trailText":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
+                    "headline":"Antarctic territory named for the Queen as monarch attends cabinet",
+                    "standfirst":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/12/18/1355838771424/Queen-attends-cabinet-mee-003.jpg",
+                    "commentable":"true",
+                    "byline":"Patrick Wintour, political editor",
+                    "liveBloggingNow":"false"
+                  }
+                },{
+                  "id":"world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "sectionId":"world",
+                  "sectionName":"World news",
+                  "webPublicationDate":"2012-12-18T10:08:46Z",
+                  "webTitle":"Anti-polio workers shot dead in Pakistan",
+                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "apiUrl":"http://content.guardianapis.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "fields":{
+                    "trailText":"<p>Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease</p>",
+                    "headline":"Anti-polio workers shot dead in Pakistan",
+                    "standfirst":"Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/About/General/2012/12/18/1355824995156/Polio-campaign-003.jpg",
+                    "commentable":"false",
+                    "byline":"Agencies in Karachi",
+                    "liveBloggingNow":"false"
+                  }
+                }]}}
+        """
+
+        return (self.status, response)
+
+    def search_results(self):
         response = """
             {
               "response":{
@@ -104,5 +168,4 @@ class ApiStubFetcher:
               }
             }
         """
-        return (status, response)
-
+        return (self.status, response)
