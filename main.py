@@ -8,15 +8,15 @@ import urllib2
 import webapp2
 
 
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) + '/template' ) )
+jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
+
 
 
 class MainPage( webapp2.RequestHandler ):
     def get( self ):
         story_count = 3
         template = jinja_environment.get_template( 'master.html' )
-        
+
         top_stories = DataSource('search', {
             'tag': 'type/article',
             'show-fields': 'all',
@@ -67,7 +67,7 @@ class MainPage( webapp2.RequestHandler ):
         self.response.out.write(page)
 
 
-app = webapp2.WSGIApplication( [ ( '/', MainPage ) ], debug=True )
+app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
 
 
 class PageRenderer:
