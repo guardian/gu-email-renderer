@@ -1,29 +1,30 @@
+{% import 'macro/layout.html' as layout %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Guardian Today email</title>
+	<title>Guardian Today</title>
 </head>
 
 <body style="background: #faf9f8; margin: 0; padding: 0;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
-		<tr>
+		<tr><td>
 			<!-- header -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td width="50%" style="padding-bottom: 20px;"><img src="img/logo.png" width="50" height="95" alt="" /></td>
-					<td width="50%" style="padding-bottom: 20px;">
+					<td width="50%" valign="top"><img src="/static/img/logo.png" width="50" height="95" alt="" border="0" style="float: left;" /></td> 
+					<td width="50%">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
 							<tr>
 								<td width="100%">
 									<table width="132" cellpadding="0" cellspacing="0" border="0" align="right">
 										<tr>
-											<td width="132"><img src="img/the-guardian.png" width="132" height="35" alt="The Guardian" style="" align="right" /></td>
+											<td width="132"><img src="/static/img/the-guardian.png" width="132" height="35" alt="The Guardian" style="" align="right" border="0" /></td>
 										</tr>
 										<tr>
-											<td width="132"><img src="img/today.png" width="132" height="40" alt="The Guardian" align="right" /></td>
+											<td width="132"><img src="/static/img/today.png" width="132" height="40" alt="The Guardian" align="right" border="0" /></td>
 										</tr>
 									</table>
 								</td>
@@ -36,32 +37,75 @@
 				</tr>
 			</table>
 			<!-- /header -->
-		</tr>
+		</td></tr>
 		
-		<tr>
-			<!-- heading -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="border-left: 15px solid #004179;">
-				<tr height="45" valign="top">
-					<td style="font: 16px Arial; color: #333; font-weight: bold; padding: 10px 0 0 10px; border-top: 1px solid #dedede; border-bottom: 1px solid #dedede;">Top Stories</td>
-				</tr>
-			</table>
-			<!-- /heading -->
-		</tr>
+		{{ layout.story_trail('Top Stories', top_stories) }}
+		{{ layout.story_trail('Most viewed in last 24 hours', most_viewed_stories) }}
+		{{ layout.picture_of_day(picture_of_day) }}
+		{{ layout.story_trail('Sport', sport_stories) }}
+		{{ layout.story_trail('Culture', culture_stories) }}
 
-		<tr>
-			<!-- story: thum, standfirst, sublinks -->
-			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
+		<tr></td>
+			<!-- footer -->
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#444" style="padding: 20px 15px; margin-top: 20px;">
+				<!-- logo-social -->
 				<tr>
-					<td style="padding: 0 25px;">
-						<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
+					<td style="padding-bottom: 20px">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
 							<tr>
-								
+								<td width="50%">
+									<a href="http://www.guardian.co.uk"><img src="/static/img/logo-footer.png" width="131" height="24" alt="The Guardian" border="0" /></a>
+								</td>
+
+								<td width="50%" align="right">
+									<table cellpadding="0" cellspacing="0" border="0">
+										<tr>
+											<td width="50"><a href="http://www.twitter.com/guardian"><img src="/static/img/twitter.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+											<td width="25"><a href="http://www.guardian.co.uk/guardian"><img src="/static/img/fb.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</table>
 					</td>
 				</tr>
+				<!-- /logo-social -->
+
+				<!-- sections -->
+				<tr>
+					<td align="center">
+						<table cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 20px;">
+							<tr>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/business">Business</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/technology">Tech</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/sport">Sport</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/travel">Travel</a></td>
+								<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px;" href="http://www.guardian.co.uk/lifeandstyle">Life &amp; style</a></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- /sections -->
 			</table>
-			<!-- /story: thum, standfirst, sublinks -->
-		</tr>
+
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#333" style="padding: 20px 15px;">
+				<tr><td>
+					<a href="http://id.guardian.co.uk/email/list" style="font: 13px Arial; color: #fff; text-decoration: none;"><img src="/static/img/email.png" border="0" style="vertical-align: -4px; margin-right: 5px;" width="25" height="18" alt="" /> Get more Guardian emails</a>
+				</td></tr>
+				<tr><td>
+					<table cellpadding="0" cellspacing="0" border="0" style="padding: 20px 0 0 0;">
+						<tr>
+							<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px 5px 0; border-right: 1px solid #bebebe" href="#Unsubscribe">Unsubscribe</a></td>
+							<td><a style="font: 13px Arial; color: #fff; text-decoration: none; padding: 5px 10px;" href="http://id.guardian.co.uk/dashboard">Manage your account</a></td>
+						</tr>
+					</table>
+				</td></tr>
+			</table>
+
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" style="color: #666; font: 12px/16px Arial; padding: 15px 15px">
+				<tr><td>Guardian News &amp; Media Limited - a member of Guardian Media Group PLC. Registered Office: Kings Place, 90 York Way, London, N1 9GU. Registered in England No. 908396</td></tr>
+			</table>
+			<!-- /footer -->
+		</td></tr>
 	</table>
 </body>

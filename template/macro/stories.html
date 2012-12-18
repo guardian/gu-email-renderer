@@ -1,0 +1,14 @@
+{% macro thumb(story, first = False) -%}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 12px;">
+	<tr>
+		<td style="padding: 0 25px;">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td valign="top" width="112"{% if not first %} style="padding-top: 12px; border-top: 1px solid #dedede;"{% endif %}><img src="{{ story.fields.thumbnail }}" width="100" height="60" /></td>
+					<td valign="top"{% if not first %} style="padding-top: 12px; border-top: 1px solid #dedede;"{% endif %}><a href="{{ story.webUrl }}" style="color: #006fd5; font: 16px/20px Georgia; text-decoration: none;">{{ story.webTitle }}</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+{%- endmacro %}

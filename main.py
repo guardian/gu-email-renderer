@@ -8,21 +8,59 @@ import urllib2
 import webapp2
 
 
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
+
 
 
 class MainPage( webapp2.RequestHandler ):
     def get( self ):
-        template = jinja_environment.get_template('index.html')
+        story_count = 3
+        template = jinja_environment.get_template( 'master.html' )
 
-        culture_source = DataSource('search', {'tag': 'type/article', 'section': 'culture', 'show-fields': 'all', 'lead-content': 'culture/culture'})
+        top_stories = DataSource('search', {
+            'tag': 'type/article',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        most_viewed_stories = DataSource('search', {
+            'tag': 'type/article',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        sport_stories = DataSource('search', {
+            'tag': 'type/article',
+            'section': 'sport',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        culture_stories = DataSource('search', {
+            'tag': 'type/article',
+            'section': 'culture',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        picture_of_day = DataSource('search', {
+            'tag': 'world/series/eyewitness',
+            'show-fields': 'all',
+            'show-media': 'picture',
+            'page-size': '1',
+        })
 
         page = memcache.get('gu-daily-email')
-
+        page = None
         if not page:
             logging.info('Cache miss')
-            page_renderer = PageRenderer({'culture': culture_source}, 'index.html')
+            page_renderer = PageRenderer({
+                'top_stories': top_stories,
+                'most_viewed_stories': most_viewed_stories,
+                'sport_stories': sport_stories,
+                'culture_stories': culture_stories,
+                'picture_of_day': picture_of_day,
+            }, 'master.html')
             page = page_renderer.render()
             memcache.add('gu-daily-email', page)
 
@@ -77,7 +115,7 @@ class DataSource:
 
     base_url = 'http://content.guardianapis.com/%s?%s'
     api_key = '***REMOVED***'
-    fields = ['section', 'trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable']
+    fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail']
 
     def __init__(self, endpoint, params):
         params['api-key'] = self.api_key
