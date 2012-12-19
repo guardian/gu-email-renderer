@@ -5,7 +5,7 @@ import webapp2
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, EditorsPicksDataSource, \
+    MostViewedDataSource, \
     fetch_all, take_unique_subsets
 
 
