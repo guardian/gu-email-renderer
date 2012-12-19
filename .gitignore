@@ -1,6 +1,8 @@
 *.pyc
+venv
+*~
+*#
 *.svn
 TAGS
-*~
 .idea/
 *.iml
