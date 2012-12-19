@@ -1,9 +1,8 @@
 #! /usr/bin/python
 
-import sys
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
-    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource, EyeWitnessDataSource
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -37,16 +36,24 @@ def test_should_call_api_with_correct_url_for_most_viewed():
                            page_size='10',
                            tag='type/article',
                            show_fields=Fields,
-                           from_date=from_date,
+                           #from_date=from_date,
                            show_most_viewed='true')
 
 
 def test_should_call_api_with_correct_url_for_pic_of_the_day():
     _check_data_source_url(PicOfDayDataSource(), '/search',
-                           show_fields=Fields,
-                           page_size='1',
-                           show_media='picture',
-                           tag='artanddesign/series/picture-of-the-day,type/picture')
+        show_fields=Fields,
+        page_size='1',
+        show_media='picture',
+        tag='artanddesign/series/picture-of-the-day,type/picture')
+
+
+def test_should_call_api_with_correct_url_for_eye_witness():
+    _check_data_source_url(EyeWitnessDataSource(), '/search',
+        show_fields=Fields,
+        page_size='1',
+        show_media='picture',
+        tag='world/series/eyewitness,type/picture')
 
 
 def test_should_call_api_with_correct_url_for_top_stories():
@@ -54,8 +61,7 @@ def test_should_call_api_with_correct_url_for_top_stories():
                            show_fields=Fields,
                            page_size='10',
                            show_editors_picks='true',
-                           tag='type/article',
-                           section='uk|world')
+                           tag='type/article')
 
 
 def test_a_search_data_source_should_know_how_to_process_response():
@@ -105,9 +111,9 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_most_viewed()
     test_should_call_api_with_correct_url_for_pic_of_the_day()
     test_should_call_api_with_correct_url_for_top_stories()
+    test_should_call_api_with_correct_url_for_eye_witness()
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
-
 
 
 

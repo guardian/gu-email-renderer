@@ -30,3 +30,6 @@ class DailyEmail( webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail)], debug=True)
+
+
+

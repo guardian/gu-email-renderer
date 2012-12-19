@@ -82,18 +82,46 @@ class PicOfDayDataSource(SearchDataSource):
         self.show_media = 'picture'
 
 
+class EyeWitnessDataSource(SearchDataSource):
+    def __init__(self):
+        DataSource.__init__(self)
+        self.content_type = 'picture'
+        self.tags = ['world/series/eyewitness']
+        self.page_size = 1
+        self.show_media = 'picture'
+
+
 class MostViewedDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        today = str(datetime.now().date())
-        self.from_date = today
+        #today = str(datetime.now().date())
+        #self.from_date = today
         self.show_most_viewed = True
 
 
 class TopStoriesDataSource(EditorsPicksDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        self.sections = ['uk', 'world']
-#        today = str(datetime.now().date())
-#        self.from_date = today
-#        self.show_most_viewed = True
+        #self.sections = ['uk', 'world']
+
+
+def take_unique_subsets(size, data, priority_list):
+    """
+    data is a map of type string->list
+    list is a list of maps each of which contains the field 'id'.
+    priority_list is a list of strings each of which appears as a key in the data map.
+    """
+
+    items_seen_so_far = set()
+    unique_subsets = {}
+
+    for data_set_name in priority_list:
+        unique_subset = []
+        unique_subsets[data_set_name] = unique_subset
+        source_data = data[data_set_name]
+        for item in source_data:
+            if item['id'] not in items_seen_so_far and len(unique_subset) < size:
+                unique_subset.append(item)
+                items_seen_so_far.add(item['id'])
+
+    return unique_subsets
