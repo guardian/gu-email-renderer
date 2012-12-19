@@ -1,1 +1,2 @@
 python -m tests.data_source_tests
+python -m tests.result_set_tests

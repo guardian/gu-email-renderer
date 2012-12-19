@@ -2,7 +2,7 @@
 
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
-    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource, EyeWitnessDataSource
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource, EyeWitnessDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -96,6 +96,24 @@ def test_an_editors_picks_data_source_should_know_how_to_process_response():
     assert result.has_key('sectionName')
 
 
+def test_fetch_all_should_retrieve_data_for_each_data_source_and_return_a_map_indexed_as_input_map():
+    class StubDataSource1:
+        def fetch_data(self, client):
+            return 'stub data 1'
+
+    class StubDataSource2:
+        def fetch_data(self, client):
+            return 'stub data 2'
+
+
+    data_source_map = {'cheese': StubDataSource1(), 'pickle': StubDataSource2()}
+    retrieved_data = fetch_all(None, data_source_map)
+
+    assert len(retrieved_data.keys()) == 2
+    assert retrieved_data['cheese'] == 'stub data 1'
+    assert retrieved_data['pickle'] == 'stub data 2'
+
+
 def _check_data_source_url(data_source, expected_path, **expected_args):
     print 'Testing url for %s' % data_source.__class__
     expected_args['api-key'] = API_KEY
@@ -114,6 +132,6 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_eye_witness()
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
-
+    test_fetch_all_should_retrieve_data_for_each_data_source_and_return_a_map_indexed_as_input_map()
 
 

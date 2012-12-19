@@ -1,7 +1,6 @@
 from datetime import datetime
 
 class DataSource:
-
     def __init__(self):
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.tags = []
@@ -125,3 +124,16 @@ def take_unique_subsets(size, data, priority_list):
                 items_seen_so_far.add(item['id'])
 
     return unique_subsets
+
+
+def fetch_all(client, data_sources):
+    """
+    data is a map of type string->data_source.
+    return a map with same keys as data, and retrieved data as values
+    """
+    retrieved_data_map = {}
+    for key in data_sources.keys():
+        retrieved_data = data_sources[key].fetch_data(client)
+        retrieved_data_map[key] = retrieved_data
+
+    return retrieved_data_map

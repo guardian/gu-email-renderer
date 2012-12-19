@@ -1,6 +1,6 @@
 from data_source import take_unique_subsets
 
-def test_should_be_able_to_deduce_result_sets():
+def test_should_be_able_to_dedupe_result_sets():
 
     size = 3
     data = {
@@ -37,5 +37,5 @@ def test_we_never_show_dupes_even_if_we_run_out_of_items():
 
 
 if __name__ == '__main__':
-    test_should_be_able_to_deduce_result_sets()
-    test_we_fall_back_on_dupes_if_we_run_out_of_items()
+    test_should_be_able_to_dedupe_result_sets()
+    test_we_never_show_dupes_even_if_we_run_out_of_items()
