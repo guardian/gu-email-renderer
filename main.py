@@ -8,27 +8,58 @@ import urllib2
 import webapp2
 
 
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader( os.path.dirname( __file__ ) + '/template' ) )
+jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__) + '/template'))
+
 
 
 class MainPage( webapp2.RequestHandler ):
     def get( self ):
         story_count = 3
         template = jinja_environment.get_template( 'master.html' )
+
         top_stories = DataSource('search', {
             'tag': 'type/article',
             'show-fields': 'all',
-            'lead-content': 'culture/culture',
             'page-size': story_count,
         })
 
-        page = memcache.get('gu-daily-email')
+        most_viewed_stories = DataSource('search', {
+            'tag': 'type/article',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
 
+        sport_stories = DataSource('search', {
+            'tag': 'type/article',
+            'section': 'sport',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        culture_stories = DataSource('search', {
+            'tag': 'type/article',
+            'section': 'culture',
+            'show-fields': 'all',
+            'page-size': story_count,
+        })
+
+        picture_of_day = DataSource('search', {
+            'tag': 'world/series/eyewitness',
+            'show-fields': 'all',
+            'show-media': 'picture',
+            'page-size': '1',
+        })
+
+        page = memcache.get('gu-daily-email')
+        page = None
         if not page:
             logging.info('Cache miss')
             page_renderer = PageRenderer({
-                'top_stories': top_stories
+                'top_stories': top_stories,
+                'most_viewed_stories': most_viewed_stories,
+                'sport_stories': sport_stories,
+                'culture_stories': culture_stories,
+                'picture_of_day': picture_of_day,
             }, 'master.html')
             page = page_renderer.render()
             memcache.add('gu-daily-email', page)
@@ -36,7 +67,7 @@ class MainPage( webapp2.RequestHandler ):
         self.response.out.write(page)
 
 
-app = webapp2.WSGIApplication( [ ( '/', MainPage ) ], debug=True )
+app = webapp2.WSGIApplication([('/', MainPage)], debug=True)
 
 
 class PageRenderer:

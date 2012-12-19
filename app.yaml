@@ -8,7 +8,7 @@ handlers:
 - url: /static
   static_dir: template/static
 - url: /.*
-  script: main.app
+  script: mail_renderer.app
 
 libraries:
 - name: jinja2
