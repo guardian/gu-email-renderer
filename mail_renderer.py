@@ -10,14 +10,15 @@ from data_source import \
 
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
+)
 
 api_key = '***REMOVED***'
 client = Client(api_key)
 
 
 class DailyEmail( webapp2.RequestHandler):
-    template = jinja_environment.get_template('index.html')
+    template = jinja_environment.get_template('master.html')
 
     data_sources = {
         'sport': SportDataSource(),
@@ -30,11 +31,10 @@ class DailyEmail( webapp2.RequestHandler):
     priority_list = ['top_stories', 'most_viewed', 'eye_witness', 'sport', 'culture']
 
     def get(self):
-
         retrieved_data = fetch_all(client, self.data_sources)
         deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
 
-        page = self.template.render(deduped_data)
+        page = self.template.render(**deduped_data)
         self.response.out.write(page)
 
 
