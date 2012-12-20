@@ -1,4 +1,4 @@
-application: email-renderer
+application: ***REMOVED***
 version: 1
 runtime: python27
 api_version: 1
@@ -12,4 +12,6 @@ handlers:
 
 libraries:
 - name: jinja2
+  version: latest
+- name: django
   version: latest

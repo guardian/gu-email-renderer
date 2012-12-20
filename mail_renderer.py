@@ -1,7 +1,7 @@
 import jinja2
-import logging
 import os
 import webapp2
+from google.appengine.api import memcache
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
@@ -12,9 +12,10 @@ from data_source import \
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
 )
-
 api_key = '***REMOVED***'
-client = Client(api_key)
+base_url = 'http://content.guardianapis.com/'
+
+client = Client(base_url, api_key)
 
 
 class DailyEmail( webapp2.RequestHandler):
@@ -31,10 +32,18 @@ class DailyEmail( webapp2.RequestHandler):
     priority_list = ['top_stories', 'most_viewed', 'eye_witness', 'sport', 'culture']
 
     def get(self):
-        retrieved_data = fetch_all(client, self.data_sources)
-        deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
 
-        page = self.template.render(**deduped_data)
+
+        page = memcache.get('daily-email')
+
+        if not page:
+            retrieved_data = fetch_all(client, self.data_sources)
+            deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
+
+            page = self.template.render(**deduped_data)
+            memcache.add('daily-email', page, 300)
+
+
         self.response.out.write(page)
 
 
