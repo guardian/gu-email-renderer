@@ -1,6 +1,8 @@
 import logging
-from django.utils import simplejson
-#import simplejson
+try:
+    from django.utils import simplejson
+except:
+    import simplejson
 import urllib, urlparse
 import fetchers
 
