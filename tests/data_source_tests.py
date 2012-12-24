@@ -7,7 +7,6 @@ from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
 
-#API_KEY = 'dummy_api_key'
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 
@@ -66,9 +65,10 @@ def test_should_call_api_with_correct_url_for_top_stories():
 
 def test_a_search_data_source_should_know_how_to_process_response():
     fetcher = ApiStubFetcher()
-    client = Client(API_KEY, fetcher)
+    client = Client('http://somewhere.com/', API_KEY, fetcher)
     data_source = SearchDataSource()
     data = data_source.fetch_data(client)
+
     assert len(data) == 2
     result = data[1]
     assert result.has_key('id')
@@ -82,7 +82,7 @@ def test_a_search_data_source_should_know_how_to_process_response():
 
 def test_an_editors_picks_data_source_should_know_how_to_process_response():
     fetcher = ApiStubFetcher()
-    client = Client(API_KEY, fetcher)
+    client = Client('http://somewhere.com/', API_KEY, fetcher)
     data_source = EditorsPicksDataSource()
     data = data_source.fetch_data(client)
     assert len(data) == 3
@@ -119,7 +119,7 @@ def _check_data_source_url(data_source, expected_path, **expected_args):
     expected_args['api-key'] = API_KEY
     expected_args['format'] = 'json'
     fetcher = UrlCheckingFetcher(expected_path, **expected_args)
-    client = Client(API_KEY, fetcher)
+    client = Client('http://somewhere.com/', API_KEY, fetcher)
     data_source.fetch_data(client)
 
 
