@@ -2,11 +2,13 @@ import jinja2
 import logging
 import os
 import webapp2
+
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, EditorsPicksDataSource, \
     fetch_all, take_unique_subsets
+from ads import AdFetcher
 
 
 jinja_environment = jinja2.Environment(
@@ -15,6 +17,7 @@ jinja_environment = jinja2.Environment(
 
 api_key = '***REMOVED***'
 client = Client(api_key)
+adFetcher = AdFetcher()
 
 
 class DailyEmail( webapp2.RequestHandler):
@@ -34,7 +37,7 @@ class DailyEmail( webapp2.RequestHandler):
         retrieved_data = fetch_all(client, self.data_sources)
         deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
 
-        page = self.template.render(**deduped_data)
+        page = self.template.render(ad_html=adFetcher.square(), **deduped_data)
         self.response.out.write(page)
 
 

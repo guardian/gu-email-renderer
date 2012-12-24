@@ -34,8 +34,10 @@ class Client(object):
             headers, response = self.fetcher.get(url)
         except fetchers.HTTPError, e:
             if e.status_code == 403:
+                logging.error("APIKey (auth) error requesting %s" % url)
                 raise APIKeyError(self.api_key, e)
             else:
+                logging.error("Error requesting %s, status code %s" % (url, e.status_code))
                 # TODO: this should be better and needs logging
                 raise
         return simplejson.loads(response)
