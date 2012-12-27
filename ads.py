@@ -33,3 +33,9 @@ class AdFetcher(object):
         Returns a small square ad
         """
         return self.fetch_html("x01")
+
+    def leaderboard(self):
+        """
+        Returns a short wide ad
+        """
+        return self.fetch_html("Top")
