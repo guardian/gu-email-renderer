@@ -37,14 +37,13 @@ class DailyEmail( webapp2.RequestHandler):
 
     def get(self):
         page = memcache.get('daily-email')
-        page = None
 
         if not page:
             retrieved_data = fetch_all(client, self.data_sources)
             deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
 
             page = self.template.render(ad_html=adFetcher.leaderboard(), **deduped_data)
-            # memcache.add('daily-email', page, 300)
+            memcache.add('daily-email', page, 300)
 
         self.response.out.write(page)
 
