@@ -1,6 +1,7 @@
-import logging
+import logging, re
 
 from google.appengine.api import urlfetch
+
 
 
 class AdFetcher(object):
@@ -17,7 +18,8 @@ class AdFetcher(object):
         ad_url = self.root_url + "@" + ad_type
         response = urlfetch.fetch(ad_url)
         if response.status_code == 200:
-            return response.content
+            content = re.sub(r'width="\d{1,}" height="\d{1,}"', 'width="100%"', response.content)
+            return content
         else:
             logging.error("Failed to fetch ad: status code %s, content '%s'" % (response.status_code, response.content))
             return ''
