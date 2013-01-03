@@ -21,6 +21,9 @@ class DataSource:
     def _build_criteria(self):
         criteria = {}
 
+        # Always exclude picture desk due to media problems
+        self.tags.append('-news/series/picture-desk-live')
+
         if self.fields:
             criteria['show-fields'] = ','.join(self.fields)
 

@@ -2,7 +2,7 @@
 {% macro heading(heading_text, colour='#333', border=True, link=None) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ heading_colour(heading_text) }};">
 	<tr height="45" valign="top">
-		<td style="font: 16px Helvetica, Arial, sans-serif; color: {{ colour }}; font-weight: bold; padding: 10px 0 0 10px;{% if border %} border-top: 1px solid #dedede; border-bottom: 1px solid #dedede;{% endif %}">
+		<td align="left" style="font: 16px Helvetica, Arial, sans-serif; color: {{ colour }}; font-weight: bold; padding: 10px 0 0 10px;{% if border %} border-top: 1px solid #dedede; border-bottom: 1px solid #dedede;{% endif %}">
 			{% if link %}<a href="{{ link }}" style="color: {{ colour }}; text-decoration: none;">{% endif %}
 				{{ heading_text }}
 			{% if link %}</a>{% endif %}
@@ -17,15 +17,15 @@
 <tr><td style="padding-top: 20px;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242">
 		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', colour='#fff', border=False, link='http://www.guardian.co.uk/world/series/eyewitness') }}</td></tr>
-		<tr><td><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+		<tr><td align="left"><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
-			<td style="color: #fff; font-weight: bold; font: 13px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
+			<td align="left" style="color: #fff; font-weight: bold; font: 13px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
 		</tr>
 		<tr>
-			<td style="color: #ccc; font: 13px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
+			<td align="left" style="color: #ccc; font: 13px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
 		</tr>
 		<tr>
-			<td style="font: 13px Helvetica, Arial, sans-serif; padding: 20px 25px; font-weight: bold">
+			<td align="left" style="font: 13px Helvetica, Arial, sans-serif; padding: 20px 25px; font-weight: bold">
 				<a href="http://www.guardian.co.uk/inpictures" style="color: #00acda; text-decoration: none;">More galleries</a>
 			</td>
 		</tr>
@@ -55,6 +55,18 @@
 		#d1008b
 	{% elif 'Eyewitness picture of the day' == heading_text %}
 		#00acda
+	{% elif 'Comment is free' == heading_text %}
+		#004179
+	{% elif 'Life and style' == heading_text %}
+		#ea721e
+	{% elif 'Technology' == heading_text %}
+		#d61d00
+	{% elif 'Business' == heading_text %}
+		#004179
+	{% elif 'Money' == heading_text %}
+		#8f1ab6
+	{% elif 'Travel' == heading_text %}
+		#066ec9
 	{% endif %}
 {%- endmacro %}
 
