@@ -13,7 +13,11 @@
 
 
 {% macro picture_of_day(picture_of_day) -%}
-{% set picture = picture_of_day[0].mediaAssets[0] %}
+{% for mediaAsset in picture_of_day[0].mediaAssets %}
+	{% if mediaAsset.width is 460 %}
+		{% set picture = mediaAsset %}
+	{% endif %}
+{% endfor %}
 <tr><td style="padding-top: 20px;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242">
 		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', colour='#fff', border=False, link='http://www.guardian.co.uk/world/series/eyewitness') }}</td></tr>
