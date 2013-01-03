@@ -96,6 +96,7 @@ class MostViewedDataSource(SearchDataSource):
         DataSource.__init__(self)
         #today = str(datetime.now().date())
         #self.from_date = today
+        self.show_media = 'picture'
         self.show_most_viewed = True
 
 

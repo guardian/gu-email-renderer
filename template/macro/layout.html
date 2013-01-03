@@ -1,8 +1,12 @@
 {% import 'macro/stories.html' as story_blocks %}
-{% macro heading(heading_text, colour = '#333', border = True) -%}
+{% macro heading(heading_text, colour='#333', border=True, link=None) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ heading_colour(heading_text) }};">
 	<tr height="45" valign="top">
-		<td style="font: 16px Arial; color: {{ colour }}; font-weight: bold; padding: 10px 0 0 10px;{% if border %} border-top: 1px solid #dedede; border-bottom: 1px solid #dedede;{% endif %}">{{ heading_text }}</td>
+		<td style="font: 16px Helvetica, Arial, sans-serif; color: {{ colour }}; font-weight: bold; padding: 10px 0 0 10px;{% if border %} border-top: 1px solid #dedede; border-bottom: 1px solid #dedede;{% endif %}">
+			{% if link %}<a href="{{ link }}" style="color: {{ colour }}; text-decoration: none;">{% endif %}
+				{{ heading_text }}
+			{% if link %}</a>{% endif %}
+		</td>
 	</tr>
 </table>
 {%- endmacro %}
@@ -12,17 +16,17 @@
 {% set picture = picture_of_day[0].mediaAssets[0] %}
 <tr><td style="padding-top: 20px;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242">
-		<tr><td>{{ heading(heading_text='A pic of the day', colour='#fff', border=False) }}</td></tr>
-		<tr><td><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" /></td></tr>
+		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', colour='#fff', border=False, link='http://www.guardian.co.uk/world/series/eyewitness') }}</td></tr>
+		<tr><td><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
-			<td style="color: #fff; font-weight: bold; font: 13px Arial; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
+			<td style="color: #fff; font-weight: bold; font: 13px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
 		</tr>
 		<tr>
-			<td style="color: #ccc; font: 13px Arial; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
+			<td style="color: #ccc; font: 13px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
 		</tr>
 		<tr>
-			<td style="font: 13px Arial; padding: 20px 25px; font-weight: bold">
-				<a href="http://www.guardian.co.uk/world/series/eyewitness" style="color: #00acda; text-decoration: none;">More Galleries</a>
+			<td style="font: 13px Helvetica, Arial, sans-serif; padding: 20px 25px; font-weight: bold">
+				<a href="http://www.guardian.co.uk/inpictures" style="color: #00acda; text-decoration: none;">More galleries</a>
 			</td>
 		</tr>
 	</table>
@@ -30,8 +34,8 @@
 {% endmacro %}
 
 
-{% macro story_trail(heading_text, stories) -%}
-<tr><td style="padding-top: 20px;">{{ heading(heading_text) }}<td></tr>
+{% macro story_trail(heading_text, stories, heading_link=None) -%}
+<tr><td style="padding-top: 20px;">{{ heading(heading_text=heading_text, link=heading_link) }}<td></tr>
 
 <tr><td>
 {% for story in stories %}
@@ -49,7 +53,7 @@
 		#20a111
 	{% elif 'Culture' == heading_text %}
 		#d1008b
-	{% elif 'A pic of the day' == heading_text %}
+	{% elif 'Eyewitness picture of the day' == heading_text %}
 		#00acda
 	{% endif %}
 {%- endmacro %}
@@ -58,7 +62,7 @@
 <tr><td style="padding-top: 20px;">
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="">
 	<tr height="" valign="top">
-		<td style="font: 16px Arial; font-weight: bold; padding: 0; text-align: center;">{{ ad_html }}</td>
+		<td style="font: 16px Helvetica, Arial, sans-serif; font-weight: bold; padding: 0; text-align: center;">{{ ad_html }}</td>
 	</tr>
 </table>
 </td></tr>
