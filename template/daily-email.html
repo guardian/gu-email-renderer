@@ -52,12 +52,10 @@
 					{{ layout.story_trail('Sport', sport, 'http://www.guardian.co.uk/sport') }}
 					{{ layout.story_trail('Culture', culture, 'http://www.guardian.co.uk/culture') }}
 
-					<tr><td style="padding-top: 20px;">{{ layout.heading('Comment is free') }}<td></tr>
-					<tr><td>{{ layout.heading('Life and style') }}<td></tr>
-					<tr><td>{{ layout.heading('Technology') }}<td></tr>
-					<tr><td>{{ layout.heading('Business') }}<td></tr>
-					<tr><td>{{ layout.heading('Money') }}<td></tr>
-					<tr><td>{{ layout.heading('Travel') }}<td></tr>
+					<tr><td style="padding-top: 20px;">{{ layout.heading(heading_text='Business', link='http://www.guardian.co.uk/business') }}<td></tr>
+					<tr><td>{{ layout.heading(heading_text='Technology', link='http://www.guardian.co.uk/technology', border_top=False) }}<td></tr>
+					<tr><td>{{ layout.heading(heading_text='Travel', link='http://www.guardian.co.uk/travel', border_top=False) }}<td></tr>
+					<tr><td>{{ layout.heading(heading_text='Life and style', link='http://www.guardian.co.uk/lifeandstyle', border_top=False, border_bottom=False) }}<td></tr>
 
 					<tr><td>
 						<!-- footer -->
@@ -90,11 +88,10 @@
 								<td>
 									<table cellpadding="0" cellspacing="0" border="0">
 										<tr>
-											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px 5px 0; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/business">Business</a></td>
-											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/technology">Tech</a></td>
-											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/sport">Sport</a></td>
-											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/travel">Travel</a></td>
-											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; white-space: nowrap" href="http://www.guardian.co.uk/lifeandstyle">Life &amp; style</a></td>
+											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px 5px 0; border-right: 1px solid #bebebe; white-space: nowrap" href="http://www.guardian.co.uk/world">World news</a></td>
+											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe" href="http://www.guardian.co.uk/football">Football</a></td>
+											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px; border-right: 1px solid #bebebe; white-space: nowrap;" href="http://www.guardian.co.uk/commentisfree">Comment is free</a></td>
+											<td><a style="font: 13px Helvetica, Arial, sans-serif; color: #fff; text-decoration: none; padding: 5px 10px;" href="http://www.guardian.co.uk/environment">Environment</a></td>
 										</tr>
 									</table>
 								</td>
