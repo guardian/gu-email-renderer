@@ -1,6 +1,7 @@
 import jinja2
 import os
 import webapp2
+import datetime
 
 from google.appengine.api import memcache
 
@@ -23,7 +24,7 @@ adFetcher = AdFetcher()
 
 
 class DailyEmail( webapp2.RequestHandler):
-    template = jinja_environment.get_template('master.html')
+    template = jinja_environment.get_template('daily-email.html')
 
     data_sources = {
         'sport': SportDataSource(),
@@ -37,12 +38,14 @@ class DailyEmail( webapp2.RequestHandler):
 
     def get(self):
         page = memcache.get('daily-email')
-
+        page = None
         if not page:
             retrieved_data = fetch_all(client, self.data_sources)
             deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
+            today = datetime.datetime.now()
+            date = today.strftime('%A %d %b %Y')
 
-            page = self.template.render(ad_html=adFetcher.leaderboard(), **deduped_data)
+            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **deduped_data)
             memcache.add('daily-email', page, 300)
 
         self.response.out.write(page)

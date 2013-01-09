@@ -19,6 +19,9 @@ class DataSource:
     def _build_criteria(self):
         criteria = {}
 
+        # Always exclude picture desk due to media problems
+        self.tags.append('-news/series/picture-desk-live')
+
         if self.fields:
             criteria['show-fields'] = ','.join(self.fields)
 
@@ -86,6 +89,7 @@ class MostViewedDataSource(SearchDataSource):
         DataSource.__init__(self)
         #today = str(datetime.now().date())
         #self.from_date = today
+        self.show_media = 'picture'
         self.show_most_viewed = True
 
 
