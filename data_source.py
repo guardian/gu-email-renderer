@@ -5,11 +5,9 @@ class DataSource:
     def __init__(self):
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.tags = []
-        self.content_type = 'article'
         self.page_size = 10
+        self.content_type = None
         self.show_media = None
-        self.lead_content = None
-        self.sections = []
         self.from_date = None
         self.show_most_viewed = False
 
@@ -24,9 +22,6 @@ class DataSource:
         if self.fields:
             criteria['show-fields'] = ','.join(self.fields)
 
-        if self.sections:
-            criteria['section'] = '|'.join(self.sections)
-
         if self.content_type:
             self.tags.append('type/%s' % self.content_type)
 
@@ -35,9 +30,6 @@ class DataSource:
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
-
-        if self.lead_content:
-            criteria['lead-content'] = self.lead_content
 
         if self.page_size:
             criteria['page-size'] = self.page_size
@@ -61,16 +53,14 @@ class EditorsPicksDataSource(DataSource):
         return client.editors_picks(**criteria)
 
 
-class CultureDataSource(SearchDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
-        self.sections = ['culture']
+class CultureDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.editors_picks(section='culture', **criteria)
 
 
-class SportDataSource(SearchDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
-        self.sections = ['sport']
+class SportDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.editors_picks(section='sport', **criteria)
 
 
 class PicOfDayDataSource(SearchDataSource):
