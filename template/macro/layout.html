@@ -61,33 +61,11 @@
 {%- endmacro %}
 
 {% macro heading_colour(heading_text) -%}
-	{% if 'Top Stories' == heading_text %}
-		#004179
-	{% elif 'Most viewed in last 24 hours' == heading_text %}
-		#ab1700
-	{% elif 'Sport' == heading_text %}
-		#20a111
-	{% elif 'Culture' == heading_text %}
-		#d1008b
-	{% elif 'Eyewitness picture of the day' == heading_text %}
-		#00acda
-	{% elif 'Comment is free' == heading_text %}
-		#004179
-	{% elif 'Life and style' == heading_text %}
-		#ea721e
-	{% elif 'Technology' == heading_text %}
-		#d61d00
-	{% elif 'Business' == heading_text %}
-		#004179
-	{% elif 'Money' == heading_text %}
-		#8f1ab6
-	{% elif 'Travel' == heading_text %}
-		#066ec9
-	{% endif %}
+{% if 'Top Stories' == heading_text %}#004179{% elif 'Most viewed in last 24 hours' == heading_text %}#ab1700{% elif 'Sport' == heading_text %}#20a111{% elif 'Culture' == heading_text %}#d1008b{% elif 'Eyewitness picture of the day' == heading_text %}#00acda{% elif 'Comment is free' == heading_text %}#004179{% elif 'Life and style' == heading_text %}#ea721e{% elif 'Technology' == heading_text %}#d61d00{% elif 'Business' == heading_text %}#004179{% elif 'Money' == heading_text %}#8f1ab6{% elif 'Travel' == heading_text %}#066ec9{% endif %}
 {%- endmacro %}
 
 {% macro advert(ad_html) -%}
-<tr><td style="border: 1px solid #4B95D6; padding: 10px; background: #c6ddf1; margin: 30px 0 20px 0; display: block;" align="center">
+<tr><td style="padding: 10px; background: #c6ddf1; display: block; border-top: 30px solid #faf9f8; border-bottom: 30px solid #faf9f8;" align="center">
 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 468px;">
 	<tr valign="top">
 		<td align="center" style="font: 16px Helvetica, Arial, sans-serif; font-weight: bold; padding: 0; text-align: center;">{{ ad_html }}</td>
