@@ -23,19 +23,8 @@ class Client(object):
             urllib.urlencode(fixed_kwargs),
         )
 
-        try:
-            headers, response = self.fetcher.get(url)
-        except fetchers.HTTPError, e:
-            if e.status_code == 403:
-                logging.error("APIKey (auth) error requesting %s" % url)
-                raise APIKeyError(self.api_key, e)
-            else:
-                logging.error("Error requesting %s, status code %s" % (url, e.status_code))
-                # TODO: this should be better and needs logging
-                raise
-
+        headers, response = self.fetcher.get(url)
         logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
-
         return simplejson.loads(response)
 
     def _fix_kwargs(self, kwargs):
@@ -51,13 +40,15 @@ class Client(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def editors_picks(self, **kwargs):
+    def editors_picks(self, section='', **kwargs):
         kwargs['show-editors-picks'] = 'true'
-        json = self._do_call('', **kwargs)
-        return json['response']['editorsPicks']
+        json = self._do_call(section, **kwargs)
+
+        results = []
+        if json['response'].has_key('results'):
+            results = json['response']['results']
+
+        return json['response']['editorsPicks'] + results
 
     def __repr__(self):
         return '<%s: %s>' % (self.__class__.__name__, self.base_url)
-
-
-

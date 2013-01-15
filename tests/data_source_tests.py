@@ -12,19 +12,17 @@ Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,by
 
 
 def test_should_call_api_with_correct_url_for_culture_section():
-    _check_data_source_url(CultureDataSource(), '/search',
-                           section='culture',
+    _check_data_source_url(CultureDataSource(), '/culture',
+                           show_editors_picks='true',
                            show_fields=Fields,
-                           page_size='10',
-                           tag='type/article')
+                           page_size='10')
 
 
 def test_should_call_api_with_correct_url_for_sport_section():
-    _check_data_source_url(SportDataSource(), '/search',
-                           section='sport',
+    _check_data_source_url(SportDataSource(), '/sport',
+                           show_editors_picks='true',
                            show_fields=Fields,
-                           page_size='10',
-                           tag='type/article')
+                           page_size='10')
 
 
 def test_should_call_api_with_correct_url_for_most_viewed():
@@ -33,9 +31,7 @@ def test_should_call_api_with_correct_url_for_most_viewed():
 
     _check_data_source_url(MostViewedDataSource(), '/search',
                            page_size='10',
-                           tag='type/article',
                            show_fields=Fields,
-                           #from_date=from_date,
                            show_most_viewed='true')
 
 
@@ -59,8 +55,7 @@ def test_should_call_api_with_correct_url_for_top_stories():
     _check_data_source_url(TopStoriesDataSource(), '/',
                            show_fields=Fields,
                            page_size='10',
-                           show_editors_picks='true',
-                           tag='type/article')
+                           show_editors_picks='true')
 
 
 def test_a_search_data_source_should_know_how_to_process_response():
@@ -85,7 +80,7 @@ def test_an_editors_picks_data_source_should_know_how_to_process_response():
     client = Client('http://somewhere.com/', API_KEY, fetcher)
     data_source = EditorsPicksDataSource()
     data = data_source.fetch_data(client)
-    assert len(data) == 3
+    assert len(data) == 4
     result = data[2]
     assert result.has_key('id')
     assert result.has_key('apiUrl')
@@ -94,6 +89,17 @@ def test_an_editors_picks_data_source_should_know_how_to_process_response():
     assert result.has_key('webTitle')
     assert result.has_key('fields')
     assert result.has_key('sectionName')
+    # non-editors' picks results should be appended at end
+    result = data[3]
+    assert result['id'] == 'sport/video/2013/jan/09/relay-runners-start-brawl-video'
+
+
+def test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response():
+    fetcher = ApiStubFetcher()
+    client = Client('http://somewhere.com/', API_KEY, fetcher)
+    data_source = SportDataSource()
+    data = data_source.fetch_data(client)
+    assert len(data) == 1
 
 
 def test_fetch_all_should_retrieve_data_for_each_data_source_and_return_a_map_indexed_as_input_map():
@@ -132,6 +138,5 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_eye_witness()
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
+    test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response()
     test_fetch_all_should_retrieve_data_for_each_data_source_and_return_a_map_indexed_as_input_map()
-
-

@@ -7,23 +7,27 @@ class UrlCheckingFetcher:
         self.expected_path = expected_path
         self.expected_args = self._quote_params(expected_args)
 
+
     def assert_expected_url_equals(self, actual_url):
         (scheme, netloc, path, params, query, fragment) = urlparse.urlparse(actual_url)
         actual_args = dict([arg.split('=') for arg in query.split('&')])
 
-        assert len(actual_args) == len(self.expected_args), 'actual: %d, expected: %d'\
-        % (len(actual_args), len(self.expected_args))
+        assert len(actual_args) == len(self.expected_args), \
+            'actual number query args: %d, expected number query args: %d' \
+            % (len(actual_args), len(self.expected_args))
         for key in actual_args:
             actual_arg = actual_args[key]
             expected_arg = self.expected_args[key]
-            assert actual_arg == expected_arg, 'actual: %s, expected: %s' % (actual_arg, expected_arg)
+            assert actual_arg == expected_arg, 'actual arg: %s, expected arg: %s' % (actual_arg, expected_arg)
 
         assert self.expected_path == path
+
 
     def get(self, url):
         print 'Url is: %s' % url
         self.assert_expected_url_equals(url)
         return (None, '{"response": {"results": [], "editorsPicks": []}}')
+
 
     def _quote_params(self, query_params):
         quoted_params = {}
@@ -52,8 +56,11 @@ class ApiStubFetcher:
         (_, _, path, _, query, _) = urlparse.urlparse(url)
         if path == '/search':
             return self.search_results()
-        if path == '/' and 'show-editors-picks' in query:
+        if path == '/sport':
+            return self.sport_results()
+        elif 'show-editors-picks' in query:
             return self.editors_picks_results()
+
 
     def editors_picks_results(self):
         response = """
@@ -62,6 +69,23 @@ class ApiStubFetcher:
                 "status":"ok",
                 "userTier":"internal",
                 "total":1,
+                "results":[{
+                    "id":"sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "sectionId":"sport",
+                    "sectionName":"Sport",
+                    "webPublicationDate":"2013-01-09T16:15:38Z",
+                    "webTitle":"4x400m relay runners start brawl mid-race \u2013 video",
+                    "webUrl":"http://www.guardian.co.uk/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "apiUrl":"http://content.guardianapis.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "fields":{
+                      "trailText":"<p>Athletics and mid-race brawling don't usually go hand in hand, so spectators were surprised by action at the Hispanic Games at the New York Armory</p>",
+                      "headline":"4x400m relay runners start brawl mid-race \u2013 video",
+                      "standfirst":"Athletics and mid-race fighting don't usually go hand in hand, so spectators were surprised to witness Mt. Vernon High runner Rai Benjamin being taken out by an unidentified runner from Thomas Jefferson High School during the Hispanic Games at the New York Armory last weekend. Benjamin had been knocked off course when he ran into a different TJHS runner. Bizarrely, the incident seems to be ignored by race officials and the race continues as if nothing has happened",
+                      "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/audio/video/2013/1/9/1357742154408/4x400-metre-relay-runners-005.jpg",
+                      "commentable":"false",
+                      "liveBloggingNow":"false"
+                    }
+                  }],
                 "editorsPicks":[{
                   "id":"world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "sectionId":"world",
@@ -117,6 +141,38 @@ class ApiStubFetcher:
         """
 
         return (self.status, response)
+
+
+    def sport_results(self):
+        response = """
+            {
+              "response":{
+                "status":"ok",
+                "userTier":"internal",
+                "total":1,
+                "editorsPicks":[{
+                  "id":"world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "sectionId":"world",
+                  "sectionName":"World news",
+                  "webPublicationDate":"2012-12-17T20:24:00Z",
+                  "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
+                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "fields":{
+                    "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
+                    "headline":"White House says Obama will move swiftly on gun control after Newtown",
+                    "standfirst":"First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/maps_and_graphs/2012/12/17/1355705992584/Barack-Obama-attends-a-vi-005.jpg",
+                    "commentable":"true",
+                    "byline":"Ewen MacAskill in Washington",
+                    "liveBloggingNow":"false"
+                  }
+                }]}}
+        """
+
+        return (self.status, response)
+
+
 
     def search_results(self):
         response = """

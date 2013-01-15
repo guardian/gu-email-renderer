@@ -1,9 +1,9 @@
 {% import 'macro/stories.html' as story_blocks %}
 {% macro heading(heading_text, link, colour='#333', border_top=True, border_bottom=True) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ heading_colour(heading_text) }};">
-	<tr height="45" valign="top">
+	<tr height="50" valign="top">
 		<td align="left" style="{% if border_top %}border-top: 1px solid #dedede;{% endif %}{% if border_bottom %} border-bottom: 1px solid #dedede;{% endif %}">
-			{% if link %}<a href="{{ link }}" style="font: 16px Helvetica, Arial, sans-serif; display: block; font-weight: bold; padding: 10px 0 0 10px; color: {{ colour }}; text-decoration: none;">{% endif %}
+			{% if link %}<a href="{{ link }}" style="font: 20px Georgia, Arial, sans-serif; display: block; font-weight: normal; padding: 13px 0 0 10px; color: {{ colour }}; text-decoration: none;">{% endif %}
 				{{ heading_text }}
 			{% if link %}</a>{% endif %}
 		</td>
