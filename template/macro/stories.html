@@ -16,3 +16,25 @@
 	</tr>
 </table>
 {%- endmacro %}
+
+{% macro thumb_standfirst(story, first = False) -%}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top: 12px solid #faf9f8;">
+	<tr>
+		<td style="padding: 0 25px;">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					{% if story.fields.thumbnail %}
+					<td align="left" valign="top" height="60px" width="112"{% if not first %} style="padding-top: 12px; border-top: 1px solid #dedede;"{% endif %}>
+					  <img src="{{ story.fields.thumbnail }}" width="100" height="60" />
+					</td>
+					{% endif %}
+					<td align="left" valign="top"{% if not first %} style="padding-top: 12px; border-top: 1px solid #dedede;{% if not story.fields.thumbnail %} height: 40px;{% endif %}"{% endif %}>
+						<a href="{{ story.webUrl }}" style="color: #006fd5; font: 14px/20px Georgia, serif; text-decoration: none;">{{ story.webTitle }}</a>
+						<a href="{{ story.webUrl }}" style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #333; display: block; margin-top: 5px;">{{ story.fields.trailText|striptags }} <span style="font-size: 14px; vertical-align: top; display:inline-block; margin-left: 5px;">&#187;</span></a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+{%- endmacro %}

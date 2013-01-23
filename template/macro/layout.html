@@ -52,7 +52,7 @@
 
 <tr><td align="left">
 	{% for story in stories %}
-		{{ story_blocks.thumb(story, loop.index == 1) }}
+		{{ story_blocks.thumb_standfirst(story, loop.index == 1) }}
 	{% endfor %}
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 0 25px;"><tr><td align="left">
 		<a style="margin-top: 12px; display: block; padding: 12px 0 0 0; border-top: 1px solid #dedede; color: #006fd5; font: 13px Helvetica, Arial, sans-serif; text-decoration: none; font-weight: bold;" href="{{ heading_link }}">More {{ more_text|lower }} <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
