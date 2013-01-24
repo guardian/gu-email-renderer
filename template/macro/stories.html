@@ -17,6 +17,20 @@
 </table>
 {%- endmacro %}
 
+{% macro headline(story, first = False) %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top: 12px solid #faf9f8;">
+	<tr>
+		<td style="padding: 0 25px;">
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td align="left" valign="top"{% if not first %} style="padding-top: 12px; border-top: 1px solid #dedede;{% if not story.fields.thumbnail %} height: 40px;{% endif %}"{% endif %}><a href="{{ story.webUrl }}" style="color: #006fd5; font: 16px/20px Georgia, serif; text-decoration: none;">{{ story.webTitle }}</a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+{% endmacro %}
+
 {% macro thumb_standfirst(story, first = False) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top: 12px solid #faf9f8;">
 	<tr>
