@@ -27,7 +27,7 @@ client = Client(base_url, api_key)
 adFetcher = AdFetcher()
 
 class MediaBriefing(webapp2.RequestHandler):
-    template = jinja_environment.get_template('daily-email.html')
+    template = jinja_environment.get_template('media-briefing.html')
 
     data_sources = {
         'top_stories': TopStoriesDataSource(),
