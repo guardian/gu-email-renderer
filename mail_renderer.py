@@ -26,8 +26,10 @@ base_url = 'http://content.guardianapis.com/'
 client = Client(base_url, api_key)
 adFetcher = AdFetcher()
 
+class MediaBriefing(webapp2.RequestHandler):
+    pass
 
-class DailyEmail( webapp2.RequestHandler):
+class DailyEmail(webapp2.RequestHandler):
     template = jinja_environment.get_template('daily-email.html')
 
     data_sources = {
