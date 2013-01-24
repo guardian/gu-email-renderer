@@ -55,15 +55,22 @@ class EditorsPicksDataSource(DataSource):
     def _do_call(self, client, **criteria):
         return client.editors_picks(**criteria)
 
-
+# TODO: make this an EditorsPicksDataSource
 class CultureDataSource(DataSource):
     def _do_call(self, client, **criteria):
         return client.editors_picks(section='culture', **criteria)
 
 
+# TODO: make this an EditorsPicksDataSource
 class SportDataSource(DataSource):
     def _do_call(self, client, **criteria):
         return client.editors_picks(section='sport', **criteria)
+
+
+# TODO: make this an EditorsPicksDataSource
+class MediaDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.editors_picks(section='media', **criteria)
 
 
 class PicOfDayDataSource(SearchDataSource):
