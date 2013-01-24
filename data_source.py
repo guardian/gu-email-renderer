@@ -68,9 +68,22 @@ class SportDataSource(DataSource):
 
 
 # TODO: make this an EditorsPicksDataSource
+# TODO: write test
 class MediaDataSource(DataSource):
     def _do_call(self, client, **criteria):
         return client.editors_picks(section='media', **criteria)
+
+
+# TODO: make this an EditorsPicksDataSource
+# TODO: write test
+# TODO: force this thing to have trailblock
+class MediaCommentDataSource(DataSource):
+    def _do_call(self, client, **criteria):
+        return client.editors_picks(section='media', **criteria)
+
+    def __init__(self):
+        DataSource.__init__(self)
+        self.tags = ['tone/comment']
 
 
 class PicOfDayDataSource(SearchDataSource):

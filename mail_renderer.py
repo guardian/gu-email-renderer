@@ -8,7 +8,7 @@ from google.appengine.api import memcache
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, \
+    MostViewedDataSource, MediaDataSource, MediaCommentDataSource, \
     fetch_all, build_unique_trailblocks
 from ads import AdFetcher
 
@@ -30,10 +30,11 @@ class MediaBriefing(webapp2.RequestHandler):
     template = jinja_environment.get_template('media-briefing.html')
 
     data_sources = {
-        'media_stories': MediaDataSource()
+        'media_stories': MediaDataSource(),
+        'media_comment': MediaCommentDataSource()
         }
 
-    priority_list = [('media_stories', 8)]
+    priority_list = [('media_stories', 8), ('media_comment', 5)]
 
     def get(self):
         page = memcache.get('media-briefing')
