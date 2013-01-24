@@ -1,0 +1,19 @@
+{# Media Briefing email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set email_color = '#c22d05' %}
+
+{% block title %}Media Briefing{% endblock %}
+{% set email_logo_img = media-briefing.png' %}
+
+{% block content %}
+{# TODO #}
+{% endblock content %}
+
+{# TODO #}
+{% set facebook_page = 'theguardian' %}
+{% set twitter_account = 'guardian' %}
+
+{% set sections = (('Business', 'http://www.guardian.co.uk/business'), ('Tech', 'http://www.guardian.co.uk/technology'), ('Sport', 'http://www.guardian.co.uk/sport'), ('Travel', 'http://www.guardian.co.uk/travel'), ('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle')) %}
