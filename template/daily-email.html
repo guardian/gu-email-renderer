@@ -4,14 +4,9 @@
 {% import 'macro/layout.html' as layout %}
 
 {% set email_color = '#00538a' %}
+{% set email_logo_img = 'today.png' %}
 
 {% block title %}Guardian Today{% endblock %}
-
-{% block email_logo %}
-<tr>
-  <td width="132" style="font-family: georgia; font-size: 48px; color: #00538c; padding-top: 8px;"><img src="{{ URL_ROOT }}/static/img/today.png" width="132" height="40" alt="Today" align="right" border="0" /></td>
-</tr>
-{% endblock email_logo %}
 
 {% block content %}
 

@@ -22,7 +22,11 @@
 								</td>
 								<td width="140">
 									<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
-										{% block email_logo %}{% endblock %}
+										{% block email_logo %}
+<tr>
+	<td width="132" style="font-family: georgia; font-size: 48px; color: #00538c; padding-top: 8px;"><img src="{{ URL_ROOT }}/static/img/{{ email_logo_img }}" width="132" height="40" alt="Today" align="right" border="0" /></td>
+</tr>
+										{% endblock %}
 										<tr>
 											<td width="100%" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
 										</tr>
