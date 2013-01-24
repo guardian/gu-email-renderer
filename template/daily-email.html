@@ -9,14 +9,18 @@
 
 {% block email_logo %}
 <tr>
-  <td width="132" style="font-family: georgia; font-size: 14px; color: #00538c;"><img src="{{ URL_ROOT }}/static/img/the-guardian.png" width="132" height="35" alt="The Guardian" style="" align="right" border="0" /></td>
-</tr>
-<tr>
-  <td width="132" style="font-family: georgia; font-size: 48px; color: #00538c;"><img src="{{ URL_ROOT }}/static/img/today.png" width="132" height="40" alt="Today" align="right" border="0" /></td>
+  <td width="132" style="font-family: georgia; font-size: 48px; color: #00538c; padding-top: 8px;"><img src="{{ URL_ROOT }}/static/img/today.png" width="132" height="40" alt="Today" align="right" border="0" /></td>
 </tr>
 {% endblock email_logo %}
 
 {% block content %}
+
+{{ layout.story_trail('Editor\'s picks', top_stories, 'http://www.guardian.co.uk') }}
+{{ layout.advert(ad_html) }}
+{{ layout.story_trail('Most viewed in last 24 hours', most_viewed, 'http://www.guardian.co.uk/mostviewed', 'most viewed') }}
+{{ layout.picture_of_day(eye_witness) }}
+{{ layout.story_trail('Sport', sport, 'http://www.guardian.co.uk/sport') }}
+{{ layout.story_trail('Culture', culture, 'http://www.guardian.co.uk/culture') }}
 
 {{ layout.story_trail('Top Stories', top_stories, 'http://www.guardian.co.uk') }}
 

@@ -1,9 +1,9 @@
 {% import 'macro/stories.html' as story_blocks %}
 {% macro heading(heading_text, link, colour='#333', border_top=True, border_bottom=True) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ heading_colour(heading_text) }};">
-	<tr height="50" valign="top">
+	<tr valign="top">
 		<td align="left" style="{% if border_top %}border-top: 1px solid #dedede;{% endif %}{% if border_bottom %} border-bottom: 1px solid #dedede;{% endif %}">
-			{% if link %}<a href="{{ link }}" style="font: 20px Georgia, Arial, sans-serif; display: block; font-weight: normal; padding: 13px 0 0 10px; color: {{ colour }}; text-decoration: none;">{% endif %}
+			{% if link %}<a href="{{ link }}" style="font: 16px Georgia, Arial, sans-serif; display: block; font-weight: normal; padding: 8px 0 8px 10px; color: {{ colour }}; text-decoration: none;">{% endif %}
 				{{ heading_text }}
 			{% if link %}</a>{% endif %}
 		</td>
@@ -29,13 +29,13 @@
 		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', colour='#fff', border_top=False, border_bottom=False, link='http://www.guardian.co.uk/world/series/eyewitness') }}</td></tr>
 		<tr><td align="left"><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
-			<td align="left" style="color: #ffffff; font-weight: bold; font: 13px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
+			<td align="left" style="color: #ffffff; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
 		</tr>
 		<tr>
-			<td align="left" style="color: #ccc; font: 13px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
+			<td align="left" style="color: #ccc; font: 12px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
 		</tr>
 		<tr>
-			<td align="left" style="font: 13px Helvetica, Arial, sans-serif; padding: 20px 25px; font-weight: bold">
+			<td align="left" style="font: 13px Helvetica, Arial, sans-serif; padding: 10px 25px; font-weight: bold">
 				<a href="http://www.guardian.co.uk/inpictures" style="color: #00acda; text-decoration: none;">More galleries <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
 			</td>
 		</tr>
@@ -54,8 +54,8 @@
 	{% for story in stories %}
 		{{ story_blocks.thumb(story, loop.index == 1) }}
 	{% endfor %}
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 0 25px;"><tr><td align="left">
-		<a style="margin-top: 12px; display: block; padding: 12px 0 0 0; border-top: 1px solid #dedede; color: #006fd5; font: 13px Helvetica, Arial, sans-serif; text-decoration: none; font-weight: bold;" href="{{ heading_link }}">More {{ more_text|lower }} <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 0 25px;"><tr><td align="right">
+		<a style="margin-top: 12px; display: block; padding: 12px 0 0 0; border-top: 1px dotted #dedede; color: #006fd5; font: 13px Helvetica, Arial, sans-serif; text-decoration: none; font-weight: bold;" href="{{ heading_link }}">More {{ more_text|lower }} <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
 	</td></tr></table>
 </td></tr>
 {%- endmacro %}
@@ -65,7 +65,7 @@
 {%- endmacro %}
 
 {% macro advert(ad_html) -%}
-<tr><td style="padding: 10px; background: #c6ddf1; display: block; border-top: 30px solid #faf9f8; border-bottom: 30px solid #faf9f8;" align="center">
+<tr><td style="padding: 10px; background: #c6ddf1; display: block; border-top: 10px solid #faf9f8; border-bottom: 10px solid #faf9f8;" align="center">
 <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 468px;">
 	<tr valign="top">
 		<td align="center" style="font: 16px Helvetica, Arial, sans-serif; font-weight: bold; padding: 0; text-align: center;">{{ ad_html }}</td>
