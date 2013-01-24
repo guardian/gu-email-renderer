@@ -16,11 +16,20 @@ class UrlCheckingFetcher:
             'actual number query args: %d, expected number query args: %d' \
             % (len(actual_args), len(self.expected_args))
         for key in actual_args:
-            actual_arg = actual_args[key]
-            expected_arg = self.expected_args[key]
-            assert actual_arg == expected_arg, 'actual arg: %s, expected arg: %s' % (actual_arg, expected_arg)
+            if key == 'tag':
+                self._compare_tags(self.expected_args['tag'], actual_args['tag'])
+            else:
+                actual_arg = actual_args[key]
+                expected_arg = self.expected_args[key]
+                assert actual_arg == expected_arg, 'actual arg: %s, expected arg: %s' % (actual_arg, expected_arg)
 
         assert self.expected_path == path
+
+
+    def _compare_tags(self, expected_tags, actual_tags):
+        actual_tag_set = set(actual_tags.split('%2C'))
+        expected_tag_set = set(expected_tags.split('%2C'))
+        assert actual_tag_set == expected_tag_set, 'actual tags: %s, expected tags: %s' % (actual_tag_set, expected_tag_set)
 
 
     def get(self, url):

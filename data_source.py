@@ -87,7 +87,6 @@ class EyeWitnessDataSource(SearchDataSource):
 class MostViewedDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        #today = str(datetime.now().date())
         #self.from_date = today
         self.show_media = 'picture'
         self.show_most_viewed = True
