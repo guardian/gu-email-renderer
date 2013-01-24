@@ -30,14 +30,10 @@ class MediaBriefing(webapp2.RequestHandler):
     template = jinja_environment.get_template('media-briefing.html')
 
     data_sources = {
-        'top_stories': TopStoriesDataSource(),
-        'sport': SportDataSource(),
-        'culture': CultureDataSource(),
-        'most_viewed': MostViewedDataSource(),
-        'eye_witness': EyeWitnessDataSource(),
+        'media_stories': TopStoriesDataSource()
         }
 
-    priority_list = [('most_viewed', 2), ('eye_witness', 1), ('culture', 3), ('top_stories', 5)]
+    priority_list = [('media_stories', 8)]
 
     def get(self):
         page = memcache.get('media-briefing')
