@@ -27,7 +27,32 @@ client = Client(base_url, api_key)
 adFetcher = AdFetcher()
 
 class MediaBriefing(webapp2.RequestHandler):
-    pass
+    template = jinja_environment.get_template('daily-email.html')
+
+    data_sources = {
+        'top_stories': TopStoriesDataSource(),
+        'sport': SportDataSource(),
+        'culture': CultureDataSource(),
+        'most_viewed': MostViewedDataSource(),
+        'eye_witness': EyeWitnessDataSource(),
+        }
+
+    priority_list = [('most_viewed', 2), ('eye_witness', 1), ('culture', 3), ('top_stories', 5)]
+
+    def get(self):
+        page = memcache.get('media-briefing')
+
+        if not page:
+            retrieved_data = fetch_all(client, self.data_sources)
+            trail_blocks = build_unique_trailblocks(3, retrieved_data, self.priority_list)
+            today = datetime.datetime.now()
+            date = today.strftime('%A %d %b %Y')
+
+            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
+            memcache.add('media-briefing', page, 300)
+
+        self.response.out.write(page)
+
 
 class DailyEmail(webapp2.RequestHandler):
     template = jinja_environment.get_template('daily-email.html')
@@ -56,4 +81,4 @@ class DailyEmail(webapp2.RequestHandler):
 
         self.response.out.write(page)
 
-app = webapp2.WSGIApplication([('/daily-email', DailyEmail)], debug=True)
+app = webapp2.WSGIApplication([('/daily-email', DailyEmail), ('/media-briefing', MediaBriefing)], debug=True)
