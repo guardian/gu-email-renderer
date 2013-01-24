@@ -13,9 +13,13 @@ from data_source import \
 from ads import AdFetcher
 
 
+URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://***REMOVED***.appspot.com"
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
 )
+jinja_environment.globals['URL_ROOT'] = URL_ROOT
+
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
@@ -50,8 +54,4 @@ class DailyEmail( webapp2.RequestHandler):
 
         self.response.out.write(page)
 
-
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail)], debug=True)
-
-
-
