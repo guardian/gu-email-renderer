@@ -1,8 +1,9 @@
 from datetime import datetime
 import logging
 
-class DataSource:
-    def __init__(self):
+class DataSource(object):
+    def __init__(self, n_items=3):
+        self.n_items = n_items
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.tags = []
         self.page_size = 10
@@ -67,8 +68,8 @@ class SportDataSource(DataSource):
 
 
 class PicOfDayDataSource(SearchDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
+    def __init__(self, n_items=3):
+        DataSource.__init__(self, n_items)
         self.content_type = 'picture'
         self.tags = ['artanddesign/series/picture-of-the-day']
         self.page_size = 1
@@ -76,8 +77,8 @@ class PicOfDayDataSource(SearchDataSource):
 
 
 class EyeWitnessDataSource(SearchDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
+    def __init__(self, n_items=1):
+        DataSource.__init__(self, n_items)
         self.content_type = 'picture'
         self.tags = ['world/series/eyewitness']
         self.page_size = 1
@@ -85,16 +86,16 @@ class EyeWitnessDataSource(SearchDataSource):
 
 
 class MostViewedDataSource(SearchDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
+    def __init__(self, n_items=3):
+        DataSource.__init__(self, n_items)
         #self.from_date = today
         self.show_media = 'picture'
         self.show_most_viewed = True
 
 
 class TopStoriesDataSource(EditorsPicksDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
+    def __init__(self, n_items=3):
+        DataSource.__init__(self, n_items)
         #self.sections = ['uk', 'world']
 
 
