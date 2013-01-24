@@ -18,20 +18,21 @@
 						<!-- header -->
 						<table width="100%" cellpadding="0" cellspacing="0" border="0">
 							<tr>
-								<td width="50%" valign="top"><div style="height: 70px; width: 55px; text-align: center; background: #00538a; font: 48px/0.8 Georgia, serif; color: #ffffff; font-weight: bold;" title="The Guardian">g</div></td>
-								<td width="50%">
+								<td width="140" valign="top"><div style="height: 70px; width: 50px; text-align: center; background: #00538a; font: 48px/0.8 Georgia, serif; color: #ffffff; font-weight: bold;" title="The Guardian">g</div></td>
+								<td align="center" valign="center" style="font-family: georgia; font-size: 14px; color: #00538c;"><img src="http://***REMOVED***.appspot.com/static/img/the-guardian.png" width="132" height="35" alt="The Guardian" style="" align="center" border="0"></td>
+								<td width="140">
 									<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
 										<tr>
 											<td width="100%">
 												<table width="132" cellpadding="0" cellspacing="0" border="0" align="right">
 													<tr>
-														<td width="132" style="font-family: georgia; font-size: 48px; color: #00538c;"><img src="http://***REMOVED***.appspot.com/static/img/today.png" width="132" height="40" alt="Today" align="right" border="0" /></td>
+														<td width="132" style="font-family: georgia; font-size: 48px; color: #006cc3; padding-top: 5px"><img src="http://***REMOVED***.appspot.com/static/img/today.png" width="132" height="40" alt="Today" align="right" border="0" /></td>
 													</tr>
 												</table>
 											</td>
 										</tr>
 										<tr>
-											<td width="100%" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
+											<td width="100%" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 5px 15px 0 0">{{ date }}</td>
 										</tr>
 									</table>
 								</td>
@@ -40,7 +41,7 @@
 						<!-- /header -->
 					</td></tr>
 
-					{{ layout.story_trail('Editors picks', top_stories, 'http://www.guardian.co.uk') }}
+					{{ layout.story_trail('Editor\'s picks', top_stories, 'http://www.guardian.co.uk') }}
 					{{ layout.advert(ad_html) }}
 					{{ layout.story_trail('Most viewed in last 24 hours', most_viewed, 'http://www.guardian.co.uk/mostviewed', 'most viewed') }}
 					{{ layout.picture_of_day(eye_witness) }}
