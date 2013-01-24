@@ -9,7 +9,7 @@ from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, \
-    fetch_all, take_unique_subsets
+    fetch_all, build_unique_trailblocks
 from ads import AdFetcher
 
 
@@ -34,24 +34,21 @@ class DailyEmail( webapp2.RequestHandler):
         'most_viewed': MostViewedDataSource(),
     }
 
-    priority_list = ['top_stories', 'most_viewed', 'eye_witness', 'sport', 'culture']
+    priority_list = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
 
     def get(self):
         page = memcache.get('daily-email')
         page = None
         if not page:
             retrieved_data = fetch_all(client, self.data_sources)
-            deduped_data = take_unique_subsets(3, retrieved_data, self.priority_list)
+            trail_blocks = build_unique_trailblocks(3, retrieved_data, self.priority_list)
             today = datetime.datetime.now()
             date = today.strftime('%A %d %b %Y')
 
-            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **deduped_data)
+            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
             memcache.add('daily-email', page, 300)
 
         self.response.out.write(page)
 
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail)], debug=True)
-
-
-

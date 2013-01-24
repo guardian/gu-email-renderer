@@ -98,17 +98,19 @@ class TopStoriesDataSource(EditorsPicksDataSource):
         #self.sections = ['uk', 'world']
 
 
-def take_unique_subsets(size, data, priority_list):
+def build_unique_trailblocks(_, data, priority_list):
     """
-    data is a map of type string->list
-    list is a list of maps each of which contains the field 'id'.
-    priority_list is a list of strings each of which appears as a key in the data map.
+    data is a map of type string->list list is a list of maps each of
+    which contains the field 'id'.  priority_list is a list of pairs:
+    (name, number). <name> is the is a key in data (the name of a
+    datasource) and <number> is the number of items to take from the
+    datasource.
     """
 
     items_seen_so_far = set()
     unique_subsets = {}
 
-    for data_set_name in priority_list:
+    for (data_set_name, size) in priority_list:
         unique_subset = []
         unique_subsets[data_set_name] = unique_subset
         source_data = data[data_set_name]
