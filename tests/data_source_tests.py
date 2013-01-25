@@ -2,7 +2,8 @@
 
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
-    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
+    MediaDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -13,6 +14,14 @@ Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,by
 
 def test_should_call_api_with_correct_url_for_culture_section():
     _check_data_source_url(CultureDataSource(), '/culture',
+                           show_editors_picks='true',
+                           tag='-news/series/picture-desk-live',
+                           show_fields=Fields,
+                           page_size='10')
+
+
+def test_should_call_api_with_correct_url_for_media_section():
+    _check_data_source_url(MediaDataSource(), '/media',
                            show_editors_picks='true',
                            tag='-news/series/picture-desk-live',
                            show_fields=Fields,
@@ -141,6 +150,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_pic_of_the_day()
     test_should_call_api_with_correct_url_for_top_stories()
     test_should_call_api_with_correct_url_for_eye_witness()
+    test_should_call_api_with_correct_url_for_media_section()
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response()
