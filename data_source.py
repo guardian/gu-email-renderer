@@ -48,7 +48,7 @@ class DataSource:
 
 class SearchDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.search(**criteria)
+        return client.search_query(**criteria)
 
 
 class ItemDataSource(DataSource):

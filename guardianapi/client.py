@@ -36,7 +36,7 @@ class Client(object):
 
         return fixed_kwargs
 
-    def search(self, **kwargs):
+    def search_query(self, **kwargs):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
