@@ -3,7 +3,7 @@
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
-    MediaDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
+    MediaDataSource, MediaCommentDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -24,6 +24,13 @@ def test_should_call_api_with_correct_url_for_media_section():
     _check_data_source_url(MediaDataSource(), '/media',
                            show_editors_picks='true',
                            tag='-news/series/picture-desk-live',
+                           show_fields=Fields,
+                           page_size='10')
+
+
+def test_should_call_api_with_correct_url_for_media_comment():
+    _check_data_source_url(MediaCommentDataSource(), '/media',
+                           tag='-news/series/picture-desk-live,tone/comment',
                            show_fields=Fields,
                            page_size='10')
 
@@ -151,6 +158,8 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_top_stories()
     test_should_call_api_with_correct_url_for_eye_witness()
     test_should_call_api_with_correct_url_for_media_section()
+    test_should_call_api_with_correct_url_for_media_comment()
+
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response()
