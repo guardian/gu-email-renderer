@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 
-class DataSource:
+class DataSource(object):
     def __init__(self):
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.tags = []
@@ -52,19 +52,23 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def _do_call(self, client, **criteria):
-        return client.item_query(**criteria)
+    def __init__(self, section='', show_editors_picks=True):
+        DataSource.__init__(self)
+        self.section = section
+        self.show_editors_picks = show_editors_picks
 
-# TODO: make this an EditorsPicksDataSource
-class CultureDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.item_query(section='culture', **criteria)
+        return client.item_query(self.section, self.show_editors_picks, **criteria)
 
 
-# TODO: make this an EditorsPicksDataSource
-class SportDataSource(DataSource):
-    def _do_call(self, client, **criteria):
-        return client.item_query(section='sport', **criteria)
+class CultureDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'culture')
+
+
+class SportDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'sport')
 
 
 # TODO: make this an EditorsPicksDataSource
@@ -107,15 +111,12 @@ class EyeWitnessDataSource(SearchDataSource):
 class MostViewedDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
-        #self.from_date = today
         self.show_media = 'picture'
         self.show_most_viewed = True
 
 
 class TopStoriesDataSource(ItemDataSource):
-    def __init__(self):
-        DataSource.__init__(self)
-        #self.sections = ['uk', 'world']
+    pass
 
 
 def build_unique_trailblocks(_, data, priority_list):
