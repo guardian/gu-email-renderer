@@ -2,7 +2,7 @@
 
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
-    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, EditorsPicksDataSource, EyeWitnessDataSource, fetch_all
+    PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -83,7 +83,7 @@ def test_a_search_data_source_should_know_how_to_process_response():
 def test_an_editors_picks_data_source_should_know_how_to_process_response():
     fetcher = ApiStubFetcher()
     client = Client('http://somewhere.com/', API_KEY, fetcher)
-    data_source = EditorsPicksDataSource()
+    data_source = ItemDataSource()
     data = data_source.fetch_data(client)
     assert len(data) == 4
     result = data[2]

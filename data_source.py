@@ -51,27 +51,27 @@ class SearchDataSource(DataSource):
         return client.search(**criteria)
 
 
-class EditorsPicksDataSource(DataSource):
+class ItemDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.editors_picks(**criteria)
+        return client.item_query(**criteria)
 
 # TODO: make this an EditorsPicksDataSource
 class CultureDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.editors_picks(section='culture', **criteria)
+        return client.item_query(section='culture', **criteria)
 
 
 # TODO: make this an EditorsPicksDataSource
 class SportDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.editors_picks(section='sport', **criteria)
+        return client.item_query(section='sport', **criteria)
 
 
 # TODO: make this an EditorsPicksDataSource
 # TODO: write test
 class MediaDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.editors_picks(section='media', **criteria)
+        return client.item_query(section='media', **criteria)
 
 
 # TODO: make this an EditorsPicksDataSource
@@ -79,7 +79,7 @@ class MediaDataSource(DataSource):
 # TODO: force this thing to have trailblock
 class MediaCommentDataSource(DataSource):
     def _do_call(self, client, **criteria):
-        return client.editors_picks(section='media', **criteria)
+        return client.item_query(section='media', **criteria)
 
     def __init__(self):
         DataSource.__init__(self)
@@ -112,7 +112,7 @@ class MostViewedDataSource(SearchDataSource):
         self.show_most_viewed = True
 
 
-class TopStoriesDataSource(EditorsPicksDataSource):
+class TopStoriesDataSource(ItemDataSource):
     def __init__(self):
         DataSource.__init__(self)
         #self.sections = ['uk', 'world']

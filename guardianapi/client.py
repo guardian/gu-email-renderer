@@ -40,7 +40,7 @@ class Client(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def editors_picks(self, section='', **kwargs):
+    def item_query(self, section='', **kwargs):
         kwargs['show-editors-picks'] = 'true'
         json = self._do_call(section, **kwargs)
 
