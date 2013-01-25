@@ -73,9 +73,10 @@ class SportDataSource(ItemDataSource):
 
 # TODO: make this an EditorsPicksDataSource
 # TODO: write test
-class MediaDataSource(DataSource):
-    def _do_call(self, client, **criteria):
-        return client.item_query(section='media', **criteria)
+class MediaDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'media')
+
 
 
 # TODO: make this an EditorsPicksDataSource
