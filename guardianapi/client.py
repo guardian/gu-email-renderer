@@ -40,15 +40,21 @@ class Client(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def item_query(self, section='', **kwargs):
-        kwargs['show-editors-picks'] = 'true'
+    def item_query(self, section='', show_editors_picks=True, **kwargs):
+        if show_editors_picks:
+            kwargs['show-editors-picks'] = 'true'
         json = self._do_call(section, **kwargs)
 
         results = []
         if json['response'].has_key('results'):
             results = json['response']['results']
 
-        return json['response']['editorsPicks'] + results
+        if show_editors_picks:
+            editors_picks = json['response']['editorsPicks']
+        else:
+            editors_picks = []
+
+        return editors_picks + results
 
     def __repr__(self):
         return '<%s: %s>' % (self.__class__.__name__, self.base_url)
