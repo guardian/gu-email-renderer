@@ -61,9 +61,7 @@ class MediaBriefing(EmailTemplate):
     template_name = 'media-briefing'
         
 
-
-class DailyEmail(webapp2.RequestHandler):
-    template = jinja_environment.get_template('daily-email.html')
+class DailyEmail(EmailTemplate):
 
     data_sources = {
         'sport': SportDataSource(),
@@ -71,22 +69,8 @@ class DailyEmail(webapp2.RequestHandler):
         'top_stories': TopStoriesDataSource(),
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
-    }
-
+        }
     priority_list = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
-
-    def get(self):
-        page = memcache.get('daily-email')
-
-        if not page:
-            retrieved_data = fetch_all(client, self.data_sources)
-            trail_blocks = build_unique_trailblocks(3, retrieved_data, self.priority_list)
-            today = datetime.datetime.now()
-            date = today.strftime('%A %d %b %Y')
-
-            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
-            memcache.add('daily-email', page, 300)
-
-        self.response.out.write(page)
+    template_name = 'daily-email'
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail), ('/media-briefing', MediaBriefing)], debug=True)
