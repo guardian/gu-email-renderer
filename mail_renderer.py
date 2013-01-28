@@ -3,13 +3,15 @@ import os
 import webapp2
 import datetime
 
+
 from google.appengine.api import memcache
 
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, MediaCommentDataSource, \
+    MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     fetch_all, build_unique_trailblocks
+from template_filters import first_paragraph
 from ads import AdFetcher
 
 
@@ -18,7 +20,9 @@ URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "h
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
 )
+
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
+jinja_environment.filters['first_paragraph'] = first_paragraph
 
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
@@ -31,10 +35,11 @@ class MediaBriefing(webapp2.RequestHandler):
 
     data_sources = {
         'media_stories': MediaDataSource(),
-        'media_comment': MediaCommentDataSource()
+        'media_comment': MediaCommentDataSource(),
+        'media_monkey': MediaMonkeyDataSource()
         }
 
-    priority_list = [('media_stories', 8), ('media_comment', 5)]
+    priority_list = [('media_stories', 8), ('media_comment', 1), ('media_monkey', 1)]
 
     def get(self):
         page = memcache.get('media-briefing')
