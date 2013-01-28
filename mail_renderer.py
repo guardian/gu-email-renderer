@@ -30,6 +30,30 @@ base_url = 'http://content.guardianapis.com/'
 client = Client(base_url, api_key)
 adFetcher = AdFetcher()
 
+
+class EmailTemplate(webapp2.RequestHandler):
+    def __init__(self, template_name, data_sources, priority_list):
+        self.template_name = template_name
+        self.template = jinja_environment.get_template(template_name + '.html')
+        self.data_sources = data_sources
+        self.priority_list = priority_list
+
+        
+    def get(self):
+        page = memcache.get(self.template_name)
+
+        if not page:
+            retrieved_data = fetch_all(client, self.data_sources)
+            trail_blocks = build_unique_trailblocks(3, retrieved_data, self.priority_list)
+            today = datetime.datetime.now()
+            date = today.strftime('%A %d %b %Y')
+
+            page = self.template.render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
+            memcache.add(self.template_name, page, 300)
+
+        self.response.out.write(page)
+        
+
 class MediaBriefing(webapp2.RequestHandler):
     template = jinja_environment.get_template('media-briefing.html')
 
