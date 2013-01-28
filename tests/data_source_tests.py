@@ -3,7 +3,8 @@
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
-    MediaDataSource, MediaCommentDataSource, ItemDataSource, EyeWitnessDataSource, fetch_all
+    MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
+    ItemDataSource, EyeWitnessDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -25,6 +26,13 @@ def test_should_call_api_with_correct_url_for_media_section():
                            show_editors_picks='true',
                            tag='-news/series/picture-desk-live',
                            show_fields=Fields,
+                           page_size='10')
+
+def test_should_call_api_with_correct_url_for_media_monkey():
+    _check_data_source_url(MediaMonkeyDataSource(), '/media/mediamonkeyblog',
+                           #show_editors_picks='true',
+                           tag='-news/series/picture-desk-live',
+                           show_fields=Fields + ',body',
                            page_size='10')
 
 
@@ -159,6 +167,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_eye_witness()
     test_should_call_api_with_correct_url_for_media_section()
     test_should_call_api_with_correct_url_for_media_comment()
+    test_should_call_api_with_correct_url_for_media_monkey()
 
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()

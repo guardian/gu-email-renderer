@@ -23,7 +23,7 @@ class UrlCheckingFetcher:
                 expected_arg = self.expected_args[key]
                 assert actual_arg == expected_arg, 'actual arg: %s, expected arg: %s' % (actual_arg, expected_arg)
 
-        assert self.expected_path == path
+        assert self.expected_path == path, 'actual path: %s, expected path: %s' % (path, self.expected_path)
 
 
     def _compare_tags(self, expected_tags, actual_tags):
