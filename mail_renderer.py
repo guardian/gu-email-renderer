@@ -5,7 +5,6 @@ import datetime
 
 
 from google.appengine.api import memcache
-
 from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
@@ -17,6 +16,7 @@ from ads import AdFetcher
 
 
 URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://***REMOVED***.appspot.com"
+CACHE_PREFIX = 'V1'
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
@@ -38,7 +38,8 @@ class EmailTemplate(webapp2.RequestHandler):
         return jinja_environment.get_template(self.template_name + '.html')
 
     def get(self):
-        page = memcache.get(self.template_name)
+        cache_key = CACHE_PREFIX + self.template_name
+        page = memcache.get(cache_key)
 
         if not page:
             retrieved_data = fetch_all(client, self.data_sources)
@@ -47,7 +48,7 @@ class EmailTemplate(webapp2.RequestHandler):
             date = today.strftime('%A %d %b %Y')
 
             page = self.template().render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
-            memcache.add(self.template_name, page, 300)
+            memcache.add(cache_key, page, 300)
 
         self.response.out.write(page)
 
@@ -76,7 +77,8 @@ class DailyEmail(EmailTemplate):
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
-    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), \
+                         ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
     template_name = 'daily-email'
 
 

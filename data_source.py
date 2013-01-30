@@ -102,7 +102,6 @@ class MediaMonkeyDataSource(ItemDataSource):
         self.fields.append('body')
 
 
-# TODO: force this thing to have trailblock
 class MediaCommentDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, section='media', show_editors_picks=False)
