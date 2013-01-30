@@ -16,7 +16,7 @@ from ads import AdFetcher
 
 
 URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://***REMOVED***.appspot.com"
-CACHE_PREFIX = 'V1'
+CACHE_PREFIX = 'V2'
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
@@ -77,7 +77,8 @@ class DailyEmail(EmailTemplate):
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
-    priority_list = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), \
+                         ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
     template_name = 'daily-email'
 
 
