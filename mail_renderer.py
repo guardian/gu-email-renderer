@@ -10,6 +10,7 @@ from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
+    BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
@@ -23,6 +24,7 @@ jinja_environment = jinja2.Environment(
 
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
+jinja_environment.cache = None
 
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
@@ -34,7 +36,7 @@ adFetcher = AdFetcher()
 class EmailTemplate(webapp2.RequestHandler):
     def template(self):
         return jinja_environment.get_template(self.template_name + '.html')
-        
+
     def get(self):
         page = memcache.get(self.template_name)
 
@@ -48,7 +50,7 @@ class EmailTemplate(webapp2.RequestHandler):
             memcache.add(self.template_name, page, 300)
 
         self.response.out.write(page)
-        
+
 
 class MediaBriefing(EmailTemplate):
 
@@ -59,18 +61,23 @@ class MediaBriefing(EmailTemplate):
         }
     priority_list = [('media_stories', 8), ('media_comment', 1), ('media_monkey', 1)]
     template_name = 'media-briefing'
-        
+
 
 class DailyEmail(EmailTemplate):
 
     data_sources = {
+        'business': BusinessDataSource(),
+        'technology': TechnologyDataSource(),
+        'travel': TravelDataSource(),
+        'lifeandstyle': LifeAndStyleDataSource(),
         'sport': SportDataSource(),
         'culture': CultureDataSource(),
         'top_stories': TopStoriesDataSource(),
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
-    priority_list = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
     template_name = 'daily-email'
+
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail), ('/media-briefing', MediaBriefing)], debug=True)

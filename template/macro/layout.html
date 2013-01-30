@@ -1,4 +1,5 @@
 {% import 'macro/stories.html' as story_blocks %}
+
 {% macro heading(heading_text, link, colour='#333', border_top=True, border_bottom=True) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ heading_colour(heading_text) }};">
 	<tr valign="top">
@@ -44,7 +45,7 @@
 {% endmacro %}
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, more_text=None) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, more_text=None, no_thumb=False) -%}
 {% if not more_text %}
 	{% set more_text = heading_text %}
 {% endif %}
@@ -52,7 +53,11 @@
 
 <tr><td align="left">
 	{% for story in stories %}
-		{{ story_blocks.thumb(story, loop.index == 1) }}
+		{% if loop.index <= 3 and not no_thumb %}
+			{{ story_blocks.thumb(story, loop.index == 1) }}
+		{% else %}
+			{{ story_blocks.headline(story, loop.index == 1) }}
+		{% endif %}
 	{% endfor %}
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 0 25px;"><tr><td align="right">
 		<a style="margin-top: 12px; display: block; padding: 12px 0 0 0; border-top: 1px dotted #dedede; color: #006fd5; font: 13px Helvetica, Arial, sans-serif; text-decoration: none; font-weight: bold;" href="{{ heading_link }}">More {{ more_text|lower }} <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
@@ -61,7 +66,7 @@
 {%- endmacro %}
 
 {% macro heading_colour(heading_text) -%}
-{% if 'Top Stories' == heading_text %}#004179{% elif 'Most viewed in last 24 hours' == heading_text %}#ab1700{% elif 'Sport' == heading_text %}#20a111{% elif 'Culture' == heading_text %}#d1008b{% elif 'Eyewitness picture of the day' == heading_text %}#00acda{% elif 'Comment is free' == heading_text %}#004179{% elif 'Life and style' == heading_text %}#ea721e{% elif 'Technology' == heading_text %}#d61d00{% elif 'Business' == heading_text %}#004179{% elif 'Money' == heading_text %}#8f1ab6{% elif 'Travel' == heading_text %}#066ec9{% endif %}
+{% if 'Editor\'s picks' == heading_text %}#004179{% elif 'Most viewed in last 24 hours' == heading_text %}#ab1700{% elif 'Sport' == heading_text %}#20a111{% elif 'Culture' == heading_text %}#d1008b{% elif 'Eyewitness picture of the day' == heading_text %}#00acda{% elif 'Comment is free' == heading_text %}#004179{% elif 'Life and style' == heading_text %}#ea721e{% elif 'Technology' == heading_text %}#d61d00{% elif 'Business' == heading_text %}#004179{% elif 'Money' == heading_text %}#8f1ab6{% elif 'Travel' == heading_text %}#066ec9{% endif %}
 {%- endmacro %}
 
 {% macro advert(ad_html) -%}
