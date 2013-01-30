@@ -23,6 +23,7 @@ jinja_environment = jinja2.Environment(
 
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
+jinja_environment.cache = None
 
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
@@ -67,7 +68,7 @@ class DailyEmail(webapp2.RequestHandler):
         'most_viewed': MostViewedDataSource(),
     }
 
-    priority_list = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
 
     def get(self):
         page = memcache.get('daily-email')

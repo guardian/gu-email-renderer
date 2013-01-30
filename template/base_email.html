@@ -8,27 +8,23 @@
 	<title>{% block title %}{% endblock %}</title>
 </head>
 
-<body style="background: #faf9f8; margin: 0; padding: 0;">
+<body style="background: #fff; margin: 0; padding: 0;">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
 		<tr>
 			<td align="center">
-				<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="max-width: 600px; display: block;">
+				<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="max-width: 480px; display: block;">
 					<tr><td>
 						<!-- header -->
-						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 20px 20px 0">
 							<tr>
 								<td width="140" valign="top">
-									<div style="height: 70px; width: 50px; text-align: center; background: {{ email_color }}; font: 48px/0.8 Georgia, serif; color: #ffffff; font-weight: bold;" title="The Guardian">g</div>
+									<div><a href="http://www.guardian.co.uk/" style="font: 20px/1 Georgia, serif; color: #00417b; text-decoration: none;" title="The Guardian"><span style="color: #98bcdb">the</span>guardian</a></div>
+									<div><a href="http://www.guardian.co.uk/" style="font: 44px/1 Georgia, serif; color: #004a83; text-decoration: none;" title="Today">today</a></div>
 								</td>
-								<td width="140">
+								<td width="140" valign="bottom">
 									<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
-										{% block email_logo %}
-<tr>
-	<td width="132" style="font-family: georgia; font-size: 48px; color: #00538c; padding-top: 8px;"><img src="{{ URL_ROOT }}/static/img/{{ email_logo_img }}" width="132" height="40" alt="Today" align="right" border="0" /></td>
-</tr>
-										{% endblock %}
 										<tr>
-											<td width="100%" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
+											<td width="100%" valign="bottom" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
 										</tr>
 									</table>
 								</td>
@@ -37,8 +33,8 @@
 						<!-- /header -->
 					</td></tr>
 
-{% block content %}
-{% endblock %}
+					{% block content %}
+					{% endblock %}
 
 					<tr><td>
 						<!-- footer -->
@@ -49,7 +45,7 @@
 									<table width="100%" cellpadding="0" cellspacing="0" border="0">
 										<tr>
 											<td align="left" width="50%">
-												<a href="http://www.guardian.co.uk"><img src="http://***REMOVED***.appspot.com/static/img/logo-footer.png" width="131" height="24" alt="The Guardian" border="0" /></a>
+												<a href="http://www.guardian.co.uk"><img src="{{ URL_ROOT }}/static/img/logo-footer.png" width="131" height="24" alt="The Guardian" border="0" /></a>
 											</td>
 
 											<td width="50%" align="right">
@@ -57,10 +53,10 @@
 													{% block social %}
 													<tr>
 														{% if twitter_account %}
-														<td align="left" width="50"><a href="https://www.twitter.com/{{ twitter_account }}"><img src="http://***REMOVED***.appspot.com/static/img/twitter.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+														<td align="left" width="50"><a href="https://www.twitter.com/{{ twitter_account }}"><img src="{{ URL_ROOT }}/static/img/twitter.png" border="0" width="25" height="25" style="float: left;" /></a></td>
 														{% endif %}
 														{% if facebook_page %}
-														<td align="left" width="25"><a href="https://www.facebook.com/{{ facebook_page }}"><img src="http://***REMOVED***.appspot.com/static/img/fb.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+														<td align="left" width="25"><a href="https://www.facebook.com/{{ facebook_page }}"><img src="{{ URL_ROOT }}/static/img/fb.png" border="0" width="25" height="25" style="float: left;" /></a></td>
 														{% endif %}
 													</tr>
 													{% endblock social %}
