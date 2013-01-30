@@ -16,26 +16,10 @@
 {{ layout.story_trail('Sport', sport, 'http://www.guardian.co.uk/sport') }}
 {{ layout.story_trail('Culture', culture, 'http://www.guardian.co.uk/culture') }}
 
-{{ layout.story_trail(
-	heading_text='Business',
-	stories=business,
-	heading_link='http://www.guardian.co.uk/business',
-	no_thumb=True) }}
-{{ layout.story_trail(
-	heading_text='Technology',
-	stories=technology,
-	heading_link='http://www.guardian.co.uk/technology',
-	no_thumb=True) }}
-{{ layout.story_trail(
-	heading_text='Travel',
-	stories=travel,
-	heading_link='http://www.guardian.co.uk/travel',
-	no_thumb=True) }}
-{{ layout.story_trail(
-	heading_text='Life and style',
-	stories=lifeandstyle,
-	heading_link='http://www.guardian.co.uk/lifeandstyle',
-	no_thumb=True) }}
+<tr><td style="padding-top: 20px;">{{ layout.heading(heading_text='Business', link='http://www.guardian.co.uk/business') }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Technology', link='http://www.guardian.co.uk/technology', border_top=False) }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Travel', link='http://www.guardian.co.uk/travel', border_top=False) }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Life and style', link='http://www.guardian.co.uk/lifeandstyle', border_top=False, border_bottom=False) }}<td></tr>
 
 {% endblock content %}
 
