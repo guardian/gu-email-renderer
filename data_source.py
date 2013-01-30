@@ -133,6 +133,11 @@ class MostViewedDataSource(SearchDataSource):
         self.show_most_viewed = True
 
 
+class MusicBlogDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, section='music/musicblog', show_editors_picks=False)
+
+
 class TopStoriesDataSource(ItemDataSource):
     pass
 

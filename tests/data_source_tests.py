@@ -4,7 +4,7 @@ from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
-    ItemDataSource, EyeWitnessDataSource, fetch_all
+    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -73,10 +73,17 @@ def test_should_call_api_with_correct_url_for_pic_of_the_day():
 
 def test_should_call_api_with_correct_url_for_eye_witness():
     _check_data_source_url(EyeWitnessDataSource(), '/search',
-        show_fields=Fields,
-        page_size='1',
-        show_media='picture',
-        tag='world/series/eyewitness,type/picture,-news/series/picture-desk-live')
+                           show_fields=Fields,
+                           page_size='1',
+                           show_media='picture',
+                           tag='world/series/eyewitness,type/picture,-news/series/picture-desk-live')
+
+
+def test_should_call_api_with_correct_url_for_music_blog():
+    _check_data_source_url(MusicBlogDataSource(), '/music/musicblog',
+                           show_fields=Fields,
+                           page_size='10',
+                           tag='-news/series/picture-desk-live')
 
 
 def test_should_call_api_with_correct_url_for_top_stories():
@@ -168,6 +175,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_media_section()
     test_should_call_api_with_correct_url_for_media_comment()
     test_should_call_api_with_correct_url_for_media_monkey()
+    test_should_call_api_with_correct_url_for_music_blog()
 
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
