@@ -10,6 +10,7 @@ from guardianapi.client import Client
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
+    BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
@@ -61,6 +62,10 @@ class DailyEmail(webapp2.RequestHandler):
     template = jinja_environment.get_template('daily-email.html')
 
     data_sources = {
+        'business': BusinessDataSource(),
+        'technology': TechnologyDataSource(),
+        'travel': TravelDataSource(),
+        'lifeandstyle': LifeAndStyleDataSource(),
         'sport': SportDataSource(),
         'culture': CultureDataSource(),
         'top_stories': TopStoriesDataSource(),
@@ -68,7 +73,7 @@ class DailyEmail(webapp2.RequestHandler):
         'most_viewed': MostViewedDataSource(),
     }
 
-    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
 
     def get(self):
         page = memcache.get('daily-email')

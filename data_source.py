@@ -66,6 +66,26 @@ class CultureDataSource(ItemDataSource):
         ItemDataSource.__init__(self, 'culture')
 
 
+class BusinessDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'business')
+
+
+class TechnologyDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'technology')
+
+
+class TravelDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'travel')
+
+
+class LifeAndStyleDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'lifeandstyle')
+
+
 class SportDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, 'sport')

@@ -15,16 +15,22 @@
 				<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="max-width: 480px; display: block;">
 					<tr><td>
 						<!-- header -->
-						<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 20px 20px 0">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
 							<tr>
-								<td width="140" valign="top">
-									<div><a href="http://www.guardian.co.uk/" style="font: 20px/1 Georgia, serif; color: #00417b; text-decoration: none;" title="The Guardian"><span style="color: #98bcdb">the</span>guardian</a></div>
-									<div><a href="http://www.guardian.co.uk/" style="font: 44px/1 Georgia, serif; color: #004a83; text-decoration: none;" title="Today">today</a></div>
-								</td>
-								<td width="140" valign="bottom">
+								<td width="50%" valign="top"><div style="height: 95px; width: 50px; text-align: center; background: {{ email_color }}; font: 48px/0.8 Georgia, serif; color: #ffffff; font-weight: bold;">g</div></td>
+								<td width="50%">
 									<table width="100%" cellpadding="0" cellspacing="0" border="0" align="right">
 										<tr>
-											<td width="100%" valign="bottom" class="date" style="font: 12px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
+											<td width="100%">
+												<table width="132" cellpadding="0" cellspacing="0" border="0" align="right">
+													<tr>
+														<td width="132"><img src="{{ URL_ROOT }}/static/img/{{ email_logo_img }}" alt="The Guardian" align="right" border="0" height="75" /></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td width="100%" class="date" style="font: 13px Helvetica, Arial, sans-serif; color: #333333; text-align: right; padding: 8px 15px 0 0">{{ date }}</td>
 										</tr>
 									</table>
 								</td>

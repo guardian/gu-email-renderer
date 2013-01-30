@@ -45,7 +45,7 @@
 {% endmacro %}
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, more_text=None) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, more_text=None, no_thumb=False) -%}
 {% if not more_text %}
 	{% set more_text = heading_text %}
 {% endif %}
@@ -53,7 +53,7 @@
 
 <tr><td align="left">
 	{% for story in stories %}
-		{% if loop.index <= 3 %}
+		{% if loop.index <= 3 and not no_thumb %}
 			{{ story_blocks.thumb(story, loop.index == 1) }}
 		{% else %}
 			{{ story_blocks.headline(story, loop.index == 1) }}
