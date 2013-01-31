@@ -77,9 +77,23 @@ class DailyEmail(EmailTemplate):
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
-    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), \
-                         ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
+    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3),
+                     ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2),
+                     ('lifeandstyle', 2)]
     template_name = 'daily-email'
 
 
-app = webapp2.WSGIApplication([('/daily-email', DailyEmail), ('/media-briefing', MediaBriefing)], debug=True)
+class SleeveNotes(EmailTemplate):
+    data_sources = {
+        'music_news': MusicNewsDataSource(),
+        'music_watch': MusicVideoDataSource(),
+        'music_listen': MusicAudioDataSource(),
+        'music_section': MusicDataSource(),
+        }
+    priority_list = [(),(),(), ()]
+    template_name = 'sleeve-notes'
+
+app = webapp2.WSGIApplication([('/daily-email', DailyEmail),
+                               ('/media-briefing', MediaBriefing),
+                               ('/sleeve-notes', SleeveNotes)],
+                              debug=True)
