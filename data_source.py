@@ -51,10 +51,11 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def __init__(self, section='', show_editors_picks=True):
+    def __init__(self, section='', show_editors_picks=False, show_most_viewed=False):
         DataSource.__init__(self)
         self.section = section
         self.show_editors_picks = show_editors_picks
+        self.show_most_viewed = show_most_viewed
 
     def _do_call(self, client, **criteria):
         return client.item_query(self.section, self.show_editors_picks, **criteria)
@@ -62,48 +63,48 @@ class ItemDataSource(DataSource):
 
 class CultureDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'culture')
+        ItemDataSource.__init__(self, 'culture', show_editors_picks=True)
 
 
 class BusinessDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'business')
+        ItemDataSource.__init__(self, 'business', show_editors_picks=True)
 
 
 class TechnologyDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'technology')
+        ItemDataSource.__init__(self, 'technology', show_editors_picks=True)
 
 
 class TravelDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'travel')
+        ItemDataSource.__init__(self, 'travel', show_editors_picks=True)
 
 
 class LifeAndStyleDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'lifeandstyle')
+        ItemDataSource.__init__(self, 'lifeandstyle', show_editors_picks=True)
 
 
 class SportDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'sport')
+        ItemDataSource.__init__(self, 'sport', show_editors_picks=True)
 
 
 class MediaDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, 'media')
+        ItemDataSource.__init__(self, 'media', show_editors_picks=True)
 
 
 class MediaMonkeyDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='media/mediamonkeyblog', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='media/mediamonkeyblog')
         self.fields.append('body')
 
 
 class MediaCommentDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='media', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='media')
         self.tags = ['tone/comment']
 
 
@@ -137,35 +138,37 @@ class MusicMostViewedDataSource(ItemDataSource):
 
 class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='music')
+        ItemDataSource.__init__(self, section='music', show_editors_picks=True)
         self.tags = ['-tone/news']
 
 
 class MusicNewsDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='music')
         self.tags = ['tone/news']
 
 
 class MusicVideoDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='music')
         self.tags = ['type/video']
 
 
 class MusicAudioDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='music')
         self.tags = ['type/audio']
 
 
 class MusicBlogDataSource(ItemDataSource):
     def __init__(self):
-        ItemDataSource.__init__(self, section='music/musicblog', show_editors_picks=False)
+        ItemDataSource.__init__(self, section='music/musicblog')
 
 
 class TopStoriesDataSource(ItemDataSource):
-    pass
+    def __init__(self):
+        ItemDataSource.__init__(self, show_editors_picks=True)
+
 
 
 def build_unique_trailblocks(_, data, priority_list):

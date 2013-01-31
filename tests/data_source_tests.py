@@ -150,9 +150,13 @@ def test_it_is_an_error_to_ask_for_both_editors_picks_and_most_viewed():
 
 
 def test_an_editors_picks_data_source_should_know_how_to_process_response():
+    class TestEditorsPicksDataSource(ItemDataSource):
+        def __init__(self):
+            ItemDataSource.__init__(self, show_editors_picks=True)
+
     fetcher = ApiStubFetcher()
     client = Client('http://somewhere.com/', API_KEY, fetcher)
-    data_source = ItemDataSource()
+    data_source = TestEditorsPicksDataSource()
     data = data_source.fetch_data(client)
     assert len(data) == 4
     result = data[2]
