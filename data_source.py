@@ -138,6 +138,9 @@ class MusicNewsDataSource(ItemDataSource):
         self.tags = ['tone/news']
 
 
+class MusicWatchAndListenDataSource(ItemDataSource):
+        pass
+
 class MusicBlogDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, section='music/musicblog', show_editors_picks=False)

@@ -5,6 +5,7 @@ from data_source import \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
+    MusicWatchAndListenDataSource, \
     fetch_all
 from guardianapi.client import Client
 from datetime import datetime
@@ -78,6 +79,15 @@ def test_should_call_api_with_correct_url_for_music_blog():
     _check_data_source_url(MusicBlogDataSource(), '/music/musicblog',
                            show_fields=Fields,
                            page_size='10')
+
+
+def test_should_call_api_with_correct_url_for_music_watch_and_listen():
+    pass
+    # _check_data_source_url(MusicWatchAndListenDataSource(), '/music',
+    #                        show_fields=Fields,
+    #                        page_size='10',
+    #                        tag='tone/news')
+
 
 def test_should_call_api_with_correct_url_for_music_news():
     _check_data_source_url(MusicNewsDataSource(), '/music',
@@ -183,6 +193,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_media_monkey()
     test_should_call_api_with_correct_url_for_music_blog()
     test_should_call_api_with_correct_url_for_music_news()
+    test_should_call_api_with_correct_url_for_music_watch_and_listen()
 
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
