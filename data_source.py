@@ -139,7 +139,16 @@ class MusicNewsDataSource(ItemDataSource):
 
 
 class MusicVideoDataSource(ItemDataSource):
-        pass
+    def __init__(self):
+        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        self.tags = ['type/video']
+
+
+class MusicAudioDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        self.tags = ['type/audio']
+
 
 class MusicBlogDataSource(ItemDataSource):
     def __init__(self):
