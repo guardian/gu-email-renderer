@@ -138,7 +138,7 @@ class MusicNewsDataSource(ItemDataSource):
         self.tags = ['tone/news']
 
 
-class MusicWatchAndListenDataSource(ItemDataSource):
+class MusicVideoDataSource(ItemDataSource):
         pass
 
 class MusicBlogDataSource(ItemDataSource):
