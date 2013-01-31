@@ -1,8 +1,10 @@
+# Always exclude picture desk due to media problems
+DEFAULT_TAGS = ['-news/series/picture-desk-live']
 
 class DataSource(object):
     def __init__(self):
-        self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.tags = []
+        self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.page_size = 10
         self.content_type = None
         self.show_media = None
@@ -19,17 +21,14 @@ class DataSource(object):
     def _build_criteria(self):
         criteria = {}
 
-        # Always exclude picture desk due to media problems
-        self.tags.append('-news/series/picture-desk-live')
-
         if self.fields:
             criteria['show-fields'] = ','.join(self.fields)
 
         if self.content_type:
             self.tags.append('type/%s' % self.content_type)
 
-        if self.tags:
-            criteria['tag'] = ','.join(self.tags)
+        self.tags += DEFAULT_TAGS
+        criteria['tag'] = ','.join(self.tags)
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
@@ -131,6 +130,12 @@ class MostViewedDataSource(SearchDataSource):
         DataSource.__init__(self)
         self.show_media = 'picture'
         self.show_most_viewed = True
+
+
+class MusicNewsDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, section='music', show_editors_picks=False)
+        self.tags = ['tone/news']
 
 
 class MusicBlogDataSource(ItemDataSource):

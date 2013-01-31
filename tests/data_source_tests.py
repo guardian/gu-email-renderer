@@ -4,7 +4,8 @@ from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
-    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, fetch_all
+    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
+    fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, UrlCheckingFetcher
@@ -16,7 +17,6 @@ Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,by
 def test_should_call_api_with_correct_url_for_culture_section():
     _check_data_source_url(CultureDataSource(), '/culture',
                            show_editors_picks='true',
-                           tag='-news/series/picture-desk-live',
                            show_fields=Fields,
                            page_size='10')
 
@@ -24,29 +24,25 @@ def test_should_call_api_with_correct_url_for_culture_section():
 def test_should_call_api_with_correct_url_for_media_section():
     _check_data_source_url(MediaDataSource(), '/media',
                            show_editors_picks='true',
-                           tag='-news/series/picture-desk-live',
                            show_fields=Fields,
                            page_size='10')
 
 def test_should_call_api_with_correct_url_for_media_monkey():
     _check_data_source_url(MediaMonkeyDataSource(), '/media/mediamonkeyblog',
-                           #show_editors_picks='true',
-                           tag='-news/series/picture-desk-live',
                            show_fields=Fields + ',body',
                            page_size='10')
 
 
 def test_should_call_api_with_correct_url_for_media_comment():
     _check_data_source_url(MediaCommentDataSource(), '/media',
-                           tag='-news/series/picture-desk-live,tone/comment',
                            show_fields=Fields,
+                           tag='tone/comment',
                            page_size='10')
 
 
 def test_should_call_api_with_correct_url_for_sport_section():
     _check_data_source_url(SportDataSource(), '/sport',
                            show_editors_picks='true',
-                           tag='-news/series/picture-desk-live',
                            show_fields=Fields,
                            page_size='10')
 
@@ -59,7 +55,6 @@ def test_should_call_api_with_correct_url_for_most_viewed():
                            page_size='10',
                            show_fields=Fields,
                            show_media='picture',
-                           tag='-news/series/picture-desk-live',
                            show_most_viewed='true')
 
 
@@ -68,7 +63,7 @@ def test_should_call_api_with_correct_url_for_pic_of_the_day():
                            show_fields=Fields,
                            page_size='1',
                            show_media='picture',
-                           tag='artanddesign/series/picture-of-the-day,type/picture,-news/series/picture-desk-live')
+                           tag='artanddesign/series/picture-of-the-day,type/picture')
 
 
 def test_should_call_api_with_correct_url_for_eye_witness():
@@ -76,14 +71,20 @@ def test_should_call_api_with_correct_url_for_eye_witness():
                            show_fields=Fields,
                            page_size='1',
                            show_media='picture',
-                           tag='world/series/eyewitness,type/picture,-news/series/picture-desk-live')
+                           tag='world/series/eyewitness,type/picture')
 
 
 def test_should_call_api_with_correct_url_for_music_blog():
     _check_data_source_url(MusicBlogDataSource(), '/music/musicblog',
                            show_fields=Fields,
-                           page_size='10',
-                           tag='-news/series/picture-desk-live')
+                           page_size='10')
+
+def test_should_call_api_with_correct_url_for_music_news():
+    pass
+    # _check_data_source_url(MusicNewsDataSource(), '/music',
+    #                        show_fields=Fields,
+    #                        page_size='10',
+    #                        tag='tone/news')
 
 
 def test_should_call_api_with_correct_url_for_top_stories():
@@ -160,8 +161,14 @@ def _check_data_source_url(data_source, expected_path, **expected_args):
     print 'Testing url for %s' % data_source.__class__
     expected_args['api-key'] = API_KEY
     expected_args['format'] = 'json'
+
+    if not expected_args.has_key('tag'):
+        expected_args['tag'] = '-news/series/picture-desk-live'
+    else:
+        expected_args['tag'] += ',-news/series/picture-desk-live'
+
     fetcher = UrlCheckingFetcher(expected_path, **expected_args)
-    client = Client('http://somewhere.com/', API_KEY, fetcher)
+    client = Client('http://content.guardianapis.com/', API_KEY, fetcher)
     data_source.fetch_data(client)
 
 
@@ -176,6 +183,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_media_comment()
     test_should_call_api_with_correct_url_for_media_monkey()
     test_should_call_api_with_correct_url_for_music_blog()
+    test_should_call_api_with_correct_url_for_music_news()
 
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
