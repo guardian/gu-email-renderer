@@ -5,7 +5,7 @@ from data_source import \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
-    MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, \
+    MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     fetch_all
 from guardianapi.client import Client
 from datetime import datetime
@@ -81,6 +81,13 @@ def test_should_call_api_with_correct_url_for_music_blog():
                            page_size='10')
 
 
+def test_should_call_api_with_correct_url_for_music_most_viewed():
+    _check_data_source_url(MusicBlogDataSource(), '/music',
+                           show_fields=Fields,
+                           show_most_viewed='true',
+                           page_size='10')
+
+
 def test_should_call_api_with_correct_url_for_music_video():
     _check_data_source_url(MusicVideoDataSource(), '/music',
                            show_fields=Fields,
@@ -132,6 +139,14 @@ def test_a_search_data_source_should_know_how_to_process_response():
     assert result.has_key('webTitle')
     assert result.has_key('fields')
     assert result.has_key('sectionName')
+
+
+def test_if_most_viewed_are_included_these_alone_should_be_returned():
+    pass
+
+def test_it_is_an_error_to_ask_for_both_editors_picks_and_most_viewed():
+    class FaultyClass(ItemDataSource):
+        pass
 
 
 def test_an_editors_picks_data_source_should_know_how_to_process_response():
@@ -210,6 +225,8 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_music_audio()
     test_should_call_api_with_correct_url_for_music_editors_picks()
 
+    test_if_most_viewed_are_included_these_alone_should_be_returned()
+    test_it_is_an_error_to_ask_for_both_editors_picks_and_most_viewed()
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response()

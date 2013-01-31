@@ -10,6 +10,8 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    MusicMostViewedDataSource, MusicNewsDataSource, MusicAudioDataSource, MusicVideoDataSource, \
+    MusicBlogDataSource, MusicEditorsPicksDataSource,
     fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
@@ -85,6 +87,8 @@ class DailyEmail(EmailTemplate):
 
 class SleeveNotes(EmailTemplate):
     data_sources = {
+        'music-most-viewed': MusicMostViewedDataSource(),
+        'music-blog': MusicBlogDataSource(),
         'music_news': MusicNewsDataSource(),
         'music_watch': MusicVideoDataSource(),
         'music_listen': MusicAudioDataSource(),

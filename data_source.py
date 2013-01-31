@@ -125,17 +125,21 @@ class EyeWitnessDataSource(SearchDataSource):
         self.show_media = 'picture'
 
 
+# TODO: kill me?
 class MostViewedDataSource(SearchDataSource):
     def __init__(self):
         DataSource.__init__(self)
         self.show_media = 'picture'
         self.show_most_viewed = True
 
+class MusicMostViewedDataSource(ItemDataSource):
+    pass
 
 class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, section='music')
         self.tags = ['-tone/news']
+
 
 class MusicNewsDataSource(ItemDataSource):
     def __init__(self):
