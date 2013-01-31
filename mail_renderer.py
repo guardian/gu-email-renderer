@@ -88,7 +88,7 @@ class SleeveNotes(EmailTemplate):
         'music_news': MusicNewsDataSource(),
         'music_watch': MusicVideoDataSource(),
         'music_listen': MusicAudioDataSource(),
-        'music_section': MusicDataSource(),
+        'music_editors_picks': MusicEditorsPicksDataSource(),
         }
     priority_list = [(),(),(), ()]
     template_name = 'sleeve-notes'

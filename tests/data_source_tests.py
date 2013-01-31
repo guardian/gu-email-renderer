@@ -5,7 +5,7 @@ from data_source import \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
-    MusicVideoDataSource, MusicAudioDataSource, MusicDataSource, \
+    MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, \
     fetch_all
 from guardianapi.client import Client
 from datetime import datetime
@@ -88,8 +88,8 @@ def test_should_call_api_with_correct_url_for_music_video():
                            tag='type/video')
 
 
-def test_should_call_api_with_correct_url_for_music_section():
-    _check_data_source_url(MusicDataSource(), '/music',
+def test_should_call_api_with_correct_url_for_music_editors_picks():
+    _check_data_source_url(MusicEditorsPicksDataSource(), '/music',
                            show_editors_picks='true',
                            show_fields=Fields,
                            page_size='10',
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     test_should_call_api_with_correct_url_for_music_news()
     test_should_call_api_with_correct_url_for_music_video()
     test_should_call_api_with_correct_url_for_music_audio()
-    test_should_call_api_with_correct_url_for_music_section()
+    test_should_call_api_with_correct_url_for_music_editors_picks()
 
     test_a_search_data_source_should_know_how_to_process_response()
     test_an_editors_picks_data_source_should_know_how_to_process_response()

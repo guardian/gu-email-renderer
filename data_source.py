@@ -132,7 +132,7 @@ class MostViewedDataSource(SearchDataSource):
         self.show_most_viewed = True
 
 
-class MusicDataSource(ItemDataSource):
+class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, section='music')
         self.tags = ['-tone/news']
