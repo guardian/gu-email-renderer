@@ -80,11 +80,10 @@ def test_should_call_api_with_correct_url_for_music_blog():
                            page_size='10')
 
 def test_should_call_api_with_correct_url_for_music_news():
-    pass
-    # _check_data_source_url(MusicNewsDataSource(), '/music',
-    #                        show_fields=Fields,
-    #                        page_size='10',
-    #                        tag='tone/news')
+    _check_data_source_url(MusicNewsDataSource(), '/music',
+                           show_fields=Fields,
+                           page_size='10',
+                           tag='tone/news')
 
 
 def test_should_call_api_with_correct_url_for_top_stories():
