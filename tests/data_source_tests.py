@@ -99,7 +99,6 @@ def test_should_call_api_with_correct_url_for_music_news():
 def test_should_call_api_with_correct_url_for_top_stories():
     _check_data_source_url(TopStoriesDataSource(), '/',
                            show_fields=Fields,
-                           tag='-news/series/picture-desk-live',
                            page_size='10',
                            show_editors_picks='true')
 
