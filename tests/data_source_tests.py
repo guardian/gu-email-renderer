@@ -11,7 +11,7 @@ from data_source import \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
-    BusinessDataSource, \
+    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
     fetch_all
 from guardianapi.client import Client
 from datetime import datetime
@@ -153,6 +153,24 @@ class TestDataSources(unittest.TestCase):
 
     def test_should_call_api_with_correct_url_for_business(self):
         self.check_data_source_url(BusinessDataSource(), '/business',
+                                   show_fields=Fields,
+                                   show_editors_picks='true',
+                                   page_size='10')
+
+    def test_should_call_api_with_correct_url_for_life_and_style(self):
+        self.check_data_source_url(LifeAndStyleDataSource(), '/lifeandstyle',
+                                   show_fields=Fields,
+                                   show_editors_picks='true',
+                                   page_size='10')
+
+    def test_should_call_api_with_correct_url_for_life_and_travel(self):
+        self.check_data_source_url(TravelDataSource(), '/travel',
+                                   show_fields=Fields,
+                                   show_editors_picks='true',
+                                   page_size='10')
+
+    def test_should_call_api_with_correct_url_for_life_and_technology(self):
+        self.check_data_source_url(TechnologyDataSource(), '/technology',
                                    show_fields=Fields,
                                    show_editors_picks='true',
                                    page_size='10')
