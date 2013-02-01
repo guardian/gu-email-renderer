@@ -87,9 +87,9 @@ class TestDataSources(unittest.TestCase):
 
     def test_should_call_api_with_correct_url_for_culture_section(self):
         self.check_data_source_url(CultureDataSource(), '/culture',
-                                    show_editors_picks='true',
-                                    show_fields=Fields,
-                                    page_size='10')
+                                   show_editors_picks='true',
+                                   show_fields=Fields,
+                                   page_size='10')
 
 
     def test_should_call_api_with_correct_url_for_media_section(self):
@@ -182,45 +182,45 @@ class TestDataSources(unittest.TestCase):
 
     def vest_should_call_api_with_correct_url_for_music_most_viewed(self):
         self.check_data_source_url(MusicMostViewedDataSource(), '/music',
-                               show_fields=Fields,
-                               show_most_viewed='true',
-                               page_size='10')
+                                   show_fields=Fields,
+                                   show_most_viewed='true',
+                                   page_size='10')
 
 
     def test_should_call_api_with_correct_url_for_music_video(self):
         self.check_data_source_url(MusicVideoDataSource(), '/music',
-                               show_fields=Fields,
-                               page_size='10',
-                               tag='type/video')
+                                   show_fields=Fields,
+                                   page_size='10',
+                                   tag='type/video')
 
 
     def test_should_call_api_with_correct_url_for_music_editors_picks(self):
         self.check_data_source_url(MusicEditorsPicksDataSource(), '/music',
-                               show_editors_picks='true',
-                               show_fields=Fields,
-                               page_size='10',
-                               tag='-tone/news')
+                                   show_editors_picks='true',
+                                   show_fields=Fields,
+                                   page_size='10',
+                                   tag='-tone/news')
 
 
     def test_should_call_api_with_correct_url_for_music_audio(self):
         self.check_data_source_url(MusicAudioDataSource(), '/music',
-                               show_fields=Fields,
-                               page_size='10',
-                               tag='type/audio')
+                                   show_fields=Fields,
+                                   page_size='10',
+                                   tag='type/audio')
 
 
     def test_should_call_api_with_correct_url_for_music_news(self):
         self.check_data_source_url(MusicNewsDataSource(), '/music',
-                               show_fields=Fields,
-                               page_size='10',
-                               tag='tone/news')
+                                   show_fields=Fields,
+                                   page_size='10',
+                                   tag='tone/news')
 
 
     def test_should_call_api_with_correct_url_for_top_stories(self):
         self.check_data_source_url(TopStoriesDataSource(), '/',
-                               show_fields=Fields,
-                               page_size='10',
-                               show_editors_picks='true')
+                                   show_fields=Fields,
+                                   page_size='10',
+                                   show_editors_picks='true')
 
 
     def test_a_search_data_source_should_know_how_to_process_response(self):
