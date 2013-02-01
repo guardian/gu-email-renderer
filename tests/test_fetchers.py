@@ -2,52 +2,6 @@ from urllib2 import urlparse
 import urllib
 
 
-class UrlCheckingFetcher:
-    def __init__(self, expected_path, **expected_args):
-        self.expected_path = expected_path
-        self.expected_args = self._quote_params(expected_args)
-
-
-    def assert_expected_url_equals(self, actual_url):
-        (scheme, netloc, path, params, query, fragment) = urlparse.urlparse(actual_url)
-        actual_args = dict([arg.split('=') for arg in query.split('&')])
-
-        assert len(actual_args) == len(self.expected_args), \
-            'actual number query args: %d, expected number query args: %d' \
-            % (len(actual_args), len(self.expected_args))
-        for key in actual_args:
-            if key == 'tag':
-                self._compare_tags(self.expected_args['tag'], actual_args['tag'])
-            else:
-                actual_arg = actual_args[key]
-                expected_arg = self.expected_args[key]
-                assert actual_arg == expected_arg, 'actual arg: %s, expected arg: %s' % (actual_arg, expected_arg)
-
-        assert self.expected_path == path, 'actual path: %s, expected path: %s' % (path, self.expected_path)
-
-
-    def _compare_tags(self, expected_tags, actual_tags):
-        actual_tag_set = set(actual_tags.split('%2C'))
-        expected_tag_set = set(expected_tags.split('%2C'))
-        assert actual_tag_set == expected_tag_set, 'actual tags: %s, expected tags: %s' % (actual_tag_set, expected_tag_set)
-
-
-    def get(self, url):
-        print 'Url is: %s' % url
-        self.assert_expected_url_equals(url)
-        return (None, '{"response": {"results": [], "editorsPicks": []}}')
-
-
-    def _quote_params(self, query_params):
-        quoted_params = {}
-        for key in query_params.keys():
-            new_key = key.replace('_', '-')
-            new_value = urllib.quote_plus(query_params[key])
-            quoted_params[new_key] = new_value
-        return quoted_params
-
-
-
 class ApiStubFetcher:
 
     status = """
