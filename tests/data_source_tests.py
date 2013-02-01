@@ -94,28 +94,29 @@ class TestDataSources(unittest.TestCase):
 
     def test_should_call_api_with_correct_url_for_media_section(self):
         self.check_data_source_url(MediaDataSource(), '/media',
-                               show_editors_picks='true',
-                               show_fields=Fields,
-                               page_size='10')
+                                   show_editors_picks='true',
+                                   show_fields=Fields,
+                                   page_size='10')
+
 
     def test_should_call_api_with_correct_url_for_media_monkey(self):
         self.check_data_source_url(MediaMonkeyDataSource(), '/media/mediamonkeyblog',
-                               show_fields=Fields + ',body',
-                               page_size='10')
+                                   show_fields=Fields + ',body',
+                                   page_size='10')
 
 
     def test_should_call_api_with_correct_url_for_media_comment(self):
         self.check_data_source_url(MediaCommentDataSource(), '/media',
-                               show_fields=Fields,
-                               tag='tone/comment',
-                               page_size='10')
+                                   show_fields=Fields,
+                                   tag='tone/comment',
+                                   page_size='10')
 
 
     def test_should_call_api_with_correct_url_for_sport_section(self):
         self.check_data_source_url(SportDataSource(), '/sport',
-                               show_editors_picks='true',
-                               show_fields=Fields,
-                               page_size='10')
+                                   show_editors_picks='true',
+                                   show_fields=Fields,
+                                   page_size='10')
 
 
     def test_should_call_api_with_correct_url_for_most_viewed(self):
@@ -123,26 +124,26 @@ class TestDataSources(unittest.TestCase):
         from_date = '%4d-%2d-%2d' % (now.year, now.month, now.day)
 
         self.check_data_source_url(MostViewedDataSource(), '/search',
-                               page_size='10',
-                               show_fields=Fields,
-                               show_media='picture',
-                               show_most_viewed='true')
+                                   page_size='10',
+                                   show_fields=Fields,
+                                   show_media='picture',
+                                   show_most_viewed='true')
 
 
     def test_should_call_api_with_correct_url_for_pic_of_the_day(self):
         self.check_data_source_url(PicOfDayDataSource(), '/search',
-                               show_fields=Fields,
-                               page_size='1',
-                               show_media='picture',
-                               tag='artanddesign/series/picture-of-the-day,type/picture')
+                                   show_fields=Fields,
+                                   page_size='1',
+                                   show_media='picture',
+                                   tag='artanddesign/series/picture-of-the-day,type/picture')
 
 
     def test_should_call_api_with_correct_url_for_eye_witness(self):
         self.check_data_source_url(EyeWitnessDataSource(), '/search',
-                               show_fields=Fields,
-                               page_size='1',
-                               show_media='picture',
-                               tag='world/series/eyewitness,type/picture')
+                                   show_fields=Fields,
+                                   page_size='1',
+                                   show_media='picture',
+                                   tag='world/series/eyewitness,type/picture')
 
 
     def test_should_call_api_with_correct_url_for_music_blog(self):
@@ -157,17 +158,20 @@ class TestDataSources(unittest.TestCase):
                                    show_editors_picks='true',
                                    page_size='10')
 
+
     def test_should_call_api_with_correct_url_for_life_and_style(self):
         self.check_data_source_url(LifeAndStyleDataSource(), '/lifeandstyle',
                                    show_fields=Fields,
                                    show_editors_picks='true',
                                    page_size='10')
 
+
     def test_should_call_api_with_correct_url_for_life_and_travel(self):
         self.check_data_source_url(TravelDataSource(), '/travel',
                                    show_fields=Fields,
                                    show_editors_picks='true',
                                    page_size='10')
+
 
     def test_should_call_api_with_correct_url_for_life_and_technology(self):
         self.check_data_source_url(TechnologyDataSource(), '/technology',
