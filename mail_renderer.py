@@ -11,8 +11,7 @@ from data_source import \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicAudioDataSource, MusicVideoDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource,
-    fetch_all, build_unique_trailblocks
+    MusicBlogDataSource, MusicEditorsPicksDataSource, fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
 
