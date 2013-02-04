@@ -12,7 +12,7 @@ from data_source import \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
-    fetch_all
+    DataSourceException, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher
@@ -27,7 +27,7 @@ DEBUG = False
 class UrlCapturingFetcher():
     def get(self, url):
         self.actual_url = url
-        return (None, '{"response": {"results": [], "editorsPicks": []}}')
+        return (None, '{"response": {"results": [], "editorsPicks": [], "mostViewed": []}}')
 
 
 class TestDataSources(unittest.TestCase):
@@ -120,9 +120,6 @@ class TestDataSources(unittest.TestCase):
 
 
     def test_should_call_api_with_correct_url_for_most_viewed(self):
-        now = datetime.now()
-        from_date = '%4d-%2d-%2d' % (now.year, now.month, now.day)
-
         self.check_data_source_url(MostViewedDataSource(), '/search',
                                    page_size='10',
                                    show_fields=Fields,
@@ -180,10 +177,10 @@ class TestDataSources(unittest.TestCase):
                                    page_size='10')
 
 
-    def vest_should_call_api_with_correct_url_for_music_most_viewed(self):
+    def test_should_call_api_with_correct_url_for_music_most_viewed(self):
         self.check_data_source_url(MusicMostViewedDataSource(), '/music',
-                                   show_fields=Fields,
                                    show_most_viewed='true',
+                                   show_fields=Fields,
                                    page_size='10')
 
 
@@ -241,11 +238,30 @@ class TestDataSources(unittest.TestCase):
 
 
     def test_if_most_viewed_are_included_these_alone_should_be_returned(self):
-        pass
+        class TestMostViwedDataSource(ItemDataSource):
+            def __init__(self):
+                ItemDataSource.__init__(self, show_most_viewed=True)
+
+        fetcher = ApiStubFetcher()
+        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        data_source = TestMostViwedDataSource()
+        data = data_source.fetch_data(client)
+        self.assertEquals(len(data), 2)
+        filtered_data = set([result['id'] for result in data])
+        self.assertEquals(filtered_data, set(["uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                                              "world/2012/dec/17/white-house-obama-gun-control-newtown"]))
+
 
     def test_it_is_an_error_to_ask_for_both_editors_picks_and_most_viewed(self):
         class FaultyClass(ItemDataSource):
+            def __init__(self):
+                ItemDataSource.__init__(self, show_editors_picks=True, show_most_viewed=True)
+        try:
+            badSource = FaultyClass()
+        except DataSourceException:
             pass
+        else:
+            self.fail('Turning on both editors_picks and most_viewed should throw an Exception')
 
 
     def test_an_editors_picks_data_source_should_know_how_to_process_response(self):

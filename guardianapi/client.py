@@ -40,9 +40,12 @@ class Client(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def item_query(self, section='', show_editors_picks=True, **kwargs):
+    def item_query(self, section='', show_editors_picks=False, show_most_viewed=False, **kwargs):
         if show_editors_picks:
             kwargs['show-editors-picks'] = 'true'
+        if show_most_viewed:
+            kwargs['show_most_viewed'] = 'true'
+
         json = self._do_call(section, **kwargs)
 
         results = []
@@ -53,6 +56,9 @@ class Client(object):
             editors_picks = json['response']['editorsPicks']
         else:
             editors_picks = []
+
+        if show_most_viewed:
+            return json['response']['mostViewed']
 
         return editors_picks + results
 

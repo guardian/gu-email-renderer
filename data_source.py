@@ -53,12 +53,14 @@ class SearchDataSource(DataSource):
 class ItemDataSource(DataSource):
     def __init__(self, section='', show_editors_picks=False, show_most_viewed=False):
         DataSource.__init__(self)
+        if show_editors_picks and show_most_viewed:
+            raise DataSourceException('Cannot show most_viewed and editors_picks at the same time')
         self.section = section
         self.show_editors_picks = show_editors_picks
         self.show_most_viewed = show_most_viewed
 
     def _do_call(self, client, **criteria):
-        return client.item_query(self.section, self.show_editors_picks, **criteria)
+        return client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
 
 
 class CultureDataSource(ItemDataSource):
@@ -134,7 +136,9 @@ class MostViewedDataSource(SearchDataSource):
         self.show_most_viewed = True
 
 class MusicMostViewedDataSource(ItemDataSource):
-    pass
+    def __init__(self):
+        ItemDataSource.__init__(self, section='music', show_most_viewed=True)
+
 
 class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self):
@@ -169,6 +173,9 @@ class TopStoriesDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, show_editors_picks=True)
 
+
+class DataSourceException(Exception):
+    pass
 
 
 def build_unique_trailblocks(_, data, priority_list):

@@ -21,9 +21,92 @@ class ApiStubFetcher:
             return self.search_results()
         if path == '/sport':
             return self.sport_results()
-        elif 'show-editors-picks' in query:
+        if 'show-editors-picks' in query:
             return self.editors_picks_results()
+        if 'show-most-viewed' in query:
+            return self.most_viewed_results()
 
+
+    def most_viewed_results(self):
+        response = """
+            {
+              "response":{
+                "status":"ok",
+                "userTier":"internal",
+                "total":1,
+                "results":[{
+                    "id":"sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "sectionId":"sport",
+                    "sectionName":"Sport",
+                    "webPublicationDate":"2013-01-09T16:15:38Z",
+                    "webTitle":"4x400m relay runners start brawl mid-race \u2013 video",
+                    "webUrl":"http://www.guardian.co.uk/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "apiUrl":"http://content.guardianapis.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "fields":{
+                      "trailText":"<p>Athletics and mid-race brawling don't usually go hand in hand, so spectators were surprised by action at the Hispanic Games at the New York Armory</p>",
+                      "headline":"4x400m relay runners start brawl mid-race \u2013 video",
+                      "standfirst":"Athletics and mid-race fighting don't usually go hand in hand, so spectators were surprised to witness Mt. Vernon High runner Rai Benjamin being taken out by an unidentified runner from Thomas Jefferson High School during the Hispanic Games at the New York Armory last weekend. Benjamin had been knocked off course when he ran into a different TJHS runner. Bizarrely, the incident seems to be ignored by race officials and the race continues as if nothing has happened",
+                      "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/audio/video/2013/1/9/1357742154408/4x400-metre-relay-runners-005.jpg",
+                      "commentable":"false",
+                      "liveBloggingNow":"false"
+                    }
+                  }],
+                  "editorsPicks":[{
+                  "id":"world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "sectionId":"world",
+                  "sectionName":"World news",
+                  "webPublicationDate":"2012-12-18T10:08:46Z",
+                  "webTitle":"Anti-polio workers shot dead in Pakistan",
+                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "apiUrl":"http://content.guardianapis.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "fields":{
+                    "trailText":"<p>Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease</p>",
+                    "headline":"Anti-polio workers shot dead in Pakistan",
+                    "standfirst":"Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/About/General/2012/12/18/1355824995156/Polio-campaign-003.jpg",
+                    "commentable":"false",
+                    "byline":"Agencies in Karachi",
+                    "liveBloggingNow":"false"
+                  }
+                }],
+                "mostViewed":[{
+                  "id":"world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "sectionId":"world",
+                  "sectionName":"World news",
+                  "webPublicationDate":"2012-12-17T20:24:00Z",
+                  "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
+                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "fields":{
+                    "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
+                    "headline":"White House says Obama will move swiftly on gun control after Newtown",
+                    "standfirst":"First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/maps_and_graphs/2012/12/17/1355705992584/Barack-Obama-attends-a-vi-005.jpg",
+                    "commentable":"true",
+                    "byline":"Ewen MacAskill in Washington",
+                    "liveBloggingNow":"false"
+                  }
+                },{
+                  "id":"uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "sectionId":"uk",
+                  "sectionName":"UK news",
+                  "webPublicationDate":"2012-12-18T14:07:09Z",
+                  "webTitle":"Antarctic territory named for the Queen as monarch attends cabinet",
+                  "webUrl":"http://www.guardian.co.uk/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "apiUrl":"http://content.guardianapis.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "fields":{
+                    "trailText":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
+                    "headline":"Antarctic territory named for the Queen as monarch attends cabinet",
+                    "standfirst":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
+                    "thumbnail":"http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/12/18/1355838771424/Queen-attends-cabinet-mee-003.jpg",
+                    "commentable":"true",
+                    "byline":"Patrick Wintour, political editor",
+                    "liveBloggingNow":"false"
+                  }
+                }]}}
+        """
+
+        return (self.status, response)
 
     def editors_picks_results(self):
         response = """
