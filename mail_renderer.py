@@ -86,14 +86,15 @@ class DailyEmail(EmailTemplate):
 
 class SleeveNotes(EmailTemplate):
     data_sources = {
-        'music-most-viewed': MusicMostViewedDataSource(),
-        'music-blog': MusicBlogDataSource(),
+        'music_most_viewed': MusicMostViewedDataSource(),
         'music_news': MusicNewsDataSource(),
-        'music_watch': MusicVideoDataSource(),
-        'music_listen': MusicAudioDataSource(),
-        'music_editors_picks': MusicEditorsPicksDataSource(),
+        'music_blog': MusicBlogDataSource(),
+        # 'music_watch': MusicVideoDataSource(),
+        # 'music_listen': MusicAudioDataSource(),
+        # 'music_editors_picks': MusicEditorsPicksDataSource(),
         }
-    priority_list = [(),(),(), ()]
+   # priority_list = [(),(),(), ()]
+    priority_list = [('music_most_viewed', 3), ('music_news', 5), (music_blog, 5)]
     template_name = 'sleeve-notes'
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail),

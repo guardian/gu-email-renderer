@@ -9,7 +9,7 @@ from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
-    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, \
+    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
     DataSourceException, fetch_all
@@ -44,7 +44,7 @@ class TestDataSources(unittest.TestCase):
     def compare_tags(self, expected_tags, actual_tags):
         actual_tag_set = set(actual_tags.split('%2C'))
         expected_tag_set = set(expected_tags.split('%2C'))
-        self.assertEquals( expected_tag_set,  actual_tag_set)
+        self.assertEquals(expected_tag_set,  actual_tag_set)
 
 
     def assert_expected_url_equals(self, actual_url, expected_path, expected_args):
@@ -146,6 +146,13 @@ class TestDataSources(unittest.TestCase):
     def test_should_call_api_with_correct_url_for_music_blog(self):
         self.check_data_source_url(MusicBlogDataSource(), '/music/musicblog',
                                    show_fields=Fields,
+                                   page_size='10')
+
+
+    def test_should_call_api_with_correct_url_for_music_watch_and_listen(self):
+        self.check_data_source_url(MusicWatchListenDataSource(), '/music',
+                                   show_fields=Fields,
+                                   tag='type/video|type/audio',
                                    page_size='10')
 
 
@@ -282,7 +289,7 @@ class TestDataSources(unittest.TestCase):
         assert result.has_key('webTitle')
         assert result.has_key('fields')
         assert result.has_key('sectionName')
-        # non-editors' picks results should be appended at end
+
         result = data[3]
         assert result['id'] == 'sport/video/2013/jan/09/relay-runners-start-brawl-video'
 
