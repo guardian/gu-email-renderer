@@ -6,17 +6,39 @@
 {% set email_color = '#c22d05' %}
 {% set email_logo_img = 'media-briefing.png' %}
 
+{% set facebook_page = 'mediaguardian' %}
+{% set twitter_account = 'mediaguardian' %}
+
 {% block title %}Media Briefing{% endblock %}
-
 {% block content %}
-{# TODO #}
-{{ layout.story_trail('Media stories', media_stories, 'http://www.guardian.co.uk/media') }}
-{# could we set the link to a combiner page? #}
-{{ layout.story_trail('Media comment', media_comment, 'http://www.guardian.co.uk/media') }}
-{% endblock content %}
 
-{# TODO #}
-{% set facebook_page = 'theguardian' %}
-{% set twitter_account = 'guardian' %}
+{{ layout.story_trail(
+	heading_text	= 'Top stories on MediaGuardian',
+	stories			= media_stories,
+	heading_link	= 'http://www.guardian.co.uk/media',
+	more_text		= 'top stories',
+	sidebar_colour	= '#c22d05',
+	standfirst		= True,
+	thumbnail		= False) }}
+
+{{ layout.story_trail(
+	heading_text	= 'Top comment on MediaGuardian',
+	stories			= media_comment,
+	heading_link	= 'http://www.guardian.co.uk/media',
+	sidebar_colour	= '#c22d05',
+	thumbnail		= False,
+	standfirst		= True,
+	show_more		= False) }}
+
+{{ layout.story_trail(
+	heading_text	= 'Media Monkey\'s pick of the day',
+	stories			= media_monkey,
+	heading_link	= 'http://www.guardian.co.uk/media/mediamonkeyblog',
+	more_text		= 'Media Monkey',
+	sidebar_colour	= '#c22d05',
+	thumbnail		= False,
+	first_para		= True) }}
+
+{% endblock content %}
 
 {% set sections = (('Business', 'http://www.guardian.co.uk/business'), ('Tech', 'http://www.guardian.co.uk/technology'), ('Sport', 'http://www.guardian.co.uk/sport'), ('Travel', 'http://www.guardian.co.uk/travel'), ('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle')) %}
