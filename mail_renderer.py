@@ -10,7 +10,7 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
-    MusicMostViewedDataSource, MusicNewsDataSource, MusicAudioDataSource, MusicVideoDataSource, \
+    MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
@@ -89,12 +89,11 @@ class SleeveNotes(EmailTemplate):
         'music_most_viewed': MusicMostViewedDataSource(),
         'music_news': MusicNewsDataSource(),
         'music_blog': MusicBlogDataSource(),
-        # 'music_watch': MusicVideoDataSource(),
-        # 'music_listen': MusicAudioDataSource(),
-        # 'music_editors_picks': MusicEditorsPicksDataSource(),
+        'music_watch_listen': MusicWatchListenDataSource(),
+        'music_editors_picks': MusicEditorsPicksDataSource(),
         }
-   # priority_list = [(),(),(), ()]
-    priority_list = [('music_most_viewed', 3), ('music_news', 5), (music_blog, 5)]
+    priority_list = [('music_most_viewed', 3), ('music_news', 5), ('music_blog', 5),
+                     ('music_watch_listen', 5), ('music_editors_picks', 3)]
     template_name = 'sleeve-notes'
 
 app = webapp2.WSGIApplication([('/daily-email', DailyEmail),
