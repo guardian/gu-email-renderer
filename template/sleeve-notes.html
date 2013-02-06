@@ -16,7 +16,8 @@
         heading_text='Must read',
         stories=music_most_viewed,
         heading_link='http://www.guardian.co.uk/most-viewed/music',
-        heading_colour='#d1008b') }}
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 {{ layout.advert(ad_html) }}
 
@@ -24,25 +25,29 @@
         heading_text='In the news',
         stories=music_news,
         heading_link='http://www.guardian.co.uk/music/music+tone/news',
-        heading_colour='#d1008b') }}
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='On the blog',
         stories=music_blog,
         heading_link='http://www.guardian.co.uk/music/musicblog',
-        heading_colour='#d1008b') }}
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='Watch and listen',
         stories=music_watch_listen,
         heading_link='http://www.guardian.co.uk/music/music+content/video',
-        heading_colour='#d1008b') }}
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='Further reading',
         stories=music_editors_picks,
         heading_link='http://www.guardian.co.uk/music',
-        heading_colour='#d1008b') }}
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 
 {% endblock content %}
