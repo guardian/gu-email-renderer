@@ -3,40 +3,32 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set email_color = '#c22d05' %}
-{% set email_logo_img = 'media-briefing.png' %}
-
+{% set title = 'the guardian media briefing' %}
+{% set title_link = 'http://www.guardian.co.uk/media/series/media-briefing' %}
+{% set logo_background  = '#c22d05' %}
 {% set facebook_page = 'mediaguardian' %}
 {% set twitter_account = 'mediaguardian' %}
 
-{% block title %}Media Briefing{% endblock %}
 {% block content %}
 
 {{ layout.story_trail(
 	heading_text	= 'Top stories on MediaGuardian',
 	stories			= media_stories,
 	heading_link	= 'http://www.guardian.co.uk/media',
-	more_text		= 'top stories',
-	sidebar_colour	= '#c22d05',
-	standfirst		= True,
-	thumbnail		= False) }}
+	heading_colour	= '#c22d05') }}
 
 {{ layout.story_trail(
 	heading_text	= 'Top comment on MediaGuardian',
 	stories			= media_comment,
 	heading_link	= 'http://www.guardian.co.uk/media',
-	sidebar_colour	= '#c22d05',
-	thumbnail		= False,
-	standfirst		= True,
-	show_more		= False) }}
+	heading_colour	= '#c22d05') }}
 
 {{ layout.story_trail(
 	heading_text	= 'Media Monkey\'s pick of the day',
 	stories			= media_monkey,
 	heading_link	= 'http://www.guardian.co.uk/media/mediamonkeyblog',
 	more_text		= 'Media Monkey',
-	sidebar_colour	= '#c22d05',
-	thumbnail		= False,
+	heading_colour	= '#c22d05',
 	first_para		= True) }}
 
 {% endblock content %}

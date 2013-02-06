@@ -3,71 +3,68 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set email_logo_img = 'today.png' %}
-{% set email_color = '#004179' %}
-
+{% set title = 'the guardian today' %}
+{% set title_link = 'http://www.guardianc.co.uk' %}
+{% set logo_background = '#004179' %}
 {% set facebook_page = 'theguardian' %}
 {% set twitter_account = 'guardian' %}
 
-{% block title %}Guardian Today{% endblock %}
+
 {% block content %}
+	{{ layout.story_trail(
+		heading_text	= 'Editor\'s picks',
+		stories			= top_stories,
+		heading_link	= 'http://www.guardian.co.uk',
+		heading_colour	= '#c22d05',
+		top_thumb		= True) }}
 
-{{ layout.story_trail(
-	heading_text	= 'Editor\'s picks',
-	stories			= top_stories,
-	heading_link	= 'http://www.guardian.co.uk',
-	sidebar_colour	= '#004179') }}
+	{{ layout.advert(ad_html) }}
 
-{{ layout.advert(ad_html) }}
+	{{ layout.story_trail(
+		heading_text	= 'Most viewed in last 24 hours',
+		stories			= most_viewed,
+		heading_link	= 'http://www.guardian.co.uk/mostviewed',
+		heading_colour	= '#c22d05',
+		top_thumb		= True) }}
 
-{{ layout.story_trail(
-	heading_text	= 'Most viewed in last 24 hours',
-	stories			= most_viewed,
-	heading_link	= 'http://www.guardian.co.uk/mostviewed',
-	more_text		= 'most viewed',
-	sidebar_colour	= '#ab1700') }}
+	{{ layout.story_trail(
+		heading_text	= 'Sport',
+		stories			= sport,
+		heading_link	= 'http://www.guardian.co.uk/sport',
+		heading_colour	= '#20a111') }}
 
-{{ layout.picture_of_day(eye_witness) }}
+	{{ layout.story_trail(
+		heading_text	= 'Culture',
+		stories			= culture,
+		heading_link	= 'http://www.guardian.co.uk/culture',
+		heading_colour	= '#d1008b') }}
 
-{{ layout.story_trail(
-	heading_text	= 'Sport',
-	stories			= sport,
-	heading_link	= 'http://www.guardian.co.uk/sport',
-	sidebar_colour	= '#20a111') }}
+	{{ layout.story_trail(
+		heading_text	= 'Business',
+		stories			= business,
+		heading_link	= 'http://www.guardian.co.uk/business',
+		heading_colour	= '#004179',
+		thumbnail		= False) }}
 
-{{ layout.story_trail(
-	heading_text	= 'Culture',
-	stories			= culture,
-	heading_link	= 'http://www.guardian.co.uk/culture',
-	sidebar_colour	= '#d1008b') }}
+	{{ layout.story_trail(
+		heading_text	= 'Technology',
+		stories			= technology,
+		heading_link	= 'http://www.guardian.co.uk/technology',
+		heading_colour	= '#d61d00') }}
 
-{{ layout.story_trail(
-	heading_text	= 'Business',
-	stories			= business,
-	heading_link	= 'http://www.guardian.co.uk/business',
-	sidebar_colour	= '#004179',
-	thumbnail		= False) }}
+	{{ layout.story_trail(
+		heading_text	= 'Travel',
+		stories			= travel,
+		heading_link	= 'http://www.guardian.co.uk/travel',
+		heading_colour	= '#066ec9') }}
 
-{{ layout.story_trail(
-	heading_text	= 'Technology',
-	stories			= technology,
-	heading_link	= 'http://www.guardian.co.uk/technology',
-	sidebar_colour	= '#d61d00',
-	thumbnail		= False) }}
+	{{ layout.story_trail(
+		heading_text	= 'Life and style',
+		stories			= lifeandstyle,
+		heading_link	= 'http://www.guardian.co.uk/lifeandstyle',
+		heading_colour	= '#ea721e') }}
 
-{{ layout.story_trail(
-	heading_text	= 'Travel',
-	stories			= travel,
-	heading_link	= 'http://www.guardian.co.uk/travel',
-	sidebar_colour	= '#066ec9',
-	thumbnail		= False) }}
-
-{{ layout.story_trail(
-	heading_text	= 'Life and style',
-	stories			= lifeandstyle,
-	heading_link	= 'http://www.guardian.co.uk/lifeandstyle',
-	sidebar_colour	= '#ea721e',
-	thumbnail		= False) }}
+	{{ layout.picture_of_day(eye_witness) }}
 
 {% endblock content %}
 

@@ -3,47 +3,47 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set email_logo_img = 'today.png' %}
-{% set email_color = '#004179' %}
+{% set title = 'the guardian sleeve notes' %}
+{% set title_link = 'http://www.guardian.co.uk/music/series/sleeve-notes' %}
+{% set logo_background  = '#d1008b' %}
+{% set facebook_page    = 'musicguardian' %}
+{% set twitter_account  = 'guardianmusic' %}
 
-{% block title %}Guardian Today{% endblock %}
 {% block content %}
 
-
-
-
-
 {{ layout.story_trail(
-        heading_text='Most read',
+        heading_text='Must read',
         stories=music_most_viewed,
-        heading_link='http://www.guardian.co.uk/most-viewed/music') }}
+        heading_link='http://www.guardian.co.uk/most-viewed/music',
+        heading_colour='#d1008b') }}
 
 {{ layout.advert(ad_html) }}
 
 {{ layout.story_trail(
         heading_text='In the news',
         stories=music_news,
-        heading_link='http://www.guardian.co.uk/music/music+tone/news') }}
+        heading_link='http://www.guardian.co.uk/music/music+tone/news',
+        heading_colour='#d1008b') }}
 
 {{ layout.story_trail(
         heading_text='On the blog',
         stories=music_blog,
-        heading_link='http://www.guardian.co.uk/music/musicblog') }}
+        heading_link='http://www.guardian.co.uk/music/musicblog',
+        heading_colour='#d1008b') }}
 
 {{ layout.story_trail(
         heading_text='Watch and listen',
         stories=music_watch_listen,
-        heading_link='http://www.guardian.co.uk/music/music+content/video') }}
+        heading_link='http://www.guardian.co.uk/music/music+content/video',
+        heading_colour='#d1008b') }}
 
 {{ layout.story_trail(
         heading_text='Further reading',
         stories=music_editors_picks,
-        heading_link='http://www.guardian.co.uk/music') }}
+        heading_link='http://www.guardian.co.uk/music',
+        heading_colour='#d1008b') }}
 
 
 {% endblock content %}
-
-{% set facebook_page = 'theguardian' %}
-{% set twitter_account = 'guardian' %}
 
 {% set sections = (('Football', 'http://www.guardian.co.uk/football'), ('Comment is free', 'http://www.guardian.co.uk/commentisfree'), ('Environment', 'http://www.guardian.co.uk/environment')) %}

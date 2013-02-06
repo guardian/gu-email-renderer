@@ -1,12 +1,19 @@
 {% import 'macro/stories.html' as story_blocks %}
 
-{% macro heading(heading_text, link, colour='#333', border_top=True, border_bottom=True, sidebar_colour='#000000') -%}
-<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left: 15px solid {{ sidebar_colour }};">
+{% macro heading(heading_text, link, colour='#ffffff', bg_colour='#000000') -%}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}">
 	<tr valign="top">
-		<td align="left" style="{% if border_top %}border-top: 1px solid #dedede;{% endif %}{% if border_bottom %} border-bottom: 1px solid #dedede;{% endif %}">
-			{% if link %}<a href="{{ link }}" style="font: 16px Georgia, Arial, sans-serif; display: block; font-weight: normal; padding: 8px 0 8px 10px; color: {{ colour }}; text-decoration: none;">{% endif %}
+		<td align="left" style="padding: 0 0 0 20px;">
+			<a href="{{ link }}" style="font: 17px Georgia, serif; display: block; font-weight: normal; line-height: 40px; color: {{ colour }}; text-decoration: none;">
 				{{ heading_text }}
-			{% if link %}</a>{% endif %}
+			</a>
+		</td>
+		<td>
+			<td width="105" align="center">
+				<a href="{{ link }}" style="font: 12px Arial, sans-serif; display: block; font-weight: normal; line-height: 40px; color: {{ colour }}; text-decoration: none;">
+					<div style="border-left: 1px solid #ffffff;">More like this <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></div>
+				</a>
+			</td>
 		</td>
 	</tr>
 </table>
@@ -25,9 +32,9 @@
 	{% set picture = picture[0] %}
 {% endif %}
 
-<tr><td style="padding-top: 20px;">
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242">
-		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', colour='#ffffff', border_top=False, border_bottom=False, link='http://www.guardian.co.uk/world/series/eyewitness', sidebar_colour='#00acda') }}</td></tr>
+<tr><td>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242" style="padding-bottom: 20px;">
+		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', link='http://www.guardian.co.uk/world/series/eyewitness', bg_colour='#00acda') }}</td></tr>
 		<tr><td align="left"><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
 			<td align="left" style="color: #ffffff; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
@@ -35,40 +42,25 @@
 		<tr>
 			<td align="left" style="color: #ccc; font: 12px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
 		</tr>
-		<tr>
-			<td align="left" style="font: 13px Helvetica, Arial, sans-serif; padding: 10px 25px; font-weight: bold">
-				<a href="http://www.guardian.co.uk/inpictures" style="color: #00acda; text-decoration: none;">More galleries <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a>
-			</td>
-		</tr>
 	</table>
 </td></tr>
 {% endmacro %}
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, sidebar_colour='#000000', more_text=None, thumbnail=True, standfirst=False, show_more=True, first_para=False) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False) -%}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
 {% endif %}
-<tr><td style="padding-top: 20px;">{{ heading(heading_text=heading_text, link=heading_link, sidebar_colour=sidebar_colour) }}<td></tr>
-<tr><td align="left">		
+<tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour) }}<td></tr>
+<tr><td align="left">
 	{% for story in stories %}
-		{% if loop.index <= 3 and thumbnail %}
-			{% set thumbnail = True %}
-		{% else %}	
-			{% set thumbnail = False %}
+		{% if loop.index == 1 and top_thumb %}
+			{% set use_thumbnail = True %}
+		{% else %}
+			{% set use_thumbnail = False %}
 		{% endif %}
-
-		{{ story_blocks.story(story, loop.index == 1, thumbnail=thumbnail, standfirst=standfirst, first_para=first_para) }}
+		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=standfirst, first_para=first_para) }}
 	{% endfor %}
-	
-`	{% if show_more %}
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 0 25px;">
-		<tr>
-			<td align="right"><a style="margin-top: 12px; display: block; padding: 12px 0 0 0; border-top: 1px dotted #dedede; color: #006fd5; font: 13px Helvetica, Arial, sans-serif; text-decoration: none; font-weight: bold;" href="{{ heading_link }}">More {{ more_text }} <span style="font-size: 15px; vertical-align: top; display:inline-block;">&#187;</span></a></td>
-		</tr>
-	</table>
-	{% endif %}
-
 </td></tr>
 {%- endmacro %}
 
