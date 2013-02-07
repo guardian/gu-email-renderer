@@ -17,7 +17,7 @@ from ads import AdFetcher
 
 
 URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://***REMOVED***.appspot.com"
-CACHE_PREFIX = 'V1'
+CACHE_PREFIX = 'V' + os.environ['CURRENT_VERSION_ID']
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
@@ -66,7 +66,6 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-
     data_sources = {
         'business': BusinessDataSource(),
         'technology': TechnologyDataSource(),
