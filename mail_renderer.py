@@ -2,6 +2,7 @@ import jinja2
 import os
 import webapp2
 import datetime
+import math
 
 
 from google.appengine.api import memcache
@@ -15,9 +16,9 @@ from data_source import \
 from template_filters import first_paragraph
 from ads import AdFetcher
 
-
-URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://***REMOVED***.appspot.com"
-CACHE_PREFIX = 'V' + os.environ['CURRENT_VERSION_ID']
+VERSION = str(int(math.floor(float(os.environ['CURRENT_VERSION_ID']))))
+URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://" + VERSION + ".***REMOVED***.appspot.com"
+CACHE_PREFIX = 'V' + VERSION
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
