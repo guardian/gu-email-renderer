@@ -1,0 +1,26 @@
+{
+	"name": "twitter-temperament",
+	"version": "0.0.1",
+	"author": "James Gorrie <jgorrie@gmail.com>",
+	"description": "A simple UI for viewing tweets received from the Adaptive Test API",
+	"scripts": {
+		"test": "mocha test"
+	},
+	"main": "twitter-temperament.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jamesgorrie/twitter-temperament.git"
+	},
+	"keywords": [
+		"twitter",
+		"temperament",
+		"analysis"
+	],
+	"dependancies": {},
+	"devDependancies": {
+		"mocha": "1.8.x"
+	},
+	"engines": {
+		"node": ">=0.8"
+	}
+}
