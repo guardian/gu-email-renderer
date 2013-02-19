@@ -56,10 +56,12 @@
 	{% for story in stories %}
 		{% if loop.index == 1 and top_thumb %}
 			{% set use_thumbnail = True %}
+			{% set use_standfirst = True %}
 		{% else %}
 			{% set use_thumbnail = False %}
+			{% set use_standfirst = standfirst %}
 		{% endif %}
-		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=standfirst, first_para=first_para) }}
+		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=use_standfirst, first_para=first_para) }}
 	{% endfor %}
 </td></tr>
 {%- endmacro %}
