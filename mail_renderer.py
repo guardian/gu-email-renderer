@@ -79,8 +79,8 @@ class DailyEmail(EmailTemplate):
         'most_viewed': MostViewedDataSource(),
         }
     priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3),
-                     ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2),
-                     ('lifeandstyle', 2)]
+                     ('culture', 3), ('business', 2),
+                     ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
     template_name = 'daily-email'
 
 
