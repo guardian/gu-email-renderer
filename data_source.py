@@ -73,6 +73,11 @@ class BusinessDataSource(ItemDataSource):
         ItemDataSource.__init__(self, 'business', show_editors_picks=True)
 
 
+class CommentIsFreeDataSource(ItemDataSource):
+    def __init__(self):
+        ItemDataSource.__init__(self, 'commentisfree', show_editors_picks=True)
+
+
 class TechnologyDataSource(ItemDataSource):
     def __init__(self):
         ItemDataSource.__init__(self, 'technology', show_editors_picks=True)
