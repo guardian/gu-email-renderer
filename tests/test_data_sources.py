@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 from urllib2 import urlparse
-import unittest
+import unittest2
 import urllib
 
 
@@ -30,7 +30,7 @@ class UrlCapturingFetcher():
         return (None, '{"response": {"results": [], "editorsPicks": [], "mostViewed": []}}')
 
 
-class TestDataSources(unittest.TestCase):
+class TestDataSources(unittest2.TestCase):
 
     def quote_params(self, query_params):
         quoted_params = {}
@@ -336,7 +336,7 @@ class TestDataSources(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()
     # test_should_call_api_with_correct_url_for_sport_section()
     # test_should_call_api_with_correct_url_for_culture_section()
     # test_should_call_api_with_correct_url_for_most_viewed()

@@ -92,6 +92,3 @@ class TestMailRenderer(unittest2.TestCase):
             self.fail('Unexpected exception: %s' % e)
         else:
             self.fail('Should have thrown HTTPNotFound')
-
-if __name__ == '__main__':
-    unittest.main()
