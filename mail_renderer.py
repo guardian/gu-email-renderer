@@ -3,6 +3,7 @@ import os
 import webapp2
 import datetime
 import math
+import logging
 
 
 from google.appengine.api import memcache
@@ -16,9 +17,13 @@ from data_source import \
 from template_filters import first_paragraph
 from ads import AdFetcher
 
-VERSION = str(int(math.floor(float(os.environ['CURRENT_VERSION_ID']))))
-URL_ROOT = '' if os.environ['SERVER_SOFTWARE'].startswith('Development') else "http://" + VERSION + ".***REMOVED***.appspot.com"
-CACHE_PREFIX = 'V' + VERSION
+if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
+    URL_ROOT = ''
+else:
+    URL_ROOT = 'http://***REMOVED***.appspot.com'
+
+
+
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
@@ -32,42 +37,65 @@ api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
 client = Client(base_url, api_key)
-adFetcher = AdFetcher()
 
 
 class EmailTemplate(webapp2.RequestHandler):
-    def template(self):
-        return jinja_environment.get_template(self.template_name + '.html')
+    cache = memcache
+    ad_fetcher = AdFetcher()
 
-    def get(self):
-        cache_key = CACHE_PREFIX + self.template_name
-        page = memcache.get(cache_key)
+    def check_version_id(self, version_id):
+        if not version_id in self.recognized_versions:
+            logging.exception('Unrecognized version: %s' % version_id)
+            self.abort(404)
+
+    def resolve_template(self, template_name):
+        return jinja_environment.get_template(template_name)
+
+    def get(self, version_id):
+        self.check_version_id(version_id)
+
+        cache_key = version_id + str(self.__class__)
+        page = self.cache.get(cache_key)
 
         if not page:
-            retrieved_data = fetch_all(client, self.data_sources)
-            trail_blocks = build_unique_trailblocks(3, retrieved_data, self.priority_list)
+            logging.debug('Cache miss with key: %s' % cache_key)
+            retrieved_data = fetch_all(client, self.data_sources[version_id])
+            trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
             today = datetime.datetime.now()
             date = today.strftime('%A %d %b %Y')
 
-            page = self.template().render(ad_html=adFetcher.leaderboard(), date=date, **trail_blocks)
-            memcache.add(cache_key, page, 300)
+            template_name = self.template_names[version_id] + '.html'
+            template = self.resolve_template(template_name)
+
+            page = template.render(ad_html=self.ad_fetcher.leaderboard(), date=date, **trail_blocks)
+            self.cache.add(cache_key, page, 300)
+        else:
+            logging.debug('Cache hit with key: %s' % cache_key)
 
         self.response.out.write(page)
 
 
 class MediaBriefing(EmailTemplate):
+    recognized_versions = ['v1']
 
-    data_sources = {
+    data_sources = {}
+    data_sources['v1'] = {
         'media_stories': MediaDataSource(),
         'media_comment': MediaCommentDataSource(),
         'media_monkey': MediaMonkeyDataSource()
         }
-    priority_list = [('media_stories', 8), ('media_comment', 1), ('media_monkey', 1)]
-    template_name = 'media-briefing'
+
+    priority_list = {}
+    priority_list['v1'] = [('media_stories', 8), ('media_comment', 1), ('media_monkey', 1)]
+
+    template_names = {'v1': 'media-briefing'}
 
 
 class DailyEmail(EmailTemplate):
-    data_sources = {
+    recognized_versions = ['v1']
+
+    data_sources = {}
+    data_sources['v1'] = {
         'business': BusinessDataSource(),
         'technology': TechnologyDataSource(),
         'travel': TravelDataSource(),
@@ -79,25 +107,33 @@ class DailyEmail(EmailTemplate):
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
-    priority_list = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3),
-                     ('commentisfree', 3), ('culture', 3), ('business', 2),
-                     ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
-    template_name = 'daily-email'
+
+    priority_list = {}
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3),
+                           ('commentisfree', 3), ('culture', 3), ('business', 2),
+                           ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
+
+    template_names = {'v1': 'daily-email'}
 
 
 class SleeveNotes(EmailTemplate):
-    data_sources = {
+    recognized_versions = ['v1']
+
+    data_sources = {}
+    data_sources['v1'] = {
         'music_most_viewed': MusicMostViewedDataSource(),
         'music_news': MusicNewsDataSource(),
         'music_blog': MusicBlogDataSource(),
         'music_watch_listen': MusicWatchListenDataSource(),
         'music_editors_picks': MusicEditorsPicksDataSource(),
         }
-    priority_list = [('music_most_viewed', 3), ('music_news', 5), ('music_blog', 5),
-                     ('music_watch_listen', 5), ('music_editors_picks', 3)]
-    template_name = 'sleeve-notes'
 
-app = webapp2.WSGIApplication([('/daily-email', DailyEmail),
-                               ('/media-briefing', MediaBriefing),
-                               ('/sleeve-notes', SleeveNotes)],
+    priority_list = {}
+    priority_list['v1'] = [('music_most_viewed', 3), ('music_news', 5), ('music_blog', 5),
+                           ('music_watch_listen', 5), ('music_editors_picks', 3)]
+    template_names = {'v1': 'sleeve-notes'}
+
+app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
+                               ('/media-briefing/(.+)', MediaBriefing),
+                               ('/sleeve-notes/(.+)', SleeveNotes)],
                               debug=True)

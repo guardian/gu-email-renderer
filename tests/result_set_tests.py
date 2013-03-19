@@ -11,7 +11,7 @@ def test_should_be_able_to_dedupe_result_sets():
 
     priority_list = [('chess', size), ('news', size), ('sport', size), ('travel', size)]
 
-    deduped_data = build_unique_trailblocks(size, data, priority_list)
+    deduped_data = build_unique_trailblocks(data, priority_list)
 
     assert deduped_data['chess'] == [{'id': 1}, {'id': 2}, {'id': 3}]
     assert deduped_data['news'] == [{'id': 4}, {'id': 5}, {'id': 6}]
@@ -30,7 +30,7 @@ def test_should_be_able_to_dedupe_result_sets():
 
     priority_list = [('chess', 2), ('news', 4), ('sport', 1), ('travel', 3)]
 
-    deduped_data = build_unique_trailblocks(size, data, priority_list)
+    deduped_data = build_unique_trailblocks(data, priority_list)
 
     assert deduped_data['chess'] == [{'id': 1}, {'id': 2}]
     assert deduped_data['news'] == [{'id': 3}, {'id': 4}, {'id': 5}, {'id': 6}]
@@ -48,7 +48,7 @@ def test_we_never_show_dupes_even_if_we_run_out_of_items():
 
     priority_list = [('chess', size), ('news', size), ('sport', size), ('travel', size)]
 
-    deduped_data = build_unique_trailblocks(size, data, priority_list)
+    deduped_data = build_unique_trailblocks(data, priority_list)
 
     assert deduped_data['chess'] == [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}]
     assert deduped_data['news'] == [{'id': 5}, {'id': 6}, {'id': 7}, {'id': 8}]

@@ -188,7 +188,7 @@ class DataSourceException(Exception):
     pass
 
 
-def build_unique_trailblocks(_, data, priority_list):
+def build_unique_trailblocks(data, priority_list):
     """
     data is a map of type string->list list is a list of maps each of
     which contains the field 'id'.  priority_list is a list of pairs:
