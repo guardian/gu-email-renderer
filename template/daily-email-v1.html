@@ -1,0 +1,29 @@
+{# Daily (Guardian Today) email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set email_logo_img = 'today.png' %}
+{% set email_color = '#004179' %}
+
+{% block title %}Guardian Today{% endblock %}
+{% block content %}
+
+{{ layout.story_trail('Editor\'s picks', top_stories, 'http://www.guardian.co.uk') }}
+{{ layout.advert(ad_html) }}
+{{ layout.story_trail('Most viewed in last 24 hours', most_viewed, 'http://www.guardian.co.uk/mostviewed', 'most viewed') }}
+{{ layout.picture_of_day(eye_witness) }}
+{{ layout.story_trail('Sport', sport, 'http://www.guardian.co.uk/sport') }}
+{{ layout.story_trail('Culture', culture, 'http://www.guardian.co.uk/culture') }}
+
+<tr><td style="padding-top: 20px;">{{ layout.heading(heading_text='Business', link='http://www.guardian.co.uk/business') }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Technology', link='http://www.guardian.co.uk/technology') }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Travel', link='http://www.guardian.co.uk/travel') }}<td></tr>
+<tr><td>{{ layout.heading(heading_text='Life and style', link='http://www.guardian.co.uk/lifeandstyle') }}<td></tr>
+
+{% endblock content %}
+
+{% set facebook_page = 'theguardian' %}
+{% set twitter_account = 'guardian' %}
+
+{% set sections = (('Football', 'http://www.guardian.co.uk/football'), ('Comment is free', 'http://www.guardian.co.uk/commentisfree'), ('Environment', 'http://www.guardian.co.uk/environment')) %}

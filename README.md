@@ -8,11 +8,21 @@ This app renders Guardian emails from content in the Content API.
 This is a Python appengine application. Grab the source and then run
 the dev appserver provided in the Google appengine SDK. From within
 the email renderer's directory and assuming you have the linux tools
-in yuor home directory:
+in your home directory:
 
     ~/linux-dev/google_appengine/dev_appserver.py . --port=8888
 
 You can then view the daily email at http://localhost:8888/daily-email.
+
+## Running the tests
+
+The script is in the root directory of the project:
+
+    ./test_runner.py <path-to-appengine>
+
+On my machine this is:
+
+    ./test_runner.py <path-to-appengine> ~/linux-dev/google_appengine/
 
 ## Details
 

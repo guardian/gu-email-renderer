@@ -92,7 +92,7 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2']
 
     data_sources = {}
     data_sources['v1'] = {
@@ -101,19 +101,20 @@ class DailyEmail(EmailTemplate):
         'travel': TravelDataSource(),
         'lifeandstyle': LifeAndStyleDataSource(),
         'sport': SportDataSource(),
-        'commentisfree': CommentIsFreeDataSource(),
         'culture': CultureDataSource(),
         'top_stories': TopStoriesDataSource(),
         'eye_witness': EyeWitnessDataSource(),
         'most_viewed': MostViewedDataSource(),
         }
+    data_sources['v2'] = data_sources['v1']
+
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3),
-                           ('commentisfree', 3), ('culture', 3), ('business', 2),
-                           ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
+    priority_list['v1'] = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
+    priority_list['v2'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), \
+                               ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
 
-    template_names = {'v1': 'daily-email'}
+    template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
 
 
 class SleeveNotes(EmailTemplate):
