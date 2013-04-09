@@ -1,29 +1,92 @@
 {# Daily (Guardian Today) email template #}
-
+n
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set email_logo_img = 'today.png' %}
-{% set email_color = '#004179' %}
+
+{% set title = 'the guardian today' %}
+{% set title_link = 'http://www.guardian.co.uk' %}
+{% set title_colour = '#333333' %}
+{% set logo_background = '#004179' %}
+{% set facebook_page = 'theguardian' %}
+{% set twitter_account = 'guardian' %}
+{% set footer_colour = 'light' %}
 
 {% block title %}Guardian Today{% endblock %}
+
 {% block content %}
 
-{{ layout.story_trail('Editor\'s picks', top_stories, 'http://www.guardian.co.uk') }}
-{{ layout.advert(ad_html) }}
-{{ layout.story_trail('Most viewed in last 24 hours', most_viewed, 'http://www.guardian.co.uk/mostviewed', 'most viewed') }}
-{{ layout.picture_of_day(eye_witness) }}
-{{ layout.story_trail('Sport', sport, 'http://www.guardian.co.uk/sport') }}
-{{ layout.story_trail('Culture', culture, 'http://www.guardian.co.uk/culture') }}
+    {{ layout.story_trail(heading_text='Editor\'s picks',
+        stories=top_stories,
+        heading_link='http://www.guardian.co.uk',
+        heading_colour='#c22d05',
+        top_thumb=True,
+        standfirst=False) }}
 
-<tr><td style="padding-top: 20px;">{{ layout.heading(heading_text='Business', link='http://www.guardian.co.uk/business') }}<td></tr>
-<tr><td>{{ layout.heading(heading_text='Technology', link='http://www.guardian.co.uk/technology') }}<td></tr>
-<tr><td>{{ layout.heading(heading_text='Travel', link='http://www.guardian.co.uk/travel') }}<td></tr>
-<tr><td>{{ layout.heading(heading_text='Life and style', link='http://www.guardian.co.uk/lifeandstyle') }}<td></tr>
+    {{ layout.advert(ad_html) }}
+
+    {{ layout.story_trail(
+        heading_text='Most viewed in last 24 hours',
+        stories=most_viewed,
+        heading_link='http://www.guardian.co.uk/mostviewed',
+        heading_colour='#004179',
+        top_thumb=True,
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Sport',
+        stories=sport,
+        heading_link='http://www.guardian.co.uk/sport',
+        heading_colour='#20a111',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Comment is free',
+        stories=comment,
+        heading_link='http://www.guardian.co.uk/commentisfree',
+        heading_colour='#0061a6',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Culture',
+        stories=culture,
+        heading_link='http://www.guardian.co.uk/culture',
+        heading_colour='#d1008b',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Business',
+        stories=business,
+        heading_link='http://www.guardian.co.uk/business',
+        heading_colour='#004179',
+        thumbnail=False,
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Technology',
+        stories=technology,
+        heading_link='http://www.guardian.co.uk/technology',
+        heading_colour='#d61d00',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Travel',
+        stories=travel,
+        heading_link='http://www.guardian.co.uk/travel',
+        heading_colour='#066ec9',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Life and style',
+        stories=lifeandstyle,
+        heading_link='http://www.guardian.co.uk/lifeandstyle',
+        heading_colour='#ea721e',
+        standfirst=False) }}
+
+    {{ layout.picture_of_day(eye_witness) }}
 
 {% endblock content %}
 
-{% set facebook_page = 'theguardian' %}
-{% set twitter_account = 'guardian' %}
-
-{% set sections = (('Football', 'http://www.guardian.co.uk/football'), ('Comment is free', 'http://www.guardian.co.uk/commentisfree'), ('Environment', 'http://www.guardian.co.uk/environment')) %}
+{% set sections = (('Football', 'http://www.guardian.co.uk/football'),
+                   ('Comment is free', 'http://www.guardian.co.uk/commentisfree'),
+                   ('Environment', 'http://www.guardian.co.uk/environment')) %}

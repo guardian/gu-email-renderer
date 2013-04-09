@@ -101,6 +101,7 @@ class DailyEmail(EmailTemplate):
         'travel': TravelDataSource(),
         'lifeandstyle': LifeAndStyleDataSource(),
         'sport': SportDataSource(),
+        'comment': CommentIsFreeDataSource(),
         'culture': CultureDataSource(),
         'top_stories': TopStoriesDataSource(),
         'eye_witness': EyeWitnessDataSource(),
@@ -110,8 +111,11 @@ class DailyEmail(EmailTemplate):
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 3), ('most_viewed', 3), ('eye_witness', 1), ('sport', 3), ('culture', 3)]
-    priority_list['v2'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3), \
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2),
+                           ('eye_witness', 1)]
+
+    priority_list['v2'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3),
                                ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
 
     template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
@@ -123,6 +127,7 @@ class SleeveNotes(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'music_most_viewed': MusicMostViewedDataSource(),
+
         'music_news': MusicNewsDataSource(),
         'music_blog': MusicBlogDataSource(),
         'music_watch_listen': MusicWatchListenDataSource(),
