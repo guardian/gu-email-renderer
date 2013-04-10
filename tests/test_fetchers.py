@@ -17,6 +17,8 @@ class ApiStubFetcher:
 
     def get(self, url):
         (_, _, path, _, query, _) = urlparse.urlparse(url)
+        if path == '/i/am/a/short/url':
+            return self.content_result()
         if path == '/search':
             return self.search_results()
         if path == '/sport':
@@ -25,6 +27,38 @@ class ApiStubFetcher:
             return self.editors_picks_results()
         if 'show-most-viewed' in query:
             return self.most_viewed_results()
+
+
+    def content_result(self):
+        response = """
+            {
+              "response":{
+                "status":"ok",
+                "userTier":"internal",
+                "total":1,
+                "content":{
+                  "id":"content_1",
+                  "sectionId":"cif",
+                  "sectionName":"cif name",
+                  "webPublicationDate":"2013-04-09T07:00:09Z",
+                  "webTitle":"Toynbee speaks",
+                  "webUrl":"http://www.guardian.co.uk/technology/gamesblog/2013/apr/09/press-start-game-news",
+                  "apiUrl":"http://content.guardianapis.com/technology/gamesblog/2013/apr/09/press-start-game-news",
+                  "fields":{
+                    "trailText":"Stuff happened",
+                    "headline":"More stuff happened",
+                    "standfirst":"Stand by your man",
+                    "thumbnail":"thumb piano",
+                    "commentable":"true",
+                    "byline":"Keith",
+                    "liveBloggingNow":"false"
+                  }
+                }
+              }
+            }
+            """
+
+        return (self.status, response)
 
 
     def most_viewed_results(self):

@@ -1,3 +1,5 @@
+import logging
+
 # Always exclude picture desk due to media problems
 DEFAULT_TAGS = ['-news/series/picture-desk-live']
 
@@ -10,7 +12,7 @@ class DataSource(object):
         self.show_media = None
         self.from_date = None
         self.show_most_viewed = False
-
+        self.short_url = None
 
     def fetch_data(self, client):
         criteria = self._build_criteria()
@@ -42,7 +44,16 @@ class DataSource(object):
         if self.from_date:
             criteria['from-date'] = self.from_date
 
+        if self.short_url:
+            criteria['short_url'] = self.short_url
+
         return criteria
+
+
+#class ShortUrlDataSource(DataSource):
+#    def __init__(short_url):
+#        DataSource.__init__(self, short_url=short_url)
+
 
 
 class SearchDataSource(DataSource):
@@ -61,6 +72,16 @@ class ItemDataSource(DataSource):
 
     def _do_call(self, client, **criteria):
         return client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
+
+
+class ContentDataSource(ItemDataSource):
+    def __init__(self, content_id, show_editors_picks=False, show_most_viewed=False):
+        ItemDataSource.__init__(self, section=content_id)
+        self.page_size = None
+
+
+    def _do_call(self, client, **criteria):
+        return client.content_query(self.section, **criteria)
 
 
 class CultureDataSource(ItemDataSource):
@@ -217,6 +238,8 @@ def fetch_all(client, data_sources):
     data is a map of type string->data_source.
     return a map with same keys as data, and retrieved data as values
     """
+
+    # import pdb;pdb.set_trace()
     retrieved_data_map = {}
     for key in data_sources.keys():
         retrieved_data = data_sources[key].fetch_data(client)

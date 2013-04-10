@@ -62,5 +62,15 @@ class Client(object):
 
         return editors_picks + results
 
+
+    def content_query(self, content_id, **kwargs):
+        json = self._do_call(content_id, **kwargs)
+
+        results = []
+        if json['response'].has_key('content'):
+            results = [json['response']['content']]
+
+        return results
+
     def __repr__(self):
         return '<%s: %s>' % (self.__class__.__name__, self.base_url)

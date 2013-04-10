@@ -12,7 +12,7 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
-    MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
+    MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, fetch_all, build_unique_trailblocks
 from template_filters import first_paragraph
 from ads import AdFetcher
@@ -121,6 +121,13 @@ class DailyEmail(EmailTemplate):
     template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
 
 
+class ShortUrl(webapp2.RequestHandler):
+    def get(self, short_url):
+        data_sources = {'short_url': ContentDataSource(content_id=short_url)}
+        retrieved_data = fetch_all(client, data_sources)
+        self.response.out.write(retrieved_data)
+
+
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1']
 
@@ -141,5 +148,6 @@ class SleeveNotes(EmailTemplate):
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
-                               ('/sleeve-notes/(.+)', SleeveNotes)],
+                               ('/sleeve-notes/(.+)', SleeveNotes),
+                                ('/short-url/(.+)', ShortUrl)],
                               debug=True)

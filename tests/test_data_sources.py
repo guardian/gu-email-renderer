@@ -12,7 +12,7 @@ from data_source import \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
-    DataSourceException, fetch_all
+    DataSourceException, ContentDataSource, fetch_all
 from guardianapi.client import Client
 from datetime import datetime
 from test_fetchers import ApiStubFetcher
@@ -125,6 +125,9 @@ class TestDataSources(unittest2.TestCase):
                                    show_fields=Fields,
                                    show_media='picture',
                                    show_most_viewed='true')
+
+    def test_content_data_source_should_call_api_with_correct_url(self):
+        self.check_data_source_url(ContentDataSource('content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline')
 
 
     def test_should_call_api_with_correct_url_for_pic_of_the_day(self):
@@ -242,6 +245,36 @@ class TestDataSources(unittest2.TestCase):
         assert result.has_key('webTitle')
         assert result.has_key('fields')
         assert result.has_key('sectionName')
+
+    def test_a_content_datasource_should_know_how_to_process_response(self):
+        # import pdb; pdb.set_trace()
+        fetcher = ApiStubFetcher()
+        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        data_source = ContentDataSource('i/am/a/short/url')
+        data = data_source.fetch_data(client)
+
+        assert len(data) == 1
+        result = data[0]
+        assert result['id'] == 'content_1'
+        assert result['sectionName'] == 'cif name'
+        assert result['sectionId'] == 'cif'
+        assert result['webTitle'] == 'Toynbee speaks'
+        assert result['fields']['trailText'] == 'Stuff happened'
+        assert result['fields']['headline'] == 'More stuff happened'
+        assert result['fields']['thumbnail'] == "thumb piano"
+        assert result['fields']['standfirst'] == "Stand by your man"
+        assert result['fields']['byline'] == "Keith"
+        assert result['fields']['liveBloggingNow'] == "false"
+
+
+    #        assert result.has_key('apiUrl')
+#        assert result.has_key('webPublicationDate')
+#        assert result.has_key('sectionName')
+#        assert result.has_key('webTitle')
+#        assert result.has_key('fields')
+#        assert result.has_key('sectionName')
+
+        #self.fail("I don't work")
 
 
     def test_if_most_viewed_are_included_these_alone_should_be_returned(self):
