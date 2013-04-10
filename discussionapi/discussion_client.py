@@ -20,7 +20,10 @@ class DiscussionFetcher:
         return short_url_list
 
     def _build_url(self, page_size):
-        return '%s/popular?pageSize=%s' % (self.client.base_url, page_size)
+        url = self.client.base_url
+        if url[-1] == '/':
+            url = url[:-1]
+        return '%s/popular?pageSize=%s' % (url, page_size)
 
     def _parse_response(self, response):
         pass

@@ -19,3 +19,12 @@ class TestDiscussionClient(unittest2.TestCase):
 
         expected_url = 'http://discussion.com/api/popular?pageSize=123'
         self.assertEquals(expected_url, client.actual_url)
+
+    def test_the_fetcher_should_be_cool_about_trailing_slashes_on_the_base_url(self):
+        base_url = 'http://discussion.com/api/' # Different from the last test, yeah?
+        client = MockClient(base_url)
+        fetcher = DiscussionFetcher(client)
+        fetcher.fetch_most_commented(123)
+
+        expected_url = 'http://discussion.com/api/popular?pageSize=123'
+        self.assertEquals(expected_url, client.actual_url)
