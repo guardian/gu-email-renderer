@@ -6,7 +6,7 @@ except:
 import urllib, urlparse
 import fetchers
 
-class Client(object):
+class ApiClient(object):
 
     def __init__(self, base_url, api_key, fetcher=None):
         self.base_url = base_url

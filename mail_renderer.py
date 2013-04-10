@@ -7,7 +7,7 @@ import logging
 
 
 from google.appengine.api import memcache
-from guardianapi.client import Client
+from guardianapi.apiClient import ApiClient
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
@@ -36,7 +36,7 @@ jinja_environment.cache = None
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
-client = Client(base_url, api_key)
+api_client = ApiClient(base_url, api_key)
 
 
 class EmailTemplate(webapp2.RequestHandler):
@@ -59,7 +59,7 @@ class EmailTemplate(webapp2.RequestHandler):
 
         if not page:
             logging.debug('Cache miss with key: %s' % cache_key)
-            retrieved_data = fetch_all(client, self.data_sources[version_id])
+            retrieved_data = fetch_all(api_client, self.data_sources[version_id])
             trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
             today = datetime.datetime.now()
             date = today.strftime('%A %d %b %Y')
@@ -124,7 +124,7 @@ class DailyEmail(EmailTemplate):
 class ShortUrl(webapp2.RequestHandler):
     def get(self, short_url):
         data_sources = {'short_url': ContentDataSource(content_id=short_url)}
-        retrieved_data = fetch_all(client, data_sources)
+        retrieved_data = fetch_all(api_client, data_sources)
         self.response.out.write(retrieved_data)
 
 

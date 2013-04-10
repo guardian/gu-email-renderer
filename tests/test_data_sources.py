@@ -13,7 +13,7 @@ from data_source import \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
     DataSourceException, ContentDataSource, fetch_all
-from guardianapi.client import Client
+from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher
 
@@ -72,7 +72,7 @@ class TestDataSources(unittest2.TestCase):
             expected_args['tag'] += ',-news/series/picture-desk-live'
 
         fetcher = UrlCapturingFetcher()
-        client = Client('http://content.guardianapis.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher)
         data_source.fetch_data(client)
 
         if DEBUG:
@@ -232,7 +232,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_a_search_data_source_should_know_how_to_process_response(self):
         fetcher = ApiStubFetcher()
-        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = SearchDataSource()
         data = data_source.fetch_data(client)
 
@@ -249,7 +249,7 @@ class TestDataSources(unittest2.TestCase):
     def test_a_content_datasource_should_know_how_to_process_response(self):
         # import pdb; pdb.set_trace()
         fetcher = ApiStubFetcher()
-        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = ContentDataSource('i/am/a/short/url')
         data = data_source.fetch_data(client)
 
@@ -283,7 +283,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, show_most_viewed=True)
 
         fetcher = ApiStubFetcher()
-        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = TestMostViwedDataSource()
         data = data_source.fetch_data(client)
         self.assertEquals(len(data), 2)
@@ -310,7 +310,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, show_editors_picks=True)
 
         fetcher = ApiStubFetcher()
-        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = TestEditorsPicksDataSource()
         data = data_source.fetch_data(client)
         assert len(data) == 4
@@ -329,7 +329,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response(self):
         fetcher = ApiStubFetcher()
-        client = Client('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = SportDataSource()
         data = data_source.fetch_data(client)
         assert len(data) == 1
