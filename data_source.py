@@ -50,11 +50,13 @@ class DataSource(object):
         return criteria
 
 
-#class ShortUrlDataSource(DataSource):
-#    def __init__(short_url):
-#        DataSource.__init__(self, short_url=short_url)
+class MostCommentedDataSource(DataSource):
+    def __init__(self, page_size):
+        self.page_size = page_size
 
 
+    def fetch_data(self, client):
+        pass
 
 class SearchDataSource(DataSource):
     def _do_call(self, client, **criteria):
@@ -75,7 +77,7 @@ class ItemDataSource(DataSource):
 
 
 class ContentDataSource(ItemDataSource):
-    def __init__(self, content_id, show_editors_picks=False, show_most_viewed=False):
+    def __init__(self, content_id):
         ItemDataSource.__init__(self, section=content_id)
         self.page_size = None
 
