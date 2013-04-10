@@ -38,7 +38,7 @@ class MockDataSource:
     def __init__(self):
         self.data_fetched = False
 
-    def fetch_data(self, client):
+    def fetch_data(self):
         self.data_fetched = True
         return [{'id': i} for i in range(20)]
 

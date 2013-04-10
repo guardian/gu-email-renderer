@@ -36,7 +36,7 @@ jinja_environment.cache = None
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
-api_client = ApiClient(base_url, api_key)
+client = ApiClient(base_url, api_key)
 
 
 class EmailTemplate(webapp2.RequestHandler):
@@ -59,7 +59,7 @@ class EmailTemplate(webapp2.RequestHandler):
 
         if not page:
             logging.debug('Cache miss with key: %s' % cache_key)
-            retrieved_data = fetch_all(api_client, self.data_sources[version_id])
+            retrieved_data = fetch_all(client, self.data_sources[version_id])
             trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
             today = datetime.datetime.now()
             date = today.strftime('%A %d %b %Y')
@@ -80,9 +80,9 @@ class MediaBriefing(EmailTemplate):
 
     data_sources = {}
     data_sources['v1'] = {
-        'media_stories': MediaDataSource(),
-        'media_comment': MediaCommentDataSource(),
-        'media_monkey': MediaMonkeyDataSource()
+        'media_stories': MediaDataSource(client),
+        'media_comment': MediaCommentDataSource(client),
+        'media_monkey': MediaMonkeyDataSource(client)
         }
 
     priority_list = {}
@@ -96,16 +96,16 @@ class DailyEmail(EmailTemplate):
 
     data_sources = {}
     data_sources['v1'] = {
-        'business': BusinessDataSource(),
-        'technology': TechnologyDataSource(),
-        'travel': TravelDataSource(),
-        'lifeandstyle': LifeAndStyleDataSource(),
-        'sport': SportDataSource(),
-        'comment': CommentIsFreeDataSource(),
-        'culture': CultureDataSource(),
-        'top_stories': TopStoriesDataSource(),
-        'eye_witness': EyeWitnessDataSource(),
-        'most_viewed': MostViewedDataSource(),
+        'business': BusinessDataSource(client),
+        'technology': TechnologyDataSource(client),
+        'travel': TravelDataSource(client),
+        'lifeandstyle': LifeAndStyleDataSource(client),
+        'sport': SportDataSource(client),
+        'comment': CommentIsFreeDataSource(client),
+        'culture': CultureDataSource(client),
+        'top_stories': TopStoriesDataSource(client),
+        'eye_witness': EyeWitnessDataSource(client),
+        'most_viewed': MostViewedDataSource(client),
         }
     data_sources['v2'] = data_sources['v1']
 
@@ -124,7 +124,7 @@ class DailyEmail(EmailTemplate):
 class ShortUrl(webapp2.RequestHandler):
     def get(self, short_url):
         data_sources = {'short_url': ContentDataSource(content_id=short_url)}
-        retrieved_data = fetch_all(api_client, data_sources)
+        retrieved_data = fetch_all(client, data_sources)
         self.response.out.write(retrieved_data)
 
 
@@ -133,12 +133,12 @@ class SleeveNotes(EmailTemplate):
 
     data_sources = {}
     data_sources['v1'] = {
-        'music_most_viewed': MusicMostViewedDataSource(),
+        'music_most_viewed': MusicMostViewedDataSource(client),
 
-        'music_news': MusicNewsDataSource(),
-        'music_blog': MusicBlogDataSource(),
-        'music_watch_listen': MusicWatchListenDataSource(),
-        'music_editors_picks': MusicEditorsPicksDataSource(),
+        'music_news': MusicNewsDataSource(client),
+        'music_blog': MusicBlogDataSource(client),
+        'music_watch_listen': MusicWatchListenDataSource(client),
+        'music_editors_picks': MusicEditorsPicksDataSource(client),
         }
 
     priority_list = {}
