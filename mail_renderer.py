@@ -33,6 +33,7 @@ jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
 jinja_environment.cache = None
 
+# TODO: Hide me away somewhere warm and secret.
 api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 

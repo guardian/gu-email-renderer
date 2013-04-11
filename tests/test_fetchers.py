@@ -1,10 +1,8 @@
 from urllib2 import urlparse
 import urllib
+import simplejson
 
-
-class ApiStubFetcher:
-
-    status = """
+Status = """
         {'status': '200', 'content-length': '10614', 'x-content-api-build': '1998', 'proxy-connection': 'keep-alive',
          'vary': 'Accept,Accept-Encoding', 'x-lift-version': '2.4', 'x-gu-jas': 'ea12a9802fea0a87cff65d3d23752cec!600461558@qtp-1761506447-286',
          'keep-alive': '60', 'expires': 'Tue, 18 Dec 2012 15:19:33 GMT', 'server': 'Mashery Proxy', 'date': 'Tue, 18 Dec 2012 15:18:33 GMT',
@@ -13,24 +11,7 @@ class ApiStubFetcher:
          'content-location': 'http://content.guardianapis.com/search?page-size=10&format=json&section=culture&api-key=***REMOVED***&tag=type%2Farticle&show-fields=trailText%2Cheadline%2CliveBloggingNow%2Cstandfirst%2Ccommentable%2Cthumbnail%2Cbyline'}
         """
 
-
-
-    def get(self, url):
-        (_, _, path, _, query, _) = urlparse.urlparse(url)
-        if path == '/i/am/a/short/url':
-            return self.content_result()
-        if path == '/search':
-            return self.search_results()
-        if path == '/sport':
-            return self.sport_results()
-        if 'show-editors-picks' in query:
-            return self.editors_picks_results()
-        if 'show-most-viewed' in query:
-            return self.most_viewed_results()
-
-
-    def content_result(self):
-        response = """
+ContentResponse = """
             {
               "response":{
                 "status":"ok",
@@ -58,6 +39,42 @@ class ApiStubFetcher:
             }
             """
 
+class ContentIdRememberingStubClient:
+    def __init__(self):
+        self.content_ids = []
+
+    def content_query(self, content_id, **criteria):
+        self.content_ids.append(content_id)
+
+        json =  simplejson.loads(ContentResponse)
+        results = []
+        if json['response'].has_key('content'):
+            results = [json['response']['content']]
+
+        return results
+
+
+
+class ApiStubFetcher:
+
+    status = Status
+
+    def get(self, url):
+        (_, _, path, _, query, _) = urlparse.urlparse(url)
+        if path == '/i/am/a/short/url':
+            return self.content_result()
+        if path == '/search':
+            return self.search_results()
+        if path == '/sport':
+            return self.sport_results()
+        if 'show-editors-picks' in query:
+            return self.editors_picks_results()
+        if 'show-most-viewed' in query:
+            return self.most_viewed_results()
+
+
+    def content_result(self):
+        response = ContentResponse
         return (self.status, response)
 
 

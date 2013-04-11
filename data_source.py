@@ -87,6 +87,19 @@ class ItemDataSource(DataSource):
         return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
 
 
+
+class MultiContentDataSource(ItemDataSource):
+    def __init__(self, client, content_ids):
+        ItemDataSource.__init__(self, client)
+        self.content_ids = content_ids
+
+    def _do_call(self, **criteria):
+        result = []
+        for id in self.content_ids:
+            result.extend(self.client.content_query(id, **criteria))
+        return result
+
+
 class ContentDataSource(ItemDataSource):
     def __init__(self, client, content_id):
         ItemDataSource.__init__(self, client, section=content_id)

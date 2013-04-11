@@ -12,10 +12,10 @@ from data_source import \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
-    DataSourceException, ContentDataSource, fetch_all
+    DataSourceException, ContentDataSource, MultiContentDataSource, fetch_all
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
-from test_fetchers import ApiStubFetcher
+from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient
 
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
@@ -268,16 +268,6 @@ class TestDataSources(unittest2.TestCase):
         assert result['fields']['liveBloggingNow'] == "false"
 
 
-    #        assert result.has_key('apiUrl')
-#        assert result.has_key('webPublicationDate')
-#        assert result.has_key('sectionName')
-#        assert result.has_key('webTitle')
-#        assert result.has_key('fields')
-#        assert result.has_key('sectionName')
-
-        #self.fail("I don't work")
-
-
     def test_if_most_viewed_are_included_these_alone_should_be_returned(self):
         class TestMostViwedDataSource(ItemDataSource):
             def __init__(self, client):
@@ -352,6 +342,41 @@ class TestDataSources(unittest2.TestCase):
         assert len(retrieved_data.keys()) == 2
         assert retrieved_data['cheese'] == 'stub data 1'
         assert retrieved_data['pickle'] == 'stub data 2'
+
+
+    def test_multi_content_data_source_should_retrieve_content_for_each_of_the_supplied_ids(self):
+        client = ContentIdRememberingStubClient()
+        id_list = ['cat', 'spoon', 'mouse', 'dog']
+        data_source = MultiContentDataSource(client, id_list)
+        data_source.fetch_data()
+        self.assertEquals(set(client.content_ids), set(id_list))
+
+    def test_multi_content_data_source_should_return_data_in_correct_format(self):
+        client = ContentIdRememberingStubClient()
+        id_list = ['cat', 'spoon', 'mouse', 'dog']
+        data_source = MultiContentDataSource(client, id_list)
+        data = data_source.fetch_data()
+
+
+        expected_content = {u'apiUrl': u'http://content.guardianapis.com/technology/gamesblog/2013/apr/09/press-start-game-news',
+                            u'fields': {u'byline': u'Keith',
+                                        u'commentable': u'true',
+                                        u'headline': u'More stuff happened',
+                                        u'liveBloggingNow': u'false',
+                                        u'standfirst': u'Stand by your man',
+                                        u'thumbnail': u'thumb piano',
+                                        u'trailText': u'Stuff happened'},
+                            u'id': u'content_1',
+                            u'sectionId': u'cif',
+                            u'sectionName': u'cif name',
+                            u'webPublicationDate': u'2013-04-09T07:00:09Z',
+                            u'webTitle': u'Toynbee speaks',
+                            u'webUrl': u'http://www.guardian.co.uk/technology/gamesblog/2013/apr/09/press-start-game-news'}
+
+        expected_data = []
+        for i in range(4):
+            expected_data.append(expected_content)
+        self.assertEquals(expected_data, data)
 
 
 if __name__ == '__main__':
