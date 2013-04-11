@@ -347,7 +347,7 @@ class TestDataSources(unittest2.TestCase):
 
 
         data_source_map = {'cheese': StubDataSource1(), 'pickle': StubDataSource2()}
-        retrieved_data = fetch_all(None, data_source_map)
+        retrieved_data = fetch_all(data_source_map)
 
         assert len(retrieved_data.keys()) == 2
         assert retrieved_data['cheese'] == 'stub data 1'

@@ -53,10 +53,15 @@ class DataSource(object):
 
 
 class MostCommentedDataSource(DataSource):
-    def __init__(self, client, page_size):
+    """
+    I ask a DiscussionFetcher to fetch me a page of short_url /
+    comment_count pairs. For each of these I ask my ContentDataSource to
+    fetch the article from the content api. I interpolate the associated
+    comment count into each retrieved article.
+    """
+    def __init__(self, client, discussion_fetcher, content_data_source, page_size):
         DataSource.__init__(self, client)
         self.page_size = page_size
-
 
     def fetch_data(self):
         pass
@@ -86,7 +91,6 @@ class ContentDataSource(ItemDataSource):
     def __init__(self, client, content_id):
         ItemDataSource.__init__(self, client, section=content_id)
         self.page_size = None
-
 
     def _do_call(self, **criteria):
         return self.client.content_query(self.section, **criteria)
@@ -162,7 +166,6 @@ class EyeWitnessDataSource(SearchDataSource):
         self.show_media = 'picture'
 
 
-# TODO: kill me?
 class MostViewedDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
@@ -241,7 +244,8 @@ def build_unique_trailblocks(data, priority_list):
     return unique_subsets
 
 
-def fetch_all(client, data_sources):
+# TODO: put me in email-template
+def fetch_all(data_sources):
     """
     data is a map of type string->data_source.
     return a map with same keys as data, and retrieved data as values
