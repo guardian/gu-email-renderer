@@ -6,8 +6,12 @@ most_commented_short_urls_with_counts = [('cheese', 23), ('egg', 19), ('mouse', 
 
 
 class IdRememberingMultiContentDataSourceStub:
-    def __init__(self, client, content_ids):
-        self.content_ids = content_ids
+    def __init__(self, client):
+        self.content_ids = None
+        self.fetch_all_was_called = False
+
+    def fetch_data(self):
+        self.fetch_all_was_called = True
 
 
 class StubDiscussionFetcher:
@@ -21,16 +25,21 @@ class StubDiscussionFetcher:
 
 
 
+# Where does MostCommentedDataSource get his two clients from?
+    # Assume that the Fetcher and the DS already have them
+
+# TODO: test that we ask for n_items
+
 class TestMostCommented(unittest2.TestCase):
-    pass
-    # def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
-    #     client = None
-    #     content_data_source = StubContentDataSource()
 
-    #     discussion_fetcher = StubDiscussionFetcher()
-    #     discussion_fetcher.most_commented_short_urls_with_counts = most_commented_short_urls_with_counts
+    def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
+        multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
 
-    #     data_source = MostCommentedDataSource(page_size=23,
-    #                                           content_data_source=content_data_source,
-    #                                           discussion_fetcher=discussion_fetcher)
-    #     data_source.fetch_data()
+        discussion_fetcher = StubDiscussionFetcher()
+        discussion_fetcher.most_commented_short_urls_with_counts = most_commented_short_urls_with_counts
+
+        data_source = MostCommentedDataSource(n_items=23,
+                                              multi_content_data_source=multi_content_data_source,
+                                              discussion_fetcher=discussion_fetcher)
+        data_source.fetch_data()
+        self.assertEquals(set(multi_content_data_source.content_ids), set(['cheese', 'egg', 'mouse']))

@@ -59,12 +59,18 @@ class MostCommentedDataSource(DataSource):
     fetch the article from the content api. I interpolate the associated
     comment count into each retrieved article.
     """
-    def __init__(self, client, discussion_fetcher, content_data_source, page_size):
-        DataSource.__init__(self, client)
-        self.page_size = page_size
+    def __init__(self, discussion_fetcher, multi_content_data_source, n_items):
+        DataSource.__init__(self, None) # client is None. Bad?
+        self.discussion_fetcher = discussion_fetcher
+        self.multi_content_data_source = multi_content_data_source
+        self.n_items = n_items
 
-    def fetch_data(self):
-        pass
+    def _do_call(self, **criteria):
+        item_count_pairs = self.discussion_fetcher.fetch_most_commented(self.n_items)
+        content_ids = [id for (id, count) in item_count_pairs]
+        self.multi_content_data_source.content_ids = content_ids
+        return []
+
 
 class SearchDataSource(DataSource):
     def __init__(self, client):
