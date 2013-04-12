@@ -15,7 +15,7 @@ class DataSource(object):
         self.show_most_viewed = False
         self.short_url = None
 
-
+                                                                                                        1
     def fetch_data(self):
         criteria = self._build_criteria()
         data = self._do_call(**criteria)
@@ -69,6 +69,7 @@ class MostCommentedDataSource(DataSource):
         item_count_pairs = self.discussion_fetcher.fetch_most_commented(self.n_items)
         content_ids = [id for (id, count) in item_count_pairs]
         self.multi_content_data_source.content_ids = content_ids
+        most_commented_content = self.multi_content_data_source.fetch_data()
         return []
 
 
