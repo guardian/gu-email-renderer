@@ -15,9 +15,6 @@ class DiscussionFetcher:
         self.client = client
 
     def fetch_most_commented(self, page_size):
-        """ I return a list of short url strings"""
-        # make the right url and do a get on the client
-
         url = self._build_url(page_size)
         response_string = self.client.do_get(url)
         short_url_list = self._parse_response(response_string)

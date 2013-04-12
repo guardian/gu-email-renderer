@@ -1,4 +1,5 @@
 import logging
+from urlparse import urlparse
 
 # Always exclude picture desk due to media problems
 DEFAULT_TAGS = ['-news/series/picture-desk-live']
@@ -15,7 +16,7 @@ class DataSource(object):
         self.show_most_viewed = False
         self.short_url = None
 
-                                                                                                        1
+
     def fetch_data(self):
         criteria = self._build_criteria()
         data = self._do_call(**criteria)
@@ -46,10 +47,24 @@ class DataSource(object):
         if self.from_date:
             criteria['from-date'] = self.from_date
 
+        # TODO: Are we even using this?
         if self.short_url:
             criteria['short_url'] = self.short_url
 
         return criteria
+
+
+class CommentCountInterpolator:
+
+    def interpolate(self, comment_count_list, content_list):
+        def has_path(url, path):
+            return urlparse(url).path == path
+
+        for (short_url, comment_count) in comment_count_list:
+            [content_item for content_item in content_list
+             if has_path(content_item['fields']['shortUrl'], short_url)][0]['comment_count'] = comment_count
+
+        return content_list
 
 
 class MostCommentedDataSource(DataSource):
@@ -59,17 +74,21 @@ class MostCommentedDataSource(DataSource):
     fetch the article from the content api. I interpolate the associated
     comment count into each retrieved article.
     """
-    def __init__(self, discussion_fetcher, multi_content_data_source, n_items):
+    def __init__(self, discussion_fetcher, multi_content_data_source, comment_count_interpolator, n_items):
         DataSource.__init__(self, None) # client is None. Bad?
         self.discussion_fetcher = discussion_fetcher
         self.multi_content_data_source = multi_content_data_source
+        self.comment_count_interpolator = comment_count_interpolator
         self.n_items = n_items
 
     def _do_call(self, **criteria):
         item_count_pairs = self.discussion_fetcher.fetch_most_commented(self.n_items)
         content_ids = [id for (id, count) in item_count_pairs]
+
         self.multi_content_data_source.content_ids = content_ids
         most_commented_content = self.multi_content_data_source.fetch_data()
+
+        result = self.comment_count_interpolator.interpolate(most_commented_content, item_count_pairs)
         return []
 
 
