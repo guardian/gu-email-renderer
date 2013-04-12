@@ -347,14 +347,21 @@ class TestDataSources(unittest2.TestCase):
     def test_multi_content_data_source_should_retrieve_content_for_each_of_the_supplied_ids(self):
         client = ContentIdRememberingStubClient()
         id_list = ['cat', 'spoon', 'mouse', 'dog']
-        data_source = MultiContentDataSource(client, id_list)
+        data_source = MultiContentDataSource(client)
+        data_source.content_ids = id_list
         data_source.fetch_data()
         self.assertEquals(set(client.content_ids), set(id_list))
+
+    def test_multi_content_data_source_should_barf_if_content_ids_is_left_unset(self):
+        data_source = MultiContentDataSource('cheese')
+        with self.assertRaises(DataSourceException):
+            data_source.fetch_data()
 
     def test_multi_content_data_source_should_return_data_in_correct_format(self):
         client = ContentIdRememberingStubClient()
         id_list = ['cat', 'spoon', 'mouse', 'dog']
-        data_source = MultiContentDataSource(client, id_list)
+        data_source = MultiContentDataSource(client)
+        data_source.content_ids = id_list
         data = data_source.fetch_data()
 
 

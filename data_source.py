@@ -89,11 +89,14 @@ class ItemDataSource(DataSource):
 
 
 class MultiContentDataSource(ItemDataSource):
-    def __init__(self, client, content_ids):
+    def __init__(self, client):
         ItemDataSource.__init__(self, client)
-        self.content_ids = content_ids
+        self.content_ids = None
 
     def _do_call(self, **criteria):
+        if not self.content_ids:
+            raise DataSourceException("content_ids must be set before calling fetch_data()")
+
         result = []
         for id in self.content_ids:
             result.extend(self.client.content_query(id, **criteria))
