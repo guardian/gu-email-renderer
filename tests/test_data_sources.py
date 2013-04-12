@@ -12,7 +12,7 @@ from data_source import \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
-    DataSourceException, ContentDataSource, MultiContentDataSource, fetch_all
+    DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient
@@ -229,6 +229,10 @@ class TestDataSources(unittest2.TestCase):
                                    show_fields=Fields,
                                    page_size='10',
                                    show_editors_picks='true')
+
+    def test_short_url_must_be_specified_as_field_for_most_commented(self):
+        self.fail('Not implemented')
+
 
 
     def test_a_search_data_source_should_know_how_to_process_response(self):

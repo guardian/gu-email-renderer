@@ -30,11 +30,10 @@ class StubDiscussionFetcher:
         return self.most_commented_short_urls_with_counts
 
 
-# Where does MostCommentedDataSource get his two clients from?
-# Assume that the Fetcher and the DS already have them
+
 
 # TODO: test that we ask for n_items
-
+# TODO: assert that short_url is included in the fields
 class TestMostCommented(unittest2.TestCase):
 
     def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
@@ -50,6 +49,7 @@ class TestMostCommented(unittest2.TestCase):
         data_source.fetch_data()
         self.assertEquals(set(multi_content_data_source.content_ids), set(['cheese', 'egg', 'mouse']))
 
+
     def test_data_source_should_fetch_each_piece_of_content_from_api(self):
         multi_content_data_source_stub = IdRememberingMultiContentDataSourceStub('client')
 
@@ -61,6 +61,7 @@ class TestMostCommented(unittest2.TestCase):
                                               comment_count_interpolator=CommentCountInterpolatorStub())
         data_source.fetch_data()
         self.assertTrue(multi_content_data_source_stub.fetch_all_was_called)
+
 
     def test_data_source_should_interpolate_most_commented_content_with_comment_counts(self):
         pass
