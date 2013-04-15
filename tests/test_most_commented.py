@@ -7,7 +7,7 @@ most_commented_content = ["my", "uncle", "norbert"]
 
 class CommentCountInterpolatorStub:
     def interpolate(self, content_list, comment_count_list):
-        pass
+        return 'Interpolated content'
 
 
 class IdRememberingMultiContentDataSourceStub:
@@ -31,9 +31,6 @@ class StubDiscussionFetcher:
         return self.most_commented_short_urls_with_counts
 
 
-
-
-# TODO: test that we ask for n_items
 class TestMostCommented(unittest2.TestCase):
 
     def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
@@ -63,8 +60,6 @@ class TestMostCommented(unittest2.TestCase):
         self.assertEquals(discussion_fetcher.actual_page_size, 23)
 
 
-
-
     def test_data_source_should_fetch_each_piece_of_content_from_api(self):
         multi_content_data_source_stub = IdRememberingMultiContentDataSourceStub('client')
 
@@ -77,9 +72,18 @@ class TestMostCommented(unittest2.TestCase):
         data_source.fetch_data()
         self.assertTrue(multi_content_data_source_stub.fetch_all_was_called)
 
+    def test_should_return_interpolated_content(self):
+        multi_content_data_source_stub = IdRememberingMultiContentDataSourceStub('client')
 
-    def test_data_source_should_interpolate_most_commented_content_with_comment_counts(self):
-        pass
+        discussion_fetcher = StubDiscussionFetcher()
+        discussion_fetcher.most_commented_short_urls_with_counts = most_commented_short_urls_with_counts
+        data_source = MostCommentedDataSource(n_items=12,
+                                              multi_content_data_source=multi_content_data_source_stub,
+                                              discussion_fetcher=discussion_fetcher,
+                                              comment_count_interpolator=CommentCountInterpolatorStub())
+
+        self.assertEquals(data_source.fetch_data(), list('Interpolated content'))
+
 
 
 

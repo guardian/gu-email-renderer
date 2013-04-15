@@ -1,0 +1,32 @@
+{# Daily (Guardian Today) email template #}
+n
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+
+{% set title = 'Most commented' %}
+{% set title_link = 'http://www.guardian.co.uk' %}
+{% set title_colour = '#333333' %}
+{% set logo_background = '#004179' %}
+{% set facebook_page = 'theguardian' %}
+{% set twitter_account = 'guardian' %}
+{% set footer_colour = 'light' %}
+
+{% block title %}Guardian Today{% endblock %}
+
+{% block content %}
+
+    {{ layout.story_trail(heading_text='Most commented',
+        stories=most_commented,
+        heading_link='http://www.guardian.co.uk',
+        heading_colour='#bada55',
+        top_thumb=True,
+        standfirst=False) }}
+
+
+
+{% endblock content %}
+
+{% set sections = (('Football', 'http://www.guardian.co.uk/football'),
+                   ('Comment is free', 'http://www.guardian.co.uk/commentisfree'),
+                   ('Environment', 'http://www.guardian.co.uk/environment')) %}

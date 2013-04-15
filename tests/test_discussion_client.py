@@ -11,7 +11,7 @@ class MockClient:
 
     def do_get(self, url):
         self.actual_url = url
-        return TestResponse
+        return ('header', TestResponse)
 
 
 class TestDiscussionClient(unittest2.TestCase):

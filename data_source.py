@@ -84,8 +84,8 @@ class MostCommentedDataSource(DataSource):
         self.multi_content_data_source.content_ids = content_ids
         most_commented_content = self.multi_content_data_source.fetch_data()
 
-        result = self.comment_count_interpolator.interpolate(most_commented_content, item_count_pairs)
-        return []
+        return self.comment_count_interpolator.interpolate(content_list=most_commented_content, comment_count_list=item_count_pairs)
+
 
 
 class SearchDataSource(DataSource):

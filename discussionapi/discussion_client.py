@@ -1,14 +1,25 @@
 from urlparse import urljoin
 from django.utils import simplejson as json
+import urllib2
 
 
 class DiscussionClient:
     def __init__(self, base_url):
         self.base_url = base_url
 
-    def do_get(self, base_url):
-        """Return the response body as a string"""
-        pass
+    def do_get(self, url):
+        try:
+            u = urllib2.urlopen(url)
+        except urllib2.URLError as e:
+            if hasattr(e, 'reason'):
+                logging.error('Could not reach server while accessing %s. Reason: %s' % (url, e.reason))
+            elif hasattr(e, 'code'):
+                logging.error('Server could not fulfill request at %s. Error: %s' % (url, e.code))
+            raise e
+
+        headers = u.headers.dict
+        return headers, u.read()
+
 
 class DiscussionFetcher:
     def __init__(self, client):
@@ -16,7 +27,7 @@ class DiscussionFetcher:
 
     def fetch_most_commented(self, page_size):
         url = self._build_url(page_size)
-        response_string = self.client.do_get(url)
+        (headers, response_string) = self.client.do_get(url)
         short_url_list = self._parse_response(response_string)
         return short_url_list
 
