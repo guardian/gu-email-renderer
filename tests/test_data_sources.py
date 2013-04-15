@@ -260,7 +260,6 @@ class TestDataSources(unittest2.TestCase):
 
 
         most_commented_data_source.fetch_data()
-        #import pdb; pdb.set_trace()
         self.assertTrue('shortUrl' in stub_client.actual_criteria['show-fields'].split(','))
 
 

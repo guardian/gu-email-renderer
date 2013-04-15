@@ -34,7 +34,6 @@ class StubDiscussionFetcher:
 
 
 # TODO: test that we ask for n_items
-# TODO: assert that short_url is included in the fields
 class TestMostCommented(unittest2.TestCase):
 
     def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
@@ -49,6 +48,21 @@ class TestMostCommented(unittest2.TestCase):
                                               comment_count_interpolator=CommentCountInterpolatorStub())
         data_source.fetch_data()
         self.assertEquals(set(multi_content_data_source.content_ids), set(['cheese', 'egg', 'mouse']))
+
+    def test_should_fetch_specified_number_of_items(self):
+        multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
+
+        discussion_fetcher = StubDiscussionFetcher()
+        discussion_fetcher.most_commented_short_urls_with_counts = most_commented_short_urls_with_counts
+
+        data_source = MostCommentedDataSource(n_items=23,
+                                              multi_content_data_source=multi_content_data_source,
+                                              discussion_fetcher=discussion_fetcher,
+                                              comment_count_interpolator=CommentCountInterpolatorStub())
+        data_source.fetch_data()
+        self.assertEquals(discussion_fetcher.actual_page_size, 23)
+
+
 
 
     def test_data_source_should_fetch_each_piece_of_content_from_api(self):
