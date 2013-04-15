@@ -231,8 +231,37 @@ class TestDataSources(unittest2.TestCase):
                                    show_editors_picks='true')
 
     def test_short_url_must_be_specified_as_field_for_most_commented(self):
-        self.fail('Not implemented')
 
+        class StubClient:
+            actual_criteria = None
+            def content_query(self, id, **criteria):
+                self.actual_criteria = criteria
+                return []
+
+        class StubFetcher:
+            def fetch_most_commented(self, page_size):
+                return [('yahoo', 3)]
+
+        class StubInterpolator:
+            def interpolate(self, content_list, comment_count_list):
+                return []
+
+
+        stub_fetcher = StubFetcher()
+        stub_client = StubClient()
+
+        multi_content_data_source = MultiContentDataSource(client=stub_client)
+        multi_content_data_source.content_ids = ['stuff']
+        most_commented_data_source = MostCommentedDataSource(
+            multi_content_data_source=multi_content_data_source,
+            comment_count_interpolator=StubInterpolator(),
+            n_items=0,
+            discussion_fetcher=stub_fetcher)
+
+
+        most_commented_data_source.fetch_data()
+        #import pdb; pdb.set_trace()
+        self.assertTrue('shortUrl' in stub_client.actual_criteria['show-fields'].split(','))
 
 
     def test_a_search_data_source_should_know_how_to_process_response(self):
@@ -252,7 +281,6 @@ class TestDataSources(unittest2.TestCase):
         assert result.has_key('sectionName')
 
     def test_a_content_datasource_should_know_how_to_process_response(self):
-        # import pdb; pdb.set_trace()
         fetcher = ApiStubFetcher()
         client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
         data_source = ContentDataSource(client, 'i/am/a/short/url')

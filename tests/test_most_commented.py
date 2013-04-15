@@ -12,6 +12,7 @@ class CommentCountInterpolatorStub:
 
 class IdRememberingMultiContentDataSourceStub:
     def __init__(self, client):
+        self.fields = []
         self.content_ids = None
         self.fetch_all_was_called = False
 

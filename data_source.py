@@ -68,16 +68,12 @@ class CommentCountInterpolator:
 
 
 class MostCommentedDataSource(DataSource):
-    """
-    I ask a DiscussionFetcher to fetch me a page of short_url /
-    comment_count pairs. For each of these I ask my ContentDataSource to
-    fetch the article from the content api. I interpolate the associated
-    comment count into each retrieved article.
-    """
     def __init__(self, discussion_fetcher, multi_content_data_source, comment_count_interpolator, n_items):
-        DataSource.__init__(self, None) # client is None. Bad?
+        DataSource.__init__(self, None) # TODO: client is None. Bad?
+
         self.discussion_fetcher = discussion_fetcher
         self.multi_content_data_source = multi_content_data_source
+        self.multi_content_data_source.fields.append('shortUrl')
         self.comment_count_interpolator = comment_count_interpolator
         self.n_items = n_items
 
