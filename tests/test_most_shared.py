@@ -25,3 +25,9 @@ class TestMostShared(unittest2.TestCase):
         expected_data = [('/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker', 49723),
                          ('/music/2013/apr/14/justin-bieber-anne-frank-belieber', 27556)]
         self.assertEquals(expected_data, actual_data)
+
+    def test_should_build_correct_url_for_ophan_call(self):
+        stub_client = StubClient()
+        fetcher = MostSharedFetcher(stub_client)
+        fetcher.fetch_most_shared(n_items=34, age=12000)
+        self.assertEquals(stub_client.actual_url, 'base//api/mostreferred?count=34&age=12000')
