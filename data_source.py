@@ -87,6 +87,35 @@ class MostCommentedDataSource(DataSource):
         return self.comment_count_interpolator.interpolate(content_list=most_commented_content, comment_count_list=item_count_pairs)
 
 
+class MostSharedCountInterpolator:
+    def interpolate(self, shared_count_list, content_list ):
+        #import pdb; pdb.set_trace()
+        for( url, shared_count ) in shared_count_list:
+            [content_item for content_item in content_list
+             if content_item['webUrl'] == url][0]['share_count'] = shared_count
+
+        return content_list
+
+
+class MostSharedDataSource(DataSource):
+
+    def __init__(self,multi_content_data_source,most_shared_fetcher,shared_count_interpolator,n_items):
+        DataSource.__init__(self, None)
+
+        self.multi_content_data_source = multi_content_data_source
+        self.most_shared_fetcher = most_shared_fetcher
+        self.shared_count_interpolator  = shared_count_interpolator
+        self.n_items = n_items
+
+    def _do_call(self, **criteria):
+        shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared(self.n_items)
+        #import pdb; pdb.set_trace()
+        content_ids = [ urlparse(url).path for(url, count) in shared_urls_with_counts  ]
+        self.multi_content_data_source.content_ids = content_ids
+        most_shared_comment = self.multi_content_data_source.fetch_data()
+        return self.shared_count_interpolator.interpolate( shared_urls_with_counts, most_shared_comment)
+
+
 
 class SearchDataSource(DataSource):
     def __init__(self, client):
