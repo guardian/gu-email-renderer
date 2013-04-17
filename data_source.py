@@ -202,6 +202,11 @@ class MediaDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, 'media', show_editors_picks=True)
 
 
+class MediaBlogDataSource(ItemDataSource):
+    def __init__(self, client ):
+        ItemDataSource.__init__(self, client, section='media/media-blog')
+
+
 class MediaMonkeyDataSource(ItemDataSource):
     def __init__(self, client ):
         ItemDataSource.__init__(self, client, section='media/mediamonkeyblog')
