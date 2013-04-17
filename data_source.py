@@ -219,6 +219,11 @@ class MediaCommentDataSource(ItemDataSource):
         self.tags = ['tone/comment']
 
 
+class MediaBriefingDataSource(ItemDataSource):
+    def __init__(self, client ):
+        ItemDataSource.__init__(self, client, section='media/series/media-briefing')
+
+
 class PicOfDayDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)

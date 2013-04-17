@@ -12,7 +12,7 @@ from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
-    BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
@@ -87,11 +87,12 @@ class MediaBriefing(EmailTemplate):
         'media_stories': MediaDataSource(client),
         'media_blog': MediaBlogDataSource(client),
         'media_comment': MediaCommentDataSource(client),
-        'media_monkey': MediaMonkeyDataSource(client)
+        'media_monkey': MediaMonkeyDataSource(client),
+        'media_briefing': MediaBriefingDataSource(client)
         }
 
     priority_list = {}
-    priority_list['v1'] = [('media_stories', 8), ('media_blog', 3), ('media_comment', 1), ('media_monkey', 1)]
+    priority_list['v1'] = [('media_stories', 8), ('media_blog', 3), ('media_comment', 1), ('media_monkey', 1), ('media_briefing', 1)]
 
     template_names = {'v1': 'media-briefing'}
 
