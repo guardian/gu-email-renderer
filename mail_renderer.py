@@ -8,12 +8,13 @@ import logging
 
 from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
+from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, \
+    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph
@@ -126,7 +127,7 @@ class DailyEmail(EmailTemplate):
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
-    n_items=10
+    n_items=6
     discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
 
@@ -150,6 +151,32 @@ class MostCommented(EmailTemplate):
     priority_list = {'v1': [('most_commented', n_items)]}
     template_names = {'v1': 'most-commented'}
 
+class MostShared(EmailTemplate):
+    recognized_versions = ['v1']
+    n_items=6
+    base_url = 'http://***REMOVED***'
+
+
+    ophan_client = OphanClient(base_url)
+    most_shared_fetcher = MostSharedFetcher(ophan_client)
+    multi_content_data_source = MultiContentDataSource(client)
+    shared_count_interpolator = MostSharedCountInterpolator()
+
+    most_shared_data_source = MostSharedDataSource(
+        most_shared_fetcher=most_shared_fetcher,
+        multi_content_data_source=multi_content_data_source,
+        shared_count_interpolator=shared_count_interpolator,
+        n_items=6
+    )
+
+    data_sources = {}
+    data_sources['v1'] = {
+        'most_shared': most_shared_data_source
+        }
+
+    priority_list = {'v1': [('most_shared', n_items)]}
+    template_names = {'v1': 'most-shared'}
+
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1']
@@ -172,5 +199,8 @@ class SleeveNotes(EmailTemplate):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
-                                ('/most-commented/(.+)', MostCommented)],
+                                ('/most-commented/(.+)', MostCommented),
+                                ('/most-shared/(.+)', MostShared)],
+
+
                               debug=True)

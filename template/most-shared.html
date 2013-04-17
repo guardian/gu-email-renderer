@@ -1,0 +1,21 @@
+{# email template #}
+
+{% extends 'base_scrape.html' %}
+{% import 'macro/layout.html' as layout %}
+
+
+{% set title = 'Daily Share Munge' %}
+{% set title_link = 'http://www.guardian.co.uk' %}
+{% set title_colour = '#333333' %}
+
+{% block title %}Daily Grunge{% endblock %}
+
+{% block content %}
+
+{{ layout.story_trail(heading_text='Most shared in last 24 hours',
+stories=most_shared,
+heading_link='http://www.guardian.co.uk',
+heading_colour='#bada55',
+top_thumb=True) }}
+
+{% endblock content %}

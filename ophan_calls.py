@@ -1,3 +1,4 @@
+import logging
 import urllib2
 from urlparse import urljoin
 from django.utils import simplejson as json
@@ -40,7 +41,7 @@ class MostSharedFetcher:
         if url[-1] == '/':
             url = url[:-1]
 
-        return '%s//api/mostreferred?count=%s&age=%s' % (url, n_items, age)
+        return '%s/api/mostreferred?count=%s&age=%s' % (url, n_items, age)
 
     def _extract_path(self, url):
         return urlparse(url).path

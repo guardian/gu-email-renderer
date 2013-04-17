@@ -21,6 +21,13 @@
           </td>
         </tr>
         {% endif %}
+        {% if story.share_count %}
+        <tr>
+          <td class="trail-share-count">
+             <b>{{ story.share_count }} shares</b>
+          </td>
+        </tr>
+        {% endif %}
       </table>
     </td>
   </tr>

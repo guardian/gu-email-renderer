@@ -89,10 +89,9 @@ class MostCommentedDataSource(DataSource):
 
 class MostSharedCountInterpolator:
     def interpolate(self, shared_count_list, content_list ):
-        #import pdb; pdb.set_trace()
         for( url, shared_count ) in shared_count_list:
             [content_item for content_item in content_list
-             if content_item['webUrl'] == url][0]['share_count'] = shared_count
+             if url in content_item['webUrl']][0]['share_count'] = shared_count
 
         return content_list
 
