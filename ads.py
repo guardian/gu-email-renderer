@@ -8,8 +8,8 @@ class AdFetcher(object):
     """
     Class to fetch advert html from OAS.
     """
-
-    root_url = "http://oas.guardian.co.uk/RealMedia/ads/adstream_sx.ads/email-guardian-today/1234567890"
+    def __init__(self, tag):
+        self.root_url = "http://oas.guardian.co.uk/RealMedia/ads/adstream_sx.ads/" + tag + "/1234567890"
 
     def fetch_html(self, ad_type):
         """

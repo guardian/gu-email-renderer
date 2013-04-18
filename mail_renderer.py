@@ -47,7 +47,7 @@ clientUS = ApiClient(base_url, api_key, edition='US')
 
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
-    ad_fetcher = AdFetcher()
+    default_ad_tag = 'email-guardian-today'
 
     def check_version_id(self, version_id):
         if not version_id in self.recognized_versions:
@@ -73,7 +73,9 @@ class EmailTemplate(webapp2.RequestHandler):
             template_name = self.template_names[version_id] + '.html'
             template = self.resolve_template(template_name)
 
-            page = template.render(ad_html=self.ad_fetcher.leaderboard(), date=date, **trail_blocks)
+            ad_fetcher = getattr(self, 'ad_fetcher', AdFetcher(self.default_ad_tag))
+
+            page = template.render(ad_html=ad_fetcher.leaderboard(), date=date, **trail_blocks)
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)
@@ -83,6 +85,8 @@ class EmailTemplate(webapp2.RequestHandler):
 
 class MediaBriefing(EmailTemplate):
     recognized_versions = ['v1']
+
+    ad_fetcher = AdFetcher('email-media-briefing')
 
     data_sources = {}
     data_sources['v1'] = {
