@@ -2,7 +2,7 @@ import logging
 import os
 from urlparse import urlparse
 
-if os.environ['RUNNING_UNIT_TESTS'] == '1':
+if os.environ.has_key('RUNNING_UNIT_TESTS'):
     from prefetch import perma_cache_stub as perma_cache
 else:
     from prefetch import perma_cache
