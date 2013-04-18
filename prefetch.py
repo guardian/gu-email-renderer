@@ -24,10 +24,13 @@ def perma_cache(f):
         try:
             retrieved_data = f(*args, **kwargs)
             store_in_db(cache_key, retrieved_data)
+            logging.debug('Stored data for %s' % cache_key)
         except Exception, ex:
             logging.error(ex)
         finally:
             data = load_from_db(cache_key)
+            logging.debug('Read data for %s' % cache_key)
+
             return data
 
     return wrapper
