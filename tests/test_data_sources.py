@@ -1,9 +1,8 @@
 #! /usr/bin/python
 
-from urllib2 import urlparse
+import prefetch
 import unittest2
 import urllib
-
 
 from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
@@ -13,16 +12,16 @@ from data_source import \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
     DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
+
+from urllib2 import urlparse
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient
 
+
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 DEBUG = False
-
-
-
 
 class UrlCapturingFetcher():
     def get(self, url):
@@ -250,7 +249,7 @@ class TestDataSources(unittest2.TestCase):
         stub_fetcher = StubFetcher()
         stub_client = StubClient()
 
-        multi_content_data_source = MultiContentDataSource(client=stub_client)
+        multi_content_data_source = MultiContentDataSource(client=stub_client, name='name')
         multi_content_data_source.content_ids = ['stuff']
         most_commented_data_source = MostCommentedDataSource(
             multi_content_data_source=multi_content_data_source,
@@ -378,20 +377,20 @@ class TestDataSources(unittest2.TestCase):
     def test_multi_content_data_source_should_retrieve_content_for_each_of_the_supplied_ids(self):
         client = ContentIdRememberingStubClient()
         id_list = ['cat', 'spoon', 'mouse', 'dog']
-        data_source = MultiContentDataSource(client)
+        data_source = MultiContentDataSource(client=client, name='test_thing')
         data_source.content_ids = id_list
         data_source.fetch_data()
         self.assertEquals(set(client.content_ids), set(id_list))
 
     def test_multi_content_data_source_should_barf_if_content_ids_is_left_unset(self):
-        data_source = MultiContentDataSource('cheese')
+        data_source = MultiContentDataSource('cheese_client', 'cheese_name')
         with self.assertRaises(DataSourceException):
             data_source.fetch_data()
 
     def test_multi_content_data_source_should_return_data_in_correct_format(self):
         client = ContentIdRememberingStubClient()
         id_list = ['cat', 'spoon', 'mouse', 'dog']
-        data_source = MultiContentDataSource(client)
+        data_source = MultiContentDataSource(client=client, name='name')
         data_source.content_ids = id_list
         data = data_source.fetch_data()
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import optparse
 import sys
+import os
 # Install the Python unittest2 package before you run this script.
 import unittest2
 
@@ -11,6 +12,7 @@ SDK_PATH    Path to the SDK installation"""
 
 
 def main(sdk_path, test_path):
+    os.environ['RUNNING_UNIT_TESTS'] = '1'
     sys.path.insert(0, sdk_path)
     import dev_appserver
     dev_appserver.fix_sys_path()

@@ -133,14 +133,13 @@ class MostCommented(EmailTemplate):
 
     discussion_client = DiscussionClient(discussion_base_url)
     discussion_fetcher = DiscussionFetcher(discussion_client)
-    multi_content_data_source = MultiContentDataSource(client)
+    multi_content_data_source = MultiContentDataSource(client=client, name='most_commented')
     comment_count_interpolator = CommentCountInterpolator()
 
     most_commented_data_source = MostCommentedDataSource(
         discussion_fetcher=discussion_fetcher,
         multi_content_data_source=multi_content_data_source,
-        comment_count_interpolator=comment_count_interpolator,
-        n_items=n_items
+        comment_count_interpolator=comment_count_interpolator
         )
 
     data_sources = {}
@@ -153,20 +152,19 @@ class MostCommented(EmailTemplate):
 
 class MostShared(EmailTemplate):
     recognized_versions = ['v1']
-    n_items=6
+    n_items = 6
     base_url = 'http://***REMOVED***'
 
 
     ophan_client = OphanClient(base_url)
     most_shared_fetcher = MostSharedFetcher(ophan_client)
-    multi_content_data_source = MultiContentDataSource(client)
+    multi_content_data_source = MultiContentDataSource(client=client, name='most_shared')
     shared_count_interpolator = MostSharedCountInterpolator()
 
     most_shared_data_source = MostSharedDataSource(
         most_shared_fetcher=most_shared_fetcher,
         multi_content_data_source=multi_content_data_source,
-        shared_count_interpolator=shared_count_interpolator,
-        n_items=6
+        shared_count_interpolator=shared_count_interpolator
     )
 
     data_sources = {}
@@ -199,8 +197,6 @@ class SleeveNotes(EmailTemplate):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
-                                ('/most-commented/(.+)', MostCommented),
-                                ('/most-shared/(.+)', MostShared)],
-
-
+                               ('/most-commented/(.+)', MostCommented),
+                               ('/most-shared/(.+)', MostShared)],
                               debug=True)
