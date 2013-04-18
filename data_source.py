@@ -1,5 +1,11 @@
 import logging
+import os
 from urlparse import urlparse
+
+if os.environ['RUNNING_UNIT_TESTS'] == '1':
+    from prefetch import perma_cache_stub as perma_cache
+else:
+    from prefetch import perma_cache
 
 # Always exclude picture desk due to media problems
 DEFAULT_TAGS = ['-news/series/picture-desk-live']
@@ -16,8 +22,11 @@ class DataSource(object):
         self.show_most_viewed = False
         self.short_url = None
 
-
+    @perma_cache
     def fetch_data(self):
+        # get data from remote api
+        # put results in datastore with key made from self.__repr__
+
         criteria = self._build_criteria()
         data = self._do_call(**criteria)
         return list(data)
@@ -53,6 +62,9 @@ class DataSource(object):
 
         return criteria
 
+    def __repr__(self):
+        return str(self.__class__)
+
 
 class CommentCountInterpolator:
 
@@ -68,7 +80,7 @@ class CommentCountInterpolator:
 
 
 class MostCommentedDataSource(DataSource):
-    def __init__(self, discussion_fetcher, multi_content_data_source, comment_count_interpolator, n_items):
+    def __init__(self, discussion_fetcher, multi_content_data_source, comment_count_interpolator, n_items=10):
         DataSource.__init__(self, None) # TODO: client is None. Bad?
 
         self.discussion_fetcher = discussion_fetcher
@@ -98,7 +110,7 @@ class MostSharedCountInterpolator:
 
 class MostSharedDataSource(DataSource):
 
-    def __init__(self,multi_content_data_source,most_shared_fetcher,shared_count_interpolator,n_items):
+    def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10):
         DataSource.__init__(self, None)
 
         self.multi_content_data_source = multi_content_data_source
@@ -109,11 +121,10 @@ class MostSharedDataSource(DataSource):
     def _do_call(self, **criteria):
         shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared(self.n_items)
         #import pdb; pdb.set_trace()
-        content_ids = [ urlparse(url).path for(url, count) in shared_urls_with_counts  ]
+        content_ids = [urlparse(url).path for(url, count) in shared_urls_with_counts]
         self.multi_content_data_source.content_ids = content_ids
         most_shared_comment = self.multi_content_data_source.fetch_data()
-        return self.shared_count_interpolator.interpolate( shared_urls_with_counts, most_shared_comment)
-
+        return self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
 
 
 class SearchDataSource(DataSource):
@@ -137,11 +148,11 @@ class ItemDataSource(DataSource):
         return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
 
 
-
 class MultiContentDataSource(ItemDataSource):
-    def __init__(self, client):
+    def __init__(self, client, name):
         ItemDataSource.__init__(self, client)
         self.content_ids = None
+        self.name = name
 
     def _do_call(self, **criteria):
         if not self.content_ids:
@@ -151,6 +162,9 @@ class MultiContentDataSource(ItemDataSource):
         for id in self.content_ids:
             result.extend(self.client.content_query(id, **criteria))
         return result
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 
 class ContentDataSource(ItemDataSource):

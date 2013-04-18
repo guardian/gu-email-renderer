@@ -24,8 +24,6 @@ class OphanClient:
         return headers, u.read()
 
 
-
-
 class MostSharedFetcher:
     def __init__(self, client):
         self.client = client
