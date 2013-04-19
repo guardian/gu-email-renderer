@@ -42,6 +42,7 @@ api_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
 client = ApiClient(base_url, api_key)
+clientUS = ApiClient(base_url, api_key, edition='US')
 
 
 class EmailTemplate(webapp2.RequestHandler):
@@ -136,8 +137,8 @@ class DailyEmailUS(EmailTemplate):
         'sport': SportDataSource(client),
         'comment': CommentIsFreeDataSource(client),
         'culture': CultureDataSource(client),
-        'top_stories': TopStoriesDataSource(client),
-        'most_viewed': MostViewedDataSource(client),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'most_viewed': MostViewedDataSource(clientUS),
         }
 
 
