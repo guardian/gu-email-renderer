@@ -14,7 +14,8 @@ from data_source import \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
+    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MoneyDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph
@@ -125,6 +126,28 @@ class DailyEmail(EmailTemplate):
     template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
 
 
+class DailyEmailUS(EmailTemplate):
+    recognized_versions = ['v1']
+
+    data_sources = {}
+    data_sources['v1'] = {
+        'business': BusinessDataSource(client),
+        'money': MoneyDataSource(client),
+        'sport': SportDataSource(client),
+        'comment': CommentIsFreeDataSource(client),
+        'culture': CultureDataSource(client),
+        'top_stories': TopStoriesDataSource(client),
+        'most_viewed': MostViewedDataSource(client),
+        }
+
+
+    priority_list = {}
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('money', 2), ('business', 2)]
+
+    template_names = {'v1': 'daily-email-us'}
+
+
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
@@ -195,6 +218,7 @@ class SleeveNotes(EmailTemplate):
     template_names = {'v1': 'sleeve-notes'}
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
+                               ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/most-commented/(.+)', MostCommented),

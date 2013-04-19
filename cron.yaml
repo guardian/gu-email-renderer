@@ -18,3 +18,7 @@ cron:
 - description: sleeve notes prefetch
   url: /sleeve-notes/v1
   schedule: every 10 minutes
+
+- description: daily email US prefetch
+  url: /daily-email-us/v1
+  schedule: every 10 minutes
