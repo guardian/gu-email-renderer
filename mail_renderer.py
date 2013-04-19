@@ -71,9 +71,12 @@ class EmailTemplate(webapp2.RequestHandler):
             template_name = self.template_names[version_id] + '.html'
             template = self.resolve_template(template_name)
 
-            ad_fetcher = getattr(self, 'ad_fetcher', AdFetcher(self.default_ad_tag))
+            ads = {}
+            ad_fetcher = AdFetcher(self.ad_tag)
+            for name, type in self.ad_config.iteritems():
+                ads[name] = ad_fetcher.fetch_type(type)
 
-            page = template.render(ad_html=ad_fetcher.leaderboard(), date=date, **trail_blocks)
+            page = template.render(ads=ads, date=date, **trail_blocks)
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)
@@ -84,7 +87,11 @@ class EmailTemplate(webapp2.RequestHandler):
 class MediaBriefing(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_fetcher = AdFetcher('email-media-briefing')
+    ad_tag = 'email-media-briefing'
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
 
     data_sources = {}
     data_sources['v1'] = {
@@ -103,6 +110,11 @@ class MediaBriefing(EmailTemplate):
 
 class DailyEmail(EmailTemplate):
     recognized_versions = ['v1', 'v2']
+
+    ad_tag = 'email-guardian-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
 
     data_sources = {}
     data_sources['v1'] = {
@@ -149,6 +161,9 @@ class MostCommented(EmailTemplate):
         n_items=n_items
         )
 
+    ad_tag = ''
+    ad_config = {}
+
     data_sources = {}
     data_sources['v1'] = {
         'most_commented': most_commented_data_source
@@ -180,12 +195,20 @@ class MostShared(EmailTemplate):
         'most_shared': most_shared_data_source
         }
 
+    ad_tag = ''
+    ad_config = {}
+
     priority_list = {'v1': [('most_shared', n_items)]}
     template_names = {'v1': 'most-shared'}
 
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1']
+
+    ad_tag = 'email-guardian-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
 
     data_sources = {}
     data_sources['v1'] = {
