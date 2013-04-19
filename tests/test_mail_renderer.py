@@ -30,7 +30,7 @@ class MockTemplate:
     def __init__(self, template_name):
         self.template_name = template_name
 
-    def render(self, ad_html, date, **trail_blocks):
+    def render(self, ads, date, **trail_blocks):
         return self.template_name
 
 
@@ -58,6 +58,9 @@ class TestRenderer(EmailTemplate):
     priority_list = {}
     priority_list['v1'] = [('data_source_1', 2), ('data_source_2', 2)]
     priority_list['v2'] = [('data_source_3', 4)]
+
+    ad_tag = ''
+    ad_config = {}
 
     template_names = {'v1': 'template_1', 'v2': 'template_2'}
 
