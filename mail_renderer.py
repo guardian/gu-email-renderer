@@ -38,6 +38,7 @@ jinja_environment.cache = None
 
 # TODO: Hide me away somewhere warm and secret.
 api_key = '***REMOVED***'
+ophan_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
 client = ApiClient(base_url, api_key)
@@ -172,7 +173,7 @@ class MostShared(EmailTemplate):
     base_url = 'http://***REMOVED***'
 
 
-    ophan_client = OphanClient(base_url)
+    ophan_client = OphanClient(base_url, ophan_key)
     most_shared_fetcher = MostSharedFetcher(ophan_client)
     multi_content_data_source = MultiContentDataSource(client=client, name='most_shared')
     shared_count_interpolator = MostSharedCountInterpolator()

@@ -7,8 +7,9 @@ from urlparse import urlparse
 # TODO: pull this up into a generic http client
 
 class OphanClient:
-    def __init__(self, base_url):
+    def __init__(self, base_url, api_key):
         self.base_url = base_url
+        self.api_key = api_key
 
     def do_get(self, url):
         try:
@@ -39,7 +40,7 @@ class MostSharedFetcher:
         if url[-1] == '/':
             url = url[:-1]
 
-        return '%s/api/mostreferred?count=%s&age=%s' % (url, n_items, age)
+        return '%s/api/mostreferred?count=%s&age=%s&api-key=%s' % (url, n_items, age, self.client.api_key)
 
     def _extract_path(self, url):
         return urlparse(url).path

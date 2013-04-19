@@ -23,6 +23,7 @@ class IdRememberingMultiContentDataSourceStub:
 class StubClient:
     base_url = 'base'
     actual_url = None
+    api_key = "iamakeyandigetinforfree"
 
     def do_get(self, url):
         self.actual_url = url
@@ -62,7 +63,7 @@ class TestMostShared(unittest2.TestCase):
         stub_client = StubClient()
         fetcher = MostSharedFetcher(stub_client)
         fetcher.fetch_most_shared(n_items=34, age=12000)
-        self.assertEquals(stub_client.actual_url, 'base/api/mostreferred?count=34&age=12000')
+        self.assertEquals(stub_client.actual_url, 'base/api/mostreferred?count=34&age=12000&api-key=iamakeyandigetinforfree')
 
     def test_should_fetch_specified_number_of_items(self):
         multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
