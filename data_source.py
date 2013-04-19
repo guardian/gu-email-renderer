@@ -246,11 +246,13 @@ class EyeWitnessDataSource(SearchDataSource):
         self.show_media = 'picture'
 
 
-class MostViewedDataSource(SearchDataSource):
+class MostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
         self.show_media = 'picture'
         self.show_most_viewed = True
+        self.show_editors_picks = False
+        self.section=''
 
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
@@ -331,7 +333,7 @@ def fetch_all(data_sources):
     return a map with same keys as data, and retrieved data as values
     """
 
-    # import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     retrieved_data_map = {}
     for key in data_sources.keys():
         retrieved_data = data_sources[key].fetch_data()

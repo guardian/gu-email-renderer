@@ -120,7 +120,7 @@ class TestDataSources(unittest2.TestCase):
 
 
     def test_should_call_api_with_correct_url_for_most_viewed(self):
-        self.check_data_source_url(MostViewedDataSource(url_capturing_client), '/search',
+        self.check_data_source_url(MostViewedDataSource(url_capturing_client),'/',
                                    page_size='10',
                                    show_fields=Fields,
                                    show_media='picture',

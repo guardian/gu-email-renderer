@@ -124,6 +124,22 @@ class DailyEmail(EmailTemplate):
 
     template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
 
+class MostViewed(EmailTemplate):
+    recognized_versions = ['v1']
+
+    data_sources = {}
+    data_sources['v1'] = { 'most_viewed' : MostViewedDataSource(client) }
+    priority_list = {'v1': [('most_viewed', 3)]}
+    template_names = {'v1': 'most-viewed'}
+
+class EditorsPicks(EmailTemplate):
+    recognized_versions = ['v1']
+
+    data_sources = {}
+    data_sources['v1'] = { 'editors_picks' : TopStoriesDataSource(client) }
+    priority_list = {'v1': [('editors_picks', 3)]}
+    template_names = {'v1': 'editors-picks'}
+
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
@@ -198,5 +214,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/most-commented/(.+)', MostCommented),
-                               ('/most-shared/(.+)', MostShared)],
+                               ('/most-shared/(.+)', MostShared),
+                               ('/most-viewed/(.+)', MostViewed),
+                               ('/editors-picks/(.+)', EditorsPicks)],
                               debug=True)

@@ -1,0 +1,21 @@
+{# email template #}
+
+{% extends 'base_scrape.html' %}
+{% import 'macro/layout.html' as layout %}
+
+
+{% set title = 'Editors Picks Snippet' %}
+{% set title_link = 'http://www.guardian.co.uk' %}
+{% set title_colour = '#333333' %}
+
+{% block title %}Most Viewed{% endblock %}
+
+{% block content %}
+
+{{ layout.story_trail(heading_text='Editor\'s picks',
+stories=editors_picks,
+heading_link='http://www.guardian.co.uk',
+heading_colour='#bada55',
+top_thumb=True) }}
+
+{% endblock content %}

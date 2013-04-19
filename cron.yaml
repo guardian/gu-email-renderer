@@ -18,3 +18,11 @@ cron:
 - description: sleeve notes prefetch
   url: /sleeve-notes/v1
   schedule: every 10 minutes
+
+- description: most viewed prefetch
+  url: /most-viewed/v1
+  schedule: every 10 minutes
+
+- description: editors picks prefetch
+  url: /editors-picks/v1
+  schedule: every 10 minutes
