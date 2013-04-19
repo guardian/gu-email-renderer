@@ -132,11 +132,11 @@ class DailyEmailUS(EmailTemplate):
 
     data_sources = {}
     data_sources['v1'] = {
-        'business': BusinessDataSource(client),
-        'money': MoneyDataSource(client),
-        'sport': SportDataSource(client),
-        'comment': CommentIsFreeDataSource(client),
-        'culture': CultureDataSource(client),
+        'business': BusinessDataSource(clientUS),
+        'money': MoneyDataSource(clientUS),
+        'sport': SportDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
         'top_stories': TopStoriesDataSource(clientUS),
         'most_viewed': MostViewedDataSource(clientUS),
         }
