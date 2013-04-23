@@ -146,6 +146,11 @@ class DailyEmail(EmailTemplate):
 class DailyEmailUS(EmailTemplate):
     recognized_versions = ['v1']
 
+    ad_tag = 'email-guardian-today-us'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
