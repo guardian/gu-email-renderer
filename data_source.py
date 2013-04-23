@@ -206,11 +206,6 @@ class LifeAndStyleDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, 'lifeandstyle', show_editors_picks=True)
 
 
-class MoneyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'money', show_editors_picks=True)
-
-
 class SportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)

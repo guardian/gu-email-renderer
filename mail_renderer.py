@@ -14,7 +14,7 @@ from data_source import \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MoneyDataSource, \
+    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -154,7 +154,6 @@ class DailyEmailUS(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
-        'money': MoneyDataSource(clientUS),
         'sport': SportDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
@@ -165,7 +164,7 @@ class DailyEmailUS(EmailTemplate):
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('money', 2), ('business', 2)]
+                           ('culture', 3), ('business', 2)]
 
     template_names = {'v1': 'daily-email-us'}
 
