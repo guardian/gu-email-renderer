@@ -11,8 +11,8 @@ from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
-    BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
+    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
@@ -46,7 +46,7 @@ client = ApiClient(base_url, api_key)
 
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
-    ad_fetcher = AdFetcher()
+    default_ad_tag = 'email-guardian-today'
 
     def check_version_id(self, version_id):
         if not version_id in self.recognized_versions:
@@ -72,7 +72,12 @@ class EmailTemplate(webapp2.RequestHandler):
             template_name = self.template_names[version_id] + '.html'
             template = self.resolve_template(template_name)
 
-            page = template.render(ad_html=self.ad_fetcher.leaderboard(), date=date, **trail_blocks)
+            ads = {}
+            ad_fetcher = AdFetcher(self.ad_tag)
+            for name, type in self.ad_config.iteritems():
+                ads[name] = ad_fetcher.fetch_type(type)
+
+            page = template.render(ads=ads, date=date, **trail_blocks)
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)
@@ -83,21 +88,34 @@ class EmailTemplate(webapp2.RequestHandler):
 class MediaBriefing(EmailTemplate):
     recognized_versions = ['v1']
 
+    ad_tag = 'email-media-briefing'
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
+
     data_sources = {}
     data_sources['v1'] = {
         'media_stories': MediaDataSource(client),
+        'media_blog': MediaBlogDataSource(client),
         'media_comment': MediaCommentDataSource(client),
-        'media_monkey': MediaMonkeyDataSource(client)
+        'media_monkey': MediaMonkeyDataSource(client),
+        'media_briefing': MediaBriefingDataSource(client)
         }
 
     priority_list = {}
-    priority_list['v1'] = [('media_stories', 8), ('media_comment', 1), ('media_monkey', 1)]
+    priority_list['v1'] = [('media_stories', 8), ('media_blog', 3), ('media_comment', 1), ('media_monkey', 1), ('media_briefing', 1)]
 
     template_names = {'v1': 'media-briefing'}
 
 
 class DailyEmail(EmailTemplate):
     recognized_versions = ['v1', 'v2']
+
+    ad_tag = 'email-guardian-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
 
     data_sources = {}
     data_sources['v1'] = {
@@ -159,6 +177,9 @@ class MostCommented(EmailTemplate):
         comment_count_interpolator=comment_count_interpolator
         )
 
+    ad_tag = ''
+    ad_config = {}
+
     data_sources = {}
     data_sources['v1'] = {
         'most_commented': most_commented_data_source
@@ -189,12 +210,20 @@ class MostShared(EmailTemplate):
         'most_shared': most_shared_data_source
         }
 
+    ad_tag = ''
+    ad_config = {}
+
     priority_list = {'v1': [('most_shared', n_items)]}
     template_names = {'v1': 'most-shared'}
 
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1']
+
+    ad_tag = 'email-guardian-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
 
     data_sources = {}
     data_sources['v1'] = {
