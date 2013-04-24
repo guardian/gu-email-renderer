@@ -16,15 +16,15 @@
         </tr>
         {% if story.comment_count %}
         <tr>
-          <td>
-            <a class="trail-comment-count" href="{{ story.webUrl }}#start-of-comments"> {{ story.comment_count }} comments</a>
+          <td style="padding: 4px 0">
+            <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}#start-of-comments"><img src="http://resource.guim.co.uk/global/static/file/discussion/comment-icon12x12.gif" width="12" height="12" style="margin-right: 2px"> {{ '{:,}'.format(story.comment_count) }} comments</a>
           </td>
         </tr>
         {% endif %}
         {% if story.share_count %}
         <tr>
-          <td class="trail-share-count">
-             <b>{{ story.share_count }}</b> shares
+          <td style="padding: 4px 0">
+            <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}"><img src="http://static.guim.co.uk/static/52baaf1a56a5e11c763b34c4a9428b50b48efe2a/common/images/icon-share.png" width="12" height="12" style="margin-right: 2px"> {{ '{:,}'.format(story.share_count) }} shares</a>
           </td>
         </tr>
         {% endif %}
