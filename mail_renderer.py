@@ -14,7 +14,8 @@ from data_source import \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
+    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph
@@ -42,6 +43,7 @@ ophan_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
 
 client = ApiClient(base_url, api_key)
+clientUS = ApiClient(base_url, api_key, edition='US')
 
 
 class EmailTemplate(webapp2.RequestHandler):
@@ -146,6 +148,9 @@ class DailyEmail(EmailTemplate):
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
 
+    ad_tag = ''
+    ad_config = {}
+
     data_sources = {}
     data_sources['v1'] = { 'most_viewed' : MostViewedDataSource(client) }
     priority_list = {'v1': [('most_viewed', 3)]}
@@ -154,10 +159,39 @@ class MostViewed(EmailTemplate):
 class EditorsPicks(EmailTemplate):
     recognized_versions = ['v1']
 
+    ad_tag = ''
+    ad_config = {}
+
     data_sources = {}
     data_sources['v1'] = { 'editors_picks' : TopStoriesDataSource(client) }
     priority_list = {'v1': [('editors_picks', 3)]}
     template_names = {'v1': 'editors-picks'}
+
+
+class DailyEmailUS(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-guardian-today-us'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    data_sources = {}
+    data_sources['v1'] = {
+        'business': BusinessDataSource(clientUS),
+        'sport': SportDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'most_viewed': MostViewedDataSource(clientUS),
+        }
+
+
+    priority_list = {}
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2)]
+
+    template_names = {'v1': 'daily-email-us'}
 
 
 class MostCommented(EmailTemplate):
@@ -241,6 +275,7 @@ class SleeveNotes(EmailTemplate):
     template_names = {'v1': 'sleeve-notes'}
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
+                               ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/most-commented/(.+)', MostCommented),

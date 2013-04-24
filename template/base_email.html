@@ -14,24 +14,29 @@
   <body style="background: #fff; margin: 0; padding: 0;">
     <style>
       .content-holder {
-      width: 320px !important;
+        width: 320px !important;
       }
       @media only screen and (min-width: 480px) {
-      .section-heading {
-      font-size: 17px !important;
-      padding: 8px 0 !important;
+        .section-heading {
+          font-size: 17px !important;
+          padding: 8px 0 !important;
+        }
+        .story-image {
+          height: 84px !important;
+          width: 140px !important;
+        }
+        .story-title {
+          font-size: 16px !important;
+          line-height: 20px !important;
+        }
+        .content-holder {
+          width: 480px !important;
+        }
       }
-      .story-image {
-      height: 84px !important;
-      width: 140px !important;
-      }
-      .story-title {
-      font-size: 16px !important;
-      line-height: 20px !important;
-      }
-      .content-holder {
-      width: 480px !important;
-      }
+      @media only screen and (min-width: 600px) {
+        .content-holder {
+          width: 600px !important;
+        }
       }
       @media only screen and (min-width: 600px) {
       .content-holder {
@@ -39,9 +44,9 @@
       }
       }
       @media only screen and (max-width: 320px) {
-      .content-holder {
-      width: 100% !important;
-      }
+        .content-holder {
+          width: 100% !important;
+        }
       }
     </style>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
@@ -75,7 +80,7 @@
                       <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
                           <td align="left" width="50%">
-                            <a href="http://www.guardian.co.uk"><img src="{{ URL_ROOT }}/static/img/logo-footer-{{ footer_colour }}.png" width="131" height="24" alt="The Guardian" border="0" /></a>
+                            <a href="{{ title_link }}"><img src="{{ URL_ROOT }}/static/img/logo-footer-{{ footer_colour }}.png" width="131" height="24" alt="The Guardian" border="0" /></a>
                           </td>
 
                           <td width="50%" align="right">

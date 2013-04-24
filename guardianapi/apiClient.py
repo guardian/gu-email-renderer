@@ -8,9 +8,10 @@ import fetchers
 
 class ApiClient(object):
 
-    def __init__(self, base_url, api_key, fetcher=None):
+    def __init__(self, base_url, api_key, fetcher=None, edition=''):
         self.base_url = base_url
         self.api_key = api_key
+        self.edition = edition
         self.fetcher = fetcher
         if not self.fetcher:
             self.fetcher = fetchers.best_fetcher()
@@ -45,6 +46,8 @@ class ApiClient(object):
             kwargs['show-editors-picks'] = 'true'
         if show_most_viewed:
             kwargs['show_most_viewed'] = 'true'
+        if self.edition:
+            kwargs['edition'] = self.edition
 
         json = self._do_call(section, **kwargs)
 

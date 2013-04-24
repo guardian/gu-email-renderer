@@ -263,6 +263,10 @@ class MostViewedDataSource(ItemDataSource):
         self.show_most_viewed = True
         self.show_editors_picks = False
         self.section=''
+        self.name = 'most_viewed' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
@@ -306,6 +310,10 @@ class MusicBlogDataSource(ItemDataSource):
 class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
+        self.name = 'top_stories' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 
 class DataSourceException(Exception):

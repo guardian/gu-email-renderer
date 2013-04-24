@@ -11,6 +11,10 @@ cron:
   url: /daily-email/v1
   schedule: every 10 minutes
 
+- description: daily email US prefetch
+  url: /daily-email-us/v1
+  schedule: every 10 minutes
+
 - description: media briefing prefetch
   url: /media-briefing/v1
   schedule: every 10 minutes
