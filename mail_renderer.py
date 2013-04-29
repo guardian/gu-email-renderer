@@ -179,6 +179,7 @@ class DailyEmailUS(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
         'sport': SportDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
@@ -189,7 +190,7 @@ class DailyEmailUS(EmailTemplate):
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2)]
+                           ('culture', 3), ('business', 2), ('technology', 2)]
 
     template_names = {'v1': 'daily-email-us'}
 

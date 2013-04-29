@@ -43,20 +43,38 @@
     {{ layout.story_trail(
         heading_text='Comment is free',
         stories=comment,
-        heading_link='http://www.guardian.co.uk/commentisfree',
+        heading_link='http://www.guardian.co.uk/commentisfree/us-edition    ',
         heading_colour='#0061a6',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Culture',
+        stories=culture,
+        heading_link='http://www.guardian.co.uk/culture/us-edition',
+        heading_colour='#d1008b',
         standfirst=False) }}
 
     {{ layout.story_trail(
         heading_text='Business',
         stories=business,
-        heading_link='http://www.guardian.co.uk/business',
+        heading_link='http://www.guardian.co.uk/business/us-edition',
         heading_colour='#004179',
         thumbnail=False,
         standfirst=False) }}
 
+    {{ layout.story_trail(
+        heading_text='Technology',
+        stories=technology,
+        heading_link='http://www.guardian.co.uk/technology',
+        heading_colour='#d61d00',
+        standfirst=False) }}
+
 {% endblock content %}
 
-{% set sections = (('Football', 'http://www.guardian.co.uk/football'),
-                   ('Comment is free', 'http://www.guardian.co.uk/commentisfree'),
-                   ('Environment', 'http://www.guardian.co.uk/environment')) %}
+{% set sections = (
+    ('Explore: Interactive Journalism',
+        'http://www.guardian.co.uk/profile/guardian-us-interactive-team'),
+    ('Open: Go Below the Line',
+        'http://www.guardian.co.uk/commentisfree/series/below-the-line'),
+    ('Learn: Student Debt Network',
+        'http://www.guardian.co.uk/commentisfree/2013/mar/19/student-debt-network')) %}
