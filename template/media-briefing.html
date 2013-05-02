@@ -20,6 +20,12 @@
 	heading_colour	= '#c22d05',
 	top_thumb		= True) }}
 
+{{ layout.story_trail(
+	heading_text	= 'Today\'s newspaper headlines',
+	stories			= media_briefing,
+	heading_link	= 'http://www.guardian.co.uk/media/series/media-briefing',
+	heading_colour	= '#c22d05') }}
+
 {{ layout.advert(ads.leaderboard_v1) }}
 
 {{ layout.story_trail(
@@ -43,12 +49,6 @@
 	more_text		= 'Media Monkey',
 	heading_colour	= '#c22d05',
 	first_para		= True) }}
-
-{{ layout.story_trail(
-	heading_text	= 'Media briefing',
-	stories			= media_briefing,
-	heading_link	= 'http://www.guardian.co.uk/media/series/media-briefing',
-	heading_colour	= '#c22d05') }}
 
 {% endblock content %}
 
