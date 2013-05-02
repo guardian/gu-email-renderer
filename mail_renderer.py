@@ -6,6 +6,7 @@ import math
 import logging
 
 
+
 from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
@@ -18,7 +19,7 @@ from data_source import \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
     MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
-from template_filters import first_paragraph
+from template_filters import first_paragraph, urlencode
 from ads import AdFetcher
 
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
@@ -35,6 +36,7 @@ jinja_environment = jinja2.Environment(
 
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
+jinja_environment.filters['urlencode'] = urlencode
 jinja_environment.cache = None
 
 # TODO: Hide me away somewhere warm and secret.

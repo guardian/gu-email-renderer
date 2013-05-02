@@ -8,11 +8,13 @@
 				{{ heading_text }}
 			</a>
 		</td>
+        {% if link %}
 		<td width="80" align="center">
 			<a href="{{ link }}" style="font: 12px Arial, sans-serif; display: block; font-weight: normal; color: {{ colour }}; text-decoration: none;">
 				<span style="display: block; padding: 10px 0; border-left: 1px solid #ffffff;">More <span style="font-size: 15px;">&#187;</span></span>
 			</a>
 		</td>
+        {% endif %}
 	</tr>
 </table>
 {%- endmacro %}
