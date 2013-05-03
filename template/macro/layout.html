@@ -3,17 +3,23 @@
 {% macro heading(heading_text, link, colour='#ffffff', bg_colour='#000000') -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}">
 	<tr valign="top">
-		<td align="left" style="padding: 0 0 0 20px;">
-			<a class="section-heading" href="{{ link }}" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
-				{{ heading_text }}
-			</a>
-		</td>
         {% if link %}
-		<td width="80" align="center">
-			<a href="{{ link }}" style="font: 12px Arial, sans-serif; display: block; font-weight: normal; color: {{ colour }}; text-decoration: none;">
-				<span style="display: block; padding: 10px 0; border-left: 1px solid #ffffff;">More <span style="font-size: 15px;">&#187;</span></span>
-			</a>
-		</td>
+            <td align="left" style="padding: 0 0 0 20px;">
+                <a class="section-heading" href="{{ link }}" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
+                    {{ heading_text }}
+                </a>
+            </td>
+            <td width="80" align="center">
+                <a href="{{ link }}" style="font: 12px Arial, sans-serif; display: block; font-weight: normal; color: {{ colour }}; text-decoration: none;">
+                    <span style="display: block; padding: 10px 0; border-left: 1px solid #ffffff;">More <span style="font-size: 15px;">&#187;</span></span>
+                </a>
+            </td>
+        {% else %}
+        <td align="left" style="padding: 0 0 1px 20px;">
+            <span class="section-heading" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
+                {{ heading_text }}
+            </span>
+        </td>
         {% endif %}
 	</tr>
 </table>
