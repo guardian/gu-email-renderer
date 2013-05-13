@@ -11,7 +11,7 @@ from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
-    CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
+    CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
@@ -182,7 +182,7 @@ class DailyEmailUS(EmailTemplate):
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
-        'sport': SportDataSource(clientUS),
+        'sport': SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
         'top_stories': TopStoriesDataSource(clientUS),
