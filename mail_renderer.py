@@ -16,8 +16,8 @@ from data_source import \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, \
-    MultiContentDataSource, CommentCountInterpolator, fetch_all, build_unique_trailblocks
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, \
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 from ads import AdFetcher
@@ -43,9 +43,13 @@ jinja_environment.cache = None
 api_key = '***REMOVED***'
 ophan_key = '***REMOVED***'
 base_url = 'http://content.guardianapis.com/'
+aus_url = 'http://code-mq-elb.content.guardianapis.com/api/australia.json'
 
 client = ApiClient(base_url, api_key)
 clientUS = ApiClient(base_url, api_key, edition='US')
+clientAUS = ApiClient(base_url, api_key, edition='au')
+clientAUSCODE = ApiClient(aus_url, api_key, edition='au')
+
 
 
 class EmailTemplate(webapp2.RequestHandler):
@@ -195,6 +199,35 @@ class DailyEmailUS(EmailTemplate):
 
     template_names = {'v1': 'daily-email-us'}
 
+class DailyEmailAUS(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-guardian-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    data_sources = {}
+
+    data_sources['v1'] = {
+        'top_stories': TopStoriesDataSource(clientAUSCODE),
+        'most_viewed': MostViewedDataSource(clientAUS),
+        'sport': SportDataSource(clientAUS),
+        'culture': CultureDataSource(clientAUS),
+        'comment': AusCommentIsFreeDataSource(clientAUS),
+        'lifeandstyle': LifeAndStyleDataSource(clientAUS),
+        'technology': TechnologyDataSource(clientAUS),
+        'environment': EnvironmentDataSource(clientAUS),
+        'science' : ScienceDataSource(clientAUS)
+
+        }
+
+    priority_list = {}
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('culture',3), ('comment', 3),
+                           ('lifeandstyle', 2), ('technology', 2), ('environment', 2), ('science', 2)]
+
+    template_names = {'v1': 'daily-email-aus'}
+
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
@@ -278,6 +311,7 @@ class SleeveNotes(EmailTemplate):
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
+                               ('/daily-email-aus/(.+)', DailyEmailAUS),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/most-commented/(.+)', MostCommented),

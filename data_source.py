@@ -190,6 +190,10 @@ class CommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
 
+class AusCommentIsFreeDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
+        self.tags = ['world/australia']
 
 class TechnologyDataSource(ItemDataSource):
     def __init__(self, client):
@@ -199,6 +203,15 @@ class TechnologyDataSource(ItemDataSource):
 class TravelDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'travel', show_editors_picks=True)
+
+
+class ScienceDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'science', show_editors_picks=True)
+
+class EnvironmentDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'environment', show_editors_picks=True)
 
 
 class LifeAndStyleDataSource(ItemDataSource):
@@ -214,7 +227,12 @@ class SportDataSource(ItemDataSource):
 class SportUSDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport/us-sport', show_editors_picks=True)
+        self.tags = ['tone/comment']
 
+class AusSportDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)
+        self.tags = ['world/australia']
 
 class MediaDataSource(ItemDataSource):
     def __init__(self, client):
