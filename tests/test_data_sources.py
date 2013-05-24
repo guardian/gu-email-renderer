@@ -1,3 +1,4 @@
+
 #! /usr/bin/python
 
 import prefetch
@@ -10,13 +11,13 @@ from data_source import \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
-    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, \
+    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, ItemPlusBlogDataSource, \
     DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
 
 from urllib2 import urlparse
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
-from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient
+from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient, MultiCalledApiStubFetcher
 
 
 API_KEY = '***REMOVED***'
@@ -381,6 +382,83 @@ class TestDataSources(unittest2.TestCase):
         data_source.content_ids = id_list
         data_source.fetch_data()
         self.assertEquals(set(client.content_ids), set(id_list))
+
+    #Move this when we are finished
+    def test_blog_and_data_source_should_call_api_for_blog_and_data(self):
+        class MockDataSource:
+            def __init__(self):
+                self.called = False;
+
+            def fetch_data(self):
+                self.called = True
+                return ["three"]
+
+        contentItemDataSource = MockDataSource()
+        blogDataSource = MockDataSource()
+        ##TODO Un cc
+        data_source = ItemPlusBlogDataSource(contentItemDataSource, blogDataSource)
+        data_source.fetch_data()
+        self.assertTrue(blogDataSource.called)
+        self.assertTrue(contentItemDataSource.called)
+
+    def test_should_append_blog_item_to_content_where_there_is_one_blog_entry(self):
+        fetcher = ApiStubFetcher()
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        blog_data_source = ItemDataSource(client, '/i/want/a/blog/item')
+        section_data_source = ItemDataSource(client, '/i/want/a/section')
+        data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
+        data = data_source.fetch_data()
+        assert len(data) == 4
+        result = data[0]
+        assert result['id'] == 'blog id'
+        assert result['sectionName'] == 'blog section name'
+        assert result['sectionId'] == 'blog section id'
+        result = data[1]
+        assert result['id'] == 'section id'
+        assert result['sectionName'] == 'Politics'
+        assert result['sectionId'] == 'politics'
+
+
+    def test_should_append_blog_item_to_content_where_there_are_no_blog_entries(self):
+        fetcher = ApiStubFetcher()
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        blog_data_source = ItemDataSource(client, '/i/want/a/empty/blog/item')
+        section_data_source = ItemDataSource(client, '/i/want/a/section')
+        data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
+        data = data_source.fetch_data()
+        assert len(data) == 3
+        result = data[0]
+        assert result['id'] == 'section id'
+        assert result['sectionName'] == 'Politics'
+        assert result['sectionId'] == 'politics'
+
+        result = data[1]
+        assert result['id'] == 'section id 2'
+        assert result['sectionName'] == 'Politics'
+        assert result['sectionId'] == 'politics'
+
+
+    def test_should_append_first_blog_item_to_content_where_there_multiple_blog_entries(self):
+        fetcher = ApiStubFetcher()
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        blog_data_source = ItemDataSource(client, '/i/want/blog/items')
+        section_data_source = ItemDataSource(client, '/i/want/a/section')
+        data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
+        data = data_source.fetch_data()
+        assert len(data) == 4
+        result = data[0]
+        assert result['id'] == 'blog id 1'
+        assert result['sectionName'] == 'blog section name'
+        assert result['sectionId'] == 'blog section id'
+
+        result = data[1]
+        assert result['id'] == 'section id'
+        assert result['sectionName'] == 'Politics'
+        assert result['sectionId'] == 'politics'
+
+
+
+
 
     def test_multi_content_data_source_should_barf_if_content_ids_is_left_unset(self):
         data_source = MultiContentDataSource('cheese_client', 'cheese_name')

@@ -98,6 +98,20 @@ class MostCommentedDataSource(DataSource):
 
         return self.comment_count_interpolator.interpolate(content_list=most_commented_content, comment_count_list=item_count_pairs)
 
+class ItemPlusBlogDataSource(DataSource):
+
+    def __init__(self, content_item_data_source, blog_data_source):
+        DataSource.__init__(self, None)
+        self.content_item_data_source = content_item_data_source
+        self.blog_data_source = blog_data_source
+
+    def _do_call(self, **criteria):
+        content_data = self.content_item_data_source.fetch_data()
+        blog_data = self.blog_data_source.fetch_data()
+        return blog_data[:1] + content_data
+
+
+
 
 class MostSharedCountInterpolator:
     def interpolate(self, shared_count_list, content_list ):
@@ -231,8 +245,7 @@ class SportUSDataSource(ItemDataSource):
 
 class AusSportDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)
-        self.tags = ['world/australia']
+        ItemDataSource.__init__(self, client, 'sport/australia-sport', show_editors_picks=True)
 
 class MediaDataSource(ItemDataSource):
     def __init__(self, client):
@@ -291,6 +304,16 @@ class MostViewedDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
+class VideoDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
+
+class AusVideoDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
+        self.tags = ['world/australia']
+
+
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)
@@ -337,6 +360,12 @@ class TopStoriesDataSource(ItemDataSource):
 
     def __repr__(self):
         return str(self.__class__) + self.name
+
+class AusTopStoriesDataSource(TopStoriesDataSource):
+    def __init__(self, client):
+        TopStoriesDataSource.__init__(self,client)
+        self.tags = ['world/australia']
+
 
 
 class DataSourceException(Exception):

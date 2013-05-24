@@ -39,6 +39,163 @@ ContentResponse = """
             }
             """
 
+BlogItemResponse = """
+            {
+              "response": {
+                "status": "ok",
+                "userTier": "internal",
+                "total": 1,
+                "results": [
+                  {
+                    "id": "blog id",
+                    "sectionId": "blog section id",
+                    "sectionName": "blog section name",
+                    "webPublicationDate": "2013-05-23T10:38:18Z",
+                    "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "fields": {
+                      "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
+                      "headline": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                      "standfirst": "Rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms",
+                      "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/23/1369295845937/40ab0163-022a-410b-9b6b-99de396bd91b-140x84.jpeg",
+                      "byline": "Andrew Sparrow",
+                      "commentable": "true",
+                      "liveBloggingNow": "true"
+                    }
+                  }
+                ]
+              }
+            }
+            """
+BlogItemsResponse = """
+            {
+              "response": {
+                "status": "ok",
+                "userTier": "internal",
+                "total": 1,
+                "results": [
+                  {
+                    "id": "blog id 1",
+                    "sectionId": "blog section id",
+                    "sectionName": "blog section name",
+                    "webPublicationDate": "2013-05-23T10:38:18Z",
+                    "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "fields": {
+                      "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
+                      "headline": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                      "standfirst": "Rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms",
+                      "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/23/1369295845937/40ab0163-022a-410b-9b6b-99de396bd91b-140x84.jpeg",
+                      "byline": "Andrew Sparrow",
+                      "commentable": "true",
+                      "liveBloggingNow": "true"
+                    }
+                  },
+                  {
+                    "id": "blog id 2",
+                    "sectionId": "blog section id",
+                    "sectionName": "blog section name",
+                    "webPublicationDate": "2013-05-23T10:38:18Z",
+                    "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "fields": {
+                      "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
+                      "headline": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                      "standfirst": "Rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms",
+                      "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/23/1369295845937/40ab0163-022a-410b-9b6b-99de396bd91b-140x84.jpeg",
+                      "byline": "Andrew Sparrow",
+                      "commentable": "true",
+                      "liveBloggingNow": "true"
+                    }
+                  }
+                ]
+              }
+            }
+            """
+
+EmptyBlogItemResponse = """
+            {
+              "response": {
+                "status": "ok",
+                "userTier": "internal",
+                "total": 1,
+                "results": []
+              }
+            }
+            """
+
+SectionResponse = """
+        {
+          "response": {
+            "status": "ok",
+            "userTier": "internal",
+            "total": 1,
+            "results": [
+              {
+                "id": "section id",
+                "sectionId": "politics",
+                "sectionName": "Politics",
+                "webPublicationDate": "2013-05-23T11:11:20Z",
+                "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                "fields": {
+                  "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
+                  "headline": "Jeremy Hunt under fire over GP reforms: Politics live blog",
+                  "standfirst": "Rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms",
+                  "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/23/1369295845937/40ab0163-022a-410b-9b6b-99de396bd91b-140x84.jpeg",
+                  "commentable": "true",
+                  "byline": "Andrew Sparrow",
+                  "liveBloggingNow": "true"
+                }
+              },
+              {
+                "id": "section id 2",
+                "sectionId": "politics",
+                "sectionName": "Politics",
+                "webPublicationDate": "2013-05-22T22:06:01Z",
+                "webTitle": "Hugh Muir's Diary: Trouble behind the curtains in Green-land as members protest at EU selection",
+                "webUrl": "http://www.guardian.co.uk/politics/2013/may/22/hugh-muir-diary-green-show-trial",
+                "apiUrl": "http://content.guardianapis.com/politics/2013/may/22/hugh-muir-diary-green-show-trial",
+                "fields": {
+                  "trailText": "<strong>Hugh Muir:</strong> A question for parties everywhere: how Green was my election?<br /><br />",
+                  "headline": "Diary: Trouble behind the curtains in Green-land as members protest at EU selection",
+                  "standfirst": "A question for parties everywhere: how Green was my election?",
+                  "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/22/1369243720648/GERALD-RATNER--003.jpg",
+                  "commentable": "false",
+                  "byline": "Hugh Muir",
+                  "liveBloggingNow": "false"
+                }
+              },
+              {
+                "id": "politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
+                "sectionId": "politics",
+                "sectionName": "Politics",
+                "webPublicationDate": "2013-05-22T19:00:00Z",
+                "webTitle": "David Cameron tries to placate the swivel-eyed loons with his natural leadership skills",
+                "webUrl": "http://www.guardian.co.uk/politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
+                "apiUrl": "http://content.guardianapis.com/politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
+                "fields": {
+                  "trailText": "<p>Tory activists are incensed. But surely a nicely phrased letter will calm them down</p>",
+                  "headline": "David Cameron tries to placate the swivel-eyed loons with his natural leadership skills",
+                  "standfirst": "Tory activists are incensed. But surely a message of thanks and appreciation will calm them down",
+                  "thumbnail": "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2013/5/22/1369241033203/Swivel-on-this-Lord-Feldm-005.jpg",
+                  "commentable": "true",
+                  "byline": "John Crace",
+                  "liveBloggingNow": "false"
+                }
+              }
+              ]
+            }
+        }
+        """
+
+
+
+
 class ContentIdRememberingStubClient:
     def __init__(self):
         self.content_ids = []
@@ -52,6 +209,20 @@ class ContentIdRememberingStubClient:
             results = [json['response']['content']]
 
         return results
+
+class MultiCalledApiStubFetcher:
+
+    def __init__(self):
+        self.blog_content_requested = False
+        self.content_requested = False
+
+    status = Status
+
+    def get( self, url):
+        (_, _, path, _, query, _) = urlparse.urlparse(url)
+        if path == "/i/am/content":
+            self.content_requested = True
+            return (self.status, "{}")
 
 
 
@@ -71,12 +242,35 @@ class ApiStubFetcher:
             return self.editors_picks_results()
         if 'show-most-viewed' in query:
             return self.most_viewed_results()
+        if path == '/i/want/a/blog/item':
+            return self.blog_item_response()
+        if path == '/i/want/a/empty/blog/item':
+            return self.empty_blog_item()
+        if path == '/i/want/blog/items':
+            return self.several_blog_items()
+        if path == '/i/want/a/section':
+            return self.section_response()
 
 
     def content_result(self):
         response = ContentResponse
         return (self.status, response)
 
+    def section_response(self):
+        response =  SectionResponse
+        return (self.status, response)
+
+    def blog_item_response(self):
+        response = BlogItemResponse
+        return(self.status, response)
+
+    def several_blog_items(self):
+        response = BlogItemsResponse
+        return (self.status, response)
+
+    def empty_blog_item(self):
+        response = EmptyBlogItemResponse
+        return (self.status, response)
 
     def most_viewed_results(self):
         response = """

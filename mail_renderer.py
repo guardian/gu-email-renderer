@@ -15,9 +15,9 @@ from data_source import \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, fetch_all, build_unique_trailblocks
+    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 from ads import AdFetcher
@@ -200,7 +200,9 @@ class DailyEmailUS(EmailTemplate):
     template_names = {'v1': 'daily-email-us'}
 
 class DailyEmailAUS(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2']
+
+    #NOTE - here v2 is to demonstrate content which is available and is not a varient
 
     ad_tag = 'email-guardian-today'
     ad_config = {
@@ -209,24 +211,42 @@ class DailyEmailAUS(EmailTemplate):
 
     data_sources = {}
 
+    cultureDataSourceV1 = ItemPlusBlogDataSource(CultureDataSource(clientAUS), ItemDataSource(client, 'culture/australia-culture-blog'))
+    cultureDataSourceV2 = ItemPlusBlogDataSource(CultureDataSource(clientAUS), ItemDataSource(client, 'film/filmblog'))
+    videoDataSourceV1 = ItemPlusBlogDataSource( AusVideoDataSource(clientAUS), ItemDataSource( client, 'tv-and-radio/series/the-roast'))
+    videoDataSourceV2 = ItemPlusBlogDataSource( AusVideoDataSource(clientAUS), ItemDataSource( client, 'tv-and-radio/series/game-of-thrones-episode-by-episode'))
+    lifeAndStyleV1 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), ItemDataSource(client, "lifeandstyle/wordofmouth" ) )
+    lifeAndStyleV2 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), ItemDataSource(client, "lifeandstyle/wordofmouth" ) )
+
     data_sources['v1'] = {
-        'top_stories': TopStoriesDataSource(clientAUSCODE),
+        'top_stories_code': TopStoriesDataSource(clientAUSCODE),
+        'top_stories': TopStoriesDataSource(clientAUS),
         'most_viewed': MostViewedDataSource(clientAUS),
         'sport': SportDataSource(clientAUS),
-        'culture': CultureDataSource(clientAUS),
+        'aus_sport': AusSportDataSource(client),
+        'culture_place_holder_blog': cultureDataSourceV2,
+        'culture': cultureDataSourceV1,
         'comment': AusCommentIsFreeDataSource(clientAUS),
-        'lifeandstyle': LifeAndStyleDataSource(clientAUS),
+        'lifeandstyle_place_holder_blog': lifeAndStyleV2,
+        'lifeandstyle': lifeAndStyleV1,
         'technology': TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
-        'science' : ScienceDataSource(clientAUS)
-
+        'science' : ScienceDataSource(clientAUS),
+        'video' :  videoDataSourceV1,
+        'video_place_holder_blog' :  videoDataSourceV2
         }
 
-    priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('culture',3), ('comment', 3),
-                           ('lifeandstyle', 2), ('technology', 2), ('environment', 2), ('science', 2)]
+    data_sources['v2'] = data_sources['v1']
 
-    template_names = {'v1': 'daily-email-aus'}
+    priority_list = {}
+    priority_list['v2'] = [('top_stories_code', 6), ('most_viewed', 6), ('sport', 3), ('aus_sport', 3), ('culture_place_holder_blog',3), ('comment', 3),
+                           ('lifeandstyle_place_holder_blog', 3), ('technology', 2), ('environment', 2), ('science', 2), ('video_place_holder_blog', 3)]
+
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('aus_sport', 3), ('culture',3), ('comment', 3),
+                           ('lifeandstyle', 3), ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
+
+
+    template_names = {'v1' : 'daily-email-aus-v1', 'v2': 'daily-email-aus-v2'}
 
 
 class MostCommented(EmailTemplate):
