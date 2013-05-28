@@ -309,9 +309,10 @@ class MostShared(EmailTemplate):
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = 'email-guardian-today'
+    ad_tag = 'email-sleeve-notes'
     ad_config = {
-        'leaderboard': 'Top'
+        'leaderboard': 'Top',
+        'leaderboard2': 'Bottom',
     }
 
     data_sources = {}
