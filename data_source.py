@@ -63,7 +63,14 @@ class DataSource(object):
         return criteria
 
     def __repr__(self):
-        return str(self.__class__)
+        if self.client is not None:
+            edition = self.client.edition
+        else:
+            edition = "none"
+
+
+        return '%s-%s' % (self.__class__,edition)
+
 
 
 class CommentCountInterpolator:

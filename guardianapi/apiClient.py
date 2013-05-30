@@ -76,4 +76,4 @@ class ApiClient(object):
         return results
 
     def __repr__(self):
-        return '<%s: %s>' % (self.__class__.__name__, self.base_url)
+        return '<%s: %s-%s>' % (self.__class__.__name__, self.base_url)
