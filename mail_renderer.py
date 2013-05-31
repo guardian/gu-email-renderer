@@ -46,7 +46,7 @@ base_url = 'http://content.guardianapis.com/'
 aus_url = 'http://code-mq-elb.content.guardianapis.com/api/australia.json'
 
 client = ApiClient(base_url, api_key)
-clientUS = ApiClient(base_url, api_key, edition='US')
+clientUS = ApiClient(base_url, api_key, edition='us')
 clientAUS = ApiClient(base_url, api_key, edition='au')
 clientAUSCODE = ApiClient(aus_url, api_key, edition='au')
 
@@ -215,11 +215,11 @@ class DailyEmailAUS(EmailTemplate):
     cultureDataSourceV2 = ItemPlusBlogDataSource(CultureDataSource(clientAUS), ItemDataSource(client, 'film/filmblog'))
     videoDataSourceV1 = ItemPlusBlogDataSource( AusVideoDataSource(clientAUS), ItemDataSource( client, 'tv-and-radio/series/the-roast'))
     videoDataSourceV2 = ItemPlusBlogDataSource( AusVideoDataSource(clientAUS), ItemDataSource( client, 'tv-and-radio/series/game-of-thrones-episode-by-episode'))
-    lifeAndStyleV1 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), ItemDataSource(client, "lifeandstyle/wordofmouth" ) )
+    lifeAndStyleV1 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), ItemDataSource(client, "lifeandstyle/australia-food-blog" ) )
     lifeAndStyleV2 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), ItemDataSource(client, "lifeandstyle/wordofmouth" ) )
 
     data_sources['v1'] = {
-        'top_stories_code': TopStoriesDataSource(clientAUSCODE),
+        'top_stories_code': TopStoriesDataSource(clientAUS),
         'top_stories': TopStoriesDataSource(clientAUS),
         'most_viewed': MostViewedDataSource(clientAUS),
         'sport': SportDataSource(clientAUS),
