@@ -22,6 +22,7 @@ class DataSource(object):
         self.show_most_viewed = False
         self.short_url = None
 
+
     @perma_cache
     def fetch_data(self):
         # get data from remote api
@@ -59,6 +60,8 @@ class DataSource(object):
         # TODO: Are we even using this?
         if self.short_url:
             criteria['short_url'] = self.short_url
+
+        criteria['user-tier']='internal'
 
         return criteria
 

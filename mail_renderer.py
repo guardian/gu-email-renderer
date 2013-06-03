@@ -42,7 +42,7 @@ jinja_environment.cache = None
 # TODO: Hide me away somewhere warm and secret.
 api_key = '***REMOVED***'
 ophan_key = '***REMOVED***'
-base_url = 'http://content.guardianapis.com/'
+base_url='http://***REMOVED***/api/'
 aus_url = 'http://code-mq-elb.content.guardianapis.com/api/australia.json'
 
 client = ApiClient(base_url, api_key)
