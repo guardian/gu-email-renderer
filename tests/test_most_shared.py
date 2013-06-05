@@ -9,7 +9,7 @@ OphanResponse = """
 comment_count_list = [("http://www.guardian.co.uk/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker", 49723), ("http://www.guardian.co.uk/music/2013/apr/14/justin-bieber-anne-frank-belieber", 27556)]
 api_data = ["mr", "big", "cheese"]
 
-class IdRememberingMultiContentDataSourceStub:
+class IdRememberingMultiContentDataSourceStub(object):
     def __init__(self, client):
         self.fields = []
         self.content_ids = None
@@ -20,7 +20,7 @@ class IdRememberingMultiContentDataSourceStub:
         return api_data
 
 
-class StubClient:
+class StubClient(object):
     base_url = 'base'
     actual_url = None
     api_key = "iamakeyandigetinforfree"
@@ -30,7 +30,7 @@ class StubClient:
         return ('headers', OphanResponse)
 
 
-class StubMostSharedFetcher:
+class StubMostSharedFetcher(object):
     def __init__(self):
         self.actual_page_size = None
         self.most_shared_urls_with_counts = comment_count_list
@@ -40,7 +40,7 @@ class StubMostSharedFetcher:
         return self.most_shared_urls_with_counts
 
 
-class SharedCountInterpolator:
+class SharedCountInterpolator(object):
     def interpolate(self, comment_count_list, content_list):
         self.content_list = content_list
         self.comment_count_list = comment_count_list

@@ -4,13 +4,13 @@ from mail_renderer import EmailTemplate
 from webob.exc import HTTPNotFound
 
 
-class Mock:
+class Mock(object):
     def __getattr__(self, name): return lambda *args: args
 
-class MockResponse:
+class MockResponse(object):
     out = Mock()
 
-class MockCache:
+class MockCache(object):
     def __init__(self):
         self.data = {}
 
@@ -21,12 +21,12 @@ class MockCache:
         if self.data.has_key(key):
             return self.data[key]
 
-class MockAdFetcher:
+class MockAdFetcher(object):
     def leaderboard(self):
         return {}
 
 
-class MockTemplate:
+class MockTemplate(object):
     def __init__(self, template_name):
         self.template_name = template_name
 
@@ -34,7 +34,7 @@ class MockTemplate:
         return self.template_name
 
 
-class MockDataSource:
+class MockDataSource(object):
     def __init__(self):
         self.data_fetched = False
 

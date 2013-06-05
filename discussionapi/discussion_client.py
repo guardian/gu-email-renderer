@@ -3,7 +3,7 @@ from django.utils import simplejson as json
 import urllib2
 
 
-class DiscussionClient:
+class DiscussionClient(object):
     def __init__(self, base_url):
         self.base_url = base_url
 
@@ -21,7 +21,7 @@ class DiscussionClient:
         return headers, u.read()
 
 
-class DiscussionFetcher:
+class DiscussionFetcher(object):
     def __init__(self, client):
         self.client = client
 

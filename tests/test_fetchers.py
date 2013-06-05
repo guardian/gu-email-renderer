@@ -196,7 +196,7 @@ SectionResponse = """
 
 
 
-class ContentIdRememberingStubClient:
+class ContentIdRememberingStubClient(object):
     def __init__(self):
         self.content_ids = []
 
@@ -210,7 +210,7 @@ class ContentIdRememberingStubClient:
 
         return results
 
-class MultiCalledApiStubFetcher:
+class MultiCalledApiStubFetcher(object):
 
     def __init__(self):
         self.blog_content_requested = False
@@ -226,7 +226,7 @@ class MultiCalledApiStubFetcher:
 
 
 
-class ApiStubFetcher:
+class ApiStubFetcher(object):
 
     status = Status
 

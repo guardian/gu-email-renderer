@@ -24,7 +24,7 @@ API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 DEBUG = False
 
-class UrlCapturingFetcher():
+class UrlCapturingFetcher(object):
     def get(self, url):
         self.actual_url = url
         return (None, '{"response": {"results": [], "editorsPicks": [], "mostViewed": []}}')
@@ -232,17 +232,17 @@ class TestDataSources(unittest2.TestCase):
 
     def test_short_url_must_be_specified_as_field_for_most_commented(self):
 
-        class StubClient:
+        class StubClient(object):
             actual_criteria = None
             def content_query(self, id, **criteria):
                 self.actual_criteria = criteria
                 return []
 
-        class StubFetcher:
+        class StubFetcher(object):
             def fetch_most_commented(self, page_size):
                 return [('yahoo', 3)]
 
-        class StubInterpolator:
+        class StubInterpolator(object):
             def interpolate(self, content_list, comment_count_list):
                 return []
 
@@ -358,11 +358,11 @@ class TestDataSources(unittest2.TestCase):
 
 
     def test_fetch_all_should_retrieve_data_for_each_data_source_and_return_a_map_indexed_as_input_map(self):
-        class StubDataSource1:
+        class StubDataSource1(object):
             def fetch_data(self):
                 return 'stub data 1'
 
-        class StubDataSource2:
+        class StubDataSource2(object):
             def fetch_data(self):
                 return 'stub data 2'
 
@@ -385,7 +385,7 @@ class TestDataSources(unittest2.TestCase):
 
     #Move this when we are finished
     def test_blog_and_data_source_should_call_api_for_blog_and_data(self):
-        class MockDataSource:
+        class MockDataSource(object):
             def __init__(self):
                 self.called = False;
 

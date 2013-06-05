@@ -73,7 +73,7 @@ class DataSource(object):
 
 
 
-class CommentCountInterpolator:
+class CommentCountInterpolator(object):
 
     def interpolate(self, comment_count_list, content_list):
         def has_path(url, path):
@@ -120,7 +120,7 @@ class ItemPlusBlogDataSource(DataSource):
 
 
 
-class MostSharedCountInterpolator:
+class MostSharedCountInterpolator(object):
     def interpolate(self, shared_count_list, content_list ):
         for( url, shared_count ) in shared_count_list:
             [content_item for content_item in content_list

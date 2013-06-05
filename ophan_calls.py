@@ -6,7 +6,7 @@ from urlparse import urlparse
 
 # TODO: pull this up into a generic http client
 
-class OphanClient:
+class OphanClient(object):
     def __init__(self, base_url, api_key):
         self.base_url = base_url
         self.api_key = api_key
@@ -25,7 +25,7 @@ class OphanClient:
         return headers, u.read()
 
 
-class MostSharedFetcher:
+class MostSharedFetcher(object):
     def __init__(self, client):
         self.client = client
 

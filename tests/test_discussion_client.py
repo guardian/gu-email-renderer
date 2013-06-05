@@ -4,7 +4,7 @@ from discussionapi.discussion_client import DiscussionFetcher
 
 
 
-class MockClient:
+class MockClient(object):
     def __init__(self, base_url):
         self.base_url = base_url
         self.actual_url = None

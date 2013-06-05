@@ -6,12 +6,12 @@ from data_source import MostCommentedDataSource, CommentCountInterpolator
 most_commented_short_urls_with_counts = [('cheese', 23), ('egg', 19), ('mouse', 9)]
 most_commented_content = ["my", "uncle", "norbert"]
 
-class CommentCountInterpolatorStub:
+class CommentCountInterpolatorStub(object):
     def interpolate(self, content_list, comment_count_list):
         return 'Interpolated content'
 
 
-class IdRememberingMultiContentDataSourceStub:
+class IdRememberingMultiContentDataSourceStub(object):
     def __init__(self, client):
         self.fields = []
         self.content_ids = None
@@ -22,7 +22,7 @@ class IdRememberingMultiContentDataSourceStub:
         return []
 
 
-class StubDiscussionFetcher:
+class StubDiscussionFetcher(object):
     def __init__(self):
         self.actual_page_size = None
         self.most_commented_short_urls_with_counts = None

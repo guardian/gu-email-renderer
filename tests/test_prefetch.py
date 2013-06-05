@@ -7,7 +7,7 @@ from prefetch import CachedData
 from django.utils import simplejson as json
 
 
-class MockDataSource:
+class MockDataSource(object):
     def __init__(self, id):
         self.id = id
 
