@@ -31,7 +31,7 @@ class UrlCapturingFetcher():
 
 
 fetcher = UrlCapturingFetcher()
-url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher)
+url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
 
 class TestDataSources(unittest2.TestCase):
 
@@ -273,7 +273,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_a_search_data_source_should_know_how_to_process_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = SearchDataSource(client)
         data = data_source.fetch_data()
 
@@ -289,7 +289,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_a_content_datasource_should_know_how_to_process_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = ContentDataSource(client, 'i/am/a/short/url')
         data = data_source.fetch_data()
 
@@ -313,7 +313,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, client, show_most_viewed=True)
 
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = TestMostViwedDataSource(client)
         data = data_source.fetch_data()
         self.assertEquals(len(data), 2)
@@ -340,7 +340,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, client, show_editors_picks=True)
 
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = TestEditorsPicksDataSource(client)
         data = data_source.fetch_data()
         assert len(data) == 4
@@ -359,7 +359,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         data_source = SportDataSource(client)
         data = data_source.fetch_data()
         assert len(data) == 1
@@ -411,7 +411,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_blog_item_to_content_where_there_is_one_blog_entry(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/a/blog/item')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
@@ -429,7 +429,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_blog_item_to_content_where_there_are_no_blog_entries(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/a/empty/blog/item')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
@@ -448,7 +448,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_first_blog_item_to_content_where_there_multiple_blog_entries(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/blog/items')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)

@@ -251,7 +251,6 @@ class SportDataSource(ItemDataSource):
 class SportUSDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport/us-sport', show_editors_picks=True)
-        self.tags = ['tone/comment']
 
 class AusSportDataSource(ItemDataSource):
     def __init__(self, client):
