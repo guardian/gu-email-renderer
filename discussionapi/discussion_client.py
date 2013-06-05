@@ -1,6 +1,7 @@
 from urlparse import urljoin
 from django.utils import simplejson as json
 import urllib2
+import logging
 
 
 class DiscussionClient(object):
