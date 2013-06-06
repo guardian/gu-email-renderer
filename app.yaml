@@ -1,8 +1,8 @@
 application: ***REMOVED***
-version: 1
+version: prod
 runtime: python27
 api_version: 1
-threadsafe: true
+threadsafe: false
 
 handlers:
 - url: /static
