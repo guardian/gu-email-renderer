@@ -31,7 +31,7 @@ class UrlCapturingFetcher(object):
 
 
 fetcher = UrlCapturingFetcher()
-url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher)
+url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
 
 class TestDataSources(unittest2.TestCase):
 
@@ -90,45 +90,48 @@ class TestDataSources(unittest2.TestCase):
         self.check_data_source_url(CultureDataSource(url_capturing_client), '/culture',
                                    show_editors_picks='true',
                                    show_fields=Fields,
-                                   page_size='10')
+                                   page_size='10',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_media_section(self):
         self.check_data_source_url(MediaDataSource(url_capturing_client), '/media',
                                    show_editors_picks='true',
                                    show_fields=Fields,
-                                   page_size='10')
+                                   page_size='10',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_media_monkey(self):
         self.check_data_source_url(MediaMonkeyDataSource(url_capturing_client), '/media/mediamonkeyblog',
                                    show_fields=Fields + ',body',
-                                   page_size='10')
+                                   page_size='10',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_media_comment(self):
         self.check_data_source_url(MediaCommentDataSource(url_capturing_client), '/media',
                                    show_fields=Fields,
                                    tag='tone/comment',
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_sport_section(self):
         self.check_data_source_url(SportDataSource(url_capturing_client), '/sport',
                                    show_editors_picks='true',
                                    show_fields=Fields,
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_most_viewed(self):
         self.check_data_source_url(MostViewedDataSource(url_capturing_client),'/',
                                    page_size='10',
                                    show_fields=Fields,
                                    show_media='picture',
-                                   show_most_viewed='true')
-
+                                   show_most_viewed='true',
+                                   user_tier='internal')
     def test_content_data_source_should_call_api_with_correct_url(self):
-        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline')
+        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal")
 
 
     def test_should_call_api_with_correct_url_for_pic_of_the_day(self):
@@ -136,99 +139,104 @@ class TestDataSources(unittest2.TestCase):
                                    show_fields=Fields,
                                    page_size='1',
                                    show_media='picture',
-                                   tag='artanddesign/series/picture-of-the-day,type/picture')
-
+                                   tag='artanddesign/series/picture-of-the-day,type/picture',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_eye_witness(self):
         self.check_data_source_url(EyeWitnessDataSource(url_capturing_client), '/search',
                                    show_fields=Fields,
                                    page_size='1',
                                    show_media='picture',
-                                   tag='world/series/eyewitness,type/picture')
-
+                                   tag='world/series/eyewitness,type/picture',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_blog(self):
         self.check_data_source_url(MusicBlogDataSource(url_capturing_client), '/music/musicblog',
                                    show_fields=Fields,
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_watch_and_listen(self):
         self.check_data_source_url(MusicWatchListenDataSource(url_capturing_client), '/music',
                                    show_fields=Fields,
                                    tag='type/video|type/audio',
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_business(self):
         self.check_data_source_url(BusinessDataSource(url_capturing_client), '/business',
                                    show_fields=Fields,
                                    show_editors_picks='true',
-                                   page_size='10')
+                                   page_size='10',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_life_and_style(self):
         self.check_data_source_url(LifeAndStyleDataSource(url_capturing_client), '/lifeandstyle',
                                    show_fields=Fields,
                                    show_editors_picks='true',
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_life_and_travel(self):
         self.check_data_source_url(TravelDataSource(url_capturing_client), '/travel',
                                    show_fields=Fields,
                                    show_editors_picks='true',
-                                   page_size='10')
+                                   page_size='10',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_life_and_technology(self):
         self.check_data_source_url(TechnologyDataSource(url_capturing_client), '/technology',
                                    show_fields=Fields,
                                    show_editors_picks='true',
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_most_viewed(self):
         self.check_data_source_url(MusicMostViewedDataSource(url_capturing_client), '/music',
                                    show_most_viewed='true',
                                    show_fields=Fields,
-                                   page_size='10')
-
+                                   page_size='10',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_video(self):
         self.check_data_source_url(MusicVideoDataSource(url_capturing_client), '/music',
                                    show_fields=Fields,
                                    page_size='10',
-                                   tag='type/video')
-
+                                   tag='type/video',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_editors_picks(self):
         self.check_data_source_url(MusicEditorsPicksDataSource(url_capturing_client), '/music',
                                    show_editors_picks='true',
                                    show_fields=Fields,
                                    page_size='10',
-                                   tag='-tone/news')
-
+                                   tag='-tone/news',
+                                   user_tier='internal')
 
     def test_should_call_api_with_correct_url_for_music_audio(self):
         self.check_data_source_url(MusicAudioDataSource(url_capturing_client), '/music',
                                    show_fields=Fields,
                                    page_size='10',
-                                   tag='type/audio')
+                                   tag='type/audio',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_music_news(self):
         self.check_data_source_url(MusicNewsDataSource(url_capturing_client), '/music',
                                    show_fields=Fields,
                                    page_size='10',
-                                   tag='tone/news')
+                                   tag='tone/news',
+                                   user_tier='internal')
 
 
     def test_should_call_api_with_correct_url_for_top_stories(self):
         self.check_data_source_url(TopStoriesDataSource(url_capturing_client), '/',
                                    show_fields=Fields,
                                    page_size='10',
-                                   show_editors_picks='true')
+                                   show_editors_picks='true',
+                                   user_tier='internal')
 
     def test_short_url_must_be_specified_as_field_for_most_commented(self):
 
@@ -265,7 +273,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_a_search_data_source_should_know_how_to_process_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = SearchDataSource(client)
         data = data_source.fetch_data()
 
@@ -281,7 +289,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_a_content_datasource_should_know_how_to_process_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = ContentDataSource(client, 'i/am/a/short/url')
         data = data_source.fetch_data()
 
@@ -305,7 +313,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, client, show_most_viewed=True)
 
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = TestMostViwedDataSource(client)
         data = data_source.fetch_data()
         self.assertEquals(len(data), 2)
@@ -332,7 +340,7 @@ class TestDataSources(unittest2.TestCase):
                 ItemDataSource.__init__(self, client, show_editors_picks=True)
 
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://somewhere.com/', API_KEY, fetcher=fetcher)
         data_source = TestEditorsPicksDataSource(client)
         data = data_source.fetch_data()
         assert len(data) == 4
@@ -351,7 +359,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_an_editors_picks_data_source_should_should_not_barf_if_there_are_no_normal_results_in_the_response(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         data_source = SportDataSource(client)
         data = data_source.fetch_data()
         assert len(data) == 1
@@ -403,7 +411,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_blog_item_to_content_where_there_is_one_blog_entry(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/a/blog/item')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
@@ -421,7 +429,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_blog_item_to_content_where_there_are_no_blog_entries(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/a/empty/blog/item')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
@@ -440,7 +448,7 @@ class TestDataSources(unittest2.TestCase):
 
     def test_should_append_first_blog_item_to_content_where_there_multiple_blog_entries(self):
         fetcher = ApiStubFetcher()
-        client = ApiClient('http://somewhere.com/', API_KEY, fetcher)
+        client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
         blog_data_source = ItemDataSource(client, '/i/want/blog/items')
         section_data_source = ItemDataSource(client, '/i/want/a/section')
         data_source = ItemPlusBlogDataSource(section_data_source, blog_data_source)
