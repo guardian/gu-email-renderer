@@ -3,9 +3,9 @@ from ophan_calls import MostSharedFetcher
 from data_source import MostSharedDataSource, MostSharedCountInterpolator
 
 OphanResponse = """
-    [{"url":"http://www.guardian.co.uk/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker","count":49723},
-    {"url":"http://www.guardian.co.uk/music/2013/apr/14/justin-bieber-anne-frank-belieber","count":27556}]
+[{"hits":24037,"hitsPerMin":16,"mobilePercent":66,"onwardContent":0,"onwardOther":0,"path":"/lifeandstyle/2012/feb/01/top-five-regrets-of-the-dying","percent":4.096110424743322,"topReferrers":[{"count":10536,"url":"www.facebook.com"},{"count":7395,"url":"native-app.facebook.com"},{"count":5761,"url":"m.facebook.com"},{"count":298,"url":"t.co"},{"count":43,"url":"www.linkedin.com"},{"count":2,"url":"www.reddit.com"},{"count":2,"url":"plus.url.google.com"},{"count":0,"url":"(unknown)"}]},{"hits":19086,"hitsPerMin":13,"mobilePercent":14,"onwardContent":0,"onwardOther":0,"path":"/world/2013/jun/03/turkey-new-york-times-ad","percent":3.2524176713671027,"topReferrers":[{"count":14307,"url":"www.reddit.com"},{"count":2286,"url":"www.facebook.com"},{"count":1375,"url":"t.co"},{"count":697,"url":"native-app.facebook.com"},{"count":410,"url":"m.facebook.com"},{"count":10,"url":"plus.url.google.com"},{"count":1,"url":"www.linkedin.com"},{"count":0,"url":"(unknown)"}]}]
 """
+
 comment_count_list = [("http://www.guardian.co.uk/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker", 49723), ("http://www.guardian.co.uk/music/2013/apr/14/justin-bieber-anne-frank-belieber", 27556)]
 api_data = ["mr", "big", "cheese"]
 
@@ -32,10 +32,8 @@ class StubClient(object):
 
 class StubMostSharedFetcher(object):
     def __init__(self):
-        self.actual_page_size = None
         self.most_shared_urls_with_counts = comment_count_list
-    def fetch_most_shared(self, page_size, age=86400):
-        self.actual_page_size = page_size
+    def fetch_most_shared(self, age=86400):
         self.age = age
         return self.most_shared_urls_with_counts
 
@@ -53,30 +51,17 @@ class TestMostShared(unittest2.TestCase):
     def test_most_shared_fetcher_should_return_list_of_paths_and_share_counts(self):
         stub_client = StubClient()
         fetcher = MostSharedFetcher(stub_client)
-        actual_data = fetcher.fetch_most_shared(n_items=34, age=12000)
+        actual_data = fetcher.fetch_most_shared(age=12000)
 
-        expected_data = [('/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker', 49723),
-                         ('/music/2013/apr/14/justin-bieber-anne-frank-belieber', 27556)]
+        expected_data = [(u'/lifeandstyle/2012/feb/01/top-five-regrets-of-the-dying', 24037),
+                         (u'/world/2013/jun/03/turkey-new-york-times-ad', 19086)]
         self.assertEquals(expected_data, actual_data)
 
     def test_should_build_correct_url_for_ophan_call(self):
         stub_client = StubClient()
         fetcher = MostSharedFetcher(stub_client)
-        fetcher.fetch_most_shared(n_items=34, age=12000)
-        self.assertEquals(stub_client.actual_url, 'base/api/mostreferred?count=34&age=12000&api-key=iamakeyandigetinforfree')
-
-    def test_should_fetch_specified_number_of_items(self):
-        multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
-        most_shared_fetcher = StubMostSharedFetcher()
-        shared_count_interpolator = SharedCountInterpolator()
-
-        data_source = MostSharedDataSource(n_items=23,
-            multi_content_data_source=multi_content_data_source,
-            most_shared_fetcher=most_shared_fetcher,
-            shared_count_interpolator=shared_count_interpolator
-        )
-        data_source.fetch_data()
-        self.assertEquals(most_shared_fetcher.actual_page_size,23)
+        fetcher.fetch_most_shared(age=12000)
+        self.assertEquals(stub_client.actual_url, 'base/api/viral?mins=200&referrer=social+media&api-key=iamakeyandigetinforfree')
 
     def test_should_fetch_each_piece_of_content_from_api(self):
         multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')

@@ -29,18 +29,22 @@ class MostSharedFetcher(object):
     def __init__(self, client):
         self.client = client
 
-    def fetch_most_shared(self, n_items, age=86400):
-        url = self._build_url(n_items, age)
+    def fetch_most_shared(self, age=86400):
+        url = self._build_url(age)
         (headers, response_string) = self.client.do_get(url)
         url_list = self._parse_response(response_string)
         return url_list
 
-    def _build_url(self, n_items, age):
+    def _build_url(self, age):
         url = self.client.base_url
         if url[-1] == '/':
             url = url[:-1]
 
-        return '%s/api/mostreferred?count=%s&age=%s&api-key=%s' % (url, n_items, age, self.client.api_key)
+        return '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}'.format(
+            base_url=url,
+            mins=age/60,
+            api_key=self.client.api_key
+            )
 
     def _extract_path(self, url):
         return urlparse(url).path
@@ -48,4 +52,4 @@ class MostSharedFetcher(object):
 
     def _parse_response(self, response):
         shared_items = json.loads(response)
-        return [(self._extract_path(item['url']), item['count']) for item in shared_items]
+        return [(self._extract_path(item['path']), item['hits']) for item in shared_items]

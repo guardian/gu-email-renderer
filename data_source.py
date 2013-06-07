@@ -143,7 +143,7 @@ class MostSharedDataSource(DataSource):
         self.n_items = n_items
 
     def _do_call(self, **criteria):
-        shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared(self.n_items)
+        shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared()
         #import pdb; pdb.set_trace()
         content_ids = [urlparse(url).path for(url, count) in shared_urls_with_counts]
         self.multi_content_data_source.content_ids = content_ids
