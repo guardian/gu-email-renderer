@@ -108,6 +108,7 @@ class MostCommentedDataSource(DataSource):
 
         return self.comment_count_interpolator.interpolate(content_list=most_commented_content, comment_count_list=item_count_pairs)
 
+
 class ItemPlusBlogDataSource(DataSource):
 
     def __init__(self, content_item_data_source, blog_data_source):
@@ -119,8 +120,6 @@ class ItemPlusBlogDataSource(DataSource):
         content_data = self.content_item_data_source.fetch_data()
         blog_data = self.blog_data_source.fetch_data()
         return blog_data[:1] + content_data
-
-
 
 
 class MostSharedCountInterpolator(object):
@@ -203,25 +202,43 @@ class ContentDataSource(ItemDataSource):
 class CultureDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'culture', show_editors_picks=True)
+        self.name = 'culture' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 
 class BusinessDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'business', show_editors_picks=True)
+        self.name = 'business' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 
 class CommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
+        self.name = 'comment' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
+
 
 class AusCommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
         self.tags = ['world/australia']
 
+
 class TechnologyDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'technology', show_editors_picks=True)
+        self.name = 'technology' + client.edition
+
+    def __repr__(self):
+        return str(self.__class__) + self.name
 
 
 class TravelDataSource(ItemDataSource):
@@ -232,6 +249,7 @@ class TravelDataSource(ItemDataSource):
 class ScienceDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'science', show_editors_picks=True)
+
 
 class EnvironmentDataSource(ItemDataSource):
     def __init__(self, client):
@@ -252,9 +270,11 @@ class SportUSDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport/us-sport', show_editors_picks=True)
 
+
 class AusSportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport/australia-sport', show_editors_picks=True)
+
 
 class MediaDataSource(ItemDataSource):
     def __init__(self, client):
@@ -313,9 +333,11 @@ class MostViewedDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
+
 class VideoDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
+
 
 class AusVideoDataSource(ItemDataSource):
     def __init__(self, client):
@@ -370,11 +392,11 @@ class TopStoriesDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
+
 class AusTopStoriesDataSource(TopStoriesDataSource):
     def __init__(self, client):
         TopStoriesDataSource.__init__(self,client)
         self.tags = ['world/australia']
-
 
 
 class DataSourceException(Exception):
