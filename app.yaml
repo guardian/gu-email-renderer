@@ -1,5 +1,6 @@
 application: ***REMOVED***
-version: 1
+#Please only ever publish to *qa* or to *prod*
+version: qa
 runtime: python27
 api_version: 1
 threadsafe: false

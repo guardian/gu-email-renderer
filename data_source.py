@@ -23,11 +23,7 @@ class DataSource(object):
         self.short_url = None
 
 
-    @perma_cache
     def fetch_data(self):
-        # get data from remote api
-        # put results in datastore with key made from self.__repr__
-
         criteria = self._build_criteria()
         data = self._do_call(**criteria)
         return list(data)
@@ -64,16 +60,6 @@ class DataSource(object):
         criteria['user-tier']='internal'
 
         return criteria
-
-    def __repr__(self):
-        if self.client is not None:
-            edition = self.client.edition
-        else:
-            edition = "none"
-
-
-        return '%s-%s' % (self.__class__,edition)
-
 
 
 class CommentCountInterpolator(object):
@@ -142,13 +128,24 @@ class MostSharedDataSource(DataSource):
         self.shared_count_interpolator  = shared_count_interpolator
         self.n_items = n_items
 
+
+    @perma_cache
+    def fetch_data(self):
+        # get data from
+        # put results in datastore with key made from self.__repr__
+        return DataSource.fetch_data(self)
+
     def _do_call(self, **criteria):
+
         shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared()
         #import pdb; pdb.set_trace()
         content_ids = [urlparse(url).path for(url, count) in shared_urls_with_counts]
         self.multi_content_data_source.content_ids = content_ids
         most_shared_comment = self.multi_content_data_source.fetch_data()
         return self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+
+    def __repr__(self):
+        return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
 
 
 class SearchDataSource(DataSource):

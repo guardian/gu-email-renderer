@@ -19,7 +19,7 @@ from data_source import \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 
-from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource, AusTheRoastDataSource
+from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 from ads import AdFetcher
@@ -212,7 +212,6 @@ class DailyEmailAUS(EmailTemplate):
     data_sources = {}
 
     cultureDataSourceV1 = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
-    videoDataSourceV1 = ItemPlusBlogDataSource( AusVideoDataSource(clientAUS), AusTheRoastDataSource(clientAUS))
     lifeAndStyleV1 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), AusFoodBlogDataSource(clientAUS) )
 
     data_sources['v1'] = {
@@ -227,7 +226,7 @@ class DailyEmailAUS(EmailTemplate):
         'technology': TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
         'science' : ScienceDataSource(clientAUS),
-        'video' :  videoDataSourceV1,
+        'video' :  AusVideoDataSource(clientAUS),
         }
 
 

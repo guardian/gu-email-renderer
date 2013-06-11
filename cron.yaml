@@ -1,32 +1,4 @@
 cron:
-- description: most commented prefetch
-  url: /most-commented/v1
-  schedule: every 10 minutes
-
 - description: most shared prefetch
   url: /most-shared/v1
-  schedule: every 10 minutes
-
-- description: daily email prefetch
-  url: /daily-email/v1
-  schedule: every 10 minutes
-
-- description: daily email US prefetch
-  url: /daily-email-us/v1
-  schedule: every 10 minutes
-
-- description: media briefing prefetch
-  url: /media-briefing/v1
-  schedule: every 10 minutes
-
-- description: sleeve notes prefetch
-  url: /sleeve-notes/v1
-  schedule: every 10 minutes
-
-- description: most viewed prefetch
-  url: /most-viewed/v1
-  schedule: every 10 minutes
-
-- description: editors picks prefetch
-  url: /editors-picks/v1
   schedule: every 10 minutes
