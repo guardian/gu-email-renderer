@@ -19,7 +19,14 @@ class AdFetcher(object):
         response = urlfetch.fetch(ad_url)
         if response.status_code == 200:
             content = re.sub(r'width="\d{1,}" height="\d{1,}"', 'width="100%"', response.content)
-            return content
+
+            # Adserver will return a 200 even if an advert is missing,
+            # in which case the advert will be a single-pixel transparent gif,
+            # let's just not bother with it
+            if 'empty.gif' in content:
+                return None
+            else:
+                return content
         else:
             logging.error("Failed to fetch ad: status code %s, content '%s'" % (response.status_code, response.content))
             return ''
