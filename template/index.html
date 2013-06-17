@@ -1,0 +1,57 @@
+{# Index template #}
+
+{% extends 'base_email.html' %}
+
+{% set title = 'Email renderer' %}
+{% set title_link = '/' %}
+{% set title_colour = '#333' %}
+{% set logo_background  = '#333' %}
+
+{% block content %}
+<tr><td align="left">
+    <table width="600px" cellpadding="0" cellspacing="0" border="0">
+        <tr><td style="padding: 10px 20px 20px 20px; border-top: 1px solid #dedede; color: #999;">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tbody><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/daily-email/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Daily Email, v1</a> |
+                        <a class="story-title" href="/daily-email/v2" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">v2</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/daily-email-us/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Daily Email - US edition</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/daily-email-aus/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Daily Email - Australia edition</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/media-briefing/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Media Briefing</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/sleeve-notes/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Sleeve Notes</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/most-commented/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Most commented</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/most-shared/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Most shared</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/most-viewed/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Most viewed</a>
+                    </td>
+                </tr><tr>
+                    <td style="padding: 10px 20px 20px 20px;">
+                        <a class="story-title" href="/editors-picks/v1" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none;">Editor's picks</a>
+                    </td>
+                </tr></tbody>
+            </table>
+        </td></tr>
+    </table>
+</td></tr>
+{% endblock content %}

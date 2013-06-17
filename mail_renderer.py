@@ -52,6 +52,12 @@ clientAUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='au')
 
 
 
+class Index(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('index.html')
+        self.response.out.write(template.render())
+
+
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
     default_ad_tag = 'email-guardian-today'
@@ -327,6 +333,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),
-                               ('/editors-picks/(.+)', EditorsPicks)],
+                               ('/editors-picks/(.+)', EditorsPicks),
+                               ('/', Index)],
                               debug=True)
 
