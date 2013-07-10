@@ -13,7 +13,7 @@
 {% block content %}
 
 {{ layout.story_trail(
-    heading_text='Lastest news',
+    heading_text='Latest news',
     stories=fashion_news,
     heading_link='http://www.guardian.co.uk/fashion',
     heading_text_colour='#ab1700',
@@ -69,5 +69,7 @@
 
 {% endblock content %}
 
-{% set sections = (('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle'),
+{% set sections = (('Beauty', 'http://www.guardian.co.uk/fashion/beauty'),
+                   ('Fashion best buys', 'http://www.guardian.co.uk/fashion/fashion-best-buys'),
+                   ('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle'),
                    ('Comment is free', 'http://www.guardian.co.uk/commentisfree')) %}
