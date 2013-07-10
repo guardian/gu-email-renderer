@@ -26,38 +26,54 @@
 {%- endmacro %}
 
 
-{% macro picture_of_day(picture_of_day) -%}
-{% set picture = [picture_of_day[0].mediaAssets[0]] %}
-{% for media_asset in picture_of_day[0].mediaAssets if '460' == media_asset.fields.width %}
-	{% if picture.append(media_asset) %}{% endif %}
+{% macro image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff') -%}
+{% set picture = [image[0].mediaAssets[0]] %}
+{% for media_asset in image[0].mediaAssets if '460' == media_asset.fields.width %}
+    {% if picture.append(media_asset) %}{% endif %}
 {% endfor %}
 
 {% if picture[1] %}
-	{% set picture = picture[1] %}
+    {% set picture = picture[1] %}
 {% else %}
-	{% set picture = picture[0] %}
+    {% set picture = picture[0] %}
 {% endif %}
 
 <tr><td>
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#424242" style="padding-bottom: 20px;">
-		<tr><td>{{ heading(heading_text='Eyewitness picture of the day', link='http://www.guardian.co.uk/world/series/eyewitness', bg_colour='#424242') }}</td></tr>
-		<tr><td align="left"><a href="{{ picture_of_day[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
+        <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
+        <tr><td align="left"><a href="{{ image[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+        <tr>
+            <td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
+        </tr>
+        <tr>
+            <td align="left" style="color: {{ source_colour }}; font: 12px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
+        </tr>
+    </table>
+</td></tr>
+{% endmacro %}
+
+
+{% macro video(video, bg_colour='#424242', heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', caption_colour='#ffffff') -%}
+{% set video = video[0] %}
+{% set picture = video.mediaAssets[0] %}
+
+<tr><td>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
+		<tr><td>{{ heading(heading_text=video.webTitle, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
+		<tr><td align="left"><a href="{{ video.webUrl }}"><img src="{{ picture.fields.stillImageUrl }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
-			<td align="left" style="color: #ffffff; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
-		</tr>
-		<tr>
-			<td align="left" style="color: #ccc; font: 12px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.fields.source }}</td>
+			<td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ video.fields.trailText|striptags }}</td>
 		</tr>
 	</table>
 </td></tr>
 {% endmacro %}
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False) -%}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
 {% endif %}
-<tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour) }}<td></tr>
+<tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
 <tr><td align="left">
 	{% for story in stories %}
 		{% if loop.index == 1 and top_thumb %}

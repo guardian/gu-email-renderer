@@ -33,7 +33,10 @@
         top_thumb=True,
         standfirst=False) }}
 
-    {{ layout.picture_of_day(eye_witness) }}
+    {{ layout.image(
+        image=eye_witness,
+        heading_text='Eyewitness picture of the day',
+        heading_link='http://www.guardian.co.uk/world/series/eyewitness') }}
 
     {{ layout.story_trail(
         heading_text='Sport',
