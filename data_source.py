@@ -349,7 +349,7 @@ class FashionMostViewedDataSource(ItemDataSource):
 
 class FashionAskHadleyDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, section='fashion')
         self.tags = ['fashion/series/ask-hadley']
 
 
