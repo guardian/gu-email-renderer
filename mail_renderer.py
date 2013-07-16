@@ -120,7 +120,7 @@ class FashionStatement(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('fashion_news', 3), ('fashion_hadley', 1), ('fashion_most_viewed', 6), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1), ('fashion_video', 1)]
+        'v1': [('fashion_hadley', 1), ('fashion_video', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)]
     }
 
     template_names = {'v1': 'fashion-statement'}
