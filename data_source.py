@@ -342,6 +342,50 @@ class AusVideoDataSource(ItemDataSource):
         self.tags = ['world/australia']
 
 
+class FashionMostViewedDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
+
+
+class FashionAskHadleyDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion')
+        self.tags = ['fashion/series/ask-hadley']
+
+
+class FashionNewsDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion')
+
+
+class FashionBlogDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion/fashion-blog')
+
+
+class FashionNetworkDataSource(ItemDataSource):
+    def __init__(self, client ):
+        ItemDataSource.__init__(self, client, section='fashion/series/guardian-fashion-blogs-network')
+
+
+class FashionGalleryDataSource(SearchDataSource):
+    def __init__(self, client):
+        DataSource.__init__(self, client)
+        self.content_type = 'gallery'
+        self.tags = ['(fashion/series/fashion-for-all-ages|fashion/series/key-fashion-trends-of-the-season|fashion/series/fashion-line-up)']
+        # self.page_size = 1
+        self.show_media = 'picture'
+
+
+class FashionVideoDataSource(SearchDataSource):
+    def __init__(self, client):
+        DataSource.__init__(self, client)
+        self.content_type = 'video'
+        self.tags = ['theguardian/series/how-to-dress']
+        # self.page_size = 1
+        self.show_media = 'video'
+
+
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)

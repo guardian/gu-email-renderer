@@ -14,6 +14,8 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    FashionMostViewedDataSource, FashionAskHadleyDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
+    FashionNewsDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
@@ -97,6 +99,31 @@ class EmailTemplate(webapp2.RequestHandler):
             logging.debug('Cache hit with key: %s' % cache_key)
 
         self.response.out.write(page)
+
+
+class FashionStatement(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = ''
+    ad_config = {}
+
+    data_sources = {
+        'v1': {
+            'fashion_news': FashionNewsDataSource(client),
+            'fashion_most_viewed': FashionMostViewedDataSource(client),
+            'fashion_hadley': FashionAskHadleyDataSource(client),
+            'fashion_blog': FashionBlogDataSource(client),
+            'fashion_network': FashionNetworkDataSource(client),
+            'fashion_gallery': FashionGalleryDataSource(client),
+            'fashion_video': FashionVideoDataSource(client)
+        }
+    }
+
+    priority_list = {
+        'v1': [('fashion_hadley', 1), ('fashion_video', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)]
+    }
+
+    template_names = {'v1': 'fashion-statement'}
 
 
 class MediaBriefing(EmailTemplate):
@@ -328,6 +355,7 @@ class SleeveNotes(EmailTemplate):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
+                               ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/most-commented/(.+)', MostCommented),
