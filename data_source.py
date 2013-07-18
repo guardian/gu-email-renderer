@@ -339,7 +339,7 @@ class VideoDataSource(ItemDataSource):
 class AusVideoDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
-        self.tags = ['(world/australia|australia-sport|australian-politics|australia-food-blog|australia-culture-blog)']
+        self.tags = ['(world/australia|sport/australia-sport|world/australian-politics|lifeandstyle/australia-food-blog|culture/australia-culture-blog)']
 
 
 class AustralianPoliticsDataSource(ItemDataSource):
