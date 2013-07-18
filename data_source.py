@@ -342,6 +342,23 @@ class AusVideoDataSource(ItemDataSource):
         self.tags = ['(world/australia|sport/australia-sport|world/australian-politics|lifeandstyle/australia-food-blog|culture/australia-culture-blog)']
 
 
+class AustralianPoliticsDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/australian-politics')
+
+
+class AustralianPoliticsCommentDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/australian-politics')
+        self.tags = ['commentisfree']
+
+
+class AustralianPoliticsVideoDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/australian-politics')
+        self.tags = ['type/video']
+
+
 class FashionMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
