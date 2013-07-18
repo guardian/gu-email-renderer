@@ -14,6 +14,7 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
     FashionMostViewedDataSource, FashionAskHadleyDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
@@ -99,6 +100,27 @@ class EmailTemplate(webapp2.RequestHandler):
             logging.debug('Cache hit with key: %s' % cache_key)
 
         self.response.out.write(page)
+
+
+class AustralianPolitics(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = ''
+    ad_config = {}
+
+    data_sources = {
+        'v1': {
+            'politics_latest': AustralianPoliticsDataSource(client),
+            'politics_comment': AustralianPoliticsCommentDataSource(client),
+            'politics_video': AustralianPoliticsVideoDataSource(client)
+        }
+    }
+
+    priority_list = {
+        'v1': [('politics_comment', 2), ('politics_video', 2), ('politics_latest', 4)]
+    }
+
+    template_names = {'v1': 'australian-politics'}
 
 
 class FashionStatement(EmailTemplate):
@@ -355,6 +377,7 @@ class SleeveNotes(EmailTemplate):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
+                               ('/australian-politics/(.+)', AustralianPolitics),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
