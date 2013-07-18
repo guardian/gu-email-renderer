@@ -257,8 +257,6 @@ class DailyEmailUS(EmailTemplate):
 class DailyEmailAUS(EmailTemplate):
     recognized_versions = ['v1']
 
-    #NOTE - here v2 is to demonstrate content which is available and is not a varient
-
     ad_tag = 'email-guardian-today'
     ad_config = {
         'leaderboard': 'Top'
@@ -266,8 +264,8 @@ class DailyEmailAUS(EmailTemplate):
 
     data_sources = {}
 
-    cultureDataSourceV1 = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
-    lifeAndStyleV1 = ItemPlusBlogDataSource( LifeAndStyleDataSource(clientAUS), AusFoodBlogDataSource(clientAUS) )
+    cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
+    lifeAndStyle = ItemPlusBlogDataSource(LifeAndStyleDataSource(clientAUS), AusFoodBlogDataSource(clientAUS))
 
     data_sources['v1'] = {
         'top_stories_code': TopStoriesDataSource(clientAUS),
@@ -275,22 +273,21 @@ class DailyEmailAUS(EmailTemplate):
         'most_viewed': MostViewedDataSource(clientAUS),
         'sport': SportDataSource(clientAUS),
         'aus_sport': AusSportDataSource(client),
-        'culture': cultureDataSourceV1,
+        'culture': cultureDataSource,
         'comment': AusCommentIsFreeDataSource(clientAUS),
-        'lifeandstyle': lifeAndStyleV1,
+        'lifeandstyle': lifeAndStyle,
         'technology': TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
         'science' : ScienceDataSource(clientAUS),
         'video' :  AusVideoDataSource(clientAUS),
         }
 
-
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('aus_sport', 3), ('culture',3), ('comment', 3),
-                           ('lifeandstyle', 3), ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3),
+                           ('aus_sport', 3), ('culture',3), ('comment', 3), ('lifeandstyle', 3),
+                           ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
 
-
-    template_names = {'v1' : 'daily-email-aus-v1'}
+    template_names = {'v1': 'daily-email-aus'}
 
 
 class MostCommented(EmailTemplate):
