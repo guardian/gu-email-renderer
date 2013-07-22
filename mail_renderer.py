@@ -124,7 +124,7 @@ class AustralianPolitics(EmailTemplate):
 
 
 class FashionStatement(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2']
 
     ad_tag = ''
     ad_config = {}
@@ -140,12 +140,14 @@ class FashionStatement(EmailTemplate):
             'fashion_video': FashionVideoDataSource(client)
         }
     }
+    data_sources['v2'] = data_sources['v1']
 
     priority_list = {
         'v1': [('fashion_hadley', 1), ('fashion_video', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)]
     }
+    priority_list['v2'] = priority_list['v1']
 
-    template_names = {'v1': 'fashion-statement'}
+    template_names = {'v1': 'fashion-statement-v1', 'v2': 'fashion-statement-v2'}
 
 
 class MediaBriefing(EmailTemplate):

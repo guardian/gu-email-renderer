@@ -76,13 +76,18 @@
 <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
 <tr><td align="left">
 	{% for story in stories %}
-		{% if loop.index == 1 and top_thumb %}
+		{% if thumbnail == True %}
 			{% set use_thumbnail = True %}
-			{% set use_standfirst = True %}
-		{% else %}
-			{% set use_thumbnail = False %}
-			{% set use_standfirst = standfirst %}
-		{% endif %}
+            {% set use_standfirst = True %}
+        {% else %}
+            {% if loop.index == 1 and top_thumb %}
+                {% set use_thumbnail = True %}
+                {% set use_standfirst = True %}
+            {% else %}
+                {% set use_thumbnail = False %}
+                {% set use_standfirst = standfirst %}
+            {% endif %}
+        {% endif %}
 		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=use_standfirst, first_para=first_para) }}
 	{% endfor %}
 </td></tr>
