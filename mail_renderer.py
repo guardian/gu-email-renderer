@@ -126,8 +126,11 @@ class AustralianPolitics(EmailTemplate):
 class FashionStatement(EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
-    ad_tag = ''
-    ad_config = {}
+    ad_tag = 'email-fashion-statement'
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
 
     data_sources = {
         'v1': {
