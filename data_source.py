@@ -359,6 +359,12 @@ class AustralianPoliticsVideoDataSource(ItemDataSource):
         self.tags = ['type/video']
 
 
+class FashionEditorsPicksDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion', show_editors_picks=True)
+        self.page_size = 20
+
+
 class FashionMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
@@ -368,6 +374,12 @@ class FashionAskHadleyDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='fashion')
         self.tags = ['fashion/series/ask-hadley']
+
+
+class FashionSaliHughesDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='fashion')
+        self.tags = ['fashion/series/sali-hughes-beauty']
 
 
 class FashionNewsDataSource(ItemDataSource):
@@ -383,6 +395,14 @@ class FashionBlogDataSource(ItemDataSource):
 class FashionNetworkDataSource(ItemDataSource):
     def __init__(self, client ):
         ItemDataSource.__init__(self, client, section='fashion/series/guardian-fashion-blogs-network')
+
+
+class FashionStylewatchDataSource(SearchDataSource):
+    def __init__(self, client):
+        DataSource.__init__(self, client)
+        self.tags = ['fashion/series/stylewatch']
+        # self.page_size = 1
+        self.show_media = 'picture'
 
 
 class FashionGalleryDataSource(SearchDataSource):

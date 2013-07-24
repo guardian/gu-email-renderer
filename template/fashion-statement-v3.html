@@ -1,0 +1,83 @@
+{# Fashion Statement email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Fashion statement' %}
+{% set title_link = 'http://www.guardian.co.uk/fashion' %}
+{% set title_colour = '#ab1700' %}
+{% set logo_background  = '#ffc202' %}
+{% set facebook_page = 'GuardianFashion' %}
+{% set twitter_account = 'GuardianFashion' %}
+{% set footer_link = 'http://www.guardian.co.uk' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Editor\'s picks',
+    stories=fashion_picks,
+    heading_link='http://www.guardian.co.uk/fashion',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    thumbnail=True) }}
+
+{{ layout.video(
+    video=fashion_video,
+    bg_colour='#faf9f8',
+    heading_text='How to dress',
+    heading_link='http://www.guardian.co.uk/theguardian/series/how-to-dress',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    caption_colour='#555555') }}
+
+{{ layout.story_trail(
+    heading_text='Ask Hadley',
+    stories=fashion_hadley,
+    heading_link='http://www.guardian.co.uk/fashion/series/ask-hadley',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    top_thumb=True) }}
+
+{{ layout.story_trail(
+    heading_text='Sali Hughes on beauty',
+    stories=fashion_sali,
+    heading_link='http://www.guardian.co.uk/fashion/series/sali-hughes-beauty',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    top_thumb=True) }}
+
+{{ layout.trail_image(
+    image=fashion_stylewatch,
+    heading_text='Stylewatch',
+    heading_link='http://www.guardian.co.uk/fashion/series/stylewatch',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e') }}
+
+{{ layout.advert(ads.leaderboard_v1) }}
+
+{{ layout.story_trail(
+    heading_text='Most read',
+    stories=fashion_most_viewed,
+    heading_link='http://www.guardian.co.uk/most-viewed/fashion',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    top_thumb=True) }}
+
+{{ layout.image(
+    image=fashion_gallery,
+    bg_colour='#faf9f8',
+    heading_text='Fashion buys',
+    heading_link='http://www.guardian.co.uk/fashion/fashion+content/gallery',
+    heading_text_colour='#ab1700',
+    heading_colour='#ffb93e',
+    caption_colour='#555555',
+    source_colour='#888888') }}
+
+{{ layout.advert(ads.leaderboard_v2) }}
+
+{% endblock content %}
+
+{% set sections = (('Beauty', 'http://www.guardian.co.uk/fashion/beauty'),
+                   ('Fashion best buys', 'http://www.guardian.co.uk/fashion/fashion-best-buys'),
+                   ('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle'),
+                   ('Comment is free', 'http://www.guardian.co.uk/commentisfree')) %}
