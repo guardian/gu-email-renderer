@@ -106,7 +106,7 @@ class EmailTemplate(webapp2.RequestHandler):
 class AustralianPolitics(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = ''
+    ad_tag = 'email-australian-politics'
     ad_config = {}
 
     data_sources = {
@@ -127,7 +127,7 @@ class AustralianPolitics(EmailTemplate):
 class FashionStatement(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
-    ad_tag = ''
+    ad_tag = 'email-fashion-statement'
     ad_config = {
         'leaderboard_v1': 'Top',
         'leaderboard_v2': 'Bottom'
