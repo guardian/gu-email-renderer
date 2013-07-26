@@ -41,7 +41,7 @@
 <tr><td>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
         <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
-        <tr><td align="left"><a href="{{ image[0].webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+        <tr><td align="left"><a href="{{ image[0].webUrl }}" border="0"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
         <tr>
             <td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.fields.caption }}</td>
         </tr>
@@ -58,11 +58,11 @@
 {% set picture = video.mediaAssets[0] %}
 
 <tr><td>
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}">
 		<tr><td>{{ heading(heading_text=video.webTitle, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
-		<tr><td align="left"><a href="{{ video.webUrl }}"><img src="{{ picture.fields.stillImageUrl }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+		<tr><td align="left"><a href="{{ video.webUrl }}" border="0"><img src="{{ picture.fields.stillImageUrl }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
 		<tr>
-			<td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ video.fields.trailText|striptags }}</td>
+			<td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 20px;">{{ video.fields.trailText|striptags }}</td>
 		</tr>
 	</table>
 </td></tr>
@@ -85,10 +85,10 @@
 <tr><td>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
         <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
-        <tr><td align="left"><a href="{{ story.webUrl }}"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+        <tr><td align="left"><a href="{{ story.webUrl }}" border="0"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
         <tr>
             <td align="left">
-                {{ story_blocks.story(story) }}
+                {{ story_blocks.story(story, True) }}
             </td>
         </tr>
     </table>
