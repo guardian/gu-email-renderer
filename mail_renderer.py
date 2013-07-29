@@ -50,7 +50,7 @@ api_key = '***REMOVED***'
 ophan_key = '***REMOVED***'
 base_url='http://***REMOVED***'
 
-client = ApiClient(base_url, api_key, url_suffix='/api/')
+client = ApiClient(base_url, api_key, url_suffix='/api/', edition="uk")
 clientUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='us')
 clientAUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='au')
 

@@ -25,6 +25,8 @@ class ApiClient(object):
             urlparse.urljoin(self.base_url, self.url_suffix + endpoint),
             urllib.urlencode(fixed_kwargs),
         )
+        import pdb
+        pdb.set_trace()
 
         headers, response = self.fetcher.get(url)
         logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
