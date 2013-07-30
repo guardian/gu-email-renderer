@@ -4,19 +4,19 @@
 {% import 'macro/layout.html' as layout %}
 
 {% set title = 'Sleeve notes' %}
-{% set title_link = 'http://www.guardian.co.uk/music/series/sleeve-notes' %}
+{% set title_link = 'http://www.theguardian.com/music' %}
 {% set title_colour = '#d1008b' %}
 {% set logo_background  = '#92005e' %}
 {% set facebook_page    = 'musicguardian' %}
 {% set twitter_account  = 'guardianmusic' %}
-{% set footer_link = 'http://www.guardian.co.uk' %}
+{% set footer_link = 'http://www.theguardian.com' %}
 
 {% block content %}
 
 {{ layout.story_trail(
         heading_text='Must read',
         stories=music_most_viewed,
-        heading_link='http://www.guardian.co.uk/most-viewed/music',
+        heading_link='http://www.theguardian.com/most-viewed/music',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
@@ -25,21 +25,21 @@
 {{ layout.story_trail(
         heading_text='In the news',
         stories=music_news,
-        heading_link='http://www.guardian.co.uk/music/music+tone/news',
+        heading_link='http://www.theguardian.com/music/music+tone/news',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='On the blog',
         stories=music_blog,
-        heading_link='http://www.guardian.co.uk/music/musicblog',
+        heading_link='http://www.theguardian.com/music/musicblog',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='Watch and listen',
         stories=music_watch_listen,
-        heading_link='http://www.guardian.co.uk/music/music+content/video',
+        heading_link='http://www.theguardian.com/music/music+content/video',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
@@ -48,7 +48,7 @@
 {{ layout.story_trail(
         heading_text='Further reading',
         stories=music_editors_picks,
-        heading_link='http://www.guardian.co.uk/music',
+        heading_link='http://www.theguardian.com/music',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
@@ -57,4 +57,6 @@
 
 {% block footer %}{% endblock footer %}
 
-{% set sections = (('News', 'http://www.guardian.co.uk/music/music+tone/news'), ('Album reviews', 'http://www.guardian.co.uk/music/music+tone/albumreview'), ('Live reviews', 'http://www.guardian.co.uk/music/music+tone/livemusicreview')) %}
+{% set sections = (('News', 'http://www.theguardian.com/music/music+tone/news'),
+                   ('Album reviews', 'http://www.theguardian.com/music/music+tone/albumreview'),
+                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livemusicreview')) %}

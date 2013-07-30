@@ -5,7 +5,7 @@
 
 
 {% set title = 'Daily Comment Munge' %}
-{% set title_link = 'http://www.guardian.co.uk' %}
+{% set title_link = 'http://www.theguardian.com' %}
 {% set title_colour = '#333333' %}
 
 {% block title %}Daily Munge{% endblock %}
@@ -14,7 +14,7 @@
 
     {{ layout.story_trail(heading_text='Most commented in last 24 hours',
         stories=most_commented,
-        heading_link='http://www.guardian.co.uk/commentisfree',
+        heading_link='http://www.theguardian.com/commentisfree',
         heading_colour='#2470a6',
         top_thumb=True) }}
 

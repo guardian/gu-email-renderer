@@ -4,19 +4,19 @@
 {% import 'macro/layout.html' as layout %}
 
 {% set title = 'Fashion statement' %}
-{% set title_link = 'http://www.guardian.co.uk/fashion' %}
+{% set title_link = 'http://www.theguardian.com/fashion' %}
 {% set title_colour = '#ab1700' %}
 {% set logo_background  = '#ffc202' %}
 {% set facebook_page = 'GuardianFashion' %}
 {% set twitter_account = 'GuardianFashion' %}
-{% set footer_link = 'http://www.guardian.co.uk' %}
+{% set footer_link = 'http://www.theguardian.com' %}
 
 {% block content %}
 
 {{ layout.story_trail(
     heading_text='Editor\'s picks',
     stories=fashion_picks,
-    heading_link='http://www.guardian.co.uk/fashion',
+    heading_link='http://www.theguardian.com/fashion',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e',
     thumbnail=True) }}
@@ -25,7 +25,7 @@
     video=fashion_video,
     bg_colour='#faf9f8',
     heading_text='How to dress',
-    heading_link='http://www.guardian.co.uk/theguardian/series/how-to-dress',
+    heading_link='http://www.theguardian.com/theguardian/series/how-to-dress',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e',
     caption_colour='#555555') }}
@@ -33,7 +33,7 @@
 {{ layout.story_trail(
     heading_text='Ask Hadley',
     stories=fashion_hadley,
-    heading_link='http://www.guardian.co.uk/fashion/series/ask-hadley',
+    heading_link='http://www.theguardian.com/fashion/series/ask-hadley',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e',
     top_thumb=True) }}
@@ -41,7 +41,7 @@
 {{ layout.story_trail(
     heading_text='Sali Hughes on beauty',
     stories=fashion_sali,
-    heading_link='http://www.guardian.co.uk/fashion/series/sali-hughes-beauty',
+    heading_link='http://www.theguardian.com/fashion/series/sali-hughes-beauty',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e',
     top_thumb=True) }}
@@ -49,7 +49,7 @@
 {{ layout.trail_image(
     image=fashion_stylewatch,
     heading_text='Stylewatch',
-    heading_link='http://www.guardian.co.uk/fashion/series/stylewatch',
+    heading_link='http://www.theguardian.com/fashion/series/stylewatch',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e') }}
 
@@ -58,7 +58,7 @@
 {{ layout.story_trail(
     heading_text='Most read',
     stories=fashion_most_viewed,
-    heading_link='http://www.guardian.co.uk/most-viewed/fashion',
+    heading_link='http://www.theguardian.com/most-viewed/fashion',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e',
     top_thumb=True) }}
@@ -66,7 +66,7 @@
 {{ layout.trail_image(
     image=fashion_gallery,
     heading_text='Galleries',
-    heading_link='http://www.guardian.co.uk/fashion/fashion+content/gallery',
+    heading_link='http://www.theguardian.com/fashion/fashion+content/gallery',
     heading_text_colour='#ab1700',
     heading_colour='#ffb93e') }}
 
@@ -74,7 +74,7 @@
 
 {% endblock content %}
 
-{% set sections = (('Beauty', 'http://www.guardian.co.uk/fashion/beauty'),
-                   ('Fashion best buys', 'http://www.guardian.co.uk/fashion/fashion-best-buys'),
-                   ('Life &amp; style', 'http://www.guardian.co.uk/lifeandstyle'),
-                   ('Comment is free', 'http://www.guardian.co.uk/commentisfree')) %}
+{% set sections = (('Beauty', 'http://www.theguardian.com/fashion/beauty'),
+                   ('Fashion best buys', 'http://www.theguardian.com/fashion/fashion-best-buys'),
+                   ('Life &amp; style', 'http://www.theguardian.com/lifeandstyle'),
+                   ('Comment is free', 'http://www.theguardian.com/commentisfree')) %}

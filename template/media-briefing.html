@@ -4,12 +4,12 @@
 {% import 'macro/layout.html' as layout %}
 
 {% set title = 'Media briefing' %}
-{% set title_link = 'http://www.guardian.co.uk/media/series/media-briefing' %}
+{% set title_link = 'http://www.theguardian.com/media/series/media-briefing' %}
 {% set title_colour = '#c22d05' %}
 {% set logo_background  = '#961f02' %}
 {% set facebook_page = 'mediaguardian' %}
 {% set twitter_account = 'mediaguardian' %}
-{% set footer_link = 'http://www.guardian.co.uk' %}
+{% set footer_link = 'http://www.theguardian.com' %}
 {% set footer_colour = 'light' %}
 
 {% block content %}
@@ -17,14 +17,14 @@
 {{ layout.story_trail(
 	heading_text	= 'Top stories on MediaGuardian',
 	stories			= media_stories,
-	heading_link	= 'http://www.guardian.co.uk/media',
+	heading_link	= 'http://www.theguardian.com/media',
 	heading_colour	= '#c22d05',
 	top_thumb		= True) }}
 
 {{ layout.story_trail(
 	heading_text	= 'Today\'s newspaper headlines',
 	stories			= media_briefing,
-	heading_link	= 'http://www.guardian.co.uk/media/series/media-briefing',
+	heading_link	= 'http://www.theguardian.com/media/series/media-briefing',
 	heading_colour	= '#c22d05') }}
 
 {{ layout.advert(ads.leaderboard_v1) }}
@@ -32,13 +32,13 @@
 {{ layout.story_trail(
 	heading_text	= 'Latest from the Media blog',
 	stories			= media_blog,
-	heading_link	= 'http://www.guardian.co.uk/media/media-blog',
+	heading_link	= 'http://www.theguardian.com/media/media-blog',
 	heading_colour	= '#c22d05') }}
 
 {{ layout.story_trail(
 	heading_text	= 'Top comment on MediaGuardian',
 	stories			= media_comment,
-	heading_link	= 'http://www.guardian.co.uk/media',
+	heading_link	= 'http://www.theguardian.com/media',
 	heading_colour	= '#c22d05') }}
 
 {{ layout.advert(ads.leaderboard_v2) }}
@@ -46,7 +46,7 @@
 {{ layout.story_trail(
 	heading_text	= 'Media Monkey\'s pick of the day',
 	stories			= media_monkey,
-	heading_link	= 'http://www.guardian.co.uk/media/mediamonkeyblog',
+	heading_link	= 'http://www.theguardian.com/media/mediamonkeyblog',
 	more_text		= 'Media Monkey',
 	heading_colour	= '#c22d05',
 	first_para		= True) }}
@@ -55,4 +55,8 @@
 
 {% block footer %}{% endblock footer %}
 
-{% set sections = (('TV', 'http://www.guardian.co.uk/media/television'), ('Digital', 'http://www.guardian.co.uk/media/digital-media'), ('Press', 'http://www.guardian.co.uk/media/pressandpublishing'), ('Greenslade', 'http://www.guardian.co.uk/media/greenslade'), ('Monkey', 'http://www.guardian.co.uk/media/mediamonkeyblog')) %}
+{% set sections = (('TV', 'http://www.theguardian.com/media/television'),
+				   ('Digital', 'http://www.theguardian.com/media/digital-media'),
+				   ('Press', 'http://www.theguardian.com/media/pressandpublishing'),
+				   ('Greenslade', 'http://www.theguardian.com/media/greenslade'),
+				   ('Monkey', 'http://www.theguardian.com/media/mediamonkeyblog')) %}
