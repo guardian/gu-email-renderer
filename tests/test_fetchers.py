@@ -23,7 +23,7 @@ ContentResponse = """
                   "sectionName":"cif name",
                   "webPublicationDate":"2013-04-09T07:00:09Z",
                   "webTitle":"Toynbee speaks",
-                  "webUrl":"http://www.guardian.co.uk/technology/gamesblog/2013/apr/09/press-start-game-news",
+                  "webUrl":"http://www.theguardian.com/technology/gamesblog/2013/apr/09/press-start-game-news",
                   "apiUrl":"http://content.guardianapis.com/technology/gamesblog/2013/apr/09/press-start-game-news",
                   "fields":{
                     "trailText":"Stuff happened",
@@ -52,7 +52,7 @@ BlogItemResponse = """
                     "sectionName": "blog section name",
                     "webPublicationDate": "2013-05-23T10:38:18Z",
                     "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
-                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "webUrl": "http://www.theguardian.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "fields": {
                       "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
@@ -81,7 +81,7 @@ BlogItemsResponse = """
                     "sectionName": "blog section name",
                     "webPublicationDate": "2013-05-23T10:38:18Z",
                     "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
-                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "webUrl": "http://www.theguardian.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "fields": {
                       "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
@@ -99,7 +99,7 @@ BlogItemsResponse = """
                     "sectionName": "blog section name",
                     "webPublicationDate": "2013-05-23T10:38:18Z",
                     "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
-                    "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                    "webUrl": "http://www.theguardian.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                     "fields": {
                       "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
@@ -140,7 +140,7 @@ SectionResponse = """
                 "sectionName": "Politics",
                 "webPublicationDate": "2013-05-23T11:11:20Z",
                 "webTitle": "Jeremy Hunt under fire over GP reforms: Politics live blog",
-                "webUrl": "http://www.guardian.co.uk/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
+                "webUrl": "http://www.theguardian.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                 "apiUrl": "http://content.guardianapis.com/politics/blog/2013/may/23/jeremy-hunt-gp-reforms-politics",
                 "fields": {
                   "trailText": "<p><strong>Andrew Sparrow</strong>'s rolling coverage of all the day's political developments as they happen, including Jeremy Hunt's speech on GP reforms</p>",
@@ -158,7 +158,7 @@ SectionResponse = """
                 "sectionName": "Politics",
                 "webPublicationDate": "2013-05-22T22:06:01Z",
                 "webTitle": "Hugh Muir's Diary: Trouble behind the curtains in Green-land as members protest at EU selection",
-                "webUrl": "http://www.guardian.co.uk/politics/2013/may/22/hugh-muir-diary-green-show-trial",
+                "webUrl": "http://www.theguardian.com/politics/2013/may/22/hugh-muir-diary-green-show-trial",
                 "apiUrl": "http://content.guardianapis.com/politics/2013/may/22/hugh-muir-diary-green-show-trial",
                 "fields": {
                   "trailText": "<strong>Hugh Muir:</strong> A question for parties everywhere: how Green was my election?<br /><br />",
@@ -176,7 +176,7 @@ SectionResponse = """
                 "sectionName": "Politics",
                 "webPublicationDate": "2013-05-22T19:00:00Z",
                 "webTitle": "David Cameron tries to placate the swivel-eyed loons with his natural leadership skills",
-                "webUrl": "http://www.guardian.co.uk/politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
+                "webUrl": "http://www.theguardian.com/politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
                 "apiUrl": "http://content.guardianapis.com/politics/2013/may/22/david-cameron-placate-swivel-eyed-loons",
                 "fields": {
                   "trailText": "<p>Tory activists are incensed. But surely a nicely phrased letter will calm them down</p>",
@@ -285,7 +285,7 @@ class ApiStubFetcher(object):
                     "sectionName":"Sport",
                     "webPublicationDate":"2013-01-09T16:15:38Z",
                     "webTitle":"4x400m relay runners start brawl mid-race \u2013 video",
-                    "webUrl":"http://www.guardian.co.uk/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "webUrl":"http://www.theguardian.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
                     "apiUrl":"http://content.guardianapis.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
                     "fields":{
                       "trailText":"<p>Athletics and mid-race brawling don't usually go hand in hand, so spectators were surprised by action at the Hispanic Games at the New York Armory</p>",
@@ -302,7 +302,7 @@ class ApiStubFetcher(object):
                   "sectionName":"World news",
                   "webPublicationDate":"2012-12-18T10:08:46Z",
                   "webTitle":"Anti-polio workers shot dead in Pakistan",
-                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "webUrl":"http://www.theguardian.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
                   "apiUrl":"http://content.guardianapis.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
                   "fields":{
                     "trailText":"<p>Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease</p>",
@@ -320,7 +320,7 @@ class ApiStubFetcher(object):
                   "sectionName":"World news",
                   "webPublicationDate":"2012-12-17T20:24:00Z",
                   "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
-                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "webUrl":"http://www.theguardian.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "fields":{
                     "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
@@ -337,7 +337,7 @@ class ApiStubFetcher(object):
                   "sectionName":"UK news",
                   "webPublicationDate":"2012-12-18T14:07:09Z",
                   "webTitle":"Antarctic territory named for the Queen as monarch attends cabinet",
-                  "webUrl":"http://www.guardian.co.uk/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "webUrl":"http://www.theguardian.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
                   "apiUrl":"http://content.guardianapis.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
                   "fields":{
                     "trailText":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
@@ -366,7 +366,7 @@ class ApiStubFetcher(object):
                     "sectionName":"Sport",
                     "webPublicationDate":"2013-01-09T16:15:38Z",
                     "webTitle":"4x400m relay runners start brawl mid-race \u2013 video",
-                    "webUrl":"http://www.guardian.co.uk/sport/video/2013/jan/09/relay-runners-start-brawl-video",
+                    "webUrl":"http://www.theguardian.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
                     "apiUrl":"http://content.guardianapis.com/sport/video/2013/jan/09/relay-runners-start-brawl-video",
                     "fields":{
                       "trailText":"<p>Athletics and mid-race brawling don't usually go hand in hand, so spectators were surprised by action at the Hispanic Games at the New York Armory</p>",
@@ -383,7 +383,7 @@ class ApiStubFetcher(object):
                   "sectionName":"World news",
                   "webPublicationDate":"2012-12-17T20:24:00Z",
                   "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
-                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "webUrl":"http://www.theguardian.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "fields":{
                     "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
@@ -400,7 +400,7 @@ class ApiStubFetcher(object):
                   "sectionName":"UK news",
                   "webPublicationDate":"2012-12-18T14:07:09Z",
                   "webTitle":"Antarctic territory named for the Queen as monarch attends cabinet",
-                  "webUrl":"http://www.guardian.co.uk/uk/2012/dec/18/antarctic-territory-queen-cabinet",
+                  "webUrl":"http://www.theguardian.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
                   "apiUrl":"http://content.guardianapis.com/uk/2012/dec/18/antarctic-territory-queen-cabinet",
                   "fields":{
                     "trailText":"Queen Elizabeth Land, table mats and hope of a shorter speech among jubilee gifts in first cabinet visit by a monarch since 1781",
@@ -417,7 +417,7 @@ class ApiStubFetcher(object):
                   "sectionName":"World news",
                   "webPublicationDate":"2012-12-18T10:08:46Z",
                   "webTitle":"Anti-polio workers shot dead in Pakistan",
-                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/18/anti-polio-workers-shot-pakistan",
+                  "webUrl":"http://www.theguardian.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
                   "apiUrl":"http://content.guardianapis.com/world/2012/dec/18/anti-polio-workers-shot-pakistan",
                   "fields":{
                     "trailText":"<p>Five women killed and two men injured in attacks this week raising fears for drive to eradicate crippling disease</p>",
@@ -447,7 +447,7 @@ class ApiStubFetcher(object):
                   "sectionName":"World news",
                   "webPublicationDate":"2012-12-17T20:24:00Z",
                   "webTitle":"White House says Obama will move swiftly on gun control after Newtown",
-                  "webUrl":"http://www.guardian.co.uk/world/2012/dec/17/white-house-obama-gun-control-newtown",
+                  "webUrl":"http://www.theguardian.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "apiUrl":"http://content.guardianapis.com/world/2012/dec/17/white-house-obama-gun-control-newtown",
                   "fields":{
                     "trailText":"<p>First signs that Democrats are willing to take on pro-gun lobby as even NRA-endorsed senator Joe Manchin says 'we need action'</p>",
@@ -483,7 +483,7 @@ class ApiStubFetcher(object):
                   "sectionName":"Sport",
                   "webPublicationDate":"2012-12-18T14:05:20Z",
                   "webTitle":"England clock up first Test series win in India since 1984",
-                  "webUrl":"http://www.guardian.co.uk/sport/2012/dec/18/guardian-weekly-sport-diary-trott-wiggins",
+                  "webUrl":"http://www.theguardian.com/sport/2012/dec/18/guardian-weekly-sport-diary-trott-wiggins",
                   "apiUrl":"http://content.guardianapis.com/sport/2012/dec/18/guardian-weekly-sport-diary-trott-wiggins",
                   "fields":{
                     "trailText":"Draw in Nagpur caps cricket victory; Wiggins has personality; Chelsea lose in Japan; meet 'Michelle' Tyson",
@@ -500,7 +500,7 @@ class ApiStubFetcher(object):
                   "sectionName":"Sport",
                   "webPublicationDate":"2012-12-18T13:46:10Z",
                   "webTitle":"The Spin | The art of Alastair Cook's captaincy | Andy Bull",
-                  "webUrl":"http://www.guardian.co.uk/sport/2012/dec/18/the-spin-alastair-cook-captaincy",
+                  "webUrl":"http://www.theguardian.com/sport/2012/dec/18/the-spin-alastair-cook-captaincy",
                   "apiUrl":"http://content.guardianapis.com/sport/2012/dec/18/the-spin-alastair-cook-captaincy",
                   "fields":{
                     "trailText":"cricket",

@@ -98,7 +98,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -113,7 +113,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -128,7 +128,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name 3",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails 3",
@@ -143,7 +143,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails 4",
@@ -163,7 +163,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -179,7 +179,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -195,7 +195,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name 3",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails 3",
@@ -211,7 +211,7 @@ class TestCommentCountInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails 4",

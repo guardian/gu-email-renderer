@@ -6,7 +6,7 @@ OphanResponse = """
 [{"hits":24037,"hitsPerMin":16,"mobilePercent":66,"onwardContent":0,"onwardOther":0,"path":"/lifeandstyle/2012/feb/01/top-five-regrets-of-the-dying","percent":4.096110424743322,"topReferrers":[{"count":10536,"url":"www.facebook.com"},{"count":7395,"url":"native-app.facebook.com"},{"count":5761,"url":"m.facebook.com"},{"count":298,"url":"t.co"},{"count":43,"url":"www.linkedin.com"},{"count":2,"url":"www.reddit.com"},{"count":2,"url":"plus.url.google.com"},{"count":0,"url":"(unknown)"}]},{"hits":19086,"hitsPerMin":13,"mobilePercent":14,"onwardContent":0,"onwardOther":0,"path":"/world/2013/jun/03/turkey-new-york-times-ad","percent":3.2524176713671027,"topReferrers":[{"count":14307,"url":"www.reddit.com"},{"count":2286,"url":"www.facebook.com"},{"count":1375,"url":"t.co"},{"count":697,"url":"native-app.facebook.com"},{"count":410,"url":"m.facebook.com"},{"count":10,"url":"plus.url.google.com"},{"count":1,"url":"www.linkedin.com"},{"count":0,"url":"(unknown)"}]}]
 """
 
-comment_count_list = [("http://www.guardian.co.uk/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker", 49723), ("http://www.guardian.co.uk/music/2013/apr/14/justin-bieber-anne-frank-belieber", 27556)]
+comment_count_list = [("http://www.theguardian.com/commentisfree/2013/apr/14/thatcher-ding-dong-bbc-charlie-brooker", 49723), ("http://www.theguardian.com/music/2013/apr/14/justin-bieber-anne-frank-belieber", 27556)]
 api_data = ["mr", "big", "cheese"]
 
 class IdRememberingMultiContentDataSourceStub(object):
@@ -129,7 +129,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -144,7 +144,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/boston-bomb",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/boston-bomb",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/boston-bomb",
                 "fields": {
                     "trailText": "happy trails",
@@ -159,7 +159,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name 3",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk//commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
                 "fields": {
                     "trailText": "happy trails 3",
@@ -174,7 +174,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
                 "fields": {
                     "trailText": "happy trails 4",
@@ -184,7 +184,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                     "byline": "Branch line",
                     }}]
 
-        shared_count_list = [('http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin', 99), ('http://www.guardian.co.uk/commentisfree/2013/apr/12/boston-bomb', 3), ('http://www.guardian.co.uk//commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer', 28), ('http://www.guardian.co.uk/commentisfree/2013/apr/12/monbiot-declarers-he-is-god', 102)]
+        shared_count_list = [('http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin', 99), ('http://www.theguardian.com/commentisfree/2013/apr/12/boston-bomb', 3), ('http://www.theguardian.com/commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer', 28), ('http://www.theguardian.com/commentisfree/2013/apr/12/monbiot-declarers-he-is-god', 102)]
 
         expected_interpolated_content = [
             {
@@ -194,7 +194,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/anthony-weiner-wife-huma-abedin",
                 "fields": {
                     "trailText": "happy trails",
@@ -210,7 +210,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/boston-bomb",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/boston-bomb",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/boston-bomb",
                 "fields": {
                     "trailText": "happy trails",
@@ -226,7 +226,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name 3",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk//commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/iain-duncan-smith-exposed-as-popper-sniffer",
                 "fields": {
                     "trailText": "happy trails 3",
@@ -242,7 +242,7 @@ class TestMostSharedInterpolator(unittest2.TestCase):
                 "sectionName": "cif name",
                 "webPublicationDate": "2013-04-12T14:15:00Z",
                 "webTitle": "Why I wish Huma Abedin had left Anthony Weiner in the dust | Jill Filipovic",
-                "webUrl": "http://www.guardian.co.uk/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
+                "webUrl": "http://www.theguardian.com/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
                 "apiUrl": "http://content.guardianapis.com/commentisfree/2013/apr/12/monbiot-declarers-he-is-god",
                 "fields": {
                     "trailText": "happy trails 4",

@@ -494,7 +494,7 @@ class TestDataSources(unittest2.TestCase):
                             u'sectionName': u'cif name',
                             u'webPublicationDate': u'2013-04-09T07:00:09Z',
                             u'webTitle': u'Toynbee speaks',
-                            u'webUrl': u'http://www.guardian.co.uk/technology/gamesblog/2013/apr/09/press-start-game-news'}
+                            u'webUrl': u'http://www.theguardian.com/technology/gamesblog/2013/apr/09/press-start-game-news'}
 
         expected_data = []
         for i in range(4):

@@ -45,22 +45,22 @@ TestResponse = """
 
       { "discussions" : [ { "key" : "/p/3f262",
             "numberOfComments" : 1312,
-            "url" : "http://www.guardian.co.uk/politics/blog/2013/apr/09/margaret-thatcher-death-reaction-funeral-live"
+            "url" : "http://www.theguardian.com/politics/blog/2013/apr/09/margaret-thatcher-death-reaction-funeral-live"
           },
           { "key" : "/p/3f244",
             "numberOfComments" : 973,
-            "url" : "http://www.guardian.co.uk/commentisfree/2013/apr/09/thatcher-acolytes-cameron-dont-know-when-to-stop"
+            "url" : "http://www.theguardian.com/commentisfree/2013/apr/09/thatcher-acolytes-cameron-dont-know-when-to-stop"
           },
           { "key" : "/p/3f26a",
             "numberOfComments" : 469,
-            "url" : "http://www.guardian.co.uk/commentisfree/2013/apr/09/margaret-thatcher-miners-society"
+            "url" : "http://www.theguardian.com/commentisfree/2013/apr/09/margaret-thatcher-miners-society"
           },
           { "key" : "/p/3fxam",
             "numberOfComments" : 422,
-            "url" : "http://www.guardian.co.uk/technology/gamesblog/2013/apr/09/chatterbox-tuesday"
+            "url" : "http://www.theguardian.com/technology/gamesblog/2013/apr/09/chatterbox-tuesday"
           },
           { "key" : "/p/3f24d",
             "numberOfComments" : 304,
-            "url" : "http://www.guardian.co.uk/politics/2013/apr/09/chris-grayling-criminals-legal-costs"
+            "url" : "http://www.theguardian.com/politics/2013/apr/09/chris-grayling-criminals-legal-costs"
       } ] }
 """
