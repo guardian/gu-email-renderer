@@ -3,7 +3,7 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set title = 'Technology roundup' %}
+{% set title = 'The zip file: your weekly technology roundup' %}
 {% set title_link = 'http://www.theguardian.com/technology' %}
 {% set title_colour = '#c22d05' %}
 {% set logo_background  = '#961f02' %}
@@ -18,7 +18,7 @@
     stories=tech_news,
     heading_link='http://www.theguardian.com/technology',
     heading_colour='#c22d05',
-    top_thumb=True) }}
+    thumbnail=True) }}
 
 {{ layout.advert(ads.leaderboard_v1) }}
 
@@ -27,13 +27,14 @@
     stories=tech_most_viewed,
     heading_link='http://www.theguardian.com/most-viewed/technology',
     heading_colour='#c22d05',
-    top_thumb=True) }}
+    thumbnail=True) }}
 
 {{ layout.story_trail(
     heading_text='Games news &amp; reviews',
     stories=tech_games,
     heading_link='http://www.theguardian.com/technology/games',
     heading_colour='#c22d05',
+    standfirst=False,
     top_thumb=True) }}
 
 {{ layout.story_trail(
@@ -41,6 +42,7 @@
     stories=tech_bootup,
     heading_link='http://www.theguardian.com/technology/blog',
     heading_colour='#c22d05',
+    standfirst=False,
     top_thumb=True) }}
 
 {{ layout.advert(ads.leaderboard_v2) }}
