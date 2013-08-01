@@ -18,6 +18,8 @@ from data_source import \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
+    TechnologyMostViewedDataSource, TechnologyBootupDataSource, \
+    TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
@@ -387,6 +389,34 @@ class SleeveNotes(EmailTemplate):
                            ('music_watch_listen', 5), ('music_editors_picks', 3)]
     template_names = {'v1': 'sleeve-notes'}
 
+
+class TechnologyEmail(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = ''
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
+
+    data_sources = {
+        'v1': {
+            'tech_news': TechnologyDataSource(client),
+            'tech_most_viewed': TechnologyMostViewedDataSource(client),
+            'tech_games': TechnologyGamesDataSource(client),
+            'tech_bootup': TechnologyBootupDataSource(client),
+            'tech_podcast': TechnologyPodcastDataSource(client),
+            'tech_video': TechnologyVideoDataSource(client)
+        }
+    }
+
+    priority_list = {
+        'v1': [('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_bootup', 5), ('tech_podcast', 1), ('tech_video', 1)]
+    }
+
+    template_names = {'v1': 'technology-email'}
+
+
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
@@ -394,6 +424,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/technology/(.+)', TechnologyEmail),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),

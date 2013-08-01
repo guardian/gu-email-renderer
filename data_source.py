@@ -462,6 +462,36 @@ class MusicBlogDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, section='music/musicblog')
 
 
+class TechnologyMostViewedDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='technology', show_most_viewed=True)
+
+
+class TechnologyBootupDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='technology/blog')
+
+
+class TechnologyGamesDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='technology/games', show_editors_picks=True)
+
+
+class TechnologyPodcastDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='technology')
+        self.tags = ['type/podcast']
+
+
+class TechnologyVideoDataSource(SearchDataSource):
+    def __init__(self, client):
+        DataSource.__init__(self, client)
+        self.content_type = 'video'
+        self.tags = ['technology/series/tech-sessions']
+        # self.page_size = 1
+        self.show_media = 'video'
+
+
 class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
