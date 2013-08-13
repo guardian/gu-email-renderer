@@ -23,7 +23,7 @@
         top_thumb=True,
         standfirst=False) }}
 
-    {{ layout.advert(ads.leaderboard) }}
+    {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
         heading_text='Most viewed in last 24 hours',
@@ -61,6 +61,8 @@
         heading_colour='#004179',
         thumbnail=False,
         standfirst=False) }}
+
+    {{ layout.advert(ads.leaderboard_v2) }}
 
     {{ layout.story_trail(
         heading_text='Technology',

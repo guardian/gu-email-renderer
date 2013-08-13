@@ -195,7 +195,8 @@ class DailyEmail(EmailTemplate):
 
     ad_tag = 'email-guardian-today'
     ad_config = {
-        'leaderboard': 'Top'
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
     }
 
     data_sources = {}
