@@ -391,7 +391,7 @@ class SleeveNotes(EmailTemplate):
     template_names = {'v1': 'sleeve-notes'}
 
 
-class TheZipFile(EmailTemplate):
+class ZipFile(EmailTemplate):
     recognized_versions = ['v1']
 
     ad_tag = ''
@@ -412,10 +412,10 @@ class TheZipFile(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_bootup', 5), ('tech_podcast', 1), ('tech_video', 1)]
+        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_bootup', 5), ('tech_podcast', 1)]
     }
 
-    template_names = {'v1': 'the-zip-file'}
+    template_names = {'v1': 'zip-file'}
 
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
@@ -425,7 +425,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
-                               ('/the-zip-file/(.+)', TheZipFile),
+                               ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),
