@@ -18,7 +18,7 @@ from data_source import \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
-    TechnologyMostViewedDataSource, TechnologyBootupDataSource, \
+    TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
@@ -405,14 +405,14 @@ class ZipFile(EmailTemplate):
             'tech_news': TechnologyDataSource(client),
             'tech_most_viewed': TechnologyMostViewedDataSource(client),
             'tech_games': TechnologyGamesDataSource(client),
-            'tech_bootup': TechnologyBootupDataSource(client),
+            'tech_blog': TechnologyBlogDataSource(client),
             'tech_podcast': TechnologyPodcastDataSource(client),
             'tech_video': TechnologyVideoDataSource(client)
         }
     }
 
     priority_list = {
-        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_bootup', 5), ('tech_podcast', 1)]
+        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
     }
 
     template_names = {'v1': 'zip-file'}

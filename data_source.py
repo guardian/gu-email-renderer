@@ -467,9 +467,10 @@ class TechnologyMostViewedDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, section='technology', show_most_viewed=True)
 
 
-class TechnologyBootupDataSource(ItemDataSource):
+class TechnologyBlogDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology/blog')
+        ItemDataSource.__init__(self, client, section='technology')
+        self.tags = ['(technology/blog|technology/appsblog)']
 
 
 class TechnologyGamesDataSource(ItemDataSource):
