@@ -23,8 +23,9 @@ class DiscussionClient(object):
 
 
 class DiscussionFetcher(object):
-    def __init__(self, client):
+    def __init__(self, client, tagPath=None):
         self.client = client
+        self.tagPath = tagPath
 
     def fetch_most_commented(self, page_size):
         url = self._build_url(page_size)
@@ -36,7 +37,10 @@ class DiscussionFetcher(object):
         url = self.client.base_url
         if url[-1] == '/':
             url = url[:-1]
-        return '%s/popular?pageSize=%s' % (url, page_size)
+        if self.tagPath:
+            return '%s/popular?pageSize=%s&tagPath=%s' % (url, page_size, self.tagPath)
+        else:
+            return '%s/popular?pageSize=%s' % (url, page_size)
 
     def _parse_response(self, response):
         discussions = json.loads(response)['discussions']

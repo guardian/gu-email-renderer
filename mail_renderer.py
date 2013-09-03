@@ -51,6 +51,7 @@ jinja_environment.cache = None
 api_key = '***REMOVED***'
 ophan_key = '***REMOVED***'
 base_url='http://***REMOVED***'
+discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
 client = ApiClient(base_url, api_key, url_suffix='/api/', edition="uk")
 clientUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='us')
@@ -312,8 +313,6 @@ class DailyEmailAUS(EmailTemplate):
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
-    discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
-
 
     discussion_client = DiscussionClient(discussion_base_url)
     discussion_fetcher = DiscussionFetcher(discussion_client)
@@ -400,10 +399,17 @@ class ZipFile(EmailTemplate):
         'leaderboard_v2': 'Bottom'
     }
 
+    discussion_client = DiscussionClient(discussion_base_url)
+    tech_most_commented = MostCommentedDataSource (
+        discussion_fetcher = DiscussionFetcher(discussion_client, 'technology'),
+        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
+        comment_count_interpolator = CommentCountInterpolator()
+    )
+
     data_sources = {
         'v1': {
             'tech_news': TechnologyDataSource(client),
-            'tech_most_viewed': TechnologyMostViewedDataSource(client),
+            'tech_most_commented': tech_most_commented,
             'tech_games': TechnologyGamesDataSource(client),
             'tech_blog': TechnologyBlogDataSource(client),
             'tech_podcast': TechnologyPodcastDataSource(client),
@@ -412,7 +418,7 @@ class ZipFile(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_viewed', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
+        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_commented', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
     }
 
     template_names = {'v1': 'zip-file'}
