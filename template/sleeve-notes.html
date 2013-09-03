@@ -14,7 +14,7 @@
 {% block content %}
 
 {{ layout.story_trail(
-        heading_text='Must read',
+        heading_text='Most read',
         stories=music_most_viewed,
         heading_link='http://www.theguardian.com/most-viewed/music',
         heading_colour='#d1008b',
@@ -23,9 +23,9 @@
 {{ layout.advert(ads.leaderboard) }}
 
 {{ layout.story_trail(
-        heading_text='In the news',
-        stories=music_news,
-        heading_link='http://www.theguardian.com/music/music+tone/news',
+        heading_text='Editor\'s picks',
+        stories=music_picks,
+        heading_link='http://www.theguardian.com/music',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
@@ -47,7 +47,7 @@
 
 {{ layout.story_trail(
         heading_text='Further reading',
-        stories=music_editors_picks,
+        stories=music_further,
         heading_link='http://www.theguardian.com/music',
         heading_colour='#d1008b',
         top_thumb=True) }}

@@ -377,16 +377,15 @@ class SleeveNotes(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'music_most_viewed': MusicMostViewedDataSource(client),
-
-        'music_news': MusicNewsDataSource(client),
+        'music_picks': MusicEditorsPicksDataSource(client),
         'music_blog': MusicBlogDataSource(client),
         'music_watch_listen': MusicWatchListenDataSource(client),
-        'music_editors_picks': MusicEditorsPicksDataSource(client),
+        'music_further': MusicEditorsPicksDataSource(client),
         }
 
     priority_list = {}
-    priority_list['v1'] = [('music_most_viewed', 3), ('music_news', 5), ('music_blog', 5),
-                           ('music_watch_listen', 5), ('music_editors_picks', 3)]
+    priority_list['v1'] = [('music_most_viewed', 3), ('music_picks', 5), ('music_blog', 5),
+                           ('music_watch_listen', 5), ('music_further', 3)]
     template_names = {'v1': 'sleeve-notes'}
 
 
