@@ -476,7 +476,8 @@ class TechnologyBlogDataSource(ItemDataSource):
 
 class TechnologyGamesDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology/games', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, section='technology/games')
+        self.tags = ['-technology/series/chatterbox,-type/video']
 
 
 class TechnologyPodcastDataSource(ItemDataSource):
