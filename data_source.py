@@ -445,10 +445,11 @@ class MusicVideoDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, section='music')
         self.tags = ['type/video']
 
+
 class MusicWatchListenDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='music')
-        self.tags = ['type/video|type/audio']
+        self.tags = ['(type/video|type/audio)']
 
 
 class MusicAudioDataSource(ItemDataSource):
