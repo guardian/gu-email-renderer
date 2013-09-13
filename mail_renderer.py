@@ -121,7 +121,7 @@ class AustralianPolitics(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('politics_comment', 2), ('politics_video', 2), ('politics_latest', 4)]
+        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)]
     }
 
     template_names = {'v1': 'australian-politics'}
