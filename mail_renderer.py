@@ -12,7 +12,7 @@ from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, MediaBlogDataSource, MediaMonkeyDataSource, MediaCommentDataSource, \
+    MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
@@ -179,14 +179,12 @@ class MediaBriefing(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'media_stories': MediaDataSource(client),
-        'media_blog': MediaBlogDataSource(client),
-        'media_comment': MediaCommentDataSource(client),
         'media_monkey': MediaMonkeyDataSource(client),
         'media_briefing': MediaBriefingDataSource(client)
         }
 
     priority_list = {}
-    priority_list['v1'] = [('media_stories', 8), ('media_blog', 3), ('media_comment', 1), ('media_monkey', 1), ('media_briefing', 1)]
+    priority_list['v1'] = [('media_stories', 10), ('media_monkey', 1), ('media_briefing', 1)]
 
     template_names = {'v1': 'media-briefing'}
 
