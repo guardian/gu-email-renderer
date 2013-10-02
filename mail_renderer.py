@@ -18,6 +18,8 @@ from data_source import \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
+    FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmFeaturesInterviewsDataSource, \
+    FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
     TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
@@ -125,6 +127,32 @@ class AustralianPolitics(EmailTemplate):
     }
 
     template_names = {'v1': 'australian-politics'}
+
+
+class CloseUp(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-close-up'
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
+
+    data_sources = {}
+    data_sources['v1'] = {
+        'film_week': FilmOfTheWeekDataSource(client),
+        'film_picks': FilmEditorsPicksDataSource(client),
+        'film_show': FilmShowDataSource(client),
+        'film_most_viewed': FilmMostViewedDataSource(client),
+        'film_features_interviews': FilmFeaturesInterviewsDataSource(client),
+        'film_blogs': FilmBlogsDataSource(client),
+        'film_quiz': MusicQuizDataSource(client)
+        }
+
+    priority_list = {}
+    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_features_interviews', 3), ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
+
+    template_names = {'v1': 'close-up'}
 
 
 class FashionStatement(EmailTemplate):
@@ -425,6 +453,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
                                ('/australian-politics/(.+)', AustralianPolitics),
+                               ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),

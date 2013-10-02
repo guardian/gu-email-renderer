@@ -423,6 +423,46 @@ class FashionVideoDataSource(SearchDataSource):
         self.show_media = 'video'
 
 
+class FilmEditorsPicksDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film', show_editors_picks=True)
+
+
+class FilmMostViewedDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film', show_most_viewed=True)
+
+
+class FilmBlogsDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.tags = ['(film/series/week-in-geek|film/series/reelhistory|film/series/at-the-british-box-office|film/series/bigger-picture|film/series/trailer-review)']
+
+
+class FilmFeaturesInterviewsDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.tags = ['(tone/features|tone/interview)']
+
+
+class FilmOfTheWeekDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.tags = ['film/series/philip-frenchs-film-of-the-week']
+
+
+class MusicQuizDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.tags = ['type/quiz']
+
+
+class FilmShowDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.tags = ['film/series/guardian-film-show']
+
+
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)
