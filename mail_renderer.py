@@ -18,7 +18,7 @@ from data_source import \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
-    FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmFeaturesInterviewsDataSource, \
+    FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
     TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
@@ -144,13 +144,13 @@ class CloseUp(EmailTemplate):
         'film_picks': FilmEditorsPicksDataSource(client),
         'film_show': FilmShowDataSource(client),
         'film_most_viewed': FilmMostViewedDataSource(client),
-        'film_features_interviews': FilmFeaturesInterviewsDataSource(client),
+        'film_interviews': FilmInterviewsDataSource(client),
         'film_blogs': FilmBlogsDataSource(client),
         'film_quiz': MusicQuizDataSource(client)
         }
 
     priority_list = {}
-    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_features_interviews', 3), ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
+    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3), ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
 
     template_names = {'v1': 'close-up'}
 

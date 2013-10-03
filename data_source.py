@@ -439,16 +439,16 @@ class FilmBlogsDataSource(ItemDataSource):
         self.tags = ['(film/series/week-in-geek|film/series/reelhistory|film/series/at-the-british-box-office|film/series/bigger-picture|film/series/trailer-review)']
 
 
-class FilmFeaturesInterviewsDataSource(ItemDataSource):
+class FilmInterviewsDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
-        self.tags = ['(tone/features|tone/interview)']
+        self.tags = ['tone/interview']
 
 
 class FilmOfTheWeekDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
-        self.tags = ['film/series/philip-frenchs-film-of-the-week']
+        self.tags = ['film/series/peter-bradshaw-film-of-the-week']
 
 
 class MusicQuizDataSource(ItemDataSource):
