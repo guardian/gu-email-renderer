@@ -280,7 +280,8 @@ class DailyEmailUS(EmailTemplate):
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
-        'leaderboard': 'Top'
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
     }
 
     data_sources = {}
