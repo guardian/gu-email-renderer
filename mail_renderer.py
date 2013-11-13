@@ -304,9 +304,10 @@ class DailyEmailUS(EmailTemplate):
 class DailyEmailAUS(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = 'email-guardian-today'
+    ad_tag = 'email-guardian-today-aus'
     ad_config = {
-        'leaderboard': 'Top'
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
     }
 
     data_sources = {}
