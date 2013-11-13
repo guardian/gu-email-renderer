@@ -238,17 +238,20 @@ class DailyEmail(EmailTemplate):
         'top_stories': TopStoriesDataSource(client),
         'eye_witness': EyeWitnessDataSource(client),
         'most_viewed': MostViewedDataSource(client),
+        'video': VideoDataSource(client),
         }
     data_sources['v2'] = data_sources['v1']
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2),
-                           ('eye_witness', 1)]
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('video', 3),
+                           ('sport', 3), ('comment', 3), ('culture', 3),
+                           ('business', 2), ('technology', 2), ('travel', 2),
+                           ('lifeandstyle', 2), ('eye_witness', 1)]
 
-    priority_list['v2'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1), ('sport', 3), ('culture', 3),
-                               ('business', 2), ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
+    priority_list['v2'] = [('top_stories', 6), ('most_viewed', 6), ('eye_witness', 1),
+                           ('sport', 3), ('culture', 3), ('business', 2),
+                           ('technology', 2), ('travel', 2), ('lifeandstyle', 2)]
 
     template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2'}
 
@@ -292,11 +295,12 @@ class DailyEmailUS(EmailTemplate):
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
         'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(client),
         }
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('sport', 3), ('comment', 3),
+    priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
                            ('culture', 3), ('business', 2), ('technology', 2)]
 
     template_names = {'v1': 'daily-email-us'}
