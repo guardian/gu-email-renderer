@@ -335,6 +335,9 @@ class VideoDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
 
+    def __repr__(self):
+        return str(self.__class__) + self.name
+
 
 class AusVideoDataSource(ItemDataSource):
     def __init__(self, client):

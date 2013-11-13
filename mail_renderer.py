@@ -295,7 +295,7 @@ class DailyEmailUS(EmailTemplate):
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
         'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(client),
+        'video': VideoDataSource(clientUS),
         }
 
 
