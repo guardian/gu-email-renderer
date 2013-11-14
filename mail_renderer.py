@@ -424,7 +424,7 @@ class SleeveNotes(EmailTemplate):
 class ZipFile(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = ''
+    ad_tag = 'email-technology-roundup'
     ad_config = {
         'leaderboard_v1': 'Top',
         'leaderboard_v2': 'Bottom'
