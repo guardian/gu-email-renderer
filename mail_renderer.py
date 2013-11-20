@@ -218,7 +218,7 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3']
+    recognized_versions = ['v1', 'v2', 'v3', 'v4']
 
     ad_tag = 'email-guardian-today'
     ad_config = {
@@ -241,6 +241,7 @@ class DailyEmail(EmailTemplate):
         'video': VideoDataSource(client),
         }
     data_sources['v2'] = data_sources['v1']
+    data_sources['v4'] = data_sources['v1']
 
     data_sources['v3'] = {
         'top_stories': TopStoriesDataSource(client),
@@ -260,8 +261,10 @@ class DailyEmail(EmailTemplate):
 
     priority_list['v3'] = [('top_stories', 6), ('most_viewed', 6)]
 
+    priority_list['v4'] = priority_list['v1']
 
-    template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2', 'v3': 'daily-email-v3'}
+
+    template_names = {'v1': 'daily-email-v1', 'v2': 'daily-email-v2', 'v3': 'daily-email-v3', 'v4': 'daily-email-v4'}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
