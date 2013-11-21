@@ -1,0 +1,385 @@
+{% if not footer_colour %}
+{% set footer_colour = 'dark' %}
+{% endif %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+          "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body style="background: #fff; margin: 0; padding: 0;">
+    <style>
+      .content-holder {
+        width: 320px !important;
+      }
+      @media only screen and (min-width: 480px) {
+        .section-heading {
+          font-size: 17px !important;
+          padding: 8px 0 !important;
+        }
+        .story-image {
+          height: 84px !important;
+          width: 140px !important;
+        }
+        .story-title {
+          font-size: 16px !important;
+          line-height: 20px !important;
+        }
+        .content-holder {
+          width: 480px !important;
+        }
+      }
+      @media only screen and (min-width: 600px) {
+        .content-holder {
+          width: 600px !important;
+        }
+      }
+      @media only screen and (max-width: 320px) {
+        .content-holder {
+          width: 100% !important;
+        }
+      }
+      #zones-nav
+      {
+          padding-bottom: 10px;
+          padding-top: 10px;
+          display: block;
+          clear: both;
+          line-height: 1;
+          font-family: georgia, serif;
+          font-weight: normal;
+          font-size: 16px;
+      }
+
+      #zones-nav #global-nav
+      {
+          margin-bottom: 10px;
+          clear: both;
+          width: 100%;
+          overflow: hidden;
+      }
+
+      #zones-nav #global-nav ul
+      {
+          margin-left: 10px;
+          margin-top: 0px;
+          margin-bottom: 0px;
+          padding: 0;
+          float: left;
+      }
+
+      #zones-nav #global-nav ul li
+      {
+          float: left;
+          padding: 0;
+          margin: 0;
+          width: auto;
+          display: block;
+          white-space: nowrap;
+      }
+
+      #zones-nav #global-nav ul li a,
+      #zones-nav .local-nav li.heading-crumb
+      {
+          display: block;
+          padding: 4px 5px 4px 5px;
+          margin: 0;
+          width: auto;
+      }
+
+      #zones-nav #global-nav ul li a,
+      #zones-nav #global-nav ul a:hover
+      {
+          text-decoration: none;
+      }
+
+      #zones-nav .local-nav li.heading-crumb,
+      #zones-nav .local-nav li.heading-crumb:hover
+      {
+          background-color: #fff;
+          color: #333;
+      }
+
+          /* First and Last items */
+      #zones-nav #global-nav ul li.first a
+      {
+          padding-left: 5px;
+      }
+
+      #zones-nav #global-nav ul li.last a
+      {
+          border: none;
+      }
+
+      #zones-nav #global-nav ul li a
+      {
+          border-right: 1px solid #bebebe;
+      }
+
+      #header #wrapper #zones-nav #global-nav li a
+      {
+          color: #333;
+          background-color: #fff;
+      }
+
+      #header #wrapper #zones-nav #global-nav li a:focus,
+      #header #wrapper #zones-nav #global-nav li a:active,
+      #header #wrapper #zones-nav #global-nav li:hover,
+      #header #wrapper #zones-nav #global-nav li a:hover
+      {
+          color: #fff;
+          background-color: #333;
+      }
+
+      #global-nav li.news a
+      {
+          color:#d61d00;
+      }
+
+      #global-nav li.news a:focus,
+      #global-nav li.news a:active,
+      #global-nav li.news:hover,
+      #global-nav li.news a:hover
+      {
+          color: #fff;
+          background-color:#d61d00;
+      }
+      #global-nav li.sport a
+      {
+          color:#008000;
+      }
+
+      #global-nav li.sport a:focus,
+      #global-nav li.sport a:active,
+      #global-nav li.sport:hover,
+      #global-nav li.sport a:hover
+      {
+          color: #fff;
+          background-color:#008000;
+      }
+
+      #global-nav li.comment a
+      {
+          color:#0061a6;
+      }
+
+      #global-nav li.comment a:focus,
+      #global-nav li.comment a:active,
+      #global-nav li.comment:hover,
+      #global-nav li.comment a:hover
+      {
+          color: #fff;
+          background-color:#0061a6;
+      }
+      #global-nav li.culture a
+      {
+          color:#d1008b;
+      }
+
+      #global-nav li.culture a:focus,
+      #global-nav li.culture a:active,
+      #global-nav li.culture:hover,
+      #global-nav li.culture a:hover
+      {
+          color: #fff;
+          background-color:#d1008b;
+      }
+      #global-nav li.business a
+      {
+          color:#3246ab;
+      }
+
+      #global-nav li.business a:focus,
+      #global-nav li.business a:active,
+      #global-nav li.business:hover,
+      #global-nav li.business a:hover
+      {
+          color: #fff;
+          background-color:#3246ab;
+      }
+
+      #global-nav li.money a
+      {
+          color:#8f1ab6;
+      }
+
+      #global-nav li.money a:focus,
+      #global-nav li.money a:active,
+      #global-nav li.money:hover,
+      #global-nav li.money a:hover
+      {
+          color: #fff;
+          background-color:#8f1ab6;
+      }
+      #global-nav li.life-style a,
+      #global-nav li.life-and-style a
+      {
+          color:#ad532f;
+      }
+
+      #global-nav li.life-style a:focus,
+      #global-nav li.life-style a:active,
+      #global-nav li.life-style:hover,
+      #global-nav li.life-style a:hover,
+      #global-nav li.life-and-style a:focus,
+      #global-nav li.life-and-style a:active,
+      #global-nav li.life-and-style:hover,
+      #global-nav li.life-and-style a:hover
+      {
+          color: #fff;
+          background-color:#ad532f;
+      }
+      #global-nav li.travel a
+      {
+          color:#066ec9;
+      }
+
+      #global-nav li.travel a:focus,
+      #global-nav li.travel a:active,
+      #global-nav li.travel:hover,
+      #global-nav li.travel a:hover
+      {
+          color: #fff;
+          background-color:#066ec9;
+      }
+      #global-nav li.environment a
+      {
+          color:#4a7801;
+      }
+
+      #global-nav li.environment a:focus,
+      #global-nav li.environment a:active,
+      #global-nav li.environment:hover,
+      #global-nav li.environment a:hover
+      {
+          color: #fff;
+          background-color:#4a7801;
+      }
+
+      #global-nav li a
+      {
+          color:#333;
+      }
+
+      #global-nav li a:focus,
+      #global-nav li a:active,
+      #global-nav li:hover,
+      #global-nav li a:hover
+      {
+          color: #fff;
+          background-color:#333;
+      }
+    </style>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+      <tr>
+        <td align="center">
+          <table class="content-holder" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="min-width: 320px; max-width: 600px; display: block;">
+            <tr><td>
+                <!-- header -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 1px">
+                  <tr>
+                    <td style="padding: 0 0 0 20px;">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr align="left"><td style="font-family: Georgia, serif; font-size: 20px; color: {{ title_colour }};"><a style="color: {{ title_colour }}; text-decoration: none;" href="{{ title_link }}">{{ title }}</a></td></tr>
+                        <tr align="left"><td style="font-family: Arial, sans-serif; font-size: 12px; color: #666666; padding-top: 3px;">{{ date }}</td></tr>
+                      </table>
+                    </td>
+                    <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>
+                  </tr>
+                </table>
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 1px">
+                    <tr>
+                        <td>
+                            <div id="zones-nav">
+                                <div id="global-nav">
+                                    <ul>
+                                        <li class="first news"><a href="http://www.theguardian.com" name="&lid={globalNav}{theguardian.com home}&lpos={trail}{1}">News</a></li>
+                                        <li class="sport"><a href="http://www.theguardian.com/sport" name="&lid={globalNav}{Sport home}&lpos={trail}{2}">Sport</a></li>
+                                        <li class="comment"><a href="http://www.theguardian.com/commentisfree" name="&lid={globalNav}{Comment is free home}&lpos={trail}{3}">Comment</a></li>
+                                        <li class="culture"><a href="http://www.theguardian.com/culture" name="&lid={globalNav}{Culture home}&lpos={trail}{4}">Culture</a></li>
+                                        <li class="business"><a href="http://www.theguardian.com/business" name="&lid={globalNav}{Business home}&lpos={trail}{5}">Business</a></li>
+                                        <li class="money"><a href="http://www.theguardian.com/money" name="&lid={globalNav}{Money home}&lpos={trail}{6}">Money</a></li>
+                                        <li class="life-and-style"><a href="http://www.theguardian.com/lifeandstyle" name="&lid={globalNav}{Life and style home}&lpos={trail}{7}">Life &amp; style</a></li>
+                                        <li class="travel"><a href="http://www.theguardian.com/travel" name="&lid={globalNav}{Travel home}&lpos={trail}{8}">Travel</a></li>
+                                        <li class="last culture"><a href="http://www.theguardian.com/tv-and-radio" name="&lid={globalNav}{Television &amp;amp; Radio}&lpos={trail}{10}">TV</a></li>
+                                    </ul>
+                                 </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            {% block content %}{% endblock %}
+
+            {% block footer %}
+            <tr><td>
+                <!-- footer -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#333333{% else %}#e8e5e2{% endif %}">
+                  <!-- logo-social -->
+                  <tr>
+                    <td style="padding: 20px 15px 0 15px;">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td align="left" width="50%">
+                              <a href="{% if footer_link %}{{ footer_link }}{% else %}{{ title_link }}{% endif %}"><img src="{{ URL_ROOT }}/static/img/logo-footer-{{ footer_colour }}.png" width="131" height="24" alt="The Guardian" border="0" /></a>
+                          </td>
+
+                          <td width="50%" align="right">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              {% block social %}
+                              <tr>
+                                {% if twitter_account %}
+                                <td align="left" width="50"><a href="https://www.twitter.com/{{ twitter_account }}"><img src="{{ URL_ROOT }}/static/img/twitter-{{ footer_colour }}.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+                                {% endif %}
+                                {% if facebook_page %}
+                                <td align="left" width="25"><a href="https://www.facebook.com/{{ facebook_page }}"><img src="{{ URL_ROOT }}/static/img/fb-{{ footer_colour }}.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+                                {% endif %}
+                              </tr>
+                              {% endblock social %}
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /logo-social -->
+
+                  <!-- sections -->
+                  {% block sections %}
+                  <tr>
+                    <td style="padding: 20px 15px 20px 15px;">
+                      {% if sections %}
+                      <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          {% for section in sections %}
+                          <td>
+                            <a style="font: 12px Helvetica, Arial, sans-serif; color: {% if footer_colour == 'dark' %}#ffffff{% else %}#005689{% endif %}; text-decoration: none; padding: 0 5px{% if loop.first %} 0 0{% endif %};{% if not loop.last %} border-right: 1px solid {% if footer_colour == 'dark' %}#bebebe{% else %}#999999{% endif %};{% endif %}; white-space: nowrap;" href="{{ section[1] }}">{{ section[0] }}</a>
+                          </td>
+                          {% endfor %}
+                        </tr>
+                      </table>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endblock sections %}
+                  <!-- /sections -->
+                </table>
+
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#444444{% else %}#ededed{% endif %}" style="border-bottom: 1px solid #bebebe;">
+                  <tr><td align="left" style="padding: 20px 15px 20px 15px;">
+                      <a href="https://id.guardian.co.uk/email/list" style="font: 13px Helvetica, Arial, sans-serif; color: {% if footer_colour == 'dark' %}#ffffff{% else %}#005689{% endif %}; text-decoration: none;"><img src="{{ URL_ROOT }}/static/img/email-{{ footer_colour }}.png" border="0" style="vertical-align: -4px; margin-right: 5px;" width="25" height="18" alt="" /> Get more Guardian emails</a>
+                  </td></tr>
+                </table>
+
+                <!-- /footer -->
+            </td></tr>
+            {% endblock %}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
