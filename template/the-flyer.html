@@ -1,0 +1,58 @@
+{# Australian politics email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'The Flyer' %}
+{% set title_link = 'http://www.theguardian.com/travel' %}
+{% set title_colour = '#005689' %}
+{% set logo_background  = '#066ec9' %}
+{% set facebook_page = 'TravelGuardian' %}
+{% set twitter_account = 'GuardianTravel' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Editor\'s picks',
+    stories=travel_picks,
+    heading_link='http://www.theguardian.com/travel',
+    heading_colour='#4bc6df',
+    thumbnail=True) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+{{ layout.story_trail(
+    heading_text='Most viewed',
+    stories=travel_most_viewed,
+    heading_link='http://www.theguardian.com/most-viewed/travel',
+    heading_colour='#4bc6df',
+    top_thumb=True) }}
+
+{{ layout.story_trail(
+    heading_text='The best of our Top 10',
+    stories=travel_top_ten,
+    heading_link='http://www.theguardian.com/travel/top10',
+    heading_colour='#4bc6df',
+    top_thumb=True) }}
+
+{{ layout.video(
+    video=travel_video,
+    bg_colour='#faf9f8',
+    heading_text='Latest video',
+    heading_link='http://www.theguardian.com/travel/travel+content/video',
+    heading_text_colour='#ffffff',
+    heading_colour='#4bc6df',
+    caption_colour='#555555') }}
+
+{{ layout.story_trail(
+    heading_text='Share your tips',
+    stories=travel_tips,
+    heading_link='http://www.theguardian.com/travel/series/been-there-readers-tips',
+    heading_colour='#4bc6df',
+    top_thumb=True) }}
+
+{% endblock content %}
+
+{% set sections = (('City guides', 'http://www.theguardian.com/travel/city-guides'),
+                   ('UK hotels', 'http://www.theguardian.com/travel/interactive/2009/jul/03/hotels-uk-map-guide-reviews'),
+                   ('Beach on a budget', 'http://www.theguardian.com/travel/series/the-worlds-best-beach-hotels-and-accommodation-on-a-budget')) %}

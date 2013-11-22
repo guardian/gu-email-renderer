@@ -14,6 +14,7 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
@@ -421,6 +422,32 @@ class SleeveNotes(EmailTemplate):
     template_names = {'v1': 'sleeve-notes'}
 
 
+class TheFlyer(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-the-flyer'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    data_sources = {
+        'v1': {
+            'travel_picks': TravelDataSource(client),
+            'travel_most_viewed': TravelMostViewedDataSource(client),
+            'travel_top_ten': TravelTopTenDataSource(client),
+            'travel_video': TravelVideoDataSource(client),
+            'travel_tips': TravelTipsDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('travel_picks', 5), ('travel_most_viewed', 3),
+               ('travel_top_ten', 5), ('travel_video', 1), ('travel_tips', 1)]
+    }
+
+    template_names = {'v1': 'the-flyer'}
+
+
 class ZipFile(EmailTemplate):
     recognized_versions = ['v1']
 
@@ -463,6 +490,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/(.+)', MostShared),
