@@ -21,7 +21,7 @@ from data_source import \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
-    TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
+    MoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
@@ -308,6 +308,7 @@ class DailyEmailUS(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
+        'money': MoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -319,7 +320,7 @@ class DailyEmailUS(EmailTemplate):
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('technology', 2)]
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
 
     template_names = {'v1': 'daily-email-us'}
 
