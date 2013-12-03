@@ -131,7 +131,7 @@ class AustralianPolitics(EmailTemplate):
 
 
 class CloseUp(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-close-up'
     ad_config = {
@@ -149,11 +149,19 @@ class CloseUp(EmailTemplate):
         'film_blogs': FilmBlogsDataSource(client),
         'film_quiz': MusicQuizDataSource(client)
         }
+    data_sources['v2'] = data_sources['v1']
+    data_sources['v3'] = data_sources['v1']
 
     priority_list = {}
-    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3), ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
+    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3),
+                           ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
 
-    template_names = {'v1': 'close-up'}
+    priority_list['v2'] = priority_list['v1']
+    priority_list['v3'] = priority_list['v1']
+
+    template_names = {'v1': 'close-up-v1',
+                      'v2': 'close-up-v2',
+                      'v3': 'close-up-v3'}
 
 
 class FashionStatement(EmailTemplate):

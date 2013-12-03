@@ -1,0 +1,27 @@
+{# Close up email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Close up' %}
+{% set title_link = 'http://www.theguardian.com/film' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page    = 'guardianfilm' %}
+{% set twitter_account  = 'guardianfilm' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Film of the week',
+    stories=film_week,
+    heading_link='http://www.theguardian.com/film/series/peter-bradshaw-film-of-the-week',
+    heading_colour='#d1008b',
+    top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard_v1) }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
