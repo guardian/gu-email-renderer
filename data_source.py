@@ -490,9 +490,9 @@ class FilmShowDataSource(ItemDataSource):
         self.tags = ['film/series/guardian-film-show']
 
 
-class USMoneyBlogDataSource(ItemDataSource):
+class USMoneyDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='money/us-money-blog')
+        ItemDataSource.__init__(self, client, section='money/us-personal-finance')
 
 
 class MusicMostViewedDataSource(ItemDataSource):

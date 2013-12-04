@@ -21,7 +21,7 @@ from data_source import \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
-    USMoneyBlogDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
+    USMoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
@@ -316,7 +316,7 @@ class DailyEmailUS(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyBlogDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
