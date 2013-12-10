@@ -247,7 +247,6 @@ class DailyEmail(EmailTemplate):
         'top_stories': TopStoriesDataSource(client),
         'eye_witness': EyeWitnessDataSource(client),
         'most_viewed': MostViewedDataSource(client),
-        'video': VideoDataSource(client),
         }
     data_sources['v2'] = data_sources['v1']
     data_sources['v4'] = data_sources['v1']
@@ -260,7 +259,7 @@ class DailyEmail(EmailTemplate):
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('video', 3),
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), 
                            ('sport', 3), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
