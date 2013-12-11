@@ -250,7 +250,7 @@ class TravelMostViewedDataSource(ItemDataSource):
 
 class TravelTopTenDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'travel/top10')
+        ItemDataSource.__init__(self, client, 'travel/top10', show_editors_picks=True)
 
 
 class TravelTipsDataSource(ItemDataSource):
@@ -258,13 +258,10 @@ class TravelTipsDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, 'travel/series/been-there-readers-tips')
 
 
-class TravelVideoDataSource(SearchDataSource):
+class TravelVideoDataSource(ItemDataSource):
     def __init__(self, client):
-        DataSource.__init__(self, client)
-        self.content_type = 'video'
-        self.tags = ['travel']
-        # self.page_size = 1
-        self.show_media = 'video'
+        ItemDataSource.__init__(self, client,'travel', show_editors_picks=True)
+        self.tags = ['type/video']
 
 
 class ScienceDataSource(ItemDataSource):
