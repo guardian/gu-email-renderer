@@ -475,8 +475,8 @@ class TheFlyer(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('travel_picks', 5), ('travel_most_viewed', 3),
-               ('travel_top_ten', 5), ('travel_video', 1), ('travel_tips', 1)]
+        'v1': [('travel_video', 1), ('travel_picks', 5), ('travel_most_viewed', 3),
+               ('travel_top_ten', 5), ('travel_tips', 1)]
     }
 
     template_names = {'v1': 'the-flyer'}

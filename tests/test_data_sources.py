@@ -1,4 +1,3 @@
-
 #! /usr/bin/python
 
 import prefetch
@@ -159,7 +158,7 @@ class TestDataSources(unittest2.TestCase):
     def test_should_call_api_with_correct_url_for_music_watch_and_listen(self):
         self.check_data_source_url(MusicWatchListenDataSource(url_capturing_client), '/music',
                                    show_fields=Fields,
-                                   tag='type/video|type/audio',
+                                   tag='(type/video|type/audio)',
                                    page_size='10',
                                    user_tier='internal')
 
