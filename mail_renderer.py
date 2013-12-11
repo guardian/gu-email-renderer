@@ -20,7 +20,7 @@ from data_source import \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
-    FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
+    FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
     USMoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
@@ -146,7 +146,7 @@ class CloseUp(EmailTemplate):
         'film_most_viewed': FilmMostViewedDataSource(client),
         'film_interviews': FilmInterviewsDataSource(client),
         'film_blogs': FilmBlogsDataSource(client),
-        'film_quiz': MusicQuizDataSource(client)
+        'film_quiz': FilmQuizDataSource(client)
         }
     data_sources['v2'] = data_sources['v1']
     data_sources['v3'] = data_sources['v1']
