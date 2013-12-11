@@ -67,7 +67,6 @@ class Index(webapp2.RequestHandler):
         template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render())
 
-
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
     default_ad_tag = 'email-guardian-today'
@@ -514,6 +513,22 @@ class ZipFile(EmailTemplate):
 
     template_names = {'v1': 'zip-file'}
 
+class Headline(webapp2.RequestHandler):
+
+    def get(self):
+        data_sources = {'top_stories': TopStoriesDataSource(client)}
+        priority_list = [('top_stories', 1)]
+        template_data = {}
+        retrieved_data = fetch_all(data_sources)
+        trail_block = build_unique_trailblocks(retrieved_data,priority_list)
+        stories = trail_block.get('top_stories')
+        headlines = [s.get('webTitle') for s in stories]
+        if headlines:
+            headline = headlines[0]
+            template_data['headline'] = headline
+        template = jinja_environment.get_template('headline.html')
+        self.response.out.write(template.render(template_data))
+
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
@@ -529,6 +544,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),
                                ('/editors-picks/(.+)', EditorsPicks),
+                               ('/headline', Headline),
                                ('/', Index)],
                               debug=True)
 
