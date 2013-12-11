@@ -1,4 +1,4 @@
-{# Daily (Guardian Today) email template #}
+{# Sleeve notes email template #}
 
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
@@ -23,7 +23,7 @@
 {{ layout.advert(ads.leaderboard) }}
 
 {{ layout.story_trail(
-        heading_text='Editor\'s picks',
+        heading_text='Today\'s top stories',
         stories=music_picks,
         heading_link='http://www.theguardian.com/music',
         heading_colour='#d1008b',
@@ -39,7 +39,7 @@
 {{ layout.story_trail(
         heading_text='Watch and listen',
         stories=music_watch_listen,
-        heading_link='http://www.theguardian.com/music/music+content/video',
+        heading_link='http://www.theguardian.com/music/music+type/video',
         heading_colour='#d1008b',
         top_thumb=True) }}
 
@@ -52,11 +52,10 @@
         heading_colour='#d1008b',
         top_thumb=True) }}
 
-
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
 
 {% set sections = (('News', 'http://www.theguardian.com/music/music+tone/news'),
                    ('Album reviews', 'http://www.theguardian.com/music/music+tone/albumreview'),
-                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livemusicreview')) %}
+                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livereview')) %}

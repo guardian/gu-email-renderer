@@ -1,0 +1,54 @@
+{# Sleeve notes email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Sleeve notes' %}
+{% set title_link = 'http://www.theguardian.com/music' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page    = 'musicguardian' %}
+{% set twitter_account  = 'guardianmusic' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+
+{{ layout.story_trail(
+        heading_text='Today\'s top stories',
+        stories=music_picks,
+        heading_link='http://www.theguardian.com/music',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.story_trail(
+        heading_text='On the blog',
+        stories=music_blog,
+        heading_link='http://www.theguardian.com/music/musicblog',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.story_trail(
+        heading_text='Watch and listen',
+        stories=music_watch_listen,
+        heading_link='http://www.theguardian.com/music/music+type/video',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard2) }}
+
+{{ layout.story_trail(
+        heading_text='Further reading',
+        stories=music_further,
+        heading_link='http://www.theguardian.com/music',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% set sections = (('News', 'http://www.theguardian.com/music/music+tone/news'),
+                   ('Album reviews', 'http://www.theguardian.com/music/music+tone/albumreview'),
+                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livereview')) %}

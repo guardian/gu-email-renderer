@@ -14,13 +14,14 @@ from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, MusicQuizDataSource, FilmShowDataSource, \
-    TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
+    USMoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
@@ -129,7 +130,7 @@ class AustralianPolitics(EmailTemplate):
 
 
 class CloseUp(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-close-up'
     ad_config = {
@@ -147,11 +148,19 @@ class CloseUp(EmailTemplate):
         'film_blogs': FilmBlogsDataSource(client),
         'film_quiz': MusicQuizDataSource(client)
         }
+    data_sources['v2'] = data_sources['v1']
+    data_sources['v3'] = data_sources['v1']
 
     priority_list = {}
-    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3), ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
+    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3),
+                           ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
 
-    template_names = {'v1': 'close-up'}
+    priority_list['v2'] = priority_list['v1']
+    priority_list['v3'] = priority_list['v1']
+
+    template_names = {'v1': 'close-up-v1',
+                      'v2': 'close-up-v2',
+                      'v3': 'close-up-v3'}
 
 
 class FashionStatement(EmailTemplate):
@@ -237,7 +246,6 @@ class DailyEmail(EmailTemplate):
         'top_stories': TopStoriesDataSource(client),
         'eye_witness': EyeWitnessDataSource(client),
         'most_viewed': MostViewedDataSource(client),
-        'video': VideoDataSource(client),
         }
     data_sources['v2'] = data_sources['v1']
     data_sources['v4'] = data_sources['v1']
@@ -250,7 +258,7 @@ class DailyEmail(EmailTemplate):
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('video', 3),
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), 
                            ('sport', 3), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
@@ -306,6 +314,7 @@ class DailyEmailUS(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -317,7 +326,7 @@ class DailyEmailUS(EmailTemplate):
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('technology', 2)]
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
 
     template_names = {'v1': 'daily-email-us'}
 
@@ -414,7 +423,7 @@ class MostShared(EmailTemplate):
 
 
 class SleeveNotes(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-sleeve-notes'
     ad_config = {
@@ -430,11 +439,45 @@ class SleeveNotes(EmailTemplate):
         'music_watch_listen': MusicWatchListenDataSource(client),
         'music_further': MusicEditorsPicksDataSource(client),
         }
+    data_sources['v2'] = data_sources['v1']
+    data_sources['v3'] = data_sources['v1']
 
     priority_list = {}
     priority_list['v1'] = [('music_most_viewed', 3), ('music_picks', 5), ('music_blog', 5),
                            ('music_watch_listen', 5), ('music_further', 3)]
-    template_names = {'v1': 'sleeve-notes'}
+
+    priority_list['v2'] = priority_list['v1']
+    priority_list['v3'] = priority_list['v1']
+
+    template_names = {'v1': 'sleeve-notes-v1',
+                      'v2': 'sleeve-notes-v2',
+                      'v3': 'sleeve-notes-v3'}
+
+
+class TheFlyer(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-the-flyer'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    data_sources = {
+        'v1': {
+            'travel_picks': TravelDataSource(client),
+            'travel_most_viewed': TravelMostViewedDataSource(client),
+            'travel_top_ten': TravelTopTenDataSource(client),
+            'travel_video': TravelVideoDataSource(client),
+            'travel_tips': TravelTipsDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('travel_video', 1), ('travel_picks', 5), ('travel_most_viewed', 3),
+               ('travel_top_ten', 5), ('travel_tips', 1)]
+    }
+
+    template_names = {'v1': 'the-flyer'}
 
 
 class ZipFile(EmailTemplate):
@@ -495,6 +538,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/(.+)', MostShared),

@@ -243,6 +243,27 @@ class TravelDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, 'travel', show_editors_picks=True)
 
 
+class TravelMostViewedDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'travel', show_most_viewed=True)
+
+
+class TravelTopTenDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'travel/top10', show_editors_picks=True)
+
+
+class TravelTipsDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'travel/series/been-there-readers-tips')
+
+
+class TravelVideoDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client,'travel', show_editors_picks=True)
+        self.tags = ['type/video']
+
+
 class ScienceDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'science', show_editors_picks=True)
@@ -464,6 +485,11 @@ class FilmShowDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
         self.tags = ['film/series/guardian-film-show']
+
+
+class USMoneyDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='money/us-personal-finance')
 
 
 class MusicMostViewedDataSource(ItemDataSource):
