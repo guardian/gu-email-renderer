@@ -475,7 +475,7 @@ class FilmOfTheWeekDataSource(ItemDataSource):
         self.tags = ['film/series/peter-bradshaw-film-of-the-week']
 
 
-class MusicQuizDataSource(ItemDataSource):
+class FilmQuizDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
         self.tags = ['type/quiz']
