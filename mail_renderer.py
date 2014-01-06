@@ -12,7 +12,7 @@ from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
+    CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
@@ -422,6 +422,35 @@ class MostShared(EmailTemplate):
     template_names = {'v1': 'most-shared'}
 
 
+class SpeakersCorner(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-speakers-corner'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    ophan_client = OphanClient('http://***REMOVED***', ophan_key)
+    most_shared_data_source = MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
+        shared_count_interpolator=MostSharedCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'cif_most_shared': most_shared_data_source,
+            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('cif_cartoon', 1), ('cif_most_shared', 10)]
+    }
+
+    template_names = {'v1': 'speakers-corner'}
+
+
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
@@ -538,6 +567,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/speakers-corner/(.+)', SpeakersCorner),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),

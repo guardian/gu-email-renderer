@@ -26,8 +26,9 @@ class OphanClient(object):
 
 
 class MostSharedFetcher(object):
-    def __init__(self, client):
+    def __init__(self, client, section=''):
         self.client = client
+        self.section = section
 
     def fetch_most_shared(self, age=86400):
         url = self._build_url(age)
@@ -40,10 +41,11 @@ class MostSharedFetcher(object):
         if url[-1] == '/':
             url = url[:-1]
 
-        return '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}'.format(
+        return '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}&section={section}'.format(
             base_url=url,
             mins=age/60,
-            api_key=self.client.api_key
+            api_key=self.client.api_key,
+            section=self.section
             )
 
     def _extract_path(self, url):

@@ -229,6 +229,15 @@ class AusCommentIsFreeDataSource(ItemDataSource):
         self.tags = ['world/australia']
 
 
+class CommentIsFreeCartoonDataSource(SearchDataSource):
+    def __init__(self, client):
+        DataSource.__init__(self, client)
+        self.content_type = 'cartoon'
+        self.tags = ['theguardian/series/guardiancommentcartoon']
+        # self.page_size = 1
+        self.show_media = 'picture'
+
+
 class TechnologyDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'technology', show_editors_picks=True)
