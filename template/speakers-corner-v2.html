@@ -1,0 +1,36 @@
+{# Speakers' corner email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Speakers\' corner' %}
+{% set title_link = 'http://www.theguardian.com/uk/commentisfree' %}
+{% set title_colour = '#005689' %}
+{% set logo_background  = '#ff5d00' %}
+{% set facebook_page = 'GuardianComment' %}
+{% set twitter_account = 'commentisfree' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Today\'s most talked about stories',
+    stories=cif_most_commented,
+    heading_link='http://www.theguardian.com/uk/commentisfree',
+    heading_colour='#0061a6',
+    thumbnail=True) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+{{ layout.trail_image(
+    image=cif_cartoon,
+    heading_text='Daily cartoon',
+    heading_link='http://www.theguardian.com/theguardian/series/guardiancommentcartoon',
+    heading_colour='#0061a6') }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% set sections = (('Football', 'http://www.theguardian.com/football'),
+                   ('Comment is free', 'http://www.theguardian.com/commentisfree'),
+                   ('Environment', 'http://www.theguardian.com/environment')) %}
