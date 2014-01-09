@@ -12,7 +12,7 @@ from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
-    MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
+    CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
@@ -54,6 +54,7 @@ jinja_environment.cache = None
 api_key = '***REMOVED***'
 ophan_key = '***REMOVED***'
 base_url='http://***REMOVED***'
+ophan_base_url = 'http://***REMOVED***'
 discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
 client = ApiClient(base_url, api_key, url_suffix='/api/', edition="uk")
@@ -396,10 +397,8 @@ class MostCommented(EmailTemplate):
 class MostShared(EmailTemplate):
     recognized_versions = ['v1']
     n_items = 6
-    base_url = 'http://***REMOVED***'
 
-
-    ophan_client = OphanClient(base_url, ophan_key)
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
     most_shared_fetcher = MostSharedFetcher(ophan_client)
     multi_content_data_source = MultiContentDataSource(client=client, name='most_shared')
     shared_count_interpolator = MostSharedCountInterpolator()
@@ -420,6 +419,47 @@ class MostShared(EmailTemplate):
 
     priority_list = {'v1': [('most_shared', n_items)]}
     template_names = {'v1': 'most-shared'}
+
+
+class SpeakersCorner(EmailTemplate):
+    recognized_versions = ['v1', 'v2']
+
+    ad_tag = 'email-speakers-corner'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+    most_shared_data_source = MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
+        shared_count_interpolator=MostSharedCountInterpolator()
+    )
+
+    discussion_client = DiscussionClient(discussion_base_url)
+    most_commented_data_source = MostCommentedDataSource (
+        discussion_fetcher = DiscussionFetcher(discussion_client, 'commentisfree'),
+        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
+        comment_count_interpolator = CommentCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'cif_most_shared': most_shared_data_source,
+            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
+        },
+        'v2': {
+            'cif_most_commented': most_commented_data_source,
+            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('cif_cartoon', 1), ('cif_most_shared', 10)],
+        'v2': [('cif_cartoon', 1), ('cif_most_commented', 10)]
+    }
+
+    template_names = {'v1': 'speakers-corner-v1', 'v2': 'speakers-corner-v2'}
 
 
 class SleeveNotes(EmailTemplate):
@@ -538,6 +578,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/speakers-corner/(.+)', SpeakersCorner),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
