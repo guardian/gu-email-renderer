@@ -436,7 +436,6 @@ class SpeakersCorner(EmailTemplate):
         shared_count_interpolator=MostSharedCountInterpolator()
     )
 
-
     discussion_client = DiscussionClient(discussion_base_url)
     most_commented_data_source = MostCommentedDataSource (
         discussion_fetcher = DiscussionFetcher(discussion_client, 'commentisfree'),
