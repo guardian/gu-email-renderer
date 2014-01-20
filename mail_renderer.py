@@ -421,7 +421,7 @@ class MostShared(EmailTemplate):
     template_names = {'v1': 'most-shared'}
 
 
-class SpeakersCorner(EmailTemplate):
+class CommentIsFree(EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
     ad_tag = 'email-speakers-corner'
@@ -459,7 +459,7 @@ class SpeakersCorner(EmailTemplate):
         'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
     }
 
-    template_names = {'v1': 'speakers-corner-v1', 'v2': 'speakers-corner-v2'}
+    template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
 
 
 class SleeveNotes(EmailTemplate):
@@ -578,7 +578,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/fashion-statement/(.+)', FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
-                               ('/speakers-corner/(.+)', SpeakersCorner),
+                               ('/comment-is-free/(.+)', CommentIsFree),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
