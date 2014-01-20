@@ -455,8 +455,8 @@ class SpeakersCorner(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('cif_cartoon', 1), ('cif_most_shared', 10)],
-        'v2': [('cif_cartoon', 1), ('cif_most_commented', 10)]
+        'v1': [('cif_cartoon', 1), ('cif_most_shared', 5)],
+        'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
     }
 
     template_names = {'v1': 'speakers-corner-v1', 'v2': 'speakers-corner-v2'}
