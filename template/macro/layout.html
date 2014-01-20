@@ -116,7 +116,7 @@
 	{% for story in stories %}
 		{% if thumbnail == True %}
 			{% set use_thumbnail = True %}
-            {% set use_standfirst = True %}
+            {% set use_standfirst = standfirst %}
         {% else %}
             {% if loop.index == 1 and top_thumb %}
                 {% set use_thumbnail = True %}
