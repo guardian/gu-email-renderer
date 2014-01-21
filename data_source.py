@@ -229,6 +229,12 @@ class AusCommentIsFreeDataSource(ItemDataSource):
         self.tags = ['world/australia']
 
 
+class IndiaCommentIsFreeDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'commentisfree')
+        self.tags = ['world/india']
+
+
 class CommentIsFreeCartoonDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
@@ -493,6 +499,16 @@ class FilmShowDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
         self.tags = ['film/series/guardian-film-show']
+
+
+class IndiaDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/india')
+
+
+class IndiaMostViewedDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/india', show_most_viewed=True)
 
 
 class USMoneyDataSource(ItemDataSource):

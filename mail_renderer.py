@@ -25,7 +25,8 @@ from data_source import \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, \
+    AusVideoDataSource, IndiaCommentIsFreeDataSource, IndiaDataSource, IndiaMostViewedDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
@@ -368,6 +369,35 @@ class DailyEmailAUS(EmailTemplate):
     template_names = {'v1': 'daily-email-aus'}
 
 
+class DailyEmailIND(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = ''
+    ad_config = {}
+
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+    india_most_shared_data_source = MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, country='in'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
+        shared_count_interpolator=MostSharedCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'india_most_viewed': IndiaMostViewedDataSource(client),
+            'india_most_shared': india_most_shared_data_source,
+            'india_recent': IndiaDataSource(client),
+            'india_comment': IndiaCommentIsFreeDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('india_most_viewed', 5), ('india_most_shared', 5), ('india_recent', 5), ('india_comment', 5)]
+    }
+
+    template_names = {'v1': 'daily-email-ind'}
+
+
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
@@ -573,6 +603,7 @@ class Headline(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
+                               ('/daily-email-ind/(.+)', DailyEmailIND),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', FashionStatement),
