@@ -80,7 +80,7 @@
 {% endmacro %}
 
 
-{% macro trail_image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff') -%}
+{% macro trail_image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', image_only=False) -%}
 {% set story = image[0] %}
 {% set picture = [image[0].mediaAssets[0]] %}
 {% for media_asset in image[0].mediaAssets if 'body' == media_asset.rel %}
@@ -97,11 +97,13 @@
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
         <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
         <tr><td align="left"><a href="{{ story.webUrl }}" border="0"><img src="{{ picture.file }}" width="100%" alt="{{ picture.fields.altText }}" border="0" /></a></td></tr>
+        {% if image_only == False %}
         <tr>
             <td align="left">
                 {{ story_blocks.story(story, True) }}
             </td>
         </tr>
+        {% endif %}
     </table>
 </td></tr>
 {% endmacro %}
@@ -116,7 +118,7 @@
 	{% for story in stories %}
 		{% if thumbnail == True %}
 			{% set use_thumbnail = True %}
-            {% set use_standfirst = True %}
+            {% set use_standfirst = standfirst %}
         {% else %}
             {% if loop.index == 1 and top_thumb %}
                 {% set use_thumbnail = True %}

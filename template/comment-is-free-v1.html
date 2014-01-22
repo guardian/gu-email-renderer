@@ -1,9 +1,9 @@
-{# Speakers' corner email template #}
+{# Comment is free email template #}
 
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set title = 'Speakers\' corner: Comment is free\'s daily email' %}
+{% set title = 'The best of Comment is free' %}
 {% set title_link = 'http://www.theguardian.com/uk/commentisfree' %}
 {% set title_colour = '#005689' %}
 {% set logo_background  = '#ff5d00' %}
@@ -13,11 +13,12 @@
 {% block content %}
 
 {{ layout.story_trail(
-    heading_text='Today\'s most talked about stories',
-    stories=cif_most_commented,
+    heading_text='Today\'s most shared comment articles',
+    stories=cif_most_shared,
     heading_link='http://www.theguardian.com/uk/commentisfree',
     heading_colour='#0061a6',
-    thumbnail=True) }}
+    thumbnail=True,
+    standfirst=False) }}
 
 {{ layout.advert(ads.leaderboard) }}
 
@@ -25,7 +26,8 @@
     image=cif_cartoon,
     heading_text='Daily cartoon',
     heading_link='http://www.theguardian.com/theguardian/series/guardiancommentcartoon',
-    heading_colour='#0061a6') }}
+    heading_colour='#0061a6',
+    image_only=True) }}
 
 {% endblock content %}
 
