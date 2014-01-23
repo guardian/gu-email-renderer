@@ -26,7 +26,7 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, \
-    AusVideoDataSource, IndiaCommentIsFreeDataSource, IndiaDataSource, IndiaMostViewedDataSource, \
+    AusVideoDataSource, IndiaCommentIsFreeDataSource, IndiaDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
@@ -384,7 +384,6 @@ class DailyEmailIND(EmailTemplate):
 
     data_sources = {
         'v1': {
-            'india_most_viewed': IndiaMostViewedDataSource(client),
             'india_most_shared': india_most_shared_data_source,
             'india_recent': IndiaDataSource(client),
             'india_comment': IndiaCommentIsFreeDataSource(client),
@@ -392,7 +391,7 @@ class DailyEmailIND(EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('india_most_viewed', 5), ('india_most_shared', 5), ('india_recent', 5), ('india_comment', 5)]
+        'v1': [('india_most_shared', 5), ('india_recent', 5), ('india_comment', 5)]
     }
 
     template_names = {'v1': 'daily-email-ind'}
