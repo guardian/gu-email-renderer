@@ -16,6 +16,13 @@
 {% block content %}
 
 {{ layout.story_trail(
+    heading_text='Most viewed',
+    stories=india_most_viewed,
+    heading_link='http://www.theguardian.com/world/india',
+    heading_colour='#128807',
+    top_thumb=True) }}
+
+{{ layout.story_trail(
     heading_text='Most shared',
     stories=india_most_shared,
     heading_link='http://www.theguardian.com/world/india',
