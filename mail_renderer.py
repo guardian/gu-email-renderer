@@ -461,6 +461,40 @@ class CommentIsFree(EmailTemplate):
 
     template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
 
+class FilmToday(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-speakers-corner'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+    most_shared_data_source = MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='film'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
+        shared_count_interpolator=MostSharedCountInterpolator()
+    )
+
+    discussion_client = DiscussionClient(discussion_base_url)
+    most_commented_data_source = MostCommentedDataSource (
+        discussion_fetcher = DiscussionFetcher(discussion_client, 'film'),
+        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
+        comment_count_interpolator = CommentCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'film_today_most_shared': most_shared_data_source,
+            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('cif_cartoon', 1), ('film_today_most_shared', 5)]
+    }
+
+    template_names = {'v1': 'film-today-v1'}
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -579,6 +613,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
+                            ('/film-today/(.+)', FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
