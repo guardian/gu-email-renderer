@@ -1,4 +1,4 @@
-{# Comment is free email template #}
+{# Film Today email template #}
 
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
@@ -22,12 +22,12 @@
 
 {{ layout.advert(ads.leaderboard) }}
 
-{{ layout.trail_image(
+{# { layout.trail_image(
     image=cif_cartoon,
     heading_text='Daily cartoon',
     heading_link='http://www.theguardian.com/theguardian/series/guardiancommentcartoon',
     heading_colour='#0061a6',
-    image_only=True) }}
+    image_only=True) } #}
 
 {% endblock content %}
 

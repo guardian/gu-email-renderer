@@ -476,22 +476,21 @@ class FilmToday(EmailTemplate):
         shared_count_interpolator=MostSharedCountInterpolator()
     )
 
-    discussion_client = DiscussionClient(discussion_base_url)
-    most_commented_data_source = MostCommentedDataSource (
-        discussion_fetcher = DiscussionFetcher(discussion_client, 'film'),
-        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
-        comment_count_interpolator = CommentCountInterpolator()
-    )
+    # discussion_client = DiscussionClient(discussion_base_url)
+    # most_commented_data_source = MostCommentedDataSource (
+    #     discussion_fetcher = DiscussionFetcher(discussion_client, 'commentisfree'),
+    #     multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
+    #     comment_count_interpolator = CommentCountInterpolator()
+    # )
 
     data_sources = {
         'v1': {
-            'film_today_most_shared': most_shared_data_source,
-            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
+            'film_today_most_shared': most_shared_data_source
         }
     }
 
     priority_list = {
-        'v1': [('cif_cartoon', 1), ('film_today_most_shared', 5)]
+        'v1': [('film_today_most_shared', 5)]
     }
 
     template_names = {'v1': 'film-today-v1'}
@@ -613,7 +612,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
-                            ('/film-today/(.+)', FilmToday),
+                               ('/film-today/(.+)', FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
