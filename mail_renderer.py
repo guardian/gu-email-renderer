@@ -26,7 +26,7 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -464,33 +464,19 @@ class CommentIsFree(EmailTemplate):
 class FilmToday(EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = 'email-speakers-corner'
+    ad_tag = 'email-film-today'
     ad_config = {
         'leaderboard': 'Top'
     }
 
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=MostSharedFetcher(ophan_client, section='film'),
-        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
-        shared_count_interpolator=MostSharedCountInterpolator()
-    )
-
-    # discussion_client = DiscussionClient(discussion_base_url)
-    # most_commented_data_source = MostCommentedDataSource (
-    #     discussion_fetcher = DiscussionFetcher(discussion_client, 'commentisfree'),
-    #     multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
-    #     comment_count_interpolator = CommentCountInterpolator()
-    # )
-
     data_sources = {
         'v1': {
-            'film_today_most_shared': most_shared_data_source
+            'film_today_latest': FilmTodayLatestDataSource(client)
         }
     }
 
     priority_list = {
-        'v1': [('film_today_most_shared', 5)]
+        'v1': [('film_today_latest', 10)]
     }
 
     template_names = {'v1': 'film-today-v1'}

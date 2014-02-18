@@ -587,6 +587,12 @@ class AusTopStoriesDataSource(TopStoriesDataSource):
         self.tags = ['world/australia']
 
 
+class FilmTodayLatestDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='film')
+        self.page_size = 10
+
+
 class DataSourceException(Exception):
     pass
 
