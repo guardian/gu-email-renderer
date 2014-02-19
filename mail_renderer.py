@@ -304,7 +304,7 @@ class EditorsPicks(EmailTemplate):
 
 
 class DailyEmailUS(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -323,13 +323,37 @@ class DailyEmailUS(EmailTemplate):
         'top_stories': TopStoriesDataSource(clientUS),
         'video': VideoDataSource(clientUS),
         }
+    data_sources['v2'] = {
+        'business': BusinessDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
+        'sport': SportUSDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(clientUS),
+        }
+    data_sources['v3'] = {
+        'business': BusinessDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
+        'sport': SportUSDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(clientUS),
+        }
 
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
                            ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
+    priority_list['v2'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
+    priority_list['v3'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
 
-    template_names = {'v1': 'daily-email-us'}
+    template_names = {'v1': 'daily-email-us', 'v2': 'daily-email-us-v2', 'v3': 'daily-email-us-v3'}
 
 class DailyEmailAUS(EmailTemplate):
     recognized_versions = ['v1']
