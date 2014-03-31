@@ -26,7 +26,7 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -485,6 +485,25 @@ class CommentIsFree(EmailTemplate):
 
     template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
 
+class FilmToday(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-film-today'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    data_sources = {
+        'v1': {
+            'film_today_latest': FilmTodayLatestDataSource(client)
+        }
+    }
+
+    priority_list = {
+        'v1': [('film_today_latest', 10)]
+    }
+
+    template_names = {'v1': 'film-today-v1'}
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -603,6 +622,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
+                               ('/film-today/(.+)', FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),

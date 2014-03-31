@@ -1,0 +1,33 @@
+{# Film Today email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Film Today' %}
+{% set title_link = 'http://www.theguardian.com/film' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page = 'guardianfilm' %}
+{% set twitter_account = 'guardianfilm' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Today\'s latest film articles',
+    stories=film_today_latest,
+    heading_link='http://www.theguardian.com/film',
+    heading_colour='#d1008b',
+    thumbnail=True,
+    standfirst=False) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% set sections = (('Football', 'http://www.theguardian.com/football'),
+                   ('Comment is free', 'http://www.theguardian.com/commentisfree'),
+                   ('Environment', 'http://www.theguardian.com/environment')) %}
