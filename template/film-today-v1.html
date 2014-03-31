@@ -4,30 +4,25 @@
 {% import 'macro/layout.html' as layout %}
 
 {% set title = 'Film Today' %}
-{% set title_link = 'http://www.theguardian.com/uk/commentisfree' %}
-{% set title_colour = '#005689' %}
-{% set logo_background  = '#ff5d00' %}
-{% set facebook_page = 'GuardianComment' %}
-{% set twitter_account = 'commentisfree' %}
+{% set title_link = 'http://www.theguardian.com/film' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page = 'guardianfilm' %}
+{% set twitter_account = 'guardianfilm' %}
 
 {% block content %}
 
 {{ layout.story_trail(
     heading_text='Today\'s latest film articles',
     stories=film_today_latest,
-    heading_link='http://www.theguardian.com/uk/commentisfree',
-    heading_colour='#0061a6',
+    heading_link='http://www.theguardian.com/film',
+    heading_colour='#d1008b',
     thumbnail=True,
     standfirst=False) }}
 
 {{ layout.advert(ads.leaderboard) }}
 
-{# { layout.trail_image(
-    image=cif_cartoon,
-    heading_text='Daily cartoon',
-    heading_link='http://www.theguardian.com/theguardian/series/guardiancommentcartoon',
-    heading_colour='#0061a6',
-    image_only=True) } #}
+
 
 {% endblock content %}
 
