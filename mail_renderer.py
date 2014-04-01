@@ -9,7 +9,7 @@ import logging
 
 from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
-from ophan_calls import OphanClient, MostSharedFetcher
+from ophan_calls import OphanClient, MostSharedFetcher, Top20Fetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
@@ -26,7 +26,8 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
+    IndiaCommentIsFreeDataSource, IndiaDataSource, Top20DataSource
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -392,6 +393,40 @@ class DailyEmailAUS(EmailTemplate):
     template_names = {'v1': 'daily-email-aus'}
 
 
+class DailyEmailIND(EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = ''
+    ad_config = {}
+
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+    india_top20_data_source = Top20DataSource(
+        fetcher=Top20Fetcher(ophan_client, country='in'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='top20')
+    )
+
+    india_most_shared_data_source = MostSharedDataSource(
+        fetcher=MostSharedFetcher(ophan_client, country='in'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
+        shared_count_interpolator=MostSharedCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'india_most_viewed': india_top20_data_source,
+            'india_most_shared': india_most_shared_data_source,
+            'india_recent': IndiaDataSource(client),
+            'india_comment': IndiaCommentIsFreeDataSource(client),
+        }
+    }
+
+    priority_list = {
+        'v1': [('india_most_viewed', 5), ('india_most_shared', 5), ('india_recent', 5), ('india_comment', 5)]
+    }
+
+    template_names = {'v1': 'daily-email-ind'}
+
+
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
@@ -428,7 +463,7 @@ class MostShared(EmailTemplate):
     shared_count_interpolator = MostSharedCountInterpolator()
 
     most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=most_shared_fetcher,
+        fetcher=most_shared_fetcher,
         multi_content_data_source=multi_content_data_source,
         shared_count_interpolator=shared_count_interpolator
     )
@@ -455,7 +490,7 @@ class CommentIsFree(EmailTemplate):
 
     ophan_client = OphanClient(ophan_base_url, ophan_key)
     most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
+        fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
         multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
         shared_count_interpolator=MostSharedCountInterpolator()
     )
@@ -616,6 +651,7 @@ class Headline(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
+                               ('/daily-email-ind/(.+)', DailyEmailIND),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', FashionStatement),
