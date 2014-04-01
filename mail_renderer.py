@@ -228,7 +228,7 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5']
+    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india']
 
     ad_tag = 'email-guardian-today'
     ad_config = {
@@ -258,6 +258,15 @@ class DailyEmail(EmailTemplate):
         'most_viewed': MostViewedDataSource(client)
     }
 
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+    india_top20_data_source = Top20DataSource(
+        fetcher=Top20Fetcher(ophan_client, country='in'),
+        multi_content_data_source=MultiContentDataSource(client=client, name='top20')
+    )
+
+    data_sources['india'] = data_sources['v1']
+    data_sources['india']['india_top'] = india_top20_data_source
+
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), 
@@ -273,13 +282,18 @@ class DailyEmail(EmailTemplate):
 
     priority_list['v4'] = priority_list['v1']
     priority_list['v5'] = priority_list['v1']
+    priority_list['india'] = [('top_stories', 6), ('india_top', 5), ('most_viewed', 6), 
+                           ('sport', 3), ('comment', 3), ('culture', 3),
+                           ('business', 2), ('technology', 2), ('travel', 2),
+                           ('lifeandstyle', 2), ('eye_witness', 1)]
 
 
     template_names = {'v1': 'daily-email-v1',
                       'v2': 'daily-email-v2',
                       'v3': 'daily-email-v3',
                       'v4': 'daily-email-v4',
-                      'v5': 'daily-email-v5'}
+                      'v5': 'daily-email-v5',
+                      'india': 'daily-email-india'}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
