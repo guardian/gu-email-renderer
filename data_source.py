@@ -117,6 +117,38 @@ class MostSharedCountInterpolator(object):
         return content_list
 
 
+class OphanDataSource(DataSource):
+    def __init__(self, client, multi_content_data_source, fetcher, n_items):
+        DataSource.__init__(self, client)
+        self.multi_content_data_source = multi_content_data_source
+        self.fetcher = fetcher
+        self.n_items = n_items
+
+    def _do_call(self, **criteria):
+        urls = self.fetcher.fetch()
+        content_ids = [urlparse(url).path for(url, count) in urls]
+        self.multi_content_data_source.content_ids = content_ids
+        return self.multi_content_data_source.fetch_data()
+
+    @perma_cache
+    def fetch_data(self):
+        # get data from
+        # put results in datastore with key made from self.__repr__
+        return DataSource.fetch_data(self)
+
+
+# class MostSharedDataSource(OphanDataSource):
+#     def __init__(self, multi_content_data_source, fetcher, shared_count_interpolator, n_items=10):
+#         OphanDataSource.__init__(self, None, multi_content_data_source, fetcher, n_items)
+#         self.shared_count_interpolator  = shared_count_interpolator
+
+#     def _do_call(self, **criteria):
+#         most_shared_comment = super(OphanDataSource, self)._do_call(**criteria)
+#         return self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+
+#     def __repr__(self):
+#         return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
+
 class MostSharedDataSource(DataSource):
 
     def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10):
@@ -145,7 +177,6 @@ class MostSharedDataSource(DataSource):
 
     def __repr__(self):
         return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
-
 
 class SearchDataSource(DataSource):
     def __init__(self, client):
@@ -493,6 +524,11 @@ class FilmShowDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='film')
         self.tags = ['film/series/guardian-film-show']
+
+
+class IndiaDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, section='world/india')
 
 
 class USMoneyDataSource(ItemDataSource):

@@ -26,7 +26,8 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks
+    MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
+    IndiaDataSource
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -227,7 +228,7 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5']
+    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india']
 
     ad_tag = 'email-guardian-today'
     ad_config = {
@@ -257,6 +258,9 @@ class DailyEmail(EmailTemplate):
         'most_viewed': MostViewedDataSource(client)
     }
 
+    data_sources['india'] = data_sources['v1']
+    data_sources['india']['india_recent'] = IndiaDataSource(client)
+
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), 
@@ -272,13 +276,18 @@ class DailyEmail(EmailTemplate):
 
     priority_list['v4'] = priority_list['v1']
     priority_list['v5'] = priority_list['v1']
+    priority_list['india'] = [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6), 
+                           ('sport', 3), ('comment', 3), ('culture', 3),
+                           ('business', 2), ('technology', 2), ('travel', 2),
+                           ('lifeandstyle', 2), ('eye_witness', 1)]
 
 
     template_names = {'v1': 'daily-email-v1',
                       'v2': 'daily-email-v2',
                       'v3': 'daily-email-v3',
                       'v4': 'daily-email-v4',
-                      'v5': 'daily-email-v5'}
+                      'v5': 'daily-email-v5',
+                      'india': 'daily-email-india'}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
@@ -390,7 +399,6 @@ class DailyEmailAUS(EmailTemplate):
                            ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
 
     template_names = {'v1': 'daily-email-aus'}
-
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
