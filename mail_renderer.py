@@ -436,7 +436,7 @@ class MostShared(EmailTemplate):
     shared_count_interpolator = MostSharedCountInterpolator()
 
     most_shared_data_source = MostSharedDataSource(
-        fetcher=most_shared_fetcher,
+        most_shared_fetcher=most_shared_fetcher,
         multi_content_data_source=multi_content_data_source,
         shared_count_interpolator=shared_count_interpolator
     )
@@ -463,7 +463,7 @@ class CommentIsFree(EmailTemplate):
 
     ophan_client = OphanClient(ophan_base_url, ophan_key)
     most_shared_data_source = MostSharedDataSource(
-        fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
         multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
         shared_count_interpolator=MostSharedCountInterpolator()
     )
