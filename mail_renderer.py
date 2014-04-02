@@ -9,7 +9,7 @@ import logging
 
 from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
-from ophan_calls import OphanClient, MostSharedFetcher, Top20Fetcher
+from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
@@ -27,7 +27,7 @@ from data_source import \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
-    IndiaDataSource, Top20DataSource
+    IndiaDataSource
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -257,12 +257,6 @@ class DailyEmail(EmailTemplate):
         'top_stories': TopStoriesDataSource(client),
         'most_viewed': MostViewedDataSource(client)
     }
-
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    india_top20_data_source = Top20DataSource(
-        fetcher=Top20Fetcher(ophan_client, country='in'),
-        multi_content_data_source=MultiContentDataSource(client=client, name='top20')
-    )
 
     data_sources['india'] = data_sources['v1']
     data_sources['india']['india_recent'] = IndiaDataSource(client)

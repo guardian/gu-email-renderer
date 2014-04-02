@@ -65,27 +65,3 @@ class MostSharedFetcher(OphanFetcher):
     def __repr__(self):
         return os.environ['CURRENT_VERSION_ID'] + "MostSharedFetcher"
 
-
-class Top20Fetcher(OphanFetcher):
-    def __init__(self, client, section='', country=''):
-        OphanFetcher.__init__(self, client, section, country)
-
-    def _build_url(self, age):
-        url = self.client.base_url
-        if url[-1] == '/':
-            url = url[:-1]
-
-        return '{base_url}/api/mostread?mins={mins:d}&api-key={api_key}&section={section}&country={country}'.format(
-            base_url=url,
-            mins=age/60,
-            api_key=self.client.api_key,
-            section=self.section,
-            country=self.country
-            )
-
-    def _parse_response(self, response):
-        read_items = json.loads(response)
-        return [(self._extract_path(item['url']), item['count']) for item in read_items]
-
-    def __repr__(self):
-        return os.environ['CURRENT_VERSION_ID'] + "Top20Fetcher"

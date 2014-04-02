@@ -150,14 +150,6 @@ class MostSharedDataSource(OphanDataSource):
         return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
 
 
-class Top20DataSource(OphanDataSource):
-    def __init__(self, multi_content_data_source, fetcher, n_items=10):
-        OphanDataSource.__init__(self, None, multi_content_data_source, fetcher, n_items)
-
-    def __repr__(self):
-        return os.environ['CURRENT_VERSION_ID'] + "OphanTop20Data"
-
-
 class SearchDataSource(DataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
