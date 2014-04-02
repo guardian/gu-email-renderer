@@ -27,7 +27,7 @@ from data_source import \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
-    IndiaCommentIsFreeDataSource, IndiaDataSource, Top20DataSource
+    IndiaDataSource, Top20DataSource
 
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
@@ -265,7 +265,7 @@ class DailyEmail(EmailTemplate):
     )
 
     data_sources['india'] = data_sources['v1']
-    data_sources['india']['india_top'] = india_top20_data_source
+    data_sources['india']['india_recent'] = IndiaDataSource(client)
 
 
     priority_list = {}
@@ -282,7 +282,7 @@ class DailyEmail(EmailTemplate):
 
     priority_list['v4'] = priority_list['v1']
     priority_list['v5'] = priority_list['v1']
-    priority_list['india'] = [('top_stories', 6), ('india_top', 5), ('most_viewed', 6), 
+    priority_list['india'] = [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6), 
                            ('sport', 3), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
@@ -405,41 +405,6 @@ class DailyEmailAUS(EmailTemplate):
                            ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
 
     template_names = {'v1': 'daily-email-aus'}
-
-
-class DailyEmailIND(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = ''
-    ad_config = {}
-
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    india_top20_data_source = Top20DataSource(
-        fetcher=Top20Fetcher(ophan_client, country='in'),
-        multi_content_data_source=MultiContentDataSource(client=client, name='top20')
-    )
-
-    india_most_shared_data_source = MostSharedDataSource(
-        fetcher=MostSharedFetcher(ophan_client, country='in'),
-        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
-        shared_count_interpolator=MostSharedCountInterpolator()
-    )
-
-    data_sources = {
-        'v1': {
-            'india_most_viewed': india_top20_data_source,
-            'india_most_shared': india_most_shared_data_source,
-            'india_recent': IndiaDataSource(client),
-            'india_comment': IndiaCommentIsFreeDataSource(client),
-        }
-    }
-
-    priority_list = {
-        'v1': [('india_most_viewed', 5), ('india_most_shared', 5), ('india_recent', 5), ('india_comment', 5)]
-    }
-
-    template_names = {'v1': 'daily-email-ind'}
-
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
@@ -665,7 +630,6 @@ class Headline(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/daily-email-us/(.+)', DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
-                               ('/daily-email-ind/(.+)', DailyEmailIND),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', FashionStatement),
