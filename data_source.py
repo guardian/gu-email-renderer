@@ -528,7 +528,7 @@ class FilmShowDataSource(ItemDataSource):
 
 class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/india')
+        ItemDataSource.__init__(self, client, section='world/india', show_editors_picks=True)
 
 
 class USMoneyDataSource(ItemDataSource):
