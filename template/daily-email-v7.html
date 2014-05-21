@@ -14,6 +14,8 @@
 
 {% block title %}Guardian Today{% endblock %}
 
+{% block header %}{% endblock header%}
+
 {% block content %}
 
 {{ layout.story_trail(
@@ -44,8 +46,6 @@
         heading_colour='#004179',
         thumbnail=False,
         standfirst=False) }}
-
-    {{ layout.advert(ads.leaderboard_v2) }}
 
     {{ layout.story_trail(
         heading_text='Technology',
