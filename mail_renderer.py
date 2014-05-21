@@ -11,7 +11,7 @@ from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
-    CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
+    CultureDataSource, TopStoriesDataSource, SportDataSource, WorldCupDataSource, SportUSDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
@@ -243,6 +243,7 @@ class DailyEmail(EmailTemplate):
         'travel': TravelDataSource(client),
         'lifeandstyle': LifeAndStyleDataSource(client),
         'sport': SportDataSource(client),
+        'worldCup': WorldCupDataSource(client),
         'comment': CommentIsFreeDataSource(client),
         'culture': CultureDataSource(client),
         'top_stories': TopStoriesDataSource(client),
@@ -263,8 +264,8 @@ class DailyEmail(EmailTemplate):
 
 
     priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), 
-                           ('sport', 3), ('comment', 3), ('culture', 3),
+    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6),
+                           ('sport', 3), ('worldCup', 5), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
 
@@ -276,7 +277,7 @@ class DailyEmail(EmailTemplate):
 
     priority_list['v4'] = priority_list['v1']
     priority_list['v5'] = priority_list['v1']
-    priority_list['india'] = [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6), 
+    priority_list['india'] = [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6),
                            ('sport', 3), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
@@ -640,4 +641,3 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/headline', Headline),
                                ('/', Index)],
                               debug=True)
-

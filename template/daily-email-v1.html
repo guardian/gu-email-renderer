@@ -14,6 +14,8 @@
 
 {% block title %}Guardian Today{% endblock %}
 
+{% block header %}{% endblock header %}
+
 {% block content %}
 
     {{ layout.story_trail(heading_text='Editor\'s picks',
@@ -36,6 +38,13 @@
     {{ layout.story_trail(
         heading_text='Sport',
         stories=sport,
+        heading_link='http://www.theguardian.com/sport',
+        heading_colour='#20a111',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
+        heading_text='World Cup',
+        stories=worldCup,
         heading_link='http://www.theguardian.com/sport',
         heading_colour='#20a111',
         standfirst=False) }}

@@ -322,6 +322,9 @@ class SportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)
 
+class WorldCupDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'football/world-cup-2014', show_editors_picks=True)
 
 class SportUSDataSource(ItemDataSource):
     def __init__(self, client):
