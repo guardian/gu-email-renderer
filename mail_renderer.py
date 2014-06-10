@@ -228,7 +228,7 @@ class MediaBriefing(EmailTemplate):
 
 
 class DailyEmail(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india']
+    recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india', 'MPU_v1a', 'MPU_v1b', 'MPU_v2']
 
     ad_tag = 'email-guardian-today'
     ad_config = {
@@ -253,7 +253,9 @@ class DailyEmail(EmailTemplate):
     data_sources['v2'] = data_sources['v1']
     data_sources['v4'] = data_sources['v1']
     data_sources['v5'] = data_sources['v1']
-
+    data_sources['MPU_v1a'] = data_sources['v1']
+    data_sources['MPU_v1b'] = data_sources['v1']
+    data_sources['MPU_v2'] = data_sources['v1']
     data_sources['v3'] = {
         'top_stories': TopStoriesDataSource(client),
         'most_viewed': MostViewedDataSource(client)
@@ -281,14 +283,19 @@ class DailyEmail(EmailTemplate):
                            ('sport', 3), ('comment', 3), ('culture', 3),
                            ('business', 2), ('technology', 2), ('travel', 2),
                            ('lifeandstyle', 2), ('eye_witness', 1)]
-
+    priority_list['MPU_v1a'] = priority_list['v1']
+    priority_list['MPU_v1b'] = priority_list['v1']
+    priority_list['MPU_v2'] = priority_list['v1']
 
     template_names = {'v1': 'daily-email-v1',
                       'v2': 'daily-email-v2',
                       'v3': 'daily-email-v3',
                       'v4': 'daily-email-v4',
                       'v5': 'daily-email-v5',
-                      'india': 'daily-email-india'}
+                      'india': 'daily-email-india',
+                      'MPU_v1a': 'daily-email-v6',
+                      'MPU_v1b': 'daily-email-v7',
+                      'MPU_v2': 'daily-email-v8',}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
@@ -314,7 +321,7 @@ class EditorsPicks(EmailTemplate):
 
 
 class DailyEmailUS(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3']
+    recognized_versions = ['v1', 'v2', 'v3', 'MPU_v1a', 'MPU_v1b']
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -353,6 +360,26 @@ class DailyEmailUS(EmailTemplate):
         'top_stories': TopStoriesDataSource(clientUS),
         'video': VideoDataSource(clientUS),
         }
+    data_sources['MPU_v1a'] = {
+        'business': BusinessDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
+        'sport': SportUSDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(clientUS),
+        }
+    data_sources['MPU_v1b'] = {
+        'business': BusinessDataSource(clientUS),
+        'money': USMoneyDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
+        'sport': SportUSDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(clientUS),
+        }
 
 
     priority_list = {}
@@ -362,8 +389,12 @@ class DailyEmailUS(EmailTemplate):
                            ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
     priority_list['v3'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
                            ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
+    priority_list['MPU_v1a'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
+    priority_list['MPU_v1b'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
+                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
 
-    template_names = {'v1': 'daily-email-us', 'v2': 'daily-email-us-v2', 'v3': 'daily-email-us-v3'}
+    template_names = {'v1': 'daily-email-us', 'v2': 'daily-email-us-v2', 'v3': 'daily-email-us-v3', 'MPU_v1a': 'daily-email-us-v4', 'MPU_v1b': 'daily-email-us-v5'}
 
 class DailyEmailAUS(EmailTemplate):
     recognized_versions = ['v1']
