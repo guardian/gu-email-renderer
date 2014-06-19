@@ -127,6 +127,7 @@ class TestDataSources(unittest2.TestCase):
                                    page_size='10',
                                    show_fields=Fields,
                                    show_media='picture',
+                                   show_elements = 'image',
                                    show_most_viewed='true',
                                    user_tier='internal')
     def test_content_data_source_should_call_api_with_correct_url(self):
@@ -146,6 +147,7 @@ class TestDataSources(unittest2.TestCase):
                                    show_fields=Fields,
                                    page_size='1',
                                    show_media='picture',
+                                   show_elements = 'image',
                                    tag='world/series/eyewitness,type/picture',
                                    user_tier='internal')
 

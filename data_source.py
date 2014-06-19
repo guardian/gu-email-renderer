@@ -18,6 +18,7 @@ class DataSource(object):
         self.page_size = 10
         self.content_type = None
         self.show_media = None
+        self.show_elements = None
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
@@ -49,6 +50,9 @@ class DataSource(object):
 
         if self.show_media:
             criteria['show-media'] = self.show_media
+
+        if self.show_elements:
+            criteria['show-elements'] = self.show_elements
 
         if self.from_date:
             criteria['from-date'] = self.from_date
@@ -266,6 +270,7 @@ class CommentIsFreeCartoonDataSource(SearchDataSource):
         self.content_type = 'cartoon'
         self.tags = ['theguardian/series/guardiancommentcartoon']
         self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class TechnologyDataSource(ItemDataSource):
@@ -370,6 +375,7 @@ class PicOfDayDataSource(SearchDataSource):
         self.tags = ['artanddesign/series/picture-of-the-day']
         self.page_size = 1
         self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class EyeWitnessDataSource(SearchDataSource):
@@ -379,12 +385,14 @@ class EyeWitnessDataSource(SearchDataSource):
         self.tags = ['world/series/eyewitness']
         self.page_size = 1
         self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class MostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
         self.show_media = 'picture'
+        self.show_elements = 'image'
         self.show_most_viewed = True
         self.show_editors_picks = False
         self.section=''
@@ -469,6 +477,7 @@ class FashionStylewatchDataSource(SearchDataSource):
         self.tags = ['fashion/series/stylewatch']
         # self.page_size = 1
         self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class FashionGalleryDataSource(SearchDataSource):
@@ -478,6 +487,7 @@ class FashionGalleryDataSource(SearchDataSource):
         self.tags = ['(fashion/series/fashion-for-all-ages|fashion/series/key-fashion-trends-of-the-season|fashion/series/fashion-line-up)']
         # self.page_size = 1
         self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class FashionVideoDataSource(SearchDataSource):
