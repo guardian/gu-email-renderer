@@ -30,7 +30,7 @@ class UrlCapturingFetcher(object):
 
 
 fetcher = UrlCapturingFetcher()
-url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
+url_capturing_client = ApiClient('http://***REMOVED***/', API_KEY, fetcher=fetcher)
 
 class TestDataSources(unittest2.TestCase):
 

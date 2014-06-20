@@ -58,9 +58,9 @@ base_url='http://***REMOVED***'
 ophan_base_url = 'http://***REMOVED***'
 discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
-client = ApiClient(base_url, api_key, url_suffix='/api/', edition="uk")
-clientUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='us')
-clientAUS = ApiClient(base_url, api_key, url_suffix='/api/', edition='au')
+client = ApiClient(base_url, api_key, edition="uk")
+clientUS = ApiClient(base_url, api_key, edition='us')
+clientAUS = ApiClient(base_url, api_key, edition='au')
 
 
 
