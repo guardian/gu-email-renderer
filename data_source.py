@@ -619,6 +619,7 @@ class TechnologyVideoDataSource(SearchDataSource):
         self.tags = ['technology/series/tech-sessions']
         # self.page_size = 1
         self.show_media = 'video'
+        self.show_elements = 'video'
 
 
 class TopStoriesDataSource(ItemDataSource):
