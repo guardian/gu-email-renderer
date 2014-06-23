@@ -9,12 +9,11 @@ import fetchers
 
 class ApiClient(object):
 
-    def __init__(self, base_url, api_key, url_suffix='', fetcher=None, edition=''):
+    def __init__(self, base_url, api_key, fetcher=None, edition=''):
         self.base_url = base_url
         self.api_key = api_key
         self.edition = edition
         self.fetcher = fetcher
-        self.url_suffix = url_suffix
         if not self.fetcher:
             self.fetcher = fetchers.best_fetcher()
 
@@ -22,7 +21,7 @@ class ApiClient(object):
         fixed_kwargs = self._fix_kwargs(kwargs)
 
         url = '%s?%s' % (
-            urlparse.urljoin(self.base_url, self.url_suffix + endpoint),
+            urlparse.urljoin(self.base_url, endpoint),
             urllib.urlencode(fixed_kwargs),
         )
 

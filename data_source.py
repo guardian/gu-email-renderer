@@ -17,7 +17,7 @@ class DataSource(object):
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.page_size = 10
         self.content_type = None
-        self.show_media = None
+        self.show_elements = None
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
@@ -47,8 +47,8 @@ class DataSource(object):
         if self.page_size:
             criteria['page-size'] = self.page_size
 
-        if self.show_media:
-            criteria['show-media'] = self.show_media
+        if self.show_elements:
+            criteria['show-elements'] = self.show_elements
 
         if self.from_date:
             criteria['from-date'] = self.from_date
@@ -265,7 +265,7 @@ class CommentIsFreeCartoonDataSource(SearchDataSource):
         DataSource.__init__(self, client)
         self.content_type = 'cartoon'
         self.tags = ['theguardian/series/guardiancommentcartoon']
-        self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class TechnologyDataSource(ItemDataSource):
@@ -369,7 +369,7 @@ class PicOfDayDataSource(SearchDataSource):
         self.content_type = 'picture'
         self.tags = ['artanddesign/series/picture-of-the-day']
         self.page_size = 1
-        self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class EyeWitnessDataSource(SearchDataSource):
@@ -378,13 +378,13 @@ class EyeWitnessDataSource(SearchDataSource):
         self.content_type = 'picture'
         self.tags = ['world/series/eyewitness']
         self.page_size = 1
-        self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class MostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
-        self.show_media = 'picture'
+        self.show_elements = 'image'
         self.show_most_viewed = True
         self.show_editors_picks = False
         self.section=''
@@ -468,7 +468,7 @@ class FashionStylewatchDataSource(SearchDataSource):
         DataSource.__init__(self, client)
         self.tags = ['fashion/series/stylewatch']
         # self.page_size = 1
-        self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class FashionGalleryDataSource(SearchDataSource):
@@ -477,7 +477,7 @@ class FashionGalleryDataSource(SearchDataSource):
         self.content_type = 'gallery'
         self.tags = ['(fashion/series/fashion-for-all-ages|fashion/series/key-fashion-trends-of-the-season|fashion/series/fashion-line-up)']
         # self.page_size = 1
-        self.show_media = 'picture'
+        self.show_elements = 'image'
 
 
 class FashionVideoDataSource(SearchDataSource):
@@ -486,7 +486,7 @@ class FashionVideoDataSource(SearchDataSource):
         self.content_type = 'video'
         self.tags = ['theguardian/series/how-to-dress']
         # self.page_size = 1
-        self.show_media = 'video'
+        self.show_elements = 'video'
 
 
 class FilmEditorsPicksDataSource(ItemDataSource):
@@ -608,7 +608,7 @@ class TechnologyVideoDataSource(SearchDataSource):
         self.content_type = 'video'
         self.tags = ['technology/series/tech-sessions']
         # self.page_size = 1
-        self.show_media = 'video'
+        self.show_elements = 'video'
 
 
 class TopStoriesDataSource(ItemDataSource):
