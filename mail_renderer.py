@@ -669,6 +669,6 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),
                                ('/editors-picks/(.+)', EditorsPicks),
-                               ('/headline', Headline),
+                               webapp2.Route(r'/headline', handler=Headline),
                                ('/', Index)],
                               debug=True)
