@@ -638,8 +638,12 @@ class ZipFile(EmailTemplate):
 
 class Headline(webapp2.RequestHandler):
 
-    def get(self):
-        data_sources = {'top_stories': TopStoriesDataSource(client)}
+    def get(self, edition="uk"):
+        def determine_client(edition):
+          clients = {'us' : clientUS, 'au' : clientAUS}
+          return clients.get(edition, client)
+
+        data_sources = {'top_stories': TopStoriesDataSource(determine_client(edition))}
         priority_list = [('top_stories', 1)]
         template_data = {}
         retrieved_data = fetch_all(data_sources)
@@ -669,6 +673,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/most-shared/(.+)', MostShared),
                                ('/most-viewed/(.+)', MostViewed),
                                ('/editors-picks/(.+)', EditorsPicks),
-                               ('/headline', Headline),
+                               webapp2.Route(r'/headline', handler=Headline),
+                               webapp2.Route(r'/headline/<edition>', handler=Headline),
                                ('/', Index)],
                               debug=True)
