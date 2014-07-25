@@ -9,7 +9,7 @@ import logging
 
 from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
-from ophan_calls import OphanClient, MostSharedFetcher
+from ophan_calls import OphanClient, MostSharedFetcher, MostPopularFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
@@ -28,7 +28,7 @@ from data_source import \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
     IndiaDataSource
-
+import data_source
 from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
@@ -406,13 +406,21 @@ class DailyEmailAUS(EmailTemplate):
 
     data_sources = {}
 
+    ophan_client = OphanClient(ophan_base_url, ophan_key)
+
     cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
     lifeAndStyle = ItemPlusBlogDataSource(LifeAndStyleDataSource(clientAUS), AusFoodBlogDataSource(clientAUS))
+
+    ophan_most_viewed_aus = data_source.OphanDataSource(clientAUS,
+            MultiContentDataSource(client=clientAUS, name='most_viewed_au'),
+            MostPopularFetcher(ophan_client, edition="au"),
+            10)
 
     data_sources['v1'] = {
         'top_stories_code': TopStoriesDataSource(clientAUS),
         'top_stories': TopStoriesDataSource(clientAUS),
         'most_viewed': MostViewedDataSource(clientAUS),
+        'most_viewed' : ophan_most_viewed_aus,
         'sport': SportDataSource(clientAUS),
         'aus_sport': AusSportDataSource(client),
         'culture': cultureDataSource,
