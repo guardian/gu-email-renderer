@@ -187,7 +187,7 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=True):
+    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False):
         DataSource.__init__(self, client)
         if show_editors_picks and show_most_viewed:
             raise DataSourceException('Cannot show most_viewed and editors_picks at the same time')
