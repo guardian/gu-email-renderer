@@ -407,8 +407,7 @@ class DailyEmailAUS(EmailTemplate):
     data_sources = {}
 
     cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
-    lifeAndStyle = ItemPlusBlogDataSource(LifeAndStyleDataSource(clientAUS), AusFoodBlogDataSource(clientAUS))
-
+    
     data_sources['v1'] = {
         'top_stories_code': TopStoriesDataSource(clientAUS),
         'top_stories': TopStoriesDataSource(clientAUS),
@@ -417,7 +416,7 @@ class DailyEmailAUS(EmailTemplate):
         'aus_sport': AusSportDataSource(client),
         'culture': cultureDataSource,
         'comment': AusCommentIsFreeDataSource(clientAUS),
-        'lifeandstyle': lifeAndStyle,
+        'lifeandstyle': LifeAndStyleDataSource(clientAUS),
         'technology': TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
         'science' : ScienceDataSource(clientAUS),
