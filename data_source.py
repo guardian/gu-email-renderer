@@ -187,16 +187,17 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False):
+    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False):
         DataSource.__init__(self, client)
         if show_editors_picks and show_most_viewed:
             raise DataSourceException('Cannot show most_viewed and editors_picks at the same time')
         self.section = section
         self.show_editors_picks = show_editors_picks
         self.show_most_viewed = show_most_viewed
+        self.only_editors_picks = only_editors_picks
 
     def _do_call(self, **criteria):
-        return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
+        return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, self.only_editors_picks, **criteria)
 
 
 class MultiContentDataSource(ItemDataSource):
@@ -256,7 +257,7 @@ class CommentIsFreeDataSource(ItemDataSource):
 
 class AusCommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True, only_editors_picks=True)
         self.tags = ['world/australia']
 
 
@@ -384,6 +385,7 @@ class MostViewedDataSource(ItemDataSource):
         self.show_elements = 'image'
         self.show_most_viewed = True
         self.show_editors_picks = False
+        self.only_editors_picks = False
         self.section=''
         self.name = 'most_viewed' + client.edition
 

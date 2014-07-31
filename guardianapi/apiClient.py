@@ -42,7 +42,7 @@ class ApiClient(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def item_query(self, section='', show_editors_picks=False, show_most_viewed=False, **kwargs):
+    def item_query(self, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False, **kwargs):
         if show_editors_picks:
             kwargs['show-editors-picks'] = 'true'
         if show_most_viewed:
@@ -64,6 +64,9 @@ class ApiClient(object):
         if show_most_viewed:
             return json['response']['mostViewed']
 
+        if only_editors_picks:
+            return editors_picks
+        
         return editors_picks + results
 
 
