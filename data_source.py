@@ -254,13 +254,6 @@ class CommentIsFreeDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
-
-class AusCommentIsFreeDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True, only_editors_picks=True)
-        self.tags = ['world/australia']
-
-
 class CommentIsFreeCartoonDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
