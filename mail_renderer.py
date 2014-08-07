@@ -25,11 +25,12 @@ from data_source import \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, AusCommentIsFreeDataSource, VideoDataSource, AusVideoDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, AusVideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
     IndiaDataSource
 
-from aus_data_sources import AusCultureBlogDataSource, AusFoodBlogDataSource
+import aus_data_sources as au
+
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 from ads import AdFetcher
@@ -406,7 +407,7 @@ class DailyEmailAUS(EmailTemplate):
 
     data_sources = {}
 
-    cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), AusCultureBlogDataSource(clientAUS))
+    cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), au.AusCultureBlogDataSource(clientAUS))
     
     data_sources['v1'] = {
         'top_stories_code': TopStoriesDataSource(clientAUS),
@@ -415,7 +416,7 @@ class DailyEmailAUS(EmailTemplate):
         'sport': SportDataSource(clientAUS),
         'aus_sport': AusSportDataSource(client),
         'culture': cultureDataSource,
-        'comment': AusCommentIsFreeDataSource(clientAUS),
+        'comment': au.AusCommentIsFreeDataSource(clientAUS),
         'lifeandstyle': LifeAndStyleDataSource(clientAUS),
         'technology': TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
