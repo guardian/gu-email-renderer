@@ -397,7 +397,7 @@ class DailyEmailUS(EmailTemplate):
     template_names = {'v1': 'daily-email-us', 'v2': 'daily-email-us-v2', 'v3': 'daily-email-us-v3', 'MPU_v1a': 'daily-email-us-v4', 'MPU_v1b': 'daily-email-us-v5'}
 
 class DailyEmailAUS(EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2']
 
     ad_tag = 'email-guardian-today-aus'
     ad_config = {
@@ -424,12 +424,23 @@ class DailyEmailAUS(EmailTemplate):
         'video' :  AusVideoDataSource(clientAUS),
         }
 
+    data_sources['v2'] = dict(data_sources['v1'])
+    data_sources['v2'].update({
+        'eye_witness' : EyeWitnessDataSource(clientAUS)
+    })
+
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3),
                            ('aus_sport', 3), ('culture',3), ('comment', 3), ('lifeandstyle', 3),
                            ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
 
-    template_names = {'v1': 'daily-email-aus'}
+    priority_list['v2'] = list(priority_list['v1'])
+    priority_list['v2'].append(('eye_witness', 1))
+
+    template_names = {
+        'v1': 'daily-email-aus',
+        'v2': 'daily-email-aus-v2'
+    }
 
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
