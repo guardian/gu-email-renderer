@@ -15,7 +15,6 @@ from data_source import \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
-    AustralianPoliticsDataSource, AustralianPoliticsCommentDataSource, AustralianPoliticsVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
@@ -119,9 +118,9 @@ class AustralianPolitics(EmailTemplate):
 
     data_sources = {
         'v1': {
-            'politics_latest': AustralianPoliticsDataSource(client),
-            'politics_comment': AustralianPoliticsCommentDataSource(client),
-            'politics_video': AustralianPoliticsVideoDataSource(client)
+            'politics_latest': au.AustralianPoliticsDataSource(client),
+            'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
+            'politics_video': au.AustralianPoliticsVideoDataSource(client)
         }
     }
 
