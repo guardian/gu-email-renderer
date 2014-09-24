@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 import prefetch
-import unittest2
+import unittest
 import urllib
 
 from data_source import \
@@ -32,7 +32,7 @@ class UrlCapturingFetcher(object):
 fetcher = UrlCapturingFetcher()
 url_capturing_client = ApiClient('http://***REMOVED***/', API_KEY, fetcher=fetcher)
 
-class TestDataSources(unittest2.TestCase):
+class TestDataSources(unittest.TestCase):
 
     def quote_params(self, query_params):
         quoted_params = {}
@@ -502,4 +502,4 @@ class TestDataSources(unittest2.TestCase):
 
 
 if __name__ == '__main__':
-    unittest2.main()
+    unittest.main()

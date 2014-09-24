@@ -41,12 +41,19 @@ class MostSharedFetcher(object):
         if url[-1] == '/':
             url = url[:-1]
 
-        return '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}&section={section}'.format(
+        url = '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}'.format(
             base_url=url,
             mins=age/60,
             api_key=self.client.api_key,
-            section=self.section
             )
+
+        if self.section:
+            url = '{url}&section={section}'.format(
+                url=url,
+                section=self.section,
+                )
+
+        return url
 
     def _extract_path(self, url):
         return urlparse(url).path

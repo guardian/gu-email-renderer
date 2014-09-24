@@ -1,4 +1,4 @@
-import unittest2
+import unittest
 import webapp2
 from mail_renderer import EmailTemplate
 from webob.exc import HTTPNotFound
@@ -68,7 +68,7 @@ class TestRenderer(EmailTemplate):
         return MockTemplate(template_name)
 
 
-class TestMailRenderer(unittest2.TestCase):
+class TestMailRenderer(unittest.TestCase):
     def test_should_use_data_sources_appropriate_to_version(self):
         renderer = TestRenderer()
         renderer.get('v2')
