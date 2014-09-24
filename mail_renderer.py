@@ -28,7 +28,7 @@ from data_source import \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
     IndiaDataSource
 
-import aus_data_sources as au
+import data_sources.au as au
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
@@ -109,6 +109,11 @@ class EmailTemplate(webapp2.RequestHandler):
 
         self.response.out.write(page)
 
+# Super dirty
+# import now after the common functionality of this module is defined
+# The result of script execution flow
+
+import email_definitions.culture as culture_emails
 
 class AustralianPolitics(EmailTemplate):
     recognized_versions = ['v1']
@@ -534,26 +539,6 @@ class CommentIsFree(EmailTemplate):
 
     template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
 
-class FilmToday(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-film-today'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
-    data_sources = {
-        'v1': {
-            'film_today_latest': FilmTodayLatestDataSource(client)
-        }
-    }
-
-    priority_list = {
-        'v1': [('film_today_latest', 10)]
-    }
-
-    template_names = {'v1': 'film-today-v1'}
-
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
@@ -675,7 +660,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
-                               ('/film-today/(.+)', FilmToday),
+                               ('/film-today/(.+)', culture_emails.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
