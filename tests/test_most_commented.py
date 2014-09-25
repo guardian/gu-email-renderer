@@ -1,5 +1,5 @@
 
-import unittest2
+import unittest
 from data_source import MostCommentedDataSource, CommentCountInterpolator
 
 
@@ -32,7 +32,7 @@ class StubDiscussionFetcher(object):
         return self.most_commented_short_urls_with_counts
 
 
-class TestMostCommented(unittest2.TestCase):
+class TestMostCommented(unittest.TestCase):
 
     def test_data_source_should_retrieve_most_commented_pieces_of_content(self):
         multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
@@ -88,7 +88,7 @@ class TestMostCommented(unittest2.TestCase):
 
 
 
-class TestCommentCountInterpolator(unittest2.TestCase):
+class TestCommentCountInterpolator(unittest.TestCase):
 
     def test_should_interpolate_comment_counts_into_content(self):
         content_list = [

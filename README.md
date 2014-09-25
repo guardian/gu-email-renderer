@@ -22,7 +22,7 @@ The script is in the root directory of the project:
 
 On my machine this is:
 
-    ./test_runner.py <path-to-appengine> ~/linux-dev/google_appengine/
+    ./test_runner.py ~/linux-dev/google_appengine/
 
 ## Details
 

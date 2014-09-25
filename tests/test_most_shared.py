@@ -1,4 +1,4 @@
-import unittest2
+import unittest
 from ophan_calls import MostSharedFetcher
 from data_source import MostSharedDataSource, MostSharedCountInterpolator
 
@@ -47,7 +47,7 @@ class SharedCountInterpolator(object):
 
 
 
-class TestMostShared(unittest2.TestCase):
+class TestMostShared(unittest.TestCase):
     def test_most_shared_fetcher_should_return_list_of_paths_and_share_counts(self):
         stub_client = StubClient()
         fetcher = MostSharedFetcher(stub_client)
@@ -119,7 +119,7 @@ class TestMostShared(unittest2.TestCase):
 
 
 
-class TestMostSharedInterpolator(unittest2.TestCase):
+class TestMostSharedInterpolator(unittest.TestCase):
     def test_should_interpolate_share_counts_into_content(self):
 
         content_list = [
