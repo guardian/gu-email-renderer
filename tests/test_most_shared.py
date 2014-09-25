@@ -45,25 +45,32 @@ class SharedCountInterpolator(object):
         self.comment_count_list = comment_count_list
         return 'Interpolated content'
 
+class TestMostSharedUrlBuilding(unittest.TestCase):
 
+    def setUp(self):
+        self.stub_client = StubClient()
+        self.fetcher = MostSharedFetcher(self.stub_client)
 
+    def test_should_be_able_to_specify_countries_in_most_popular(self):
+        fetcher = MostSharedFetcher(self.stub_client, country='us')
+        params = fetcher.build_params(120)
 
-class TestMostShared(unittest.TestCase):
-    def test_most_shared_fetcher_should_return_list_of_paths_and_share_counts(self):
-        stub_client = StubClient()
-        fetcher = MostSharedFetcher(stub_client)
-        actual_data = fetcher.fetch_most_shared(age=12000)
+        self.assertTrue('country' in params, 'Country not present in params')
+        self.assertEquals('us', params['country'])
 
-        expected_data = [(u'/lifeandstyle/2012/feb/01/top-five-regrets-of-the-dying', 24037),
-                         (u'/world/2013/jun/03/turkey-new-york-times-ad', 19086)]
-        self.assertEquals(expected_data, actual_data)
+    def test_should_be_able_to_specify_a_section_in_most_popular(self):
+        target_section = 'commentisfree'
+        fetcher = MostSharedFetcher(self.stub_client, section=target_section)
+        params = fetcher.build_params(120)
+
+        self.assertTrue('section' in params, 'Section is not present in the params')
+        self.assertEquals(target_section, params['section'])
 
     def test_should_build_correct_url_for_ophan_call(self):
-        stub_client = StubClient()
-        fetcher = MostSharedFetcher(stub_client)
-        fetcher.fetch_most_shared(age=12000)
 
-        parsed_url = urlparse.urlparse(stub_client.actual_url)
+        self.fetcher.fetch_most_shared(age=12000)
+
+        parsed_url = urlparse.urlparse(self.stub_client.actual_url)
         self.assertEquals(parsed_url[2], 'base/api/viral')
 
         params = urlparse.parse_qs(parsed_url[4])
@@ -75,22 +82,15 @@ class TestMostShared(unittest.TestCase):
                 param_string=params.keys()))
             self.assertEquals(value, params[key][0])
 
-    def test_should_be_able_to_specify_countries_in_most_popular(self):
+class TestMostShared(unittest.TestCase):
+    def test_most_shared_fetcher_should_return_list_of_paths_and_share_counts(self):
         stub_client = StubClient()
-        fetcher = MostSharedFetcher(stub_client, country='us')
-        params = fetcher.build_params(120)
+        fetcher = MostSharedFetcher(stub_client)
+        actual_data = fetcher.fetch_most_shared(age=12000)
 
-        self.assertTrue('country' in params, 'Country not present in params')
-        self.assertEquals('us', params['country'])
-
-    def test_should_be_able_to_specify_a_section_in_most_popular(self):
-        target_section = 'commentisfree'
-        stub_client = StubClient()
-        fetcher = MostSharedFetcher(stub_client, section=target_section)
-        params = fetcher.build_params(120)
-
-        self.assertTrue('section' in params, 'Section is not present in the params')
-        self.assertEquals(target_section, params['section'])
+        expected_data = [(u'/lifeandstyle/2012/feb/01/top-five-regrets-of-the-dying', 24037),
+                         (u'/world/2013/jun/03/turkey-new-york-times-ad', 19086)]
+        self.assertEquals(expected_data, actual_data)
 
     def test_should_fetch_each_piece_of_content_from_api(self):
         multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
@@ -145,8 +145,6 @@ class TestMostShared(unittest.TestCase):
         data_source.fetch_data()
         self.assertEquals(api_data, shared_count_interpolator.content_list)
         self.assertEquals(comment_count_list, shared_count_interpolator.comment_count_list)
-
-
 
 class TestMostSharedInterpolator(unittest.TestCase):
     def test_should_interpolate_share_counts_into_content(self):
