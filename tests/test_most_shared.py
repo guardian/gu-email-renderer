@@ -1,4 +1,5 @@
 import unittest
+import urlparse
 from ophan_calls import MostSharedFetcher
 from data_source import MostSharedDataSource, MostSharedCountInterpolator
 
@@ -61,7 +62,35 @@ class TestMostShared(unittest.TestCase):
         stub_client = StubClient()
         fetcher = MostSharedFetcher(stub_client)
         fetcher.fetch_most_shared(age=12000)
-        self.assertEquals(stub_client.actual_url, 'base/api/viral?mins=200&referrer=social+media&api-key=iamakeyandigetinforfree')
+
+        parsed_url = urlparse.urlparse(stub_client.actual_url)
+        self.assertEquals(parsed_url[2], 'base/api/viral')
+
+        params = urlparse.parse_qs(parsed_url[4])
+
+        for key, value in [('mins', '200'),
+            ('referrer', 'social media'),
+            ('api-key', 'iamakeyandigetinforfree'),]:
+            self.assertTrue(key in params, "{key} not present in parameters: {param_string}".format(key=key,
+                param_string=params.keys()))
+            self.assertEquals(value, params[key][0])
+
+    def test_should_be_able_to_specify_countries_in_most_popular(self):
+        stub_client = StubClient()
+        fetcher = MostSharedFetcher(stub_client, country='us')
+        params = fetcher.build_params(120)
+
+        self.assertTrue('country' in params, 'Country not present in params')
+        self.assertEquals('us', params['country'])
+
+    def test_should_be_able_to_specify_a_section_in_most_popular(self):
+        target_section = 'commentisfree'
+        stub_client = StubClient()
+        fetcher = MostSharedFetcher(stub_client, section=target_section)
+        params = fetcher.build_params(120)
+
+        self.assertTrue('section' in params, 'Section is not present in the params')
+        self.assertEquals(target_section, params['section'])
 
     def test_should_fetch_each_piece_of_content_from_api(self):
         multi_content_data_source = IdRememberingMultiContentDataSourceStub('client')
