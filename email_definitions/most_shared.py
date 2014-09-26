@@ -2,28 +2,65 @@ import mail_renderer as mr
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import MultiContentDataSource, MostSharedCountInterpolator, MostSharedDataSource
 
+ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
+
 class MostShared(mr.EmailTemplate):
-    recognized_versions = ['v1']
-    n_items = 6
+	recognized_versions = ['v1']
+	n_items = 6
 
-    ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
-    most_shared_fetcher = MostSharedFetcher(ophan_client)
-    multi_content_data_source = MultiContentDataSource(client=mr.client, name='most_shared')
-    shared_count_interpolator = MostSharedCountInterpolator()
+	most_shared_fetcher = MostSharedFetcher(ophan_client)
+	multi_content_data_source = MultiContentDataSource(client=mr.client, name='most_shared')
+	shared_count_interpolator = MostSharedCountInterpolator()
 
-    most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=most_shared_fetcher,
-        multi_content_data_source=multi_content_data_source,
-        shared_count_interpolator=shared_count_interpolator
-    )
+	most_shared_data_source = MostSharedDataSource(
+		most_shared_fetcher=most_shared_fetcher,
+		multi_content_data_source=multi_content_data_source,
+		shared_count_interpolator=shared_count_interpolator
+	)
 
-    data_sources = {}
-    data_sources['v1'] = {
-        'most_shared': most_shared_data_source
-        }
+	data_sources = {}
+	data_sources['v1'] = {
+		'most_shared': most_shared_data_source
+		}
 
-    ad_tag = ''
-    ad_config = {}
+	ad_tag = ''
+	ad_config = {}
 
-    priority_list = {'v1': [('most_shared', n_items)]}
-    template_names = {'v1': 'most-shared'}
+	priority_list = {'v1': [('most_shared', n_items)]}
+	template_names = {'v1': 'most-shared'}
+
+class MostSharedUK(MostShared):
+
+	data_sources = {
+		'v1' :  {
+			'most_shared': MostSharedDataSource(
+				most_shared_fetcher=MostSharedFetcher(ophan_client, country='gb'),
+				multi_content_data_source=MultiContentDataSource(client=mr.client, name='most_shared'),
+				shared_count_interpolator=MostSharedCountInterpolator()
+			),
+		},
+	}
+
+class MostSharedAU(MostShared):
+
+	data_sources = {
+		'v1' :  {
+			'most_shared': MostSharedDataSource(
+				most_shared_fetcher=MostSharedFetcher(ophan_client, country='au'),
+				multi_content_data_source=MultiContentDataSource(client=mr.client, name='most_shared'),
+				shared_count_interpolator=MostSharedCountInterpolator()
+			),
+		},
+	}
+
+class MostSharedUS(MostShared):
+
+	data_sources = {
+		'v1' :  {
+			'most_shared': MostSharedDataSource(
+				most_shared_fetcher=MostSharedFetcher(ophan_client, country='us'),
+				multi_content_data_source=MultiContentDataSource(client=mr.client, name='most_shared'),
+				shared_count_interpolator=MostSharedCountInterpolator()
+			),
+		},
+	}
