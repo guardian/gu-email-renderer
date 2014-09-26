@@ -111,7 +111,6 @@ class EmailTemplate(webapp2.RequestHandler):
 # The result of script execution flow
 
 import email_definitions as emails
-import email_definitions.culture as culture_emails
 
 class AustralianPolitics(EmailTemplate):
     recognized_versions = ['v1']
