@@ -39,9 +39,6 @@ if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].start
 else:
     URL_ROOT = 'http://***REMOVED***.appspot.com'
 
-
-
-
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
 )
@@ -113,6 +110,7 @@ class EmailTemplate(webapp2.RequestHandler):
 # import now after the common functionality of this module is defined
 # The result of script execution flow
 
+import email_definitions as emails
 import email_definitions.culture as culture_emails
 
 class AustralianPolitics(EmailTemplate):
@@ -472,33 +470,6 @@ class MostCommented(EmailTemplate):
     priority_list = {'v1': [('most_commented', n_items)]}
     template_names = {'v1': 'most-commented'}
 
-class MostShared(EmailTemplate):
-    recognized_versions = ['v1']
-    n_items = 6
-
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    most_shared_fetcher = MostSharedFetcher(ophan_client)
-    multi_content_data_source = MultiContentDataSource(client=client, name='most_shared')
-    shared_count_interpolator = MostSharedCountInterpolator()
-
-    most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=most_shared_fetcher,
-        multi_content_data_source=multi_content_data_source,
-        shared_count_interpolator=shared_count_interpolator
-    )
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'most_shared': most_shared_data_source
-        }
-
-    ad_tag = ''
-    ad_config = {}
-
-    priority_list = {'v1': [('most_shared', n_items)]}
-    template_names = {'v1': 'most-shared'}
-
-
 class CommentIsFree(EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
@@ -660,11 +631,11 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
-                               ('/film-today/(.+)', culture_emails.FilmToday),
+                               ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', ZipFile),
                                ('/most-commented/(.+)', MostCommented),
-                               ('/most-shared/(.+)', MostShared),
+                               ('/most-shared/(.+)', emails.most_shared.MostShared),
                                ('/most-viewed/(.+)', MostViewed),
                                ('/editors-picks/(.+)', EditorsPicks),
                                webapp2.Route(r'/headline', handler=Headline),
