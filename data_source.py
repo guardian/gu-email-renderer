@@ -393,12 +393,6 @@ class VideoDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
-
-class AusVideoDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
-        self.tags = ['(world/australia|sport/australia-sport|world/australian-politics|lifeandstyle/australia-food-blog|culture/australia-culture-blog|sport/series/guardian-australia-sports-highlights)']
-
 class FashionEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='fashion', show_editors_picks=True)
