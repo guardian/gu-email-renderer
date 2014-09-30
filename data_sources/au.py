@@ -21,3 +21,8 @@ class AustralianPoliticsVideoDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='australia-news/australian-politics')
         self.tags = ['type/video']
+
+class AusVideoDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
+        self.tags = ['(world/australia|sport/australia-sport|australia-news/australian-politics|lifeandstyle/australia-food-blog|culture/australia-culture-blog|sport/series/guardian-australia-sports-highlights)']
