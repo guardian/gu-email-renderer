@@ -316,12 +316,6 @@ class SportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)
 
-
-class SportUSDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'sport/us-sport', show_editors_picks=True)
-
-
 class AusSportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport/australia-sport', show_editors_picks=True)
