@@ -1,6 +1,6 @@
 import mail_renderer as mr
 
-from data_source import BusinessDataSource, USMoneyDataSource, TechnologyDataSource, \
+from data_source import BusinessDataSource, TechnologyDataSource, \
 	CommentIsFreeDataSource, CultureDataSource, TopStoriesDataSource, \
 	VideoDataSource
 
@@ -20,7 +20,7 @@ class DailyEmailUS(mr.EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -30,7 +30,7 @@ class DailyEmailUS(mr.EmailTemplate):
         }
     data_sources['v2'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -40,7 +40,7 @@ class DailyEmailUS(mr.EmailTemplate):
         }
     data_sources['v3'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -50,7 +50,7 @@ class DailyEmailUS(mr.EmailTemplate):
         }
     data_sources['MPU_v1a'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -60,7 +60,7 @@ class DailyEmailUS(mr.EmailTemplate):
         }
     data_sources['MPU_v1b'] = {
         'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),

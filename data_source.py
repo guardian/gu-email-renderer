@@ -495,12 +495,6 @@ class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='world/india', show_editors_picks=True)
 
-
-class USMoneyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='money/us-personal-finance')
-
-
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)

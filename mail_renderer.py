@@ -20,7 +20,7 @@ from data_source import \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
-    USMoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
+    TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
     TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
