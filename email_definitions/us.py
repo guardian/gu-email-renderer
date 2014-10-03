@@ -9,7 +9,7 @@ from data_sources import us as data
 clientUS = mr.clientUS
 
 class DailyEmailUS(mr.EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'MPU_v1a', 'MPU_v1b']
+    recognized_versions = ['v1', 'v3', ]
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -19,16 +19,6 @@ class DailyEmailUS(mr.EmailTemplate):
 
     data_sources = {}
     data_sources['v1'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': data.USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': data.SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['v2'] = {
         'business': BusinessDataSource(clientUS),
         'money': data.USMoneyDataSource(clientUS),
         'technology': TechnologyDataSource(clientUS),
@@ -48,27 +38,6 @@ class DailyEmailUS(mr.EmailTemplate):
         'top_stories': TopStoriesDataSource(clientUS),
         'video': VideoDataSource(clientUS),
         }
-    data_sources['MPU_v1a'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': data.USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': data.SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['MPU_v1b'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': data.USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': data.SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-
 
     priority_list = {}
     priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
