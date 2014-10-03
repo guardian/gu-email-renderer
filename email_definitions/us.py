@@ -1,3 +1,5 @@
+from pysistence import make_dict
+
 import mail_renderer as mr
 
 from data_source import BusinessDataSource, TechnologyDataSource, \
@@ -21,42 +23,27 @@ class DailyEmailUS(mr.EmailTemplate):
         'leaderboard_v2': 'Bottom'
     }
 
+    base_data_sources = make_dict({
+        'business': BusinessDataSource(clientUS),
+        'money': data.USMoneyDataSource(clientUS),
+        'technology': TechnologyDataSource(clientUS),
+        'sport': data.SportUSDataSource(clientUS),
+        'comment': CommentIsFreeDataSource(clientUS),
+        'culture': CultureDataSource(clientUS),
+        'top_stories': TopStoriesDataSource(clientUS),
+        'video': VideoDataSource(clientUS),
+    })
+
     data_sources = {
-        'v1' : {
-            'business': BusinessDataSource(clientUS),
-            'money': data.USMoneyDataSource(clientUS),
-            'technology': TechnologyDataSource(clientUS),
-            'sport': data.SportUSDataSource(clientUS),
-            'comment': CommentIsFreeDataSource(clientUS),
-            'culture': CultureDataSource(clientUS),
-            'top_stories': TopStoriesDataSource(clientUS),
-            'video': VideoDataSource(clientUS),
-        },
-        'v3' : {
-            'business': BusinessDataSource(clientUS),
-            'money': data.USMoneyDataSource(clientUS),
-            'technology': TechnologyDataSource(clientUS),
-            'sport': data.SportUSDataSource(clientUS),
-            'comment': CommentIsFreeDataSource(clientUS),
-            'culture': CultureDataSource(clientUS),
-            'top_stories': TopStoriesDataSource(clientUS),
-            'video': VideoDataSource(clientUS),
-            },
-        'v6' : {
-            'business': BusinessDataSource(clientUS),
-            'money': data.USMoneyDataSource(clientUS),
-            'technology': TechnologyDataSource(clientUS),
-            'sport': data.SportUSDataSource(clientUS),
-            'comment': CommentIsFreeDataSource(clientUS),
-            'culture': CultureDataSource(clientUS),
-            'top_stories': TopStoriesDataSource(clientUS),
-            'video': VideoDataSource(clientUS),
-            'most_shared_us': MostSharedDataSource(
+        'v1' : base_data_sources,
+        'v3' : base_data_sources,
+        'v6' : base_data_sources.using(
+            most_shared_us = MostSharedDataSource(
                 most_shared_fetcher=MostSharedFetcher(ophan_client, country='us'),
                 multi_content_data_source=MultiContentDataSource(client=clientUS, name='most_shared_us'),
                 shared_count_interpolator=MostSharedCountInterpolator()
-            ),
-        },
+            )
+        ),
     }
 
     priority_list = {}
