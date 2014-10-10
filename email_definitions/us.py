@@ -2,12 +2,13 @@ from pysistence import make_dict
 
 import mail_renderer as mr
 
-from data_source import BusinessDataSource, TechnologyDataSource, \
+from data_source import BusinessDataSource, \
 	CommentIsFreeDataSource, CultureDataSource, TopStoriesDataSource, \
 	VideoDataSource
 from data_source import MultiContentDataSource, MostSharedCountInterpolator, MostSharedDataSource
 
 from data_sources import us as data
+from data_sources import technology as tech_data
 
 from ophan_calls import OphanClient, MostSharedFetcher
 
@@ -26,7 +27,7 @@ class DailyEmailUS(mr.EmailTemplate):
     base_data_sources = make_dict({
         'business': BusinessDataSource(clientUS),
         'money': data.USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
+        'technology': tech_data.TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
         'culture': CultureDataSource(clientUS),
