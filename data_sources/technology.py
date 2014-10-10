@@ -36,7 +36,7 @@ class TechnologyVideoDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
         self.content_type = 'video'
-        self.tags = ['technology/series/tech-sessions']
+        self.section = 'technology'
         # self.page_size = 1
         self.show_elements = 'video'
 
