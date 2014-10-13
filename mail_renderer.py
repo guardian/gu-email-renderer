@@ -13,15 +13,13 @@ from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
-    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
-    TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
-    TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, \
@@ -29,6 +27,7 @@ from data_source import \
     IndiaDataSource
 
 import data_sources.au as au
+import data_sources.technology as tech_data
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
@@ -241,7 +240,7 @@ class DailyEmail(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(client),
-        'technology': TechnologyDataSource(client),
+        'technology': tech_data.TechnologyDataSource(client),
         'travel': TravelDataSource(client),
         'lifeandstyle': LifeAndStyleDataSource(client),
         'sport': SportDataSource(client),
@@ -344,7 +343,7 @@ class DailyEmailAUS(EmailTemplate):
         'culture': cultureDataSource,
         'comment': au.AusCommentIsFreeDataSource(clientAUS),
         'lifeandstyle': LifeAndStyleDataSource(clientAUS),
-        'technology': TechnologyDataSource(clientAUS),
+        'technology': tech_data.TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
         'science' : ScienceDataSource(clientAUS),
         'video' :  au.AusVideoDataSource(clientAUS),
@@ -492,39 +491,6 @@ class TheFlyer(EmailTemplate):
     template_names = {'v1': 'the-flyer'}
 
 
-class ZipFile(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-technology-roundup'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    discussion_client = DiscussionClient(discussion_base_url)
-    tech_most_commented = MostCommentedDataSource (
-        discussion_fetcher = DiscussionFetcher(discussion_client, 'technology'),
-        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
-        comment_count_interpolator = CommentCountInterpolator()
-    )
-
-    data_sources = {
-        'v1': {
-            'tech_news': TechnologyDataSource(client),
-            'tech_most_commented': tech_most_commented,
-            'tech_games': TechnologyGamesDataSource(client),
-            'tech_blog': TechnologyBlogDataSource(client),
-            'tech_podcast': TechnologyPodcastDataSource(client),
-            'tech_video': TechnologyVideoDataSource(client)
-        }
-    }
-
-    priority_list = {
-        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_commented', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
-    }
-
-    template_names = {'v1': 'zip-file'}
-
 class Headline(webapp2.RequestHandler):
 
     def get(self, edition="uk"):
@@ -557,7 +523,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/comment-is-free/(.+)', CommentIsFree),
                                ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
-                               ('/zip-file/(.+)', ZipFile),
+                               ('/zip-file/(.+)', emails.technology.ZipFile),
                                ('/most-commented/(.+)', MostCommented),
                                ('/most-shared/uk/(.+)', emails.most_shared.MostSharedUK),
                                ('/most-shared/us/(.+)', emails.most_shared.MostSharedUS),
