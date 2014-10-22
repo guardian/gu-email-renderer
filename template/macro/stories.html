@@ -1,4 +1,4 @@
-{% macro story(story, first=False, thumbnail=False, standfirst=True, first_para=False) -%}
+{% macro story(story, first=False, thumbnail=False, standfirst=True, first_para=False, share_links=True) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td style="padding: 10px 20px 20px 20px;{% if not first %} border-top: 1px solid #dedede;{% endif %}">
@@ -23,7 +23,7 @@
             </table>
             {% endif %}
 
-            {% if story.share_count %}
+            {% if story.share_count and share_links %}
               {% set encodedStoryUrl = story.webUrl|urlencode %}
               {% set facebookShareUrl = 'http://www.facebook.com/share.php?u=%s' % encodedStoryUrl %}
               {% set twitterShareUrl = 'http://twitter.com?status=%s' % encodedStoryUrl %}

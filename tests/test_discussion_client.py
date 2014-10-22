@@ -1,4 +1,4 @@
-import unittest2
+import unittest
 from discussionapi.discussion_client import DiscussionFetcher
 
 
@@ -14,7 +14,7 @@ class MockClient(object):
         return ('header', TestResponse)
 
 
-class TestDiscussionClient(unittest2.TestCase):
+class TestDiscussionClient(unittest.TestCase):
     def test_the_fetcher_should_pass_the_right_url_to_the_client(self):
         base_url = 'http://discussion.com/api'
         client = MockClient(base_url)

@@ -1,4 +1,4 @@
-import unittest2
+import unittest
 
 from prefetch import perma_cache
 from google.appengine.ext import db
@@ -15,7 +15,7 @@ class MockDataSource(object):
         return self.id
 
 
-class TestPrefetch(unittest2.TestCase):
+class TestPrefetch(unittest.TestCase):
     Cache_key_of_prestored = '9817263496'
     Prestored_data_string = json.dumps([{'cheese': 'toast', 'bed': 'spread'}])
 

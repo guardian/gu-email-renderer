@@ -1,5 +1,6 @@
 application: ***REMOVED***
-#Please only ever publish to *qa* or to *prod*
+# Please don't check in a target other than QA
+# Check the dashboard for the current release number
 version: qa
 runtime: python27
 api_version: 1

@@ -14,9 +14,16 @@
 
 {% block title %}Guardian Today - US edition{% endblock %}
 
-{% block header %}{% endblock header%}
-
 {% block content %}
+
+    {{ layout.story_trail(heading_text='Top Stories',
+        stories=top_stories,
+        heading_link='http://www.theguardian.com/us',
+        heading_colour='#c22d05',
+        top_thumb=True,
+        standfirst=False) }}
+
+    {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
         heading_text='Sports',
@@ -64,6 +71,13 @@
         heading_colour='#d61d00',
         standfirst=False) }}
 
+    {{ layout.story_trail(heading_text='Most shared in the last 24 hours',
+        stories=most_shared_us,
+        heading_colour='#2470a6',
+        top_thumb=True,
+        standfirst=False,
+        share_links=False,) }}
+        
 {% endblock content %}
 
 {% set sections = (

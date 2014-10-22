@@ -22,12 +22,23 @@ The script is in the root directory of the project:
 
 On my machine this is:
 
-    ./test_runner.py <path-to-appengine> ~/linux-dev/google_appengine/
+    ./test_runner.py ~/linux-dev/google_appengine/
+
+## Releasing
+
+Push a unique revision (normally the next number on from the last release) and use the dashboard to make it the default version when you want to actually release the changes. Due to caching you might also want to flush memcache if the data needs to be changed immediately.
+
+To revert to a historic version use the Appengine dashboard to set a new default version.
+
+### Historic releases
+
+The application used to deploy just to the `prod` and `qa` revisions. The qa revision is still the default target.
 
 ## Details
 
-Currently, only the daily Guardian Today email is rendered with this
-app. The `mail_renderer.py` file contains the main logic for the
+The front page lists all the emails the application has available. In general the v1 version of the email is the one that goes out to punters and the other versions are used in variant testing in ExactTarget.
+
+The `mail_renderer.py` file contains the main logic for the
 application which is roughly:
 
 1. Fetch the article info from the content API, as well as a picture of the day
@@ -35,7 +46,7 @@ application which is roughly:
 3. Pass this data to the Jinja2 template for the daily email
 
 This content is also cached with memcached so the application will
-first try to serve the rendered content out of the cache.
+first try to serve the rendered content out of the cache. Remember to flush the cache when making and deploying changes!
 
 The application is hosted on appengine and is available at
 http://***REMOVED***.appspot.com/daily-email

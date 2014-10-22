@@ -11,24 +11,23 @@ from google.appengine.api import memcache
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
-    CultureDataSource, TopStoriesDataSource, SportDataSource, SportUSDataSource, EyeWitnessDataSource, \
+    CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
-    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, TechnologyDataSource, LifeAndStyleDataSource, \
+    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
     FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
     FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
     FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
-    USMoneyDataSource, TechnologyMostViewedDataSource, TechnologyBlogDataSource, \
-    TechnologyGamesDataSource, TechnologyPodcastDataSource, TechnologyVideoDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, AusVideoDataSource, \
+    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, \
     MultiContentDataSource, CommentCountInterpolator, AusSportDataSource, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
     IndiaDataSource
 
-import aus_data_sources as au
+import data_sources.au as au
+import data_sources.technology as tech_data
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
@@ -38,9 +37,6 @@ if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].start
     URL_ROOT = ''
 else:
     URL_ROOT = 'http://***REMOVED***.appspot.com'
-
-
-
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
@@ -109,6 +105,11 @@ class EmailTemplate(webapp2.RequestHandler):
 
         self.response.out.write(page)
 
+# Super dirty
+# import now after the common functionality of this module is defined
+# The result of script execution flow
+
+import email_definitions as emails
 
 class AustralianPolitics(EmailTemplate):
     recognized_versions = ['v1']
@@ -239,7 +240,7 @@ class DailyEmail(EmailTemplate):
     data_sources = {}
     data_sources['v1'] = {
         'business': BusinessDataSource(client),
-        'technology': TechnologyDataSource(client),
+        'technology': tech_data.TechnologyDataSource(client),
         'travel': TravelDataSource(client),
         'lifeandstyle': LifeAndStyleDataSource(client),
         'sport': SportDataSource(client),
@@ -319,81 +320,6 @@ class EditorsPicks(EmailTemplate):
     template_names = {'v1': 'editors-picks'}
 
 
-class DailyEmailUS(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'MPU_v1a', 'MPU_v1b']
-
-    ad_tag = 'email-guardian-today-us'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['v2'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['v3'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['MPU_v1a'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-    data_sources['MPU_v1b'] = {
-        'business': BusinessDataSource(clientUS),
-        'money': USMoneyDataSource(clientUS),
-        'technology': TechnologyDataSource(clientUS),
-        'sport': SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
-        }
-
-
-    priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['v2'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['v3'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['MPU_v1a'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['MPU_v1b'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-
-    template_names = {'v1': 'daily-email-us', 'v2': 'daily-email-us-v2', 'v3': 'daily-email-us-v3', 'MPU_v1a': 'daily-email-us-v4', 'MPU_v1b': 'daily-email-us-v5'}
 
 class DailyEmailAUS(EmailTemplate):
     recognized_versions = ['v1', 'v2']
@@ -417,10 +343,10 @@ class DailyEmailAUS(EmailTemplate):
         'culture': cultureDataSource,
         'comment': au.AusCommentIsFreeDataSource(clientAUS),
         'lifeandstyle': LifeAndStyleDataSource(clientAUS),
-        'technology': TechnologyDataSource(clientAUS),
+        'technology': tech_data.TechnologyDataSource(clientAUS),
         'environment': EnvironmentDataSource(clientAUS),
         'science' : ScienceDataSource(clientAUS),
-        'video' :  AusVideoDataSource(clientAUS),
+        'video' :  au.AusVideoDataSource(clientAUS),
         }
 
     data_sources['v2'] = dict(data_sources['v1'])
@@ -467,33 +393,6 @@ class MostCommented(EmailTemplate):
     priority_list = {'v1': [('most_commented', n_items)]}
     template_names = {'v1': 'most-commented'}
 
-class MostShared(EmailTemplate):
-    recognized_versions = ['v1']
-    n_items = 6
-
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    most_shared_fetcher = MostSharedFetcher(ophan_client)
-    multi_content_data_source = MultiContentDataSource(client=client, name='most_shared')
-    shared_count_interpolator = MostSharedCountInterpolator()
-
-    most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=most_shared_fetcher,
-        multi_content_data_source=multi_content_data_source,
-        shared_count_interpolator=shared_count_interpolator
-    )
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'most_shared': most_shared_data_source
-        }
-
-    ad_tag = ''
-    ad_config = {}
-
-    priority_list = {'v1': [('most_shared', n_items)]}
-    template_names = {'v1': 'most-shared'}
-
-
 class CommentIsFree(EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
@@ -533,26 +432,6 @@ class CommentIsFree(EmailTemplate):
     }
 
     template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
-
-class FilmToday(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-film-today'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
-    data_sources = {
-        'v1': {
-            'film_today_latest': FilmTodayLatestDataSource(client)
-        }
-    }
-
-    priority_list = {
-        'v1': [('film_today_latest', 10)]
-    }
-
-    template_names = {'v1': 'film-today-v1'}
 
 class SleeveNotes(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -612,39 +491,6 @@ class TheFlyer(EmailTemplate):
     template_names = {'v1': 'the-flyer'}
 
 
-class ZipFile(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-technology-roundup'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    discussion_client = DiscussionClient(discussion_base_url)
-    tech_most_commented = MostCommentedDataSource (
-        discussion_fetcher = DiscussionFetcher(discussion_client, 'technology'),
-        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
-        comment_count_interpolator = CommentCountInterpolator()
-    )
-
-    data_sources = {
-        'v1': {
-            'tech_news': TechnologyDataSource(client),
-            'tech_most_commented': tech_most_commented,
-            'tech_games': TechnologyGamesDataSource(client),
-            'tech_blog': TechnologyBlogDataSource(client),
-            'tech_podcast': TechnologyPodcastDataSource(client),
-            'tech_video': TechnologyVideoDataSource(client)
-        }
-    }
-
-    priority_list = {
-        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_commented', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
-    }
-
-    template_names = {'v1': 'zip-file'}
-
 class Headline(webapp2.RequestHandler):
 
     def get(self, edition="uk"):
@@ -667,7 +513,7 @@ class Headline(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
-                               ('/daily-email-us/(.+)', DailyEmailUS),
+                               ('/daily-email-us/(.+)', emails.us.DailyEmailUS),
                                ('/daily-email-aus/(.+)', DailyEmailAUS),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
@@ -675,11 +521,14 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', DailyEmail),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
-                               ('/film-today/(.+)', FilmToday),
+                               ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
-                               ('/zip-file/(.+)', ZipFile),
+                               ('/zip-file/(.+)', emails.technology.ZipFile),
                                ('/most-commented/(.+)', MostCommented),
-                               ('/most-shared/(.+)', MostShared),
+                               ('/most-shared/uk/(.+)', emails.most_shared.MostSharedUK),
+                               ('/most-shared/us/(.+)', emails.most_shared.MostSharedUS),
+                               ('/most-shared/au/(.+)', emails.most_shared.MostSharedAU),
+                               ('/most-shared/(.+)', emails.most_shared.MostShared),
                                ('/most-viewed/(.+)', MostViewed),
                                ('/editors-picks/(.+)', EditorsPicks),
                                webapp2.Route(r'/headline', handler=Headline),
