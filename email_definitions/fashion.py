@@ -1,3 +1,5 @@
+from pysistence import make_dict
+
 import mail_renderer as mr
 
 import data_source as ds
@@ -13,25 +15,27 @@ class FashionStatement(mr.EmailTemplate):
         'leaderboard_v2': 'Bottom'
     }
 
+    base_data_sources = make_dict({
+        'fashion_gallery': ds.FashionGalleryDataSource(client),
+        'fashion_video': ds.FashionVideoDataSource(client),
+		'fashion_most_viewed': ds.FashionMostViewedDataSource(client),
+ 
+	})
+
     data_sources = {
-        'v1': {
-            'fashion_news': ds.FashionNewsDataSource(client),
-            'fashion_most_viewed': ds.FashionMostViewedDataSource(client),
-            'fashion_hadley': ds.FashionAskHadleyDataSource(client),
-            'fashion_blog': ds.FashionBlogDataSource(client),
-            'fashion_network': ds.FashionNetworkDataSource(client),
-            'fashion_gallery': ds.FashionGalleryDataSource(client),
-            'fashion_video': ds.FashionVideoDataSource(client)
-        },
-        'v3': {
-            'fashion_picks': ds.FashionEditorsPicksDataSource(client),
-            'fashion_video': ds.FashionVideoDataSource(client),
-            'fashion_hadley': ds.FashionAskHadleyDataSource(client),
-            'fashion_sali': ds.FashionSaliHughesDataSource(client),
-            'fashion_stylewatch': ds.FashionStylewatchDataSource(client),
-            'fashion_most_viewed': ds.FashionMostViewedDataSource(client),
-            'fashion_gallery': ds.FashionGalleryDataSource(client)
-        }
+    	'v1' : base_data_sources.using(
+    		fashion_news = ds.FashionNewsDataSource(client),
+    		fashion_hadley = ds.FashionAskHadleyDataSource(client),
+    		fashion_blog = ds.FashionBlogDataSource(client),
+            fashion_network = ds.FashionNetworkDataSource(client),
+    		),
+        'v3': base_data_sources.using(
+            fashion_picks = ds.FashionEditorsPicksDataSource(client),
+            fashion_hadley = ds.FashionAskHadleyDataSource(client),
+            fashion_sali = ds.FashionSaliHughesDataSource(client),
+            fashion_stylewatch = ds.FashionStylewatchDataSource(client),
+            fashion_most_viewed = ds.FashionMostViewedDataSource(client),
+        	)
     }
     data_sources['v2'] = data_sources['v1']
 
