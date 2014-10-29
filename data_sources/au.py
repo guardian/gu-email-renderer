@@ -1,4 +1,4 @@
-from data_source import ItemDataSource
+from data_source import ItemDataSource, SearchDataSource
 
 class AusCultureBlogDataSource(ItemDataSource):
     def __init__(self, client):
@@ -22,8 +22,8 @@ class AustralianPoliticsVideoDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, section='australia-news/australian-politics')
         self.tags = ['type/video']
 
-class AusVideoDataSource(ItemDataSource):
+class AusVideoDataSource(SearchDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='australia-news', show_editors_picks=True)
-        self.tags = ['type/video']
+        SearchDataSource.__init__(self, client)
+        self.tags = ['type/video,australia-news/australia-news']
 
