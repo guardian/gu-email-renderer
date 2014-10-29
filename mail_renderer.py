@@ -208,54 +208,6 @@ class EditorsPicks(EmailTemplate):
     priority_list = {'v1': [('editors_picks', 3)]}
     template_names = {'v1': 'editors-picks'}
 
-
-
-class DailyEmailAUS(EmailTemplate):
-    recognized_versions = ['v1', 'v2']
-
-    ad_tag = 'email-guardian-today-aus'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    data_sources = {}
-
-    cultureDataSource = ItemPlusBlogDataSource(CultureDataSource(clientAUS), au.AusCultureBlogDataSource(clientAUS))
-    
-    data_sources['v1'] = {
-        'top_stories_code': TopStoriesDataSource(clientAUS),
-        'top_stories': TopStoriesDataSource(clientAUS),
-        'most_viewed': MostViewedDataSource(clientAUS),
-        'sport': SportDataSource(clientAUS),
-        'aus_sport': AusSportDataSource(client),
-        'culture': cultureDataSource,
-        'comment': au.AusCommentIsFreeDataSource(clientAUS),
-        'lifeandstyle': LifeAndStyleDataSource(clientAUS),
-        'technology': tech_data.TechnologyDataSource(clientAUS),
-        'environment': EnvironmentDataSource(clientAUS),
-        'science' : ScienceDataSource(clientAUS),
-        'video' :  au.AusVideoDataSource(clientAUS),
-        }
-
-    data_sources['v2'] = dict(data_sources['v1'])
-    data_sources['v2'].update({
-        'eye_witness' : EyeWitnessDataSource(clientAUS)
-    })
-
-    priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3),
-                           ('aus_sport', 3), ('culture',3), ('comment', 3), ('lifeandstyle', 3),
-                           ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
-
-    priority_list['v2'] = list(priority_list['v1'])
-    priority_list['v2'].append(('eye_witness', 1))
-
-    template_names = {
-        'v1': 'daily-email-aus',
-        'v2': 'daily-email-aus-v2'
-    }
-
 class MostCommented(EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
@@ -403,7 +355,7 @@ class Headline(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-us/(.+)', emails.us.DailyEmailUS),
-                               ('/daily-email-aus/(.+)', DailyEmailAUS),
+                               ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
