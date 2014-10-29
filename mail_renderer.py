@@ -165,47 +165,6 @@ class CloseUp(EmailTemplate):
                       'v2': 'close-up-v2',
                       'v3': 'close-up-v3'}
 
-
-class FashionStatement(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3']
-
-    ad_tag = 'email-fashion-statement'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    data_sources = {
-        'v1': {
-            'fashion_news': FashionNewsDataSource(client),
-            'fashion_most_viewed': FashionMostViewedDataSource(client),
-            'fashion_hadley': FashionAskHadleyDataSource(client),
-            'fashion_blog': FashionBlogDataSource(client),
-            'fashion_network': FashionNetworkDataSource(client),
-            'fashion_gallery': FashionGalleryDataSource(client),
-            'fashion_video': FashionVideoDataSource(client)
-        },
-        'v3': {
-            'fashion_picks': FashionEditorsPicksDataSource(client),
-            'fashion_video': FashionVideoDataSource(client),
-            'fashion_hadley': FashionAskHadleyDataSource(client),
-            'fashion_sali': FashionSaliHughesDataSource(client),
-            'fashion_stylewatch': FashionStylewatchDataSource(client),
-            'fashion_most_viewed': FashionMostViewedDataSource(client),
-            'fashion_gallery': FashionGalleryDataSource(client)
-        }
-    }
-    data_sources['v2'] = data_sources['v1']
-
-    priority_list = {
-        'v1': [('fashion_hadley', 1), ('fashion_video', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)],
-        'v3': [('fashion_video', 1), ('fashion_hadley', 1), ('fashion_sali', 1), ('fashion_stylewatch', 1), ('fashion_picks', 5), ('fashion_most_viewed', 6), ('fashion_gallery', 1)]
-    }
-    priority_list['v2'] = priority_list['v1']
-
-    template_names = {'v1': 'fashion-statement-v1', 'v2': 'fashion-statement-v2', 'v3': 'fashion-statement-v3'}
-
-
 class MediaBriefing(EmailTemplate):
     recognized_versions = ['v1']
 
@@ -399,7 +358,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
                                ('/australian-politics/(.+)', AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
-                               ('/fashion-statement/(.+)', FashionStatement),
+                               ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
