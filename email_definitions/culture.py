@@ -1,3 +1,5 @@
+import pysistence as immutable
+
 import mail_renderer as mr
 
 import data_source as ds
@@ -35,16 +37,19 @@ class SleeveNotes(mr.EmailTemplate):
         'leaderboard2': 'Bottom',
     }
 
-    data_sources = {}
-    data_sources['v1'] = {
+    base_data_sources = immutable.make_dict({
         'music_most_viewed': ds.MusicMostViewedDataSource(client),
         'music_picks': ds.MusicEditorsPicksDataSource(client),
         'music_blog': ds.MusicBlogDataSource(client),
         'music_watch_listen': ds.MusicWatchListenDataSource(client),
-        'music_further': ds.MusicEditorsPicksDataSource(client),
-        }
-    data_sources['v2'] = data_sources['v1']
-    data_sources['v3'] = data_sources['v1']
+        'music_further': ds.MusicEditorsPicksDataSource(client),        
+        })
+
+    data_sources = {
+        'v1' : base_data_sources,
+        'v2' : base_data_sources,
+        'v3' : base_data_sources,
+    }
 
     priority_list = {}
     priority_list['v1'] = [('music_most_viewed', 3), ('music_picks', 5), ('music_blog', 5),
@@ -53,8 +58,10 @@ class SleeveNotes(mr.EmailTemplate):
     priority_list['v2'] = priority_list['v1']
     priority_list['v3'] = priority_list['v1']
 
-    template_names = {'v1': 'sleeve-notes-v1',
-                      'v2': 'sleeve-notes-v2',
-                      'v3': 'sleeve-notes-v3'}
+    template_names = immutable.make_dict({
+        'v1': 'sleeve-notes-v1',
+        'v2': 'sleeve-notes-v2',
+        'v3': 'sleeve-notes-v3',
+        })
 
 
