@@ -41,17 +41,27 @@ class DailyEmailAUS(mr.EmailTemplate):
         'v3' : base_data_sources,
     }
 
-    priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('most_viewed', 6), ('sport', 3),
-                           ('aus_sport', 3), ('culture',3), ('comment', 3), ('lifeandstyle', 3),
-                           ('technology', 2), ('environment', 2), ('science', 2), ('video', 3)]
+    base_priorities = immutable.make_list(
+        ('top_stories', 6),
+        ('most_viewed', 6),
+        ('sport', 3),
+        ('aus_sport', 3),
+        ('culture',3),
+        ('comment', 3),
+        ('lifeandstyle', 3),
+        ('technology', 2),
+        ('environment', 2),
+        ('science', 2),
+        ('video', 3))
 
-    priority_list['v2'] = list(priority_list['v1'])
-    priority_list['v2'].append(('eye_witness', 1))
-    priority_list['v3'] = priority_list['v1']
+    priority_list = immutable.make_dict({
+        'v1' : base_priorities,
+        'v2' : base_priorities.concat(immutable.make_list(('eye_witness', 1))),
+        'v3' : base_priorities,
+        })
 
-    template_names = {
+    template_names = immutable.make_dict({
         'v1': 'daily-email-aus',
         'v2': 'daily-email-aus-v2',
         'v3' : 'au/daily/v3',
-    }
+    })
