@@ -69,7 +69,7 @@ class DailyEmailAUS(mr.EmailTemplate):
     priority_list = immutable.make_dict({
         'v1' : base_priorities,
         'v2' : base_priorities.concat(immutable.make_list(('eye_witness', 1))),
-        'v3' : base_priorities,
+        'v3' : base_priorities.concat(immutable.make_list(('most_shared', 6))),
         })
 
     template_names = immutable.make_dict({
