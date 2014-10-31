@@ -6,8 +6,12 @@ import data_source as ds
 import data_sources.au as au
 import data_sources.technology as tech_data
 
+from ophan_calls import OphanClient, MostSharedFetcher
+
 client = mr.client
 clientAUS = mr.clientAUS
+
+ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
 class DailyEmailAUS(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -19,6 +23,11 @@ class DailyEmailAUS(mr.EmailTemplate):
     }
 
     cultureDataSource = ds.ItemPlusBlogDataSource(ds.CultureDataSource(clientAUS), au.AusCultureBlogDataSource(clientAUS))
+    most_shared_datasource = ds.MostSharedDataSource(
+                most_shared_fetcher=MostSharedFetcher(ophan_client, country='au'),
+                multi_content_data_source=ds.MultiContentDataSource(client=client, name='most_shared'),
+                shared_count_interpolator=ds.MostSharedCountInterpolator()
+            )
 
     base_data_sources = immutable.make_dict({
         'top_stories_code': ds.TopStoriesDataSource(clientAUS),
@@ -37,8 +46,11 @@ class DailyEmailAUS(mr.EmailTemplate):
 
     data_sources = {
         'v1' : base_data_sources,
-        'v2' : base_data_sources.using(eye_witness=ds.EyeWitnessDataSource(clientAUS)),
-        'v3' : base_data_sources,
+        'v2' : base_data_sources.using(
+            eye_witness=ds.EyeWitnessDataSource(clientAUS)),
+        'v3' : base_data_sources.using(
+            eye_witness=ds.EyeWitnessDataSource(clientAUS),
+            most_shared=most_shared_datasource),
     }
 
     base_priorities = immutable.make_list(

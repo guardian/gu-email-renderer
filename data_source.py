@@ -582,8 +582,8 @@ def fetch_all(data_sources):
 
     #import pdb;pdb.set_trace()
     retrieved_data_map = {}
-    for key in data_sources.keys():
-        retrieved_data = data_sources[key].fetch_data()
-        retrieved_data_map[key] = retrieved_data
+
+    for key, datasource in data_sources.items():
+        retrieved_data_map[key] = datasource.fetch_data()
 
     return retrieved_data_map
