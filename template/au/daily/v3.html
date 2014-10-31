@@ -1,0 +1,104 @@
+{# Daily (Guardian Today) email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+
+{% set title = 'the guardian today - Australia edition' %}
+{% set title_link = 'http://www.theguardian.com/au' %}
+{% set title_colour = '#333333' %}
+{% set logo_background = '#004179' %}
+{% set facebook_page = 'theguardianaustralia' %}
+{% set twitter_account = 'GuardianAus' %}
+{% set footer_colour = 'light' %}
+
+{% block title %}Guardian Today - Australia edition{% endblock %}
+
+{% block content %}
+
+    {{ layout.story_trail(heading_text='Editor\'s picks',
+    stories=top_stories,
+    heading_link='http://www.theguardian.com/au',
+    heading_colour='#c22d05',
+    top_thumb=True,
+    standfirst=False) }}
+
+    {{ layout.advert(ads.leaderboard_v1) }}
+
+    {{ layout.story_trail(
+    heading_text='Sport',
+    stories=sport,
+    heading_link='http://www.theguardian.com/sport',
+    heading_colour='#20a111',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Australian Sport',
+    stories=aus_sport,
+    heading_link='http://www.theguardian.com/au/sport',
+    heading_colour='#20a111',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Culture',
+    stories=culture,
+    heading_link='http://www.theguardian.com/au/culture',
+    heading_colour='#d1008b',
+    standfirst=False) }}
+
+    {{ layout.advert(ads.leaderboard_v2) }}
+
+    {{ layout.story_trail(
+    heading_text='Comment is free',
+    stories=comment,
+    heading_link='http://www.theguardian.com/au/commentisfree',
+    heading_colour='#0061a6',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Life and style',
+    stories=lifeandstyle,
+    heading_link='http://www.theguardian.com/lifeandstyle',
+    heading_colour='#ea721e',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Technology',
+    stories=technology,
+    heading_link='http://www.theguardian.com/technology',
+    heading_colour='#d61d00',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Science',
+    stories=science,
+    heading_link='http://www.theguardian.com/science',
+    heading_colour='#d61d00',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Environment',
+    stories=environment,
+    heading_link='http://www.theguardian.com/environment',
+    heading_colour='#7bbb00',
+    standfirst=False) }}
+
+    {{ layout.story_trail(
+    heading_text='Video',
+    stories=video,
+    heading_link='http://www.theguardian.com/australia-news+content/video?view=beta',
+    heading_colour='#0061A6',
+    standfirst=False) }}
+
+    {{ layout.story_trail(heading_text='Most viewed in last 24 hours',
+    stories=most_viewed,
+    heading_link='http://www.theguardian.com/mostviewed',
+    heading_colour='#2470a6',
+    top_thumb=True,
+    standfirst=False) }}
+
+{% endblock content %}
+
+{% set sections = (('Sport', 'http://www.theguardian.com/au/sport'),
+('Culture', 'http://www.theguardian.com/au/culture'),
+('Comment is free', 'http://www.theguardian.com/au/commentisfree')) %}
