@@ -75,5 +75,5 @@ class DailyEmailAUS(mr.EmailTemplate):
     template_names = immutable.make_dict({
         'v1': 'daily-email-aus',
         'v2': 'daily-email-aus-v2',
-        'v3' : 'au/daily/v3',
+        'v3': 'au/daily/v3',
     })
