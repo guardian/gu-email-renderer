@@ -111,27 +111,6 @@ class EmailTemplate(webapp2.RequestHandler):
 
 import email_definitions as emails
 
-class AustralianPolitics(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-australian-politics'
-    ad_config = {}
-
-    data_sources = {
-        'v1': {
-            'politics_latest': au.AustralianPoliticsDataSource(client),
-            'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
-            'politics_video': au.AustralianPoliticsVideoDataSource(client)
-        }
-    }
-
-    priority_list = {
-        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)]
-    }
-
-    template_names = {'v1': 'australian-politics'}
-
-
 class CloseUp(EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
@@ -356,7 +335,7 @@ class Headline(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-us/(.+)', emails.us.DailyEmailUS),
                                ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
-                               ('/australian-politics/(.+)', AustralianPolitics),
+                               ('/australian-politics/(.+)', emails.au.AustralianPolitics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
