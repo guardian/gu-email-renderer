@@ -253,38 +253,6 @@ class CommentIsFree(EmailTemplate):
 
     template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
 
-class SleeveNotes(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3']
-
-    ad_tag = 'email-sleeve-notes'
-    ad_config = {
-        'leaderboard': 'Top',
-        'leaderboard2': 'Bottom',
-    }
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'music_most_viewed': MusicMostViewedDataSource(client),
-        'music_picks': MusicEditorsPicksDataSource(client),
-        'music_blog': MusicBlogDataSource(client),
-        'music_watch_listen': MusicWatchListenDataSource(client),
-        'music_further': MusicEditorsPicksDataSource(client),
-        }
-    data_sources['v2'] = data_sources['v1']
-    data_sources['v3'] = data_sources['v1']
-
-    priority_list = {}
-    priority_list['v1'] = [('music_most_viewed', 3), ('music_picks', 5), ('music_blog', 5),
-                           ('music_watch_listen', 5), ('music_further', 3)]
-
-    priority_list['v2'] = priority_list['v1']
-    priority_list['v3'] = priority_list['v1']
-
-    template_names = {'v1': 'sleeve-notes-v1',
-                      'v2': 'sleeve-notes-v2',
-                      'v3': 'sleeve-notes-v3'}
-
-
 class TheFlyer(EmailTemplate):
     recognized_versions = ['v1']
 
@@ -339,7 +307,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
-                               ('/sleeve-notes/(.+)', SleeveNotes),
+                               ('/sleeve-notes/(.+)', emails.culture.SleeveNotes),
                                ('/comment-is-free/(.+)', CommentIsFree),
                                ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
