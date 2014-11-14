@@ -151,13 +151,16 @@ class OphanDataSource(DataSource):
 
 class MostSharedDataSource(DataSource):
 
-    def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10):
+    def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10, result_decorator=None):
         DataSource.__init__(self, None)
 
         self.multi_content_data_source = multi_content_data_source
+        self.multi_content_data_source.fields.append('shortUrl')
+
         self.most_shared_fetcher = most_shared_fetcher
         self.shared_count_interpolator  = shared_count_interpolator
         self.n_items = n_items
+        self.result_decorator = result_decorator
 
 
     @perma_cache
@@ -169,11 +172,15 @@ class MostSharedDataSource(DataSource):
     def _do_call(self, **criteria):
 
         shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared()
-        #import pdb; pdb.set_trace()
+
         content_ids = [urlparse(url).path for(url, count) in shared_urls_with_counts]
         self.multi_content_data_source.content_ids = content_ids
         most_shared_comment = self.multi_content_data_source.fetch_data()
-        return self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+        results = self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+
+        if self.result_decorator:
+            results = self.result_decorator(results)
+        return results
 
     def __repr__(self):
         return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
