@@ -7,6 +7,7 @@ import data_sources.au as au
 import data_sources.technology as tech_data
 
 from ophan_calls import OphanClient, MostSharedFetcher
+from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 
 client = mr.client
 clientAUS = mr.clientAUS
@@ -78,7 +79,6 @@ class DailyEmailAUS(mr.EmailTemplate):
         'v3': 'au/daily/v3',
     })
 
-
 class Politics(mr.EmailTemplate):
     recognized_versions = ['v1']
 
@@ -94,7 +94,37 @@ class Politics(mr.EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)]
+        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)],
     }
 
     template_names = {'v1': 'australian-politics'}
+
+
+class CommentIsFree(mr.EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-speakers-corner'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    most_shared_data_source = ds.MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='au'),
+        multi_content_data_source=ds.MultiContentDataSource(client=mr.client, name='most_shared'),
+        shared_count_interpolator=ds.MostSharedCountInterpolator()
+    )
+
+    data_sources = {
+        'v1': {
+            'cif_most_shared': most_shared_data_source,
+            'cif_cartoon': ds.CommentIsFreeCartoonDataSource(client),
+        },
+    }
+
+    priority_list = {
+        'v1': [('cif_cartoon', 1), ('cif_most_shared', 5)],
+    }
+
+    template_names = {
+        'v1': 'au/comment-is-free/v1',
+    }

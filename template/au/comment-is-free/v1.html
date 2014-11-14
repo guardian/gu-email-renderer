@@ -3,8 +3,8 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set title = 'The best of Comment is free' %}
-{% set title_link = 'http://www.theguardian.com/uk/commentisfree' %}
+{% set title = 'Comment is free Australia' %}
+{% set title_link = 'http://www.theguardian.com/au/commentisfree' %}
 {% set title_colour = '#005689' %}
 {% set logo_background  = '#ff5d00' %}
 {% set facebook_page = 'GuardianComment' %}
@@ -15,24 +15,15 @@
 {{ layout.story_trail(
     heading_text='Today\'s most shared comment articles',
     stories=cif_most_shared,
-    heading_link='http://www.theguardian.com/uk/commentisfree',
+    heading_link='http://www.theguardian.com/au/commentisfree',
     heading_colour='#0061a6',
     thumbnail=True,
     standfirst=False) }}
-
-{{ layout.advert(ads.leaderboard) }}
-
-{{ layout.trail_image(
-    image=cif_cartoon,
-    heading_text='Daily cartoon',
-    heading_link='http://www.theguardian.com/theguardian/series/guardiancommentcartoon',
-    heading_colour='#0061a6',
-    image_only=True) }}
 
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}
 
-{% set sections = (('Football', 'http://www.theguardian.com/football'),
-                   ('Comment is free', 'http://www.theguardian.com/commentisfree'),
-                   ('Environment', 'http://www.theguardian.com/environment')) %}
+{% set sections = (
+   ('Comment is free', 'http://www.theguardian.com/au/commentisfree'),
+) %}
