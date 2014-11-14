@@ -79,7 +79,7 @@ class DailyEmailAUS(mr.EmailTemplate):
     })
 
 
-class AustralianPolitics(mr.EmailTemplate):
+class Politics(mr.EmailTemplate):
     recognized_versions = ['v1']
 
     ad_tag = 'email-australian-politics'

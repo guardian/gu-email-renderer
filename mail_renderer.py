@@ -335,7 +335,7 @@ class Headline(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-us/(.+)', emails.us.DailyEmailUS),
                                ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
-                               ('/australian-politics/(.+)', emails.au.AustralianPolitics),
+                               ('/australian-politics/(.+)', emails.au.Politics),
                                ('/close-up/(.+)', CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
