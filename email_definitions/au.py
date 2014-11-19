@@ -125,9 +125,8 @@ class CommentIsFree(mr.EmailTemplate):
 
         short_urls = [short_url(content) for content in content_data]
         comment_count_data = comment_counts(discussion_client, short_urls)
-        logging.info(comment_count_data)
 
-        logging.info([set_count(content, comment_count_data) for content in content_data])
+        [set_count(content, comment_count_data) for content in content_data]
         return content_data
 
     most_shared_data_source = ds.MostSharedDataSource(

@@ -51,7 +51,6 @@ class DiscussionFetcher(object):
 
 def comment_counts(client, urls):
     paths = [urlparse(url).path for url in urls]
-    logging.info(paths)
 
     counts_url = "{base_url}/getCommentCounts?short-urls={params}".format(
         base_url=client.base_url,
