@@ -1,3 +1,5 @@
+import logging
+
 import pysistence as immutable
 
 import mail_renderer as mr
@@ -7,11 +9,13 @@ import data_sources.au as au
 import data_sources.technology as tech_data
 
 from ophan_calls import OphanClient, MostSharedFetcher
+from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, comment_counts
 
 client = mr.client
 clientAUS = mr.clientAUS
 
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
+discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailAUS(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -78,7 +82,6 @@ class DailyEmailAUS(mr.EmailTemplate):
         'v3': 'au/daily/v3',
     })
 
-
 class Politics(mr.EmailTemplate):
     recognized_versions = ['v1']
 
@@ -94,7 +97,56 @@ class Politics(mr.EmailTemplate):
     }
 
     priority_list = {
-        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)]
+        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)],
     }
 
     template_names = {'v1': 'australian-politics'}
+
+
+class CommentIsFree(mr.EmailTemplate):
+    recognized_versions = ['v1']
+
+    ad_tag = 'email-speakers-corner'
+    ad_config = {
+        'leaderboard': 'Top'
+    }
+
+    def add_comment_counts(content_data):
+        def short_url(content):
+            return content.get('fields', {}).get('shortUrl', None)
+        def set_count(content, count_data):
+            surl =  short_url(content)
+
+            if not surl:
+                surl = ''
+                
+            content['comment_count'] = count_data.get(surl, 0)
+            return content
+
+        short_urls = [short_url(content) for content in content_data]
+        comment_count_data = comment_counts(discussion_client, short_urls)
+
+        [set_count(content, comment_count_data) for content in content_data]
+        return content_data
+
+    most_shared_data_source = ds.MostSharedDataSource(
+        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='au'),
+        multi_content_data_source=ds.MultiContentDataSource(client=mr.client, name='most_shared'),
+        shared_count_interpolator=ds.MostSharedCountInterpolator(),
+        result_decorator=add_comment_counts,
+    )
+
+    data_sources = {
+        'v1': {
+            'cif_most_shared': most_shared_data_source,
+        },
+    }
+
+    priority_list = {
+        'v1': [
+        ('cif_most_shared', 5),],
+    }
+
+    template_names = {
+        'v1': 'au/comment-is-free/v1',
+    }
