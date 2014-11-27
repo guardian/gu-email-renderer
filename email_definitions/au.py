@@ -37,8 +37,7 @@ class DailyEmailAUS(mr.EmailTemplate):
         'top_stories_code': ds.TopStoriesDataSource(clientAUS),
         'top_stories': ds.TopStoriesDataSource(clientAUS),
         'most_viewed': ds.MostViewedDataSource(clientAUS),
-        'sport': ds.SportDataSource(clientAUS),
-        'aus_sport': ds.AusSportDataSource(client),
+        'aus_sport': au.SportDataSource(client),
         'culture': cultureDataSource,
         'comment': au.AusCommentIsFreeDataSource(clientAUS),
         'lifeandstyle': ds.LifeAndStyleDataSource(clientAUS),
@@ -60,7 +59,6 @@ class DailyEmailAUS(mr.EmailTemplate):
     base_priorities = immutable.make_list(
         ('top_stories', 6),
         ('most_viewed', 6),
-        ('sport', 3),
         ('aus_sport', 3),
         ('culture',3),
         ('comment', 3),
@@ -77,8 +75,8 @@ class DailyEmailAUS(mr.EmailTemplate):
         })
 
     template_names = immutable.make_dict({
-        'v1': 'daily-email-aus',
-        'v2': 'daily-email-aus-v2',
+        'v1': 'au/daily/v1',
+        'v2': 'au/daily/v2',
         'v3': 'au/daily/v3',
     })
 

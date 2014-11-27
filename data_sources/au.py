@@ -2,8 +2,11 @@ from data_source import ItemDataSource, SearchDataSource
 
 class AusCultureBlogDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'culture/australia-culture-blog')
+        ItemDataSource.__init__(self, client, 'au/culture', show_editors_picks=True)
 
+class SportDataSource(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, 'au/sport', show_editors_picks=True)
 
 class AusFoodBlogDataSource(ItemDataSource):
     def __init__(self, client):

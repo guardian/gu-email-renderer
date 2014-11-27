@@ -26,13 +26,6 @@
     {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
-    heading_text='Sport',
-    stories=sport,
-    heading_link='http://www.theguardian.com/sport',
-    heading_colour='#20a111',
-    standfirst=False) }}
-
-    {{ layout.story_trail(
     heading_text='Australian Sport',
     stories=aus_sport,
     heading_link='http://www.theguardian.com/au/sport',
@@ -86,7 +79,7 @@
     {{ layout.story_trail(
     heading_text='Video',
     stories=video,
-    heading_link='http://www.theguardian.com/video',
+    heading_link='http://www.theguardian.com/australia-news+content/video?view=beta',
     heading_colour='#0061A6',
     standfirst=False) }}
 
@@ -96,11 +89,6 @@
     heading_colour='#2470a6',
     top_thumb=True,
     standfirst=False) }}
-
-    {{ layout.image(
-        image=eye_witness,
-        heading_text='Eyewitness picture of the day',
-        heading_link='http://www.theguardian.com/world/series/eyewitness') }}
 
 {% endblock content %}
 
