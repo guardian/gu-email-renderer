@@ -59,7 +59,7 @@ class DailyEmailAUS(mr.EmailTemplate):
     base_priorities = immutable.make_list(
         ('top_stories', 6),
         ('most_viewed', 6),
-        ('aus_sport', 3),
+        ('aus_sport', 5),
         ('culture',3),
         ('comment', 3),
         ('lifeandstyle', 3),
