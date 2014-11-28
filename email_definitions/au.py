@@ -7,6 +7,7 @@ import mail_renderer as mr
 import data_source as ds
 import data_sources.au as au
 import data_sources.technology as tech_data
+import data_sources as dss
 
 from ophan_calls import OphanClient, MostSharedFetcher
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, comment_counts
@@ -27,11 +28,6 @@ class DailyEmailAUS(mr.EmailTemplate):
     }
 
     cultureDataSource = ds.ItemPlusBlogDataSource(ds.CultureDataSource(clientAUS), au.AusCultureBlogDataSource(clientAUS))
-    most_shared_datasource = ds.MostSharedDataSource(
-                most_shared_fetcher=MostSharedFetcher(ophan_client, country='au'),
-                multi_content_data_source=ds.MultiContentDataSource(client=client, name='most_shared'),
-                shared_count_interpolator=ds.MostSharedCountInterpolator()
-            )
 
     base_data_sources = immutable.make_dict({
         'top_stories_code': ds.TopStoriesDataSource(clientAUS),
@@ -53,7 +49,7 @@ class DailyEmailAUS(mr.EmailTemplate):
             eye_witness=ds.EyeWitnessDataSource(clientAUS)),
         'v3' : base_data_sources.using(
             eye_witness=ds.EyeWitnessDataSource(clientAUS),
-            most_shared=most_shared_datasource),
+            most_shared=dss.social.most_shared(clientAUS, ophan_client, 'au')),
     }
 
     base_priorities = immutable.make_list(

@@ -26,7 +26,7 @@ class OphanClient(object):
 
 
 class MostSharedFetcher(object):
-    def __init__(self, client, section='', country=None):
+    def __init__(self, client, section=None, country=None):
         self.client = client
         self.section = section
         self.country = country
