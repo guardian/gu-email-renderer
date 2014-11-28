@@ -57,7 +57,10 @@ class MostSharedFetcher(object):
         if url[-1] == '/':
             url = url[:-1]
 
-        return url + "/api/viral?" + urllib.urlencode(self.build_params(age))
+        url =  url + "/api/viral?" + urllib.urlencode(self.build_params(age))
+        logging.debug(url)
+        return url
+
 
     def _extract_path(self, url):
         return urlparse(url).path
