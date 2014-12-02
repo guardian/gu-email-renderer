@@ -2,6 +2,8 @@ import mail_renderer as mr
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import MultiContentDataSource, MostSharedCountInterpolator, MostSharedDataSource
 
+import data_sources as dss
+
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
 class MostShared(mr.EmailTemplate):
@@ -45,11 +47,7 @@ class MostSharedAU(MostShared):
 
 	data_sources = {
 		'v1' :  {
-			'most_shared': MostSharedDataSource(
-				most_shared_fetcher=MostSharedFetcher(ophan_client, country='au'),
-				multi_content_data_source=MultiContentDataSource(client=mr.client, name='most_shared'),
-				shared_count_interpolator=MostSharedCountInterpolator()
-			),
+			'most_shared': dss.social.most_shared(mr.client, ophan_client, 'au'),
 		},
 	}
 
