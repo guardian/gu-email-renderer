@@ -15,9 +15,6 @@ from data_source import \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
     MediaBriefingDataSource, BusinessDataSource, TravelDataSource, LifeAndStyleDataSource, \
     TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
-    FashionEditorsPicksDataSource, FashionMostViewedDataSource, FashionAskHadleyDataSource, \
-    FashionSaliHughesDataSource, FashionBlogDataSource, FashionNetworkDataSource, \
-    FashionNewsDataSource, FashionStylewatchDataSource, FashionGalleryDataSource, FashionVideoDataSource, \
     FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
     FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
