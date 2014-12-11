@@ -26,6 +26,13 @@
     {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
+        heading_text='Sports',
+        stories=sport,
+        heading_link='http://www.theguardian.com/us/sport',
+        heading_colour='#20a111',
+        standfirst=False) }}
+
+    {{ layout.story_trail(
         heading_text='Opinion',
         stories=comment,
         heading_link='http://www.theguardian.com/us/commentisfree',
