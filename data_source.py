@@ -21,6 +21,8 @@ class DataSource(object):
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
+        self.section = None
+        self.production_office = None
 
 
     def fetch_data(self):
@@ -58,6 +60,11 @@ class DataSource(object):
             criteria['short_url'] = self.short_url
 
         criteria['user-tier']='internal'
+
+        for attr in ['production_office', 'section']:
+            attr_value = getattr(self,attr)
+            if attr_value:
+                criteria[attr] = attr_value
 
         return criteria
 
@@ -204,6 +211,7 @@ class ItemDataSource(DataSource):
         self.only_editors_picks = only_editors_picks
 
     def _do_call(self, **criteria):
+        criteria.pop('section', None)
         return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, self.only_editors_picks, **criteria)
 
 

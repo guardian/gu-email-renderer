@@ -30,3 +30,8 @@ class AusVideoDataSource(SearchDataSource):
         SearchDataSource.__init__(self, client)
         self.tags = ['type/video,australia-news/australia-news']
 
+class Environment(SearchDataSource):
+    def __init__(self, client):
+        SearchDataSource.__init__(self, client)
+        self.section = 'environment'
+        self.production_office = 'aus'
