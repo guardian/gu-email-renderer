@@ -10,7 +10,7 @@ from data_source import \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
-    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, ItemPlusBlogDataSource, \
+    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, ItemPlusBlogDataSource, \
     DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
 
 from urllib2 import urlparse
@@ -186,7 +186,9 @@ class TestDataSources(unittest.TestCase):
 
 
     def test_should_call_api_with_correct_url_for_life_and_technology(self):
-        self.check_data_source_url(TechnologyDataSource(url_capturing_client), '/technology',
+        tech_ds = ItemDataSource(url_capturing_client, 'technology', show_editors_picks=True)
+        tech_ds.name = 'technology' + url_capturing_client.edition
+        self.check_data_source_url(tech_ds, '/technology',
                                    show_fields=Fields,
                                    show_editors_picks='true',
                                    page_size='10',
