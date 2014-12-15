@@ -42,7 +42,7 @@ class ApiClient(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def item_query(self, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False, **kwargs):
+    def item_query(self, content_id='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False, **kwargs):
         if show_editors_picks:
             kwargs['show-editors-picks'] = 'true'
         if show_most_viewed:
@@ -50,7 +50,7 @@ class ApiClient(object):
         if self.edition:
             kwargs['edition'] = self.edition
 
-        json = self._do_call(section, **kwargs)
+        json = self._do_call(content_id, **kwargs)
 
         results = []
         if json['response'].has_key('results'):

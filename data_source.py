@@ -201,18 +201,17 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False):
+    def __init__(self, client, content_id='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False):
         DataSource.__init__(self, client)
         if show_editors_picks and show_most_viewed:
             raise DataSourceException('Cannot show most_viewed and editors_picks at the same time')
-        self.section = section
+        self.content_id = content_id
         self.show_editors_picks = show_editors_picks
         self.show_most_viewed = show_most_viewed
         self.only_editors_picks = only_editors_picks
 
     def _do_call(self, **criteria):
-        criteria.pop('section', None)
-        return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, self.only_editors_picks, **criteria)
+        return self.client.item_query(self.content_id, self.show_editors_picks, self.show_most_viewed, self.only_editors_picks, **criteria)
 
 
 class MultiContentDataSource(ItemDataSource):
@@ -328,24 +327,24 @@ class MediaDataSource(ItemDataSource):
 
 class MediaBlogDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/media-blog')
+        ItemDataSource.__init__(self, client, content_id='media/media-blog')
 
 
 class MediaMonkeyDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/mediamonkeyblog')
+        ItemDataSource.__init__(self, client, content_id='media/mediamonkeyblog')
         self.fields.append('body')
 
 
 class MediaCommentDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='media')
+        ItemDataSource.__init__(self, client, content_id='media')
         self.tags = ['tone/comment']
 
 
 class MediaBriefingDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/series/media-briefing')
+        ItemDataSource.__init__(self, client, content_id='media/series/media-briefing')
 
 
 class PicOfDayDataSource(SearchDataSource):
@@ -373,7 +372,7 @@ class MostViewedDataSource(ItemDataSource):
         self.show_most_viewed = True
         self.show_editors_picks = False
         self.only_editors_picks = False
-        self.section=''
+        self.content_id=''
         self.name = 'most_viewed' + client.edition
 
     def __repr__(self):
@@ -389,86 +388,86 @@ class VideoDataSource(ItemDataSource):
 
 class FilmEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='film', show_editors_picks=True)
 
 
 class FilmMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, content_id='film', show_most_viewed=True)
 
 
 class FilmBlogsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['(film/series/week-in-geek|film/series/reelhistory|film/series/at-the-british-box-office|film/series/bigger-picture|film/series/trailer-review)']
 
 
 class FilmInterviewsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['tone/interview']
 
 
 class FilmOfTheWeekDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['film/series/peter-bradshaw-film-of-the-week']
 
 
 class FilmQuizDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['type/quiz']
 
 
 class FilmShowDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['film/series/guardian-film-show']
 
 
 class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/india', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='world/india', show_editors_picks=True)
 
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, content_id='music', show_most_viewed=True)
 
 
 class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='music', show_editors_picks=True)
         self.tags = ['-tone/news']
 
 
 class MusicNewsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['tone/news']
 
 
 class MusicVideoDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['type/video']
 
 
 class MusicWatchListenDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['(type/video|type/audio)']
 
 
 class MusicAudioDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['type/audio']
 
 
 class MusicBlogDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music/musicblog')
+        ItemDataSource.__init__(self, client, content_id='music/musicblog')
 
 class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
@@ -487,7 +486,7 @@ class AusTopStoriesDataSource(TopStoriesDataSource):
 
 class FilmTodayLatestDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.page_size = 10
 
 

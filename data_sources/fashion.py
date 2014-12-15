@@ -2,44 +2,44 @@ from data_source import DataSource, ItemDataSource, SearchDataSource
 
 class FashionEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='fashion', show_editors_picks=True)
         self.page_size = 20
 
 
 class FashionMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, content_id='fashion', show_most_viewed=True)
 
 
 class FashionAskHadleyDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
+        ItemDataSource.__init__(self, client, content_id='fashion')
         self.tags = ['fashion/series/ask-hadley']
 
 
 class FashionSaliHughesDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
+        ItemDataSource.__init__(self, client, content_id='fashion')
         self.tags = ['fashion/series/sali-hughes-beauty']
 
 class JCMOnFashion(ItemDataSource):
 	def __init__(self, client):
-		ItemDataSource.__init__(self, client, section='fashion')
+		ItemDataSource.__init__(self, client, content_id='fashion')
 		self.tags = ['fashion/series/jess-cartner-morley-on-fashion']
 
 class FashionNewsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
+        ItemDataSource.__init__(self, client, content_id='fashion')
 
 
 class FashionBlogDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion/fashion-blog')
+        ItemDataSource.__init__(self, client, content_id='fashion/fashion-blog')
 
 
 class FashionNetworkDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='fashion/series/guardian-fashion-blogs-network')
+        ItemDataSource.__init__(self, client, content_id='fashion/series/guardian-fashion-blogs-network')
 
 
 class FashionStylewatchDataSource(SearchDataSource):
