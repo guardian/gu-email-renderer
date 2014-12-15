@@ -292,7 +292,7 @@ class TravelTopTenDataSource(ItemDataSource):
 
 class TravelTipsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'travel/series/been-there-readers-tips')
+        ItemDataSource.__init__(self, client, 'travel/series/readers-travel-tips')
 
 
 class TravelVideoDataSource(ItemDataSource):

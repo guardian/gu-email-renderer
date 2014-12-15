@@ -185,6 +185,15 @@ class TestDataSources(unittest.TestCase):
                                    page_size='10',
                                    user_tier='internal')
 
+    def test_should_call_api_with_correct_url_for_life_and_technology(self):
+        tech_ds = ItemDataSource(url_capturing_client, 'technology', show_editors_picks=True)
+        tech_ds.name = 'technology' + url_capturing_client.edition
+        self.check_data_source_url(tech_ds, '/technology',
+                                   show_fields=Fields,
+                                   show_editors_picks='true',
+                                   page_size='10',
+                                   user_tier='internal')
+
     def test_should_call_api_with_correct_url_for_music_most_viewed(self):
         self.check_data_source_url(MusicMostViewedDataSource(url_capturing_client), '/music',
                                    show_most_viewed='true',
