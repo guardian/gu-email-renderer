@@ -57,7 +57,7 @@ class DailyEmailUS(mr.EmailTemplate):
         ('technology', 2), ('most_shared_us', 6), ]
 
     template_names = {
-        'v1': 'daily-email-us',
-        'v3': 'daily-email-us-v3',
+        'v1': 'us/daily/v1',
+        'v3': 'us/daily/v3',
         'v6' : 'us/daily/v6',
     }
