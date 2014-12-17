@@ -18,11 +18,11 @@ class AusCommentIsFreeDataSource(ItemDataSource):
 
 class AustralianPoliticsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='australia-news/australian-politics')
+        ItemDataSource.__init__(self, client, content_id='australia-news/australian-politics')
 
 class AustralianPoliticsVideoDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='australia-news/australian-politics')
+        ItemDataSource.__init__(self, client, content_id='australia-news/australian-politics')
         self.tags = ['type/video']
 
 class AusVideoDataSource(SearchDataSource):
@@ -30,3 +30,8 @@ class AusVideoDataSource(SearchDataSource):
         SearchDataSource.__init__(self, client)
         self.tags = ['type/video,australia-news/australia-news']
 
+class Environment(SearchDataSource):
+    def __init__(self, client):
+        SearchDataSource.__init__(self, client)
+        self.section = 'environment'
+        self.production_office = 'aus'

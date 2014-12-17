@@ -38,7 +38,7 @@ class DailyEmailAUS(mr.EmailTemplate):
         'comment': au.AusCommentIsFreeDataSource(clientAUS),
         'lifeandstyle': ds.LifeAndStyleDataSource(clientAUS),
         'technology': tech_data.TechnologyDataSource(clientAUS),
-        'environment': ds.EnvironmentDataSource(clientAUS),
+        'environment': au.Environment(clientAUS),
         'science' : ds.ScienceDataSource(clientAUS),
         'video' :  au.AusVideoDataSource(clientAUS),       
         })

@@ -6,6 +6,6 @@ class SportUSDataSource(ItemDataSource):
 
 class USMoneyDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='us/money', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='us/money', show_editors_picks=True)
 
 

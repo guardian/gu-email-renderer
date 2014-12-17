@@ -129,8 +129,9 @@ class TestDataSources(unittest.TestCase):
                                    show_elements = 'image',
                                    show_most_viewed='true',
                                    user_tier='internal')
+    
     def test_content_data_source_should_call_api_with_correct_url(self):
-        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal")
+        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal", section='content_id')
 
 
     def test_should_call_api_with_correct_url_for_pic_of_the_day(self):
@@ -183,7 +184,6 @@ class TestDataSources(unittest.TestCase):
                                    show_editors_picks='true',
                                    page_size='10',
                                    user_tier='internal')
-
 
     def test_should_call_api_with_correct_url_for_life_and_technology(self):
         tech_ds = ItemDataSource(url_capturing_client, 'technology', show_editors_picks=True)
