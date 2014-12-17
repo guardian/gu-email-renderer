@@ -25,8 +25,9 @@
 
             {% if story.share_count and share_links %}
               {% set encodedStoryUrl = story.webUrl|urlencode %}
+              {% set encodedStoryHeadline = story.fields.headline|urlencode %}
               {% set facebookShareUrl = 'http://www.facebook.com/share.php?u=%s' % encodedStoryUrl %}
-              {% set twitterShareUrl = 'http://twitter.com?status=%s' % encodedStoryUrl %}
+              {% set twitterShareUrl = 'https://twitter.com/intent/tweet?text={headline}&url={url}'.format(headline=encodedStoryHeadline, url=encodedStoryUrl) %}
 
             <table style="padding-top: 8px; color: #555;" cellpadding="0" cellspacing="0" border="0">
               <tr>
