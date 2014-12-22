@@ -11,6 +11,8 @@
 {% set twitter_account  = 'guardianmusic' %}
 {% set footer_link = 'http://www.theguardian.com' %}
 
+{% block title %}{{title}}{% endblock %}
+
 {% block content %}
 
 
@@ -28,6 +30,14 @@
         heading_text='Latest reviews',
         stories=book_reviews,
         heading_link='http://www.theguardian.com/books+tone/reviews',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+
+{{ layout.story_trail(
+        heading_text='Talking Points',
+        stories=books_blog,
+        heading_link='http://www.theguardian.com/books/booksblog',
         heading_colour='#d1008b',
         top_thumb=True) }}
 

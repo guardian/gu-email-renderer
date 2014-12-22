@@ -8,3 +8,7 @@ class BookReviews(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='books')
         self.tags = ['tone/reviews']
+
+class BooksBlog(ItemDataSource):
+	def __init__(self, client):
+		ItemDataSource.__init__(self, client, content_id='books/booksblog')
