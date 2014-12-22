@@ -43,6 +43,13 @@
 
 {{ layout.advert(ads.leaderboard2) }}
 
+{{ layout.story_trail(
+        heading_text='Latest podcasts',
+        stories=book_podcasts,
+        heading_link='http://www.theguardian.com/books+type/audio',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
 {% endblock content %}
 
 {% block footer %}{% endblock footer %}

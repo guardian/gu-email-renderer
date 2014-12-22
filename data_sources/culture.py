@@ -12,3 +12,8 @@ class BookReviews(ItemDataSource):
 class BooksBlog(ItemDataSource):
 	def __init__(self, client):
 		ItemDataSource.__init__(self, client, content_id='books/booksblog')
+
+class BookPodcasts(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, content_id='books')
+        self.tags = ['type/audio']
