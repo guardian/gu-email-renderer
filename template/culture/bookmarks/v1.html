@@ -1,0 +1,42 @@
+{# Bookmarks email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Bookmarks' %}
+{% set title_link = 'http://www.theguardian.com/books' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page    = 'musicguardian' %}
+{% set twitter_account  = 'guardianmusic' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block content %}
+
+
+{{ layout.story_trail(
+        heading_text='Today\'s top stories',
+        stories=books_picks,
+        heading_link='http://www.theguardian.com/books',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+
+{{ layout.story_trail(
+        heading_text='Latest reviews',
+        stories=book_reviews,
+        heading_link='http://www.theguardian.com/books+tone/reviews',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard2) }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% set sections = (('News', 'http://www.theguardian.com/music/music+tone/news'),
+                   ('Album reviews', 'http://www.theguardian.com/music/music+tone/albumreview'),
+                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livereview')) %}
