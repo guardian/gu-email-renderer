@@ -96,7 +96,9 @@ class CloseUp(mr.EmailTemplate):
     priority_list['v2'] = priority_list['v1']
     priority_list['v3'] = priority_list['v1']
 
-    template_names = {'v1': 'close-up-v1',
-                      'v2': 'close-up-v2',
-                      'v3': 'close-up-v3'}
+    template_names = immutable.make_dict({
+        'v1': 'culture/close-up/v1',
+        'v2': 'culture/close-up/v2',
+        'v3': 'culture/close-up/v3'
+    })
 
