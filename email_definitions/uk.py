@@ -1,4 +1,4 @@
-from pysistence import make_dict
+import pysistence as immutable
 
 import data_source as ds
 import data_sources.technology as tech_data
@@ -17,7 +17,7 @@ class DailyEmail(mr.EmailTemplate):
 		'leaderboard_v2': 'Bottom'
 	}
 
-	base_data_sources = make_dict({
+	base_data_sources = immutable.make_dict({
 		'business': ds.BusinessDataSource(client),
 		'technology': tech_data.TechnologyDataSource(client),
 		'travel': ds.TravelDataSource(client),
@@ -69,12 +69,14 @@ class DailyEmail(mr.EmailTemplate):
 	priority_list['MPU_v1b'] = priority_list['v1']
 	priority_list['MPU_v2'] = priority_list['v1']
 
-	template_names = {'v1': 'daily-email-v1',
-					  'v2': 'daily-email-v2',
-					  'v3': 'daily-email-v3',
-					  'v4': 'daily-email-v4',
-					  'v5': 'daily-email-v5',
-					  'india': 'daily-email-india',
-					  'MPU_v1a': 'daily-email-v6',
-					  'MPU_v1b': 'daily-email-v7',
-					  'MPU_v2': 'daily-email-v8',}
+	template_names = immutable.make_dict({
+		'v1': 'uk/daily/v1',
+		'v2': 'uk/daily/v2',
+		'v3': 'uk/daily/v3',
+		'v4': 'uk/daily/v4',
+		'v5': 'uk/daily/v5',
+		'india': 'uk/daily/india',
+		'MPU_v1a': 'uk/daily/v6',
+		'MPU_v1b': 'uk/daily/v7',
+		'MPU_v2': 'uk/daily/v8',
+	})
