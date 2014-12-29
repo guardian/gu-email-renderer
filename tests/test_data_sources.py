@@ -131,7 +131,7 @@ class TestDataSources(unittest.TestCase):
                                    user_tier='internal')
     
     def test_content_data_source_should_call_api_with_correct_url(self):
-        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal", section='content_id')
+        self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal")
 
 
     def test_should_call_api_with_correct_url_for_pic_of_the_day(self):

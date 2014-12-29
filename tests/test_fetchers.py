@@ -1,6 +1,6 @@
 from urllib2 import urlparse
 import urllib
-import simplejson
+import json
 
 Status = """
         {'status': '200', 'content-length': '10614', 'x-content-api-build': '1998', 'proxy-connection': 'keep-alive',
@@ -203,10 +203,10 @@ class ContentIdRememberingStubClient(object):
     def content_query(self, content_id, **criteria):
         self.content_ids.append(content_id)
 
-        json =  simplejson.loads(ContentResponse)
+        json_data =  json.loads(ContentResponse)
         results = []
-        if json['response'].has_key('content'):
-            results = [json['response']['content']]
+        if json_data['response'].has_key('content'):
+            results = [json_data['response']['content']]
 
         return results
 
