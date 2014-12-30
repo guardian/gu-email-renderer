@@ -1,11 +1,10 @@
 import unittest
+import json
 
 from prefetch import perma_cache
 from google.appengine.ext import db
 from google.appengine.ext import testbed
 from prefetch import CachedData
-from django.utils import simplejson as json
-
 
 class MockDataSource(object):
     def __init__(self, id):

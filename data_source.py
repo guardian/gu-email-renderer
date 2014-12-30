@@ -235,11 +235,11 @@ class MultiContentDataSource(ItemDataSource):
 
 class ContentDataSource(ItemDataSource):
     def __init__(self, client, content_id):
-        ItemDataSource.__init__(self, client, section=content_id)
+        ItemDataSource.__init__(self, client, content_id=content_id)
         self.page_size = None
 
     def _do_call(self, **criteria):
-        return self.client.content_query(self.section, **criteria)
+        return self.client.content_query(self.content_id, **criteria)
 
 
 class CultureDataSource(ItemDataSource):

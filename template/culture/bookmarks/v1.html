@@ -25,6 +25,12 @@
 
 {{ layout.advert(ads.leaderboard) }}
 
+{{ layout.story_trail(
+        heading_text='Most viewed',
+        stories=books_most_viewed,
+        heading_link='http://www.theguardian.com/most-read/books',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
 
 {{ layout.story_trail(
         heading_text='Latest reviews',

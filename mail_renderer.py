@@ -64,6 +64,7 @@ class Index(webapp2.RequestHandler):
 
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
+    cache_bust = False
     default_ad_tag = 'email-guardian-today'
 
     def check_version_id(self, version_id):
@@ -80,7 +81,7 @@ class EmailTemplate(webapp2.RequestHandler):
         cache_key = version_id + str(self.__class__)
         page = self.cache.get(cache_key)
 
-        if not page:
+        if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
             retrieved_data = fetch_all(self.data_sources[version_id])
             trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
@@ -107,39 +108,6 @@ class EmailTemplate(webapp2.RequestHandler):
 # The result of script execution flow
 
 import email_definitions as emails
-
-class CloseUp(EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3']
-
-    ad_tag = 'email-close-up'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'film_week': FilmOfTheWeekDataSource(client),
-        'film_picks': FilmEditorsPicksDataSource(client),
-        'film_show': FilmShowDataSource(client),
-        'film_most_viewed': FilmMostViewedDataSource(client),
-        'film_interviews': FilmInterviewsDataSource(client),
-        'film_blogs': FilmBlogsDataSource(client),
-        'film_quiz': FilmQuizDataSource(client)
-        }
-    data_sources['v2'] = data_sources['v1']
-    data_sources['v3'] = data_sources['v1']
-
-    priority_list = {}
-    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3),
-                           ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
-
-    priority_list['v2'] = priority_list['v1']
-    priority_list['v3'] = priority_list['v1']
-
-    template_names = {'v1': 'close-up-v1',
-                      'v2': 'close-up-v2',
-                      'v3': 'close-up-v3'}
 
 class MediaBriefing(EmailTemplate):
     recognized_versions = ['v1']
@@ -302,7 +270,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
                                ('/australian-politics/(.+)', emails.au.Politics),
                                ('/australian-cif/(.+)', emails.au.CommentIsFree),
-                               ('/close-up/(.+)', CloseUp),
+                               ('/close-up/(.+)', emails.culture.CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
                                ('/media-briefing/(.+)', MediaBriefing),
                                ('/sleeve-notes/(.+)', emails.culture.SleeveNotes),

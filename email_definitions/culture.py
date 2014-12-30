@@ -65,9 +65,47 @@ class SleeveNotes(mr.EmailTemplate):
         'v3': 'sleeve-notes-v3',
         })
 
-class Bookmarks(mr.EmailTemplate):
-    recognized_versions = immutable.make_list('v1')
+class CloseUp(mr.EmailTemplate):
+    recognized_versions = ['v1', 'v2', 'v3']
 
+    ad_tag = 'email-close-up'
+    ad_config = {
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    }
+
+    base_data_sources = immutable.make_dict({
+        'film_week': ds.FilmOfTheWeekDataSource(client),
+        'film_picks': ds.FilmEditorsPicksDataSource(client),
+        'film_show': ds.FilmShowDataSource(client),
+        'film_most_viewed': ds.FilmMostViewedDataSource(client),
+        'film_interviews': ds.FilmInterviewsDataSource(client),
+        'film_blogs': ds.FilmBlogsDataSource(client),
+        'film_quiz': ds.FilmQuizDataSource(client)
+        })
+
+    data_sources = immutable.make_dict({
+        'v1': base_data_sources,
+        'v2': base_data_sources,
+        'v3': base_data_sources,
+    })
+
+    priority_list = {}
+    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3),
+                           ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
+
+    priority_list['v2'] = priority_list['v1']
+    priority_list['v3'] = priority_list['v1']
+
+    template_names = immutable.make_dict({
+        'v1': 'culture/close-up/v1',
+        'v2': 'culture/close-up/v2',
+        'v3': 'culture/close-up/v3'
+    })
+
+class Bookmarks(mr.EmailTemplate):
+    cache_bust=True
+    recognized_versions = immutable.make_list('v1')
     ad_tag = 'email-bookmarks'
     ad_config = immutable.make_dict({
         'leaderboard_v1': 'Top',
