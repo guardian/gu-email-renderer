@@ -32,11 +32,11 @@ class MockFetcher(Fetcher):
                 kwargs[key] = kwargs[key][0]
         
         method = getattr(self, 'do_%s' % endpoint)
-        json = method(*args, **kwargs)
+        json_data = method(*args, **kwargs)
         
-        self.record(url, kwargs, json)
+        self.record(url, kwargs, json_data)
         
-        return {}, simplejson.dumps(json, indent=4)
+        return {}, json.dumps(json, indent=4)
     
     def record(self, url, args, json):
         "Record attempted URL fetches so we can run assertions against them"

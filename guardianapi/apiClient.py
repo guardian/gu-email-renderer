@@ -1,9 +1,7 @@
 import logging
 import os
-try:
-    from django.utils import simplejson
-except:
-    import simplejson
+import json
+
 import urllib, urlparse
 import fetchers
 
@@ -27,7 +25,7 @@ class ApiClient(object):
 
         headers, response = self.fetcher.get(url)
         logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
-        return simplejson.loads(response)
+        return json.loads(response)
 
     def _fix_kwargs(self, kwargs):
         fixed_kwargs = {'format': 'json', 'api-key': self.api_key}

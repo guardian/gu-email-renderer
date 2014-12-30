@@ -1,8 +1,9 @@
 import random
 import logging
+import json
+
 from functools import wraps
 from google.appengine.ext import db
-from django.utils import simplejson as json
 
 class CachedData(db.Model):
     data = db.TextProperty()
