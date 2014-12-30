@@ -35,5 +35,5 @@ class ZipFile(mr.EmailTemplate):
         'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_commented', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
     }
 
-    template_names = {'v1': 'zip-file'}
+    template_names = {'v1': 'technology/zip-file'}
 
