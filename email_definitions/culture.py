@@ -60,9 +60,9 @@ class SleeveNotes(mr.EmailTemplate):
     priority_list['v3'] = priority_list['v1']
 
     template_names = immutable.make_dict({
-        'v1': 'sleeve-notes-v1',
-        'v2': 'sleeve-notes-v2',
-        'v3': 'sleeve-notes-v3',
+        'v1': 'culture/sleeve-notes/v1',
+        'v2': 'culture/sleeve-notes/v2',
+        'v3': 'culture/sleeve-notes/v3',
         })
 
 class CloseUp(mr.EmailTemplate):
