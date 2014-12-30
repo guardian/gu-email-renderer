@@ -28,8 +28,11 @@
 
 {% macro image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff') -%}
 {% set picture = [image[0].elements[0].assets[0]] %}
-{% for media_asset in image[0].elements[0].assets if '480' == media_asset.typeData.width or '460' == media_asset.typeData.width %}
-    {% if picture.append(media_asset) %}{% endif %}
+
+{% for element in image[0].elements if element.relation == 'thumbnail' %}
+{% for asset in element.assets if '620' == asset.typeData.width %}
+{% if picture.append(asset) %}{% endif %}
+{% endfor %}
 {% endfor %}
 
 {% if picture[1] %}
