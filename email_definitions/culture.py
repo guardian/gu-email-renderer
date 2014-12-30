@@ -119,6 +119,7 @@ class Bookmarks(mr.EmailTemplate):
         'books_blog': dss.culture.BooksBlog(client),
         'book_podcasts': dss.culture.BookPodcasts(client),
         'books_most_viewed': dss.culture.BooksMostViewed(client),
+        'how_to_draw': dss.culture.HowToDraw(client),
     })
 
     data_sources = immutable.make_dict({
@@ -131,7 +132,8 @@ class Bookmarks(mr.EmailTemplate):
             ('books_most_viewed', 3),
             ('book_reviews', 3),
             ('books_blog', 3),
-            ('book_podcasts', 1),)    
+            ('book_podcasts', 1),
+            ('how_to_draw', 1))    
     })
     template_names = immutable.make_dict({
         'v1': 'culture/bookmarks/v1',
