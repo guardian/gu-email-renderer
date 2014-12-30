@@ -5,9 +5,10 @@ import datetime
 import math
 import logging
 
-
-
 from google.appengine.api import memcache
+
+import pysistence as immutable
+
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
@@ -216,7 +217,10 @@ class CommentIsFree(EmailTemplate):
         'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
     }
 
-    template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
+    template_names = immutable.make_dict({
+        'v1': 'comment-is-free/v1',
+        'v2': 'comment-is-free/v2',
+    })
 
 class TheFlyer(EmailTemplate):
     recognized_versions = ['v1']
