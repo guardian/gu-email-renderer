@@ -129,7 +129,7 @@ class MediaBriefing(EmailTemplate):
     priority_list = {}
     priority_list['v1'] = [('media_stories', 10), ('media_monkey', 1), ('media_briefing', 1)]
 
-    template_names = {'v1': 'media-briefing'}
+    template_names = {'v1': 'media/media-briefing'}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
@@ -245,7 +245,7 @@ class TheFlyer(EmailTemplate):
                ('travel_top_ten', 5), ('travel_tips', 1)]
     }
 
-    template_names = {'v1': 'the-flyer'}
+    template_names = {'v1': 'travel/the-flyer'}
 
 
 class Headline(webapp2.RequestHandler):
