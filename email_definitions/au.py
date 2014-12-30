@@ -77,24 +77,27 @@ class DailyEmailAUS(mr.EmailTemplate):
     })
 
 class Politics(mr.EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = immutable.make_list('v1')
 
     ad_tag = 'email-australian-politics'
     ad_config = {}
 
-    data_sources = {
+    data_sources = immutable.make_dict({
         'v1': {
             'politics_latest': au.AustralianPoliticsDataSource(client),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
             'politics_video': au.AustralianPoliticsVideoDataSource(client)
         }
-    }
+    })
 
     priority_list = {
-        'v1': [('politics_comment', 1), ('politics_video', 1), ('politics_latest', 4)],
+        'v1': [
+            ('politics_comment', 1),
+            ('politics_video', 1),
+            ('politics_latest', 4)],
     }
 
-    template_names = {'v1': 'australian-politics'}
+    template_names = immutable.make_dict({'v1': 'au/politics'})
 
 
 class CommentIsFree(mr.EmailTemplate):
