@@ -106,7 +106,7 @@ class CloseUp(mr.EmailTemplate):
 class Bookmarks(mr.EmailTemplate):
 
     recognized_versions = immutable.make_list('v1')
-    
+
     ad_tag = 'email-bookmarks'
     ad_config = immutable.make_dict({
         'leaderboard_v1': 'Top',
