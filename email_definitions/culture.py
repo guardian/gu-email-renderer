@@ -3,6 +3,7 @@ import pysistence as immutable
 import mail_renderer as mr
 
 import data_source as ds
+import data_sources as dss
 
 from guardianapi.apiClient import ApiClient
 
@@ -102,3 +103,36 @@ class CloseUp(mr.EmailTemplate):
         'v3': 'culture/close-up/v3'
     })
 
+class Bookmarks(mr.EmailTemplate):
+
+    recognized_versions = immutable.make_list('v1')
+
+    ad_tag = 'email-bookmarks'
+    ad_config = immutable.make_dict({
+        'leaderboard_v1': 'Top',
+        'leaderboard_v2': 'Bottom'
+    })
+
+    base_data_sources = immutable.make_dict({
+        'books_picks': dss.culture.BooksEditorsPicks(client),
+        'book_reviews': dss.culture.BookReviews(client),
+        'books_blog': dss.culture.BooksBlog(client),
+        'book_podcasts': dss.culture.BookPodcasts(client),
+        'books_most_viewed': dss.culture.BooksMostViewed(client),
+    })
+
+    data_sources = immutable.make_dict({
+        'v1' : base_data_sources,
+    })
+ 
+    priority_list = immutable.make_dict({
+        'v1': immutable.make_list(
+            ('books_picks', 5),
+            ('books_most_viewed', 3),
+            ('book_reviews', 3),
+            ('books_blog', 3),
+            ('book_podcasts', 1),)    
+    })
+    template_names = immutable.make_dict({
+        'v1': 'culture/bookmarks/v1',
+    })
