@@ -64,6 +64,7 @@ class Index(webapp2.RequestHandler):
 
 class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
+    cache_bust = False
     default_ad_tag = 'email-guardian-today'
 
     def check_version_id(self, version_id):
@@ -80,7 +81,7 @@ class EmailTemplate(webapp2.RequestHandler):
         cache_key = version_id + str(self.__class__)
         page = self.cache.get(cache_key)
 
-        if not page:
+        if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
             retrieved_data = fetch_all(self.data_sources[version_id])
             trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
