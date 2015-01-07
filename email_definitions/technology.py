@@ -1,8 +1,11 @@
+import pysistence as immutable
+
 import mail_renderer as mr
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from data_source import MostCommentedDataSource, \
 	MostSharedDataSource, MostSharedCountInterpolator, MultiContentDataSource, CommentCountInterpolator
-from data_sources import technology as tech_ds
+
+import data_sources as dss
 
 class ZipFile(mr.EmailTemplate):
     recognized_versions = ['v1']
@@ -20,19 +23,22 @@ class ZipFile(mr.EmailTemplate):
         comment_count_interpolator = CommentCountInterpolator()
     )
 
-    data_sources = {
+    data_sources = immutable.make_dict({
         'v1': {
-            'tech_news': tech_ds.TechnologyDataSource(mr.client),
+            'tech_news': dss.technology.TechnologyDataSource(mr.client),
             'tech_most_commented': tech_most_commented,
-            'tech_games': tech_ds.TechnologyGamesDataSource(mr.client),
-            'tech_blog': tech_ds.TechnologyBlogDataSource(mr.client),
-            'tech_podcast': tech_ds.TechnologyPodcastDataSource(mr.client),
-            'tech_video': tech_ds.TechnologyVideoDataSource(mr.client)
+            'tech_games': dss.technology.TechnologyGamesDataSource(mr.client),
+            'tech_podcast': dss.technology.TechnologyPodcastDataSource(mr.client),
+            'tech_video': dss.technology.TechnologyVideoDataSource(mr.client)
         }
-    }
+    })
 
     priority_list = {
-        'v1': [('tech_video', 1), ('tech_news', 5), ('tech_most_commented', 3), ('tech_games', 3), ('tech_blog', 5), ('tech_podcast', 1)]
+        'v1': [('tech_video', 1),
+            ('tech_news', 5),
+            ('tech_most_commented', 3),
+            ('tech_games', 3),
+            ('tech_podcast', 1)]
     }
 
     template_names = {'v1': 'technology/zip-file'}
