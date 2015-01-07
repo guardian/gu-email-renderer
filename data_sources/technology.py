@@ -13,24 +13,15 @@ class TechnologyMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='technology', show_most_viewed=True)
 
-
-class TechnologyBlogDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='technology')
-        self.tags = ['(technology/blog|technology/appsblog)']
-
-
 class TechnologyGamesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='technology/games')
         self.tags = ['-technology/series/chatterbox,-type/video']
 
-
 class TechnologyPodcastDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='technology')
         self.tags = ['type/podcast']
-
 
 class TechnologyVideoDataSource(SearchDataSource):
     def __init__(self, client):
