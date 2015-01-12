@@ -17,6 +17,7 @@ ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
 class DailyEmailUS(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7')
+    cache_bust=True
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -55,19 +56,18 @@ class DailyEmailUS(mr.EmailTemplate):
     base_priorities = immutable.make_list(('top_stories', 6),
         ('video', 3), ('sport', 3), ('comment', 3),
         ('culture', 3), ('business', 2), ('money', 2),
-        ('technology', 2), ('most_shared_us', 6), )
+        ('technology', 2), )
 
     priority_list = immutable.make_dict({
-        'v1': [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)],
-        'v3': [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)],
-        'v6': [('top_stories', 6), ('video', 3), ('sport', 3),
-            ('comment', 3), ('culture', 3), ('business', 2), ('money', 2),
-            ('technology', 2), ('most_shared_us', 6), ],
-        'v7': [('top_stories', 6), ('video', 3), ('sport', 3),
-            ('comment', 3), ('culture', 3), ('business', 3), ('money', 3),
-            ('technology', 2), ('most_shared_us', 6), ],
+        'v1': base_priorities,
+        'v3': base_priorities,
+        'v6': base_priorities.cons(('most_shared_us', 6),),
+        'v7': base_priorities.without(
+                ('business', 2),
+                ('money', 2),)
+            .cons(('most_shared_us', 6))
+            .cons(('business', 3))
+            .cons(('money', 3)),
     })
 
     template_names = immutable.make_dict({
