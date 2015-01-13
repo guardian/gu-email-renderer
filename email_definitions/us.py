@@ -17,7 +17,6 @@ ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
 class DailyEmailUS(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7')
-    cache_bust=True
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
