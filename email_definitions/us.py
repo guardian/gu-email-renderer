@@ -1,4 +1,4 @@
-from pysistence import make_dict
+import pysistence as immutable
 
 import mail_renderer as mr
 
@@ -16,7 +16,8 @@ clientUS = mr.clientUS
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
 class DailyEmailUS(mr.EmailTemplate):
-    recognized_versions = ['v1', 'v3', 'v6', ]
+    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7')
+    cache_bust=True
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -24,7 +25,7 @@ class DailyEmailUS(mr.EmailTemplate):
         'leaderboard_v2': 'Bottom'
     }
 
-    base_data_sources = make_dict({
+    base_data_sources = immutable.make_dict({
         'business': BusinessDataSource(clientUS),
         'money': data.USMoneyDataSource(clientUS),
         'technology': tech_data.TechnologyDataSource(clientUS),
@@ -35,29 +36,43 @@ class DailyEmailUS(mr.EmailTemplate):
         'video': VideoDataSource(clientUS),
     })
 
-    data_sources = {
-        'v1' : base_data_sources,
-        'v3' : base_data_sources,
-        'v6' : base_data_sources.using(
-            most_shared_us = MostSharedDataSource(
+    most_shared_us = MostSharedDataSource(
                 most_shared_fetcher=MostSharedFetcher(ophan_client, country='us'),
                 multi_content_data_source=MultiContentDataSource(client=clientUS, name='most_shared_us'),
                 shared_count_interpolator=MostSharedCountInterpolator()
             )
+
+    data_sources = immutable.make_dict({
+        'v1': base_data_sources,
+        'v3': base_data_sources,
+        'v6': base_data_sources.using(
+            most_shared_us = most_shared_us
         ),
-    }
+        'v7': base_data_sources.using(
+            most_shared_us = most_shared_us
+        ),
+    })
 
-    priority_list = {}
-    priority_list['v1'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['v3'] = [('top_stories', 6), ('video', 3), ('sport', 3), ('comment', 3),
-                           ('culture', 3), ('business', 2), ('money', 2), ('technology', 2)]
-    priority_list['v6'] = [('top_stories', 6), ('video', 3), ('sport', 3),
-        ('comment', 3), ('culture', 3), ('business', 2), ('money', 2),
-        ('technology', 2), ('most_shared_us', 6), ]
+    base_priorities = immutable.make_list(('top_stories', 6),
+        ('video', 3), ('sport', 3), ('comment', 3),
+        ('culture', 3), ('business', 2), ('money', 2),
+        ('technology', 2), )
 
-    template_names = {
+    priority_list = immutable.make_dict({
+        'v1': base_priorities,
+        'v3': base_priorities,
+        'v6': base_priorities.cons(('most_shared_us', 6),),
+        'v7': base_priorities.without(
+                ('business', 2),
+                ('money', 2),)
+            .cons(('most_shared_us', 6))
+            .cons(('business', 3))
+            .cons(('money', 3)),
+    })
+
+    template_names = immutable.make_dict({
         'v1': 'us/daily/v1',
         'v3': 'us/daily/v3',
-        'v6' : 'us/daily/v6',
-    }
+        'v6': 'us/daily/v6',
+        'v7': 'us/daily/v7',
+    })
