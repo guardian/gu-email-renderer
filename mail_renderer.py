@@ -29,6 +29,7 @@ import data_sources.technology as tech_data
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
+import template_filters
 from ads import AdFetcher
 
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
@@ -43,6 +44,7 @@ jinja_environment = jinja2.Environment(
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
 jinja_environment.filters['urlencode'] = urlencode
+jinja_environment.filters['largest_trail_image'] = template_filters.largest_trail_image
 jinja_environment.cache = None
 
 # TODO: Hide me away somewhere warm and secret.
