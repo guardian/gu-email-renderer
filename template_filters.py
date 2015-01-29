@@ -13,6 +13,6 @@ def first_paragraph(text):
         return text
 
 def urlencode(url):
-    return  urllib.quote_plus(url)
+    return  urllib.quote_plus(url.encode('utf8'))
 
                                                                     

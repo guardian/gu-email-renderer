@@ -27,7 +27,9 @@ class FilmToday(mr.EmailTemplate):
         'v1': [('film_today_latest', 10)]
     }
 
-    template_names = {'v1': 'film-today-v1'}
+    template_names = immutable.make_dict({
+        'v1': 'culture/film-today/v1',
+    })
 
 class SleeveNotes(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
@@ -60,9 +62,9 @@ class SleeveNotes(mr.EmailTemplate):
     priority_list['v3'] = priority_list['v1']
 
     template_names = immutable.make_dict({
-        'v1': 'sleeve-notes-v1',
-        'v2': 'sleeve-notes-v2',
-        'v3': 'sleeve-notes-v3',
+        'v1': 'culture/sleeve-notes/v1',
+        'v2': 'culture/sleeve-notes/v2',
+        'v3': 'culture/sleeve-notes/v3',
         })
 
 class CloseUp(mr.EmailTemplate):

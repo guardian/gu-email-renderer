@@ -5,9 +5,10 @@ import datetime
 import math
 import logging
 
-
-
 from google.appengine.api import memcache
+
+import pysistence as immutable
+
 from guardianapi.apiClient import ApiClient
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
@@ -128,7 +129,7 @@ class MediaBriefing(EmailTemplate):
     priority_list = {}
     priority_list['v1'] = [('media_stories', 10), ('media_monkey', 1), ('media_briefing', 1)]
 
-    template_names = {'v1': 'media-briefing'}
+    template_names = {'v1': 'media/media-briefing'}
 
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
@@ -216,7 +217,10 @@ class CommentIsFree(EmailTemplate):
         'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
     }
 
-    template_names = {'v1': 'comment-is-free-v1', 'v2': 'comment-is-free-v2'}
+    template_names = immutable.make_dict({
+        'v1': 'comment-is-free/v1',
+        'v2': 'comment-is-free/v2',
+    })
 
 class TheFlyer(EmailTemplate):
     recognized_versions = ['v1']
@@ -241,7 +245,7 @@ class TheFlyer(EmailTemplate):
                ('travel_top_ten', 5), ('travel_tips', 1)]
     }
 
-    template_names = {'v1': 'the-flyer'}
+    template_names = {'v1': 'travel/the-flyer'}
 
 
 class Headline(webapp2.RequestHandler):
