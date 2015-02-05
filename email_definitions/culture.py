@@ -106,7 +106,7 @@ class CloseUp(mr.EmailTemplate):
     })
 
 class Bookmarks(mr.EmailTemplate):
-    cache_bust=True
+
     recognized_versions = immutable.make_list('v1')
 
     ad_tag = 'email-bookmarks'
