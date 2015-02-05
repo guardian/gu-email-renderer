@@ -24,6 +24,7 @@ class AdFetcher(object):
             # in which case the advert will be a single-pixel transparent gif,
             # let's just not bother with it
             if 'empty.gif' in content:
+                logging.info("OAS returned an empty gif")
                 return None
             else:
                 return content

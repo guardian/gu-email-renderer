@@ -111,8 +111,8 @@ class Bookmarks(mr.EmailTemplate):
 
     ad_tag = 'email-bookmarks'
     ad_config = immutable.make_dict({
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
+        'leaderboard': 'Top',
+        'leaderboard2': 'Bottom'
     })
 
     base_data_sources = immutable.make_dict({
