@@ -272,7 +272,7 @@ class CommentIsFreeCartoonDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
         self.content_type = 'cartoon'
-        self.tags = ['theguardian/series/guardiancommentcartoon']
+        self.tags = ['commentisfree/series/guardian-comment-cartoon']
         self.show_elements = 'image'
 
 class TravelDataSource(ItemDataSource):
