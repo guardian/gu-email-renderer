@@ -88,16 +88,9 @@
 
 {% macro trail_image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', image_only=False) -%}
 {% set story = image[0] %}
-{% set picture = [image[0].elements[0].assets[0]] %}
-{% for media_element in image[0].elements if 'main' == media_element.relation %}
-    {% if picture.append(media_element.assets[0]) %}{% endif %}
-{% endfor %}
 
-{% if picture[1] %}
-    {% set picture = picture[1] %}
-{% else %}
-    {% set picture = picture[0] %}
-{% endif %}
+{% set picture = image[0]|largest_trail_image %}
+
 
 <tr><td>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8">
