@@ -16,7 +16,15 @@ class AdFetcher(object):
         Fetches the raw ad html from OAS
         """
         ad_url = self.root_url + "@" + ad_type
-        response = urlfetch.fetch(ad_url)
+
+        response = None
+        try:
+            response = urlfetch.fetch(ad_url)
+        except Exception as e:
+            logging.error("OAS call failed, returning no ads")
+            logging.error(e)
+            return None
+
         if response.status_code == 200:
             content = re.sub(r'width="\d{1,}" height="\d{1,}"', 'width="100%"', response.content)
 
