@@ -7,9 +7,9 @@ from google.appengine.api import memcache
 def best_fetcher():
     return Fetcher()
 
-def read_url(url, retries=1):
+def read_url(url, retries=1, timeout=5):
     try:
-        return urllib2.urlopen(url, timeout=5)
+        return urllib2.urlopen(url, timeout=timeout)
     except urllib2.URLError as e:
         if hasattr(e, 'reason'):
             logging.error('Could not reach server while accessing %s. Reason: %s' % (url, e.reason))
