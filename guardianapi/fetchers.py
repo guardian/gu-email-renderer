@@ -16,9 +16,11 @@ def read_url(url, retries=1, timeout=5):
         elif hasattr(e, 'code'):
             logging.error('Server could not fulfill request at %s. Error: %s' % (url, e.code))
         raise e
-    except httplib.HTTPException:
+    except httplib.HTTPException as he:
         logging.warning("HTTP Exception thrown, retries {0} remaining".format(retries))
-        return read_url(url, retries=retries-1)
+        if retries:
+            return read_url(url, retries=retries-1)
+        raise he
 
 class Fetcher(object):
     def get(self, url):
