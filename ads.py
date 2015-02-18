@@ -20,9 +20,9 @@ class AdFetcher(object):
         response = None
         try:
             response = urlfetch.fetch(ad_url)
-        except Exception as e:
-            logging.error("OAS call failed, returning no ads")
-            logging.error(e)
+        except urlfetch.DeadlineExceededError as de:
+            logging.error("OAS call failed, returning no ad slots")
+            logging.error(de)
             return None
 
         if response.status_code == 200:
