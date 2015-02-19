@@ -13,6 +13,7 @@ class DiscussionClient(object):
 
     def do_get(self, url):
         try:
+            logging.info("Discussion URL: " + url)
             u = urllib2.urlopen(url)
         except urllib2.URLError as e:
             if hasattr(e, 'reason'):
