@@ -5,7 +5,6 @@ import pysistence as immutable
 
 class MediaBriefing(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
-    cache_bust=True
 
     ad_tag = 'email-media-briefing'
     ad_config = immutable.make_dict({
