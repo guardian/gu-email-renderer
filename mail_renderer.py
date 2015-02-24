@@ -112,27 +112,6 @@ class EmailTemplate(webapp2.RequestHandler):
 
 import email_definitions as emails
 
-class MediaBriefing(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-media-briefing'
-    ad_config = {
-        'leaderboard_v1': 'Top',
-        'leaderboard_v2': 'Bottom'
-    }
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'media_stories': MediaDataSource(client),
-        'media_monkey': MediaMonkeyDataSource(client),
-        'media_briefing': MediaBriefingDataSource(client)
-        }
-
-    priority_list = {}
-    priority_list['v1'] = [('media_stories', 10), ('media_monkey', 1), ('media_briefing', 1)]
-
-    template_names = {'v1': 'media/media-briefing'}
-
 class MostViewed(EmailTemplate):
     recognized_versions = ['v1']
 
@@ -278,7 +257,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/australian-cif/(.+)', emails.au.CommentIsFree),
                                ('/close-up/(.+)', emails.culture.CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),
-                               ('/media-briefing/(.+)', MediaBriefing),
+                               ('/media-briefing/(.+)', emails.media.MediaBriefing),
                                ('/sleeve-notes/(.+)', emails.culture.SleeveNotes),
                                ('/bookmarks/(.+)', emails.culture.Bookmarks),
                                ('/comment-is-free/(.+)', CommentIsFree),

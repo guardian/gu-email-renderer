@@ -12,6 +12,8 @@
 {% set footer_link = 'http://www.theguardian.com' %}
 {% set footer_colour = 'light' %}
 
+{% block title %}{{title}}{% endblock %}
+
 {% block content %}
 
 {{ layout.story_trail(
@@ -35,7 +37,7 @@
 	heading_link	= 'http://www.theguardian.com/media/mediamonkeyblog',
 	more_text		= 'Media Monkey',
 	heading_colour	= '#c22d05',
-	first_para		= True) }}
+	first_para		= False) }}
 
 {{ layout.advert(ads.leaderboard_v2) }}
 
