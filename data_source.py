@@ -40,7 +40,10 @@ class DataSource(object):
         if self.content_type:
             self.tags.append('type/%s' % self.content_type)
 
-        self.tags += DEFAULT_TAGS
+        for default_tag in DEFAULT_TAGS:
+            if default_tag not in self.tags:
+                self.tags.append(default_tag)
+        
         criteria['tag'] = ','.join(self.tags)
 
         if self.show_most_viewed:
