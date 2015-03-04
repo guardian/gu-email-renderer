@@ -44,7 +44,7 @@ class DataSource(object):
             if default_tag not in self.tags:
                 self.tags.append(default_tag)
         
-        criteria['tag'] = ','.join(self.tags)
+        criteria['tag'] = ','.join(set(self.tags))
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
