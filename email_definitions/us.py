@@ -26,7 +26,6 @@ class DailyEmailUS(mr.EmailTemplate):
 
     base_data_sources = immutable.make_dict({
         'business': BusinessDataSource(clientUS),
-        'money': data.USMoneyDataSource(clientUS),
         'technology': tech_data.TechnologyDataSource(clientUS),
         'sport': data.SportUSDataSource(clientUS),
         'comment': CommentIsFreeDataSource(clientUS),
@@ -54,19 +53,16 @@ class DailyEmailUS(mr.EmailTemplate):
 
     base_priorities = immutable.make_list(('top_stories', 6),
         ('video', 3), ('sport', 3), ('comment', 3),
-        ('culture', 3), ('business', 2), ('money', 2),
-        ('technology', 2), )
+        ('culture', 3), ('business', 2), ('technology', 2),
+        )
 
     priority_list = immutable.make_dict({
         'v1': base_priorities,
         'v3': base_priorities,
         'v6': base_priorities.cons(('most_shared_us', 6),),
-        'v7': base_priorities.without(
-                ('business', 2),
-                ('money', 2),)
+        'v7': base_priorities.without(('business', 2))
             .cons(('most_shared_us', 6))
-            .cons(('business', 3))
-            .cons(('money', 3)),
+            .cons(('business', 3)),
     })
 
     template_names = immutable.make_dict({
