@@ -56,12 +56,7 @@
     heading_colour='#ffb93e',
     top_thumb=True) }}
 
-{{ layout.image(
-    image=fashion_gallery,
-    heading_text='Galleries',
-    heading_link='http://www.theguardian.com/fashion/fashion+type/gallery',
-    heading_text_colour='#ab1700',
-    heading_colour='#ffb93e') }}
+{% include 'fashion/common/galleries.html' %}
 
 {{ layout.advert(ads.leaderboard_v2) }}
 

@@ -9,7 +9,7 @@ client = mr.client
 
 class FashionStatement(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
-
+    
     ad_tag = 'email-fashion-statement'
     ad_config = {
         'leaderboard_v1': 'Top',
