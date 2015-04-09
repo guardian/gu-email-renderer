@@ -133,19 +133,28 @@ class CommentIsFree(mr.EmailTemplate):
 
 class Morning(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
+    cache_bust=True
 
     ad_tag = 'email-australia-morning'
     ad_config = {}
 
     data_sources = immutable.make_dict({
         'v1': {
+            'top_stories': ds.TopStoriesDataSource(clientAUS),
+            'most_viewed': ds.MostViewedDataSource(clientAUS),
+            'world_news': dss.news.WorldNews(clientAUS),
+            'australian_news': dss.au.News(clientAUS),
         }
     })
 
-    priority_list = {
+    priority_list = immutable.make_dict({
         'v1': [
+            ('top_stories', 5),
+            ('australian_news', 5),
+            ('world_news', 5),
+            ('most_viewed', 5),
             ],
-    }
+    })
 
     template_names = immutable.make_dict({'v1': 'au/morning/v1'})
 

@@ -72,7 +72,7 @@ width: 100% !important;
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
 									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 1</span>
+									Headlines</span>
 									</td>
 								</tr>
 							</tbody>
@@ -87,17 +87,18 @@ width: 100% !important;
 							<tbody>
 								<tr>
 									<td style="padding: 10px 20px 20px;"><font size="3" face="Georgia">
+									
+
+									{% for story in top_stories %}
+									{% if loop.first %}
 									<p style="text-align: center;">
-									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt="Tony-Blair-011" title="Tony-Blair-011" src="http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/7/2/1404306001161/Tony-Blair-011.jpg" />&nbsp;
-									</p>
-									The Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.<br />
-									<br />
-									There have been unconfirmed reports that those on the boat, which was reportedly stranded near Christmas Island at the weekend, have been handed over to the Sri Lankan navy.<br />
-									&nbsp;<br />
-									Meanwhile, the ousted Papua New Guinea assistant police commissioner has claimed that the main suspect in Reza Barati's death, a former Salvation Army worker, has fled to the PNG mainland.&nbsp;<br />
-									&nbsp;<br />
-									And an asylum seeker who lost an eye in the violence in which Barati was killed is suing the government and security firm G4S, claiming they failed in their duty of care.
-									</font></td>
+									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt=""src="{{story.fields.thumbnail}}" /></p>
+									{% endif %}
+
+									<p>{{story.fields.trailText}}<p>
+									{% endfor %}
+
+									</font>									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -110,7 +111,7 @@ width: 100% !important;
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
 									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 2</span>
+									Australian news and politics</span>
 									</td>
 								</tr>
 							</tbody>
@@ -129,13 +130,10 @@ width: 100% !important;
 											<tr>
 												<td valign="top" align="left">
 												<div>
-												<span style="color: #005689; font-style: normal; font-variant: normal; font-weight: normal; line-height: 19px; text-decoration: none; display: block; padding-bottom: 4px; font-family: Georgia,serif; font-size: 15px;" class="story-title"><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">The Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">There have been unconfirmed reports that those on the boat, which was reportedly stranded near Christmas Island at the weekend, have been handed over to the Sri Lankan navy.</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">Meanwhile, the ousted Papua New Guinea assistant police commissioner has claimed that the main suspect in Reza Barati's death, a former Salvation Army worker, has fled to the PNG mainland.&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">And an asylum seeker who lost an eye in the violence in which Barati was killed is suing the government and security firm G4S, claiming they failed in their duty of care.</span></span>
+
+												{% for story in australian_news %}
+													<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
+												{% endfor %}
 												</div>
 												</td>
 											</tr>
@@ -154,7 +152,7 @@ width: 100% !important;
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
 									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 3</span>
+									Around the world</span>
 									</td>
 								</tr>
 							</tbody>
@@ -173,13 +171,9 @@ width: 100% !important;
 											<tr>
 												<td valign="top" align="left">
 												<div>
-												<span style="color: #005689; font-style: normal; font-variant: normal; font-weight: normal; line-height: 19px; text-decoration: none; display: block; padding-bottom: 4px; font-family: Georgia,serif; font-size: 15px;" class="story-title"><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">The Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">There have been unconfirmed reports that those on the boat, which was reportedly stranded near Christmas Island at the weekend, have been handed over to the Sri Lankan navy.</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">Meanwhile, the ousted Papua New Guinea assistant police commissioner has claimed that the main suspect in Reza Barati's death, a former Salvation Army worker, has fled to the PNG mainland.&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">And an asylum seeker who lost an eye in the violence in which Barati was killed is suing the government and security firm G4S, claiming they failed in their duty of care.</span></span>
+												{% for story in world_news %}
+													<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
+												{% endfor %}
 												</div>
 												</td>
 											</tr>
@@ -197,8 +191,7 @@ width: 100% !important;
 							<tbody>
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 4</span>
+									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">Most popular</span>
 									</td>
 								</tr>
 							</tbody>
@@ -211,13 +204,12 @@ width: 100% !important;
 						<table width="100%" cellspacing="0" cellpadding="0" border="0">
 							<tbody>
 								<tr>
-									<td style="padding: 10px 20px 20px;"><span style="font-family: Georgia; font-size: medium;">The Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.</span><br style="font-family: Georgia; font-size: medium;" />
-									<br style="font-family: Georgia; font-size: medium;" />
-									<span style="font-family: Georgia; font-size: medium;">There have been unconfirmed reports that those on the boat, which was reportedly stranded near Christmas Island at the weekend, have been handed over to the Sri Lankan navy.</span><br style="font-family: Georgia; font-size: medium;" />
-									<span style="font-family: Georgia; font-size: medium;">&nbsp;</span><br style="font-family: Georgia; font-size: medium;" />
-									<span style="font-family: Georgia; font-size: medium;">Meanwhile, the ousted Papua New Guinea assistant police commissioner has claimed that the main suspect in Reza Barati's death, a former Salvation Army worker, has fled to the PNG mainland.&nbsp;</span><br style="font-family: Georgia; font-size: medium;" />
-									<span style="font-family: Georgia; font-size: medium;">&nbsp;</span><br style="font-family: Georgia; font-size: medium;" />
-									<span style="font-family: Georgia; font-size: medium;">And an asylum seeker who lost an eye in the violence in which Barati was killed is suing the government and security firm G4S, claiming they failed in their duty of care.</span>
+								<td align="left" style="padding: 20px;">
+									{% for story in most_viewed %}
+									<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
+									{% endfor %}
+								</td>
+									<td style="padding: 10px 20px 20px;">
 									<table width="100%" cellspacing="0" cellpadding="0" border="0">
 										<tbody>
 										</tbody>
@@ -228,93 +220,8 @@ width: 100% !important;
 						</table>
 						</td>
 					</tr>
-					<tr>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
-							<tbody>
-								<tr valign="top">
-									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 5</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="left">
-						<table width="100%" cellspacing="0" cellpadding="0" border="0">
-							<tbody>
-								<tr>
-									<td style="padding: 10px 20px 20px;">
-									<table width="100%" cellspacing="0" cellpadding="0" border="0" style="color: #005689; font-style: normal; font-variant: normal; font-weight: normal; line-height: 19px; text-decoration: none; display: block; padding-bottom: 4px; font-family: Georgia,serif; font-size: 15px;" class="story-title">
-										<tbody>
-											<tr>
-												<td valign="top" align="left">
-												<div>
-												<div>
-												<font size="3" color="#000000" face="Georgia"><span style="line-height: normal;">&bull; T</span></font><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">he Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.</span>
-												</div>
-												<div>
-												<br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<font size="3" color="#000000" face="Georgia"><span style="line-height: normal;">&bull; There have been unconfirmed reports that those on the boat, which was reportedly stranded near Christmas Island at the weekend, have been handed over to the Sri Lankan navy.</span></font><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<font size="3" color="#000000" face="Georgia"><span style="line-height: normal;">&bull; Meanwhile, the ousted Papua New Guinea assistant police commissioner has claimed that the main suspect in Reza Barati's death, a former Salvation Army worker, has fled to the PNG mainland.&nbsp;</span></font><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">&nbsp;</span><br style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;" />
-												<font size="3" color="#000000" face="Georgia"><span style="line-height: normal;">&bull; And an asylum seeker who lost an eye in the violence in which Barati was killed is suing the government and security firm G4S, claiming they failed in their duty of care.</span></font>
-												</div>
-												</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
-							<tbody>
-								<tr valign="top">
-									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Subsection 6</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="left">
-						<table width="100%" cellspacing="0" cellpadding="0" border="0">
-							<tbody>
-								<tr>
-									<td style="padding: 10px 20px 20px;">
-									<table width="100%" cellspacing="0" cellpadding="0" border="0" style="color: #005689; font-style: normal; font-variant: normal; font-weight: normal; line-height: 19px; text-decoration: none; display: block; padding-bottom: 4px; font-family: Georgia,serif; font-size: 15px;" class="story-title">
-										<tbody>
-											<tr>
-												<td valign="top" align="left">
-												<div>
-												<span style="color: #005689; font-style: normal; font-variant: normal; font-weight: normal; line-height: 19px; text-decoration: none; display: block; padding-bottom: 4px; font-family: Georgia,serif; font-size: 15px;" class="story-title"><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">The Refugee Council of Australia has warned that Australia would &quot;flagrantly&quot; violate the refugee convention if 153 Tamil asylum seekers were sent to Sri Lanka without being allowed to lodge a claim for protection.</span><br />
-												</span>
-												</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
+
+
 				</tbody>
 			</table>
 			</td>
