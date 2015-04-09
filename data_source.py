@@ -172,13 +172,6 @@ class MostSharedDataSource(DataSource):
         self.n_items = n_items
         self.result_decorator = result_decorator
 
-
-    @perma_cache
-    def fetch_data(self):
-        # get data from
-        # put results in datastore with key made from self.__repr__
-        return DataSource.fetch_data(self)
-
     def _do_call(self, **criteria):
 
         shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared()

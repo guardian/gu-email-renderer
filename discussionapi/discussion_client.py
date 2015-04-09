@@ -66,3 +66,22 @@ def comment_counts(client, urls):
     count_data = json.loads(result.content)
 
     return dict([('http://gu.com' + key, value) for key, value in count_data.items()])
+
+def add_comment_counts(client, content_data):
+    def short_url(content):
+        return content.get('fields', {}).get('shortUrl', None)
+
+    def set_count(content, count_data):
+        surl =  short_url(content)
+
+        if not surl:
+            surl = ''
+            
+        content['comment_count'] = count_data.get(surl, 0)
+        return content
+
+    short_urls = [short_url(content) for content in content_data]
+    comment_count_data = comment_counts(client, short_urls)
+
+    [set_count(content, comment_count_data) for content in content_data]
+    return content_data
