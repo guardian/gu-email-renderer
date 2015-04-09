@@ -130,3 +130,22 @@ class CommentIsFree(mr.EmailTemplate):
     template_names = {
         'v1': 'au/comment-is-free/v1',
     }
+
+class Morning(mr.EmailTemplate):
+    recognized_versions = immutable.make_list('v1')
+
+    ad_tag = 'email-australia-morning'
+    ad_config = {}
+
+    data_sources = immutable.make_dict({
+        'v1': {
+        }
+    })
+
+    priority_list = {
+        'v1': [
+            ],
+    }
+
+    template_names = immutable.make_dict({'v1': 'au/morning/v1'})
+
