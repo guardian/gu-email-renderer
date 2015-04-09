@@ -1,3 +1,5 @@
+from functools import partial
+
 import pysistence as immutable
 
 import mail_renderer as mr
@@ -13,7 +15,7 @@ from data_sources import us as data
 from data_sources import technology as tech_data
 
 from ophan_calls import OphanClient, MostSharedFetcher
-from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, comment_counts
+from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, add_comment_counts
 
 clientUS = mr.clientUS
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
@@ -78,36 +80,17 @@ class DailyEmailUS(mr.EmailTemplate):
 
 class Opinion(mr.EmailTemplate):
     recognized_versions = ['v1']
-    cache_bust=True
 
     ad_tag = 'email-speakers-corner'
     ad_config = {
         'leaderboard': 'Top'
     }
 
-    def add_comment_counts(content_data):
-        def short_url(content):
-            return content.get('fields', {}).get('shortUrl', None)
-        def set_count(content, count_data):
-            surl =  short_url(content)
-
-            if not surl:
-                surl = ''
-                
-            content['comment_count'] = count_data.get(surl, 0)
-            return content
-
-        short_urls = [short_url(content) for content in content_data]
-        comment_count_data = comment_counts(discussion_client, short_urls)
-
-        [set_count(content, comment_count_data) for content in content_data]
-        return content_data
-
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
         multi_content_data_source=ds.MultiContentDataSource(client=mr.client, name='most_shared'),
         shared_count_interpolator=ds.MostSharedCountInterpolator(),
-        result_decorator=add_comment_counts,
+        result_decorator=partial(add_comment_counts, discussion_client)
     )
 
     data_sources = {
