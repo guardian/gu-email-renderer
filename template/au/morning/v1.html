@@ -95,7 +95,8 @@ width: 100% !important;
 									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt=""src="{{story.fields.thumbnail}}" /></p>
 									{% endif %}
 
-									<p>{{story.fields.trailText}}<p>
+									<p><a href="{{story.webUrl}}">{{story.fields.headline}}</a></p>
+									<p>{{story.fields.trailText}}</p>
 									{% endfor %}
 
 									</font>									</td>
@@ -104,14 +105,15 @@ width: 100% !important;
 						</table>
 						</td>
 					</tr>
+
+					{% for title, stories in [('Australian news and politics', australian_news), ('Around the world', world_news), ('Most popular', most_viewed)] %}
 					<tr>
 						<td>
 						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
 							<tbody>
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Australian news and politics</span>
+									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">{{title}}</span>
 									</td>
 								</tr>
 							</tbody>
@@ -131,8 +133,9 @@ width: 100% !important;
 												<td valign="top" align="left">
 												<div>
 
-												{% for story in australian_news %}
-													<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
+												{% for story in stories %}
+													<p><a href="{{story.webUrl}}">{{story.fields.headline}}</a></p>
+									<p>{{story.fields.trailText}}</p>
 												{% endfor %}
 												</div>
 												</td>
@@ -145,82 +148,7 @@ width: 100% !important;
 						</table>
 						</td>
 					</tr>
-					<tr>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
-							<tbody>
-								<tr valign="top">
-									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Around the world</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="left">
-						<table width="100%" cellspacing="0" cellpadding="0" border="0">
-							<tbody>
-								<tr>
-									<td style="padding: 10px 20px 20px;">
-									<table width="100%" cellspacing="0" cellpadding="0" border="0">
-										<tbody>
-											<tr>
-												<td valign="top" align="left">
-												<div>
-												{% for story in world_news %}
-													<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
-												{% endfor %}
-												</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
-							<tbody>
-								<tr valign="top">
-									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">Most popular</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="left">
-						<table width="100%" cellspacing="0" cellpadding="0" border="0">
-							<tbody>
-								<tr>
-								<td align="left" style="padding: 20px;">
-									{% for story in most_viewed %}
-									<p><span style="color: #000000; font-family: Georgia; font-size: medium; line-height: normal;">{{story.fields.trailText}}</span></p>
-									{% endfor %}
-								</td>
-									<td style="padding: 10px 20px 20px;">
-									<table width="100%" cellspacing="0" cellpadding="0" border="0">
-										<tbody>
-										</tbody>
-									</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-
+					{% endfor %}
 
 				</tbody>
 			</table>
