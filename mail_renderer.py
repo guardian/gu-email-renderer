@@ -44,7 +44,6 @@ jinja_environment = jinja2.Environment(
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
 jinja_environment.filters['urlencode'] = urlencode
-jinja_environment.filters['largest_trail_image'] = template_filters.largest_trail_image
 jinja_environment.filters['largest_image'] = template_filters.largest_image
 jinja_environment.cache = None
 
