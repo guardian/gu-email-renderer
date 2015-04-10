@@ -44,7 +44,6 @@ jinja_environment = jinja2.Environment(
 jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
 jinja_environment.filters['urlencode'] = urlencode
-jinja_environment.filters['largest_trail_image'] = template_filters.largest_trail_image
 jinja_environment.filters['largest_image'] = template_filters.largest_image
 jinja_environment.filters['image_of_width'] = template_filters.image_of_width
 jinja_environment.cache = None
@@ -257,6 +256,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/daily-email-aus/(.+)', emails.au.DailyEmailAUS),
                                ('/australian-politics/(.+)', emails.au.Politics),
                                ('/australian-cif/(.+)', emails.au.CommentIsFree),
+                               ('/australia-morning/(.+)', emails.au.Morning),
                                ('/us-opinion/(.+)', emails.us.Opinion),
                                ('/close-up/(.+)', emails.culture.CloseUp),
                                ('/fashion-statement/(.+)', emails.fashion.FashionStatement),

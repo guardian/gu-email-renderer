@@ -16,8 +16,8 @@ def first_paragraph(text):
 def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
-def largest_trail_image(content):
-	thumbnails = [element for element in content['elements'] if element['relation'] == 'thumbnail']
+def largest_image(content, image_type='thumbnail'):
+	thumbnails = [element for element in content['elements'] if element['relation'] == image_type]
 	if not thumbnails:
 		return {}
 
@@ -29,9 +29,8 @@ def largest_trail_image(content):
 			return current_largest_image
 		return image
 
-	largest_thumbnail = reduce(widest_image, thumbnails[0]['assets'])
-
-	return largest_thumbnail
+	biggest_image = reduce(widest_image, thumbnails[0]['assets'])
+	return biggest_image
 
 def largest_image(content):
 	thumbnails = [element for element in content['elements'] if element['relation'] == 'main']
