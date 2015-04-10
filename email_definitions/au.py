@@ -149,7 +149,7 @@ class Morning(mr.EmailTemplate):
     priority_list = immutable.make_dict({
         'v1': [
             ('top_stories', 5),
-            ('australian_news', 5),
+            ('australian_news', 7),
             ('world_news', 5),
             ('most_viewed', 5),
             ],
