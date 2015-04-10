@@ -35,3 +35,8 @@ class Environment(SearchDataSource):
         SearchDataSource.__init__(self, client)
         self.section = 'environment'
         self.production_office = 'aus'
+
+class News(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, content_id='australia-news')
+
