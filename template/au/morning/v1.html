@@ -1,3 +1,7 @@
+
+<head>
+	<title>Australian Morning Mail</title>
+</head>
 <style>
 .content-holder {
 width: 320px !important;
@@ -91,8 +95,9 @@ width: 100% !important;
 
 									{% for story in top_stories %}
 									{% if loop.first %}
+
 									<p style="text-align: center;">
-									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt=""src="{{story.fields.thumbnail}}" /></p>
+									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt="" src="{{story|image_of_width(500)|asset_url}}" /></p>
 									{% endif %}
 
 									<p><a href="{{story.webUrl}}">{{story.fields.headline}}</a></p>

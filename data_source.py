@@ -468,6 +468,7 @@ class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
         self.name = 'top_stories' + client.edition
+        self.show_elements = 'all'
 
     def __repr__(self):
         return str(self.__class__) + self.name

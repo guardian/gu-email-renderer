@@ -51,12 +51,19 @@ def largest_image(content):
 
 def image_of_width(content, width, image_type='thumbnail'):
 	images = [element for element in content['elements'] if element['relation'] == image_type]
-	
-	if not images:
+	assets = images[0].get('assets', [])
+
+	logging.info([i.get('typeData', None) for i in assets])
+
+	if not assets:
 		return None
 
-	for image in images:
-		if 'typeData' in image and 'width' in image['typeData'] and image['typeData']['width'] == str(width):
-			return copy.deepcopy(image)
+	for asset in assets:
+		width = asset.get('typeData', {}).get('width', None)
+		if width and width == str(width):
+			return copy.deepcopy(asset)
 
 	return None
+
+def asset_url(asset):
+	return asset.get('typeData', {}).get('secureFile', None)
