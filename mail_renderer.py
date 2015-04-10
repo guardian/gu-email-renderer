@@ -45,6 +45,7 @@ jinja_environment.globals['URL_ROOT'] = URL_ROOT
 jinja_environment.filters['first_paragraph'] = first_paragraph
 jinja_environment.filters['urlencode'] = urlencode
 jinja_environment.filters['largest_image'] = template_filters.largest_image
+jinja_environment.filters['image_of_width'] = template_filters.image_of_width
 jinja_environment.cache = None
 
 # TODO: Hide me away somewhere warm and secret.
