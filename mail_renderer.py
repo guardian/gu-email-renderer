@@ -38,16 +38,23 @@ else:
     URL_ROOT = 'http://***REMOVED***.appspot.com'
 
 jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template"))
+    loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template")),
 )
 
-jinja_environment.globals['URL_ROOT'] = URL_ROOT
-jinja_environment.filters['first_paragraph'] = first_paragraph
-jinja_environment.filters['urlencode'] = urlencode
-jinja_environment.filters['largest_image'] = template_filters.largest_image
-jinja_environment.filters['image_of_width'] = template_filters.image_of_width
-jinja_environment.filters['asset_url'] = template_filters.asset_url
-jinja_environment.cache = None
+jinja_environment.globals.update({
+        'URL_ROOT': URL_ROOT,
+    })
+
+jinja_environment.filters.update({
+        'first_paragraph': template_filters.first_paragraph,
+        'urlencode': template_filters.urlencode,
+        'largest_image': template_filters.largest_image,
+        'image_of_width': template_filters.image_of_width,
+        'asset_url': template_filters.asset_url,
+    })
+
+jinja_environment.cache=None
+
 
 # TODO: Hide me away somewhere warm and secret.
 api_key = '***REMOVED***'
