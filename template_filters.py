@@ -48,3 +48,15 @@ def largest_image(content):
 	largest_thumbnail = reduce(widest_image, thumbnails[0]['assets'])
 
 	return largest_thumbnail
+
+def image_of_width(content, width, image_type='thumbnail'):
+	images = [element for element in content['elements'] if element['relation'] == image_type]
+	
+	if not images:
+		return {}
+
+	for image in images:
+		if 'typeData' in image and 'width' in image['typeData'] and image['typeData']['width'] == str(width):
+			return image
+
+	return {}
