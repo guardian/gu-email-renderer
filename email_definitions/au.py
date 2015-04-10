@@ -133,7 +133,6 @@ class CommentIsFree(mr.EmailTemplate):
 
 class Morning(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
-    cache_bust=True
 
     ad_tag = 'email-australia-morning'
     ad_config = {}

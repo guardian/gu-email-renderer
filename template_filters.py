@@ -53,8 +53,6 @@ def image_of_width(content, width, image_type='thumbnail'):
 	images = [element for element in content['elements'] if element['relation'] == image_type]
 	assets = images[0].get('assets', [])
 
-	logging.info([i.get('typeData', None) for i in assets])
-
 	if not assets:
 		return None
 
