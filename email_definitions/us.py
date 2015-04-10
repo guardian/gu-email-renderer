@@ -93,17 +93,17 @@ class Opinion(mr.EmailTemplate):
         result_decorator=partial(add_comment_counts, discussion_client)
     )
 
-    data_sources = {
+    data_sources = immutable.make_dict({
         'v1': {
             'cif_most_shared': most_shared_data_source,
         },
-    }
+    })
 
-    priority_list = {
+    priority_list = immutable.make_dict({
         'v1': [
         ('cif_most_shared', 5),],
-    }
+    })
 
-    template_names = {
+    template_names = immutable.make_dict({
         'v1': 'us/opinion/v1',
-    }
+    })
