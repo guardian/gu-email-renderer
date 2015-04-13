@@ -128,6 +128,7 @@ class CommentIsFree(mr.EmailTemplate):
 
 class Morning(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
+    cache_bust=True
 
     data_sources = immutable.make_dict({
         'v1': {
