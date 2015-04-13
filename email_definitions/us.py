@@ -81,11 +81,6 @@ class DailyEmailUS(mr.EmailTemplate):
 class Opinion(mr.EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = 'email-speakers-corner'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
         multi_content_data_source=ds.MultiContentDataSource(client=mr.client, name='most_shared'),

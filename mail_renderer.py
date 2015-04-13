@@ -97,9 +97,11 @@ class EmailTemplate(webapp2.RequestHandler):
             template = self.resolve_template(template_name)
 
             ads = {}
-            ad_fetcher = AdFetcher(self.ad_tag)
-            for name, type in self.ad_config.iteritems():
-                ads[name] = ad_fetcher.fetch_type(type)
+
+            if hasattr(self, 'ad_tag') and self.ad_tag:
+                ad_fetcher = AdFetcher(self.ad_tag)
+                for name, type in self.ad_config.iteritems():
+                    ads[name] = ad_fetcher.fetch_type(type)
 
             page = template.render(ads=ads, date=date, **trail_blocks)
             self.cache.add(cache_key, page, 300)

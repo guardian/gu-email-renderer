@@ -104,11 +104,6 @@ class Politics(mr.EmailTemplate):
 class CommentIsFree(mr.EmailTemplate):
     recognized_versions = ['v1']
 
-    ad_tag = 'email-speakers-corner'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='au'),
         multi_content_data_source=ds.MultiContentDataSource(client=mr.client, name='most_shared'),
@@ -133,9 +128,6 @@ class CommentIsFree(mr.EmailTemplate):
 
 class Morning(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
-
-    ad_tag = 'email-australia-morning'
-    ad_config = {}
 
     data_sources = immutable.make_dict({
         'v1': {
