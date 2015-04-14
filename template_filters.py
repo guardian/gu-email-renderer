@@ -32,7 +32,7 @@ def largest_image(content, image_type='thumbnail'):
 	biggest_image = reduce(widest_image, thumbnails[0]['assets'])
 	return biggest_image
 
-def image_of_width(content, width, image_type='thumbnail'):
+def image_of_width(content, target_width, image_type='thumbnail'):
 	images = [element for element in content['elements'] if element['relation'] == image_type]
 	assets = images[0].get('assets', [])
 
@@ -41,7 +41,7 @@ def image_of_width(content, width, image_type='thumbnail'):
 
 	for asset in assets:
 		width = asset.get('typeData', {}).get('width', None)
-		if width and width == str(width):
+		if width and width == str(target_width):
 			return copy.deepcopy(asset)
 
 	return None

@@ -87,6 +87,9 @@ class EmailTemplate(webapp2.RequestHandler):
     def resolve_template(self, template_name):
         return jinja_environment.get_template(template_name)
 
+    def additional_template_data(self):
+        return immutable.make_dict({})
+
     def get(self, version_id):
         self.check_version_id(version_id)
 
@@ -110,7 +113,7 @@ class EmailTemplate(webapp2.RequestHandler):
                 for name, type in self.ad_config.iteritems():
                     ads[name] = ad_fetcher.fetch_type(type)
 
-            page = template.render(ads=ads, date=date, **trail_blocks)
+            page = template.render(ads=ads, date=date, data=self.additional_template_data(), **trail_blocks)
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)

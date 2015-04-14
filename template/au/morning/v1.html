@@ -1,39 +1,45 @@
-
+<!doctype html>
+<html>
 <head>
 	<title>Australian Morning Mail</title>
+
+	<style>
+	a {
+		color: #004a83;
+	}
+	.content-holder {
+	width: 320px !important;
+	}
+	@media only screen and (min-width: 480px) {
+	.section-heading {
+	font-size: 17px !important;
+	padding: 8px 0 !important;
+	}
+	.story-image {
+	height: 84px !important;
+	width: 140px !important;
+	}
+	.story-title {
+	font-size: 16px !important;
+	line-height: 20px !important;
+	}
+	.content-holder {
+	width: 480px !important;
+	}
+	}
+	@media only screen and (min-width: 600px) {
+	.content-holder {
+	width: 600px !important;
+	}
+	}
+	@media only screen and (max-width: 320px) {
+	.content-holder {
+	width: 100% !important;
+	}
+	}
+	</style>
 </head>
-<style>
-.content-holder {
-width: 320px !important;
-}
-@media only screen and (min-width: 480px) {
-.section-heading {
-font-size: 17px !important;
-padding: 8px 0 !important;
-}
-.story-image {
-height: 84px !important;
-width: 140px !important;
-}
-.story-title {
-font-size: 16px !important;
-line-height: 20px !important;
-}
-.content-holder {
-width: 480px !important;
-}
-}
-@media only screen and (min-width: 600px) {
-.content-holder {
-width: 600px !important;
-}
-}
-@media only screen and (max-width: 320px) {
-.content-holder {
-width: 100% !important;
-}
-}
-</style>
+<body>
 <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
 	<tbody>
 		<tr>
@@ -53,7 +59,7 @@ width: 100% !important;
 												<td style="font-family: Georgia,serif; font-size: 20px; color: #004a83;"><span style="color: #004a83; text-decoration: none;">Guardian Australia's Morning Mail</span></td>
 											</tr>
 											<tr align="left">
-												<td style="font-family: Arial,sans-serif; font-size: 12px; color: #666666; padding-top: 3px;">Tuesday 01 Jul 2014</td>
+												<td style="font-family: Arial,sans-serif; font-size: 12px; color: #666666; padding-top: 3px;">{{data.sydney_date}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -69,49 +75,9 @@ width: 100% !important;
 						<!-- /header -->
 						</td>
 					</tr>
-					<tr>
-						<td>
-						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
-							<tbody>
-								<tr valign="top">
-									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">
-									Headlines</span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td align="left">
-						<br />
-						<table width="100%" cellspacing="0" cellpadding="0" border="0">
-							<tbody>
-								<tr>
-									<td style="padding: 10px 20px 20px;"><font size="3" face="Georgia">
-									
 
-									{% for story in top_stories %}
-									{% if loop.first %}
-
-									<p style="text-align: center;">
-									<img width="270" border="0" height="162" style="width: 270px; height: 162px; border-color: #000000; margin: 0px;" alt="" src="{{story|image_of_width(500)|asset_url}}" /></p>
-									{% endif %}
-
-									<p><a href="{{story.webUrl}}">{{story.fields.headline}}</a></p>
-									<p>{{story.fields.trailText}}</p>
-									{% endfor %}
-
-									</font>									</td>
-								</tr>
-							</tbody>
-						</table>
-						</td>
-					</tr>
-
-					{% for title, stories in [('Australian news and politics', australian_news), ('Around the world', world_news), ('Most popular', most_viewed)] %}
+					{% for title, stories in [('Headlines', top_stories), ('Australian news and politics', australian_news), ('Around the world', world_news), ('Most popular', most_viewed)] %}
+					{% set section_loop = loop %}
 					<tr>
 						<td>
 						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
@@ -136,11 +102,18 @@ width: 100% !important;
 										<tbody>
 											<tr>
 												<td valign="top" align="left">
+
 												<div>
 
 												{% for story in stories %}
-													<p><a href="{{story.webUrl}}">{{story.fields.headline}}</a></p>
-									<p>{{story.fields.trailText}}</p>
+
+													{% if section_loop.first and loop.first %}
+
+													<p style="text-align: center;">
+													<img width="100%" border="0"style="width: 100%; border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></p>
+													{% endif %}
+
+													<p><a href="{{story.webUrl}}" class="story-title">{{story.fields.headline}}</a><br />{{story.fields.trailText}}</p>
 												{% endfor %}
 												</div>
 												</td>
@@ -161,3 +134,5 @@ width: 100% !important;
 		</tr>
 	</tbody>
 </table>
+</body>
+</html>
