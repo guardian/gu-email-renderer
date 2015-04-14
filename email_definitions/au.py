@@ -1,7 +1,9 @@
 import logging
+import datetime
 from functools import partial
 
 import pysistence as immutable
+import pytz
 
 import mail_renderer as mr
 
@@ -150,3 +152,9 @@ class Morning(mr.EmailTemplate):
 
     template_names = immutable.make_dict({'v1': 'au/morning/v1'})
 
+    def additional_template_data(self):
+        sydney_tz = pytz.timezone('Australia/Sydney')
+        date_format = "%A %d %B %Y"
+        return {
+            "sydney_date" : datetime.datetime.now(sydney_tz).strftime(date_format)
+        }
