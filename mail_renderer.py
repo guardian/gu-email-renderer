@@ -81,7 +81,7 @@ class EmailTemplate(webapp2.RequestHandler):
         return jinja_environment.get_template(template_name)
 
     def additional_template_data(self):
-        return {}
+        return immutable.make_dict({})
 
     def get(self, version_id):
         self.check_version_id(version_id)

@@ -150,11 +150,11 @@ class Morning(mr.EmailTemplate):
             ],
     })
 
-    template_names = immutable.make_dict({'v1': 'au/morning/v1'})
+    template_names = immutable.make_dict(v1='au/morning/v1')
 
     def additional_template_data(self):
         sydney_tz = pytz.timezone('Australia/Sydney')
         date_format = "%A %d %B %Y"
-        return {
-            "sydney_date" : datetime.datetime.now(sydney_tz).strftime(date_format)
-        }
+        return immutable.make_dict(
+            sydney_date=datetime.datetime.now(sydney_tz).strftime(date_format)
+        )
