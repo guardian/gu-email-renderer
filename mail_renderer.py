@@ -82,6 +82,7 @@ class EmailTemplate(webapp2.RequestHandler):
     def check_version_id(self, version_id):
         if not version_id in self.recognized_versions:
             logging.exception('Unrecognized version: %s' % version_id)
+            logging.info('Valid versions {0}'.format(", ".join(self.recognized_versions)))
             self.abort(404)
 
     def resolve_template(self, template_name):

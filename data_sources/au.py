@@ -39,4 +39,4 @@ class Environment(SearchDataSource):
 class News(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='australia-news')
-
+        self.show_elements = 'image'

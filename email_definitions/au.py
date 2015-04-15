@@ -146,7 +146,7 @@ class Morning(mr.EmailTemplate):
             ('top_stories', 5),
             ('australian_news', 7),
             ('world_news', 5),
-            ('most_viewed', 5),
+            ('most_viewed', 3),
             ],
     })
 

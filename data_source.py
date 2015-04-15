@@ -23,6 +23,7 @@ class DataSource(object):
         self.short_url = None
         self.section = None
         self.production_office = None
+        self.show_elements = None
 
 
     def fetch_data(self):
@@ -52,9 +53,6 @@ class DataSource(object):
         if self.page_size:
             criteria['page-size'] = self.page_size
 
-        if self.show_elements:
-            criteria['show-elements'] = self.show_elements
-
         if self.from_date:
             criteria['from-date'] = self.from_date
 
@@ -64,7 +62,7 @@ class DataSource(object):
 
         criteria['user-tier']='internal'
 
-        for attr in ['production_office', 'section']:
+        for attr in ['production_office', 'section', 'show_elements']:
             attr_value = getattr(self,attr)
             if attr_value:
                 criteria[attr] = attr_value
@@ -468,7 +466,7 @@ class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
         self.name = 'top_stories' + client.edition
-        self.show_elements = 'all'
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name
