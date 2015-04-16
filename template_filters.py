@@ -17,8 +17,13 @@ def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
 def largest_image(content, image_type='thumbnail'):
-	thumbnails = [element for element in content['elements'] if element['relation'] == image_type]
-	if not thumbnails:
+
+	if not 'elements' in content:
+		logging.debug(content)
+		return None
+
+	images = [element for element in content['elements'] if element['relation'] == image_type]
+	if not images:
 		return {}
 
 	def widest_image(current_largest_image, image):
@@ -29,7 +34,7 @@ def largest_image(content, image_type='thumbnail'):
 			return current_largest_image
 		return image
 
-	biggest_image = reduce(widest_image, thumbnails[0]['assets'])
+	biggest_image = reduce(widest_image, images[0]['assets'])
 	return biggest_image
 
 def image_of_width(content, target_width, image_type='thumbnail'):
@@ -47,4 +52,7 @@ def image_of_width(content, target_width, image_type='thumbnail'):
 	return None
 
 def asset_url(asset):
+	if not asset:
+		return None
+
 	return asset.get('typeData', {}).get('secureFile', None)

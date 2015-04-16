@@ -77,7 +77,7 @@
 					</tr>
 
 					{% for title, stories in [('Headlines', top_stories), ('Australian news and politics', australian_news), ('Around the world', world_news), ('Most popular', most_viewed)] %}
-					{% set section_loop = loop %}
+					
 					<tr>
 						<td>
 						<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#004a83">
@@ -107,7 +107,7 @@
 
 												{% for story in stories %}
 
-													{% if section_loop.first and loop.first %}
+													{% if loop.first %}
 
 													<p style="text-align: center;">
 													<img width="100%" border="0"style="width: 100%; border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></p>
