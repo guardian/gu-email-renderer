@@ -110,7 +110,7 @@
 													{% if loop.first %}
 
 													<p style="text-align: center;">
-													<img width="100%" border="0"style="width: 100%; border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></p>
+													<a href="{{story.webUrl}}"><img width="100%" border="0"style="width: 100%; border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></a></p>
 													{% endif %}
 
 													<p><a href="{{story.webUrl}}" class="story-title">{{story.fields.headline}}</a><br />{{story.fields.trailText}}</p>
