@@ -1,5 +1,5 @@
 import unittest
-from data_source import build_unique_trailblocks
+from deduplication import build_unique_trailblocks
 
 
 class TestResultSets(unittest.TestCase):
