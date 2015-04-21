@@ -13,7 +13,6 @@ client = mr.client
 class DailyEmail(mr.EmailTemplate):
 	recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india', 'MPU_v1a', 'MPU_v1b', 'MPU_v2']
 
-	cache_bust=True
 	ad_tag = 'email-guardian-today'
 	ad_config = {
 		'leaderboard_v1': 'Top',
