@@ -502,7 +502,7 @@ def build_unique_trailblocks(data, priority_list, excluded=None):
 
     for (data_set_name, size) in priority_list:
 
-        if data_set_name in excluded:
+        if excluded and data_set_name in excluded:
             unique_subsets[data_set_name] = data[data_set_name]
             continue
 
