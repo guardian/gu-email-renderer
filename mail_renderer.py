@@ -21,7 +21,7 @@ from data_source import \
     MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
     MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
     MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, fetch_all, build_unique_trailblocks, \
+    MultiContentDataSource, CommentCountInterpolator, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, \
     IndiaDataSource
 
 import data_sources.au as au
@@ -31,6 +31,8 @@ from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 import template_filters
 from ads import AdFetcher
+
+import deduplication
 
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
     URL_ROOT = ''
@@ -94,6 +96,21 @@ class EmailTemplate(webapp2.RequestHandler):
     def exclude_from_deduplication(self):
         return immutable.make_list()
 
+    @staticmethod
+    def fetch_all(data_sources):
+        """
+        data is a map of type string->data_source.
+        return a map with same keys as data, and retrieved data as values
+        """
+
+        #import pdb;pdb.set_trace()
+        retrieved_data_map = {}
+
+        for key, datasource in data_sources.items():
+            retrieved_data_map[key] = datasource.fetch_data()
+
+        return retrieved_data_map
+
     def get(self, version_id):
         self.check_version_id(version_id)
 
@@ -102,8 +119,8 @@ class EmailTemplate(webapp2.RequestHandler):
 
         if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
-            retrieved_data = fetch_all(self.data_sources[version_id])
-            trail_blocks = build_unique_trailblocks(retrieved_data,
+            retrieved_data = EmailTemplate.fetch_all(self.data_sources[version_id])
+            trail_blocks = deduplication.build_unique_trailblocks(retrieved_data,
                 self.priority_list[version_id],
                 excluded=self.exclude_from_deduplication())
             today = datetime.datetime.now()
@@ -260,7 +277,7 @@ class Headline(webapp2.RequestHandler):
         priority_list = [('top_stories', 1)]
         template_data = {}
         retrieved_data = fetch_all(data_sources)
-        trail_block = build_unique_trailblocks(retrieved_data,priority_list)
+        trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
         stories = trail_block.get('top_stories')
         headlines = [s.get('webTitle') for s in stories]
         if headlines:
