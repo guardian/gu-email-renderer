@@ -1,3 +1,5 @@
+import logging
+
 import pysistence as immutable
 
 import data_source as ds
@@ -11,6 +13,7 @@ client = mr.client
 class DailyEmail(mr.EmailTemplate):
 	recognized_versions = ['v1', 'v2', 'v3', 'v4', 'v5', 'india', 'MPU_v1a', 'MPU_v1b', 'MPU_v2']
 
+	cache_bust=True
 	ad_tag = 'email-guardian-today'
 	ad_config = {
 		'leaderboard_v1': 'Top',
@@ -80,3 +83,6 @@ class DailyEmail(mr.EmailTemplate):
 		'MPU_v1b': 'uk/daily/v7',
 		'MPU_v2': 'uk/daily/v8',
 	})
+
+	def exclude_from_deduplication(self):
+		return immutable.make_list('eye_witness')

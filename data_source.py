@@ -488,7 +488,7 @@ class DataSourceException(Exception):
     pass
 
 
-def build_unique_trailblocks(data, priority_list):
+def build_unique_trailblocks(data, priority_list, excluded=None):
     """
     data is a map of type string->list list is a list of maps each of
     which contains the field 'id'.  priority_list is a list of pairs:
@@ -501,6 +501,11 @@ def build_unique_trailblocks(data, priority_list):
     unique_subsets = {}
 
     for (data_set_name, size) in priority_list:
+
+        if data_set_name in excluded:
+            unique_subsets[data_set_name] = data[data_set_name]
+            continue
+
         unique_subset = []
         unique_subsets[data_set_name] = unique_subset
         source_data = data[data_set_name]

@@ -93,10 +93,7 @@
         heading_colour='#ea721e',
         standfirst=False) }}
 
-    {{ layout.image(
-        image=eye_witness,
-        heading_text='Eyewitness picture of the day',
-        heading_link='http://www.theguardian.com/world/series/eyewitness') }}
+    {% include 'components/eyewitness.html' %}
 
 {% endblock content %}
 

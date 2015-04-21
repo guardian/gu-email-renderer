@@ -91,6 +91,9 @@ class EmailTemplate(webapp2.RequestHandler):
     def additional_template_data(self):
         return immutable.make_dict({})
 
+    def exclude_from_deduplication(self):
+        return immutable.make_list()
+
     def get(self, version_id):
         self.check_version_id(version_id)
 
@@ -100,7 +103,9 @@ class EmailTemplate(webapp2.RequestHandler):
         if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
             retrieved_data = fetch_all(self.data_sources[version_id])
-            trail_blocks = build_unique_trailblocks(retrieved_data, self.priority_list[version_id])
+            trail_blocks = build_unique_trailblocks(retrieved_data,
+                self.priority_list[version_id],
+                excluded=self.exclude_from_deduplication())
             today = datetime.datetime.now()
             date = today.strftime('%A %d %b %Y')
 
