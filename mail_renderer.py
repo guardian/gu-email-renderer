@@ -276,7 +276,7 @@ class Headline(webapp2.RequestHandler):
         data_sources = {'top_stories': TopStoriesDataSource(determine_client(edition))}
         priority_list = [('top_stories', 1)]
         template_data = {}
-        retrieved_data = fetch_all(data_sources)
+        retrieved_data = EmailTemplate.fetch_all(data_sources)
         trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
         stories = trail_block.get('top_stories')
         headlines = [s.get('webTitle') for s in stories]
