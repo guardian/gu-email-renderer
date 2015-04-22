@@ -4,6 +4,8 @@ import urllib2
 
 from google.appengine.api import memcache
 
+MAX_MEMCACHE_LENGTH=1000000
+
 def best_fetcher():
     return Fetcher()
 
@@ -34,7 +36,10 @@ class Fetcher(object):
         headers = u.headers.dict
         api_response = (headers, u.read())
 
-        memcache.set(url, api_response, time=2*60)
+        response_length = sum([len(api_response[i]) for i in range(2)])
+
+        if response_length < MAX_MEMCACHE_LENGTH:
+            memcache.set(url, api_response, time=2*60)
 
         return api_response
 
