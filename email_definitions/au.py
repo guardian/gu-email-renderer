@@ -158,3 +158,20 @@ class Morning(mr.EmailTemplate):
         return immutable.make_dict(
             sydney_date=datetime.datetime.now(sydney_tz).strftime(date_format)
         )
+
+class Sport(mr.EmailTemplate):
+    recognized_versions = ['v1']
+
+    data_sources = immutable.make_dict({
+        'v1': {
+            'au_sport': au.SportDataSource(client)
+        }
+    })
+
+    priority_list = immutable.make_dict({
+        'v1': [('au_sport', 10)]
+    })
+
+    template_names = immutable.make_dict({
+        'v1': 'au/sport/v1',
+    })
