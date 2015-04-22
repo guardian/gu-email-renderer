@@ -11,13 +11,14 @@ from data_source import \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, ItemPlusBlogDataSource, \
-    DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
+    DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource
 
 from urllib2 import urlparse
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient, MultiCalledApiStubFetcher
 
+from mail_renderer import EmailTemplate
 
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
@@ -237,7 +238,8 @@ class TestDataSources(unittest.TestCase):
                                    show_fields=Fields,
                                    page_size='10',
                                    show_editors_picks='true',
-                                   user_tier='internal')
+                                   user_tier='internal',
+                                   show_elements='image')
 
     def test_short_url_must_be_specified_as_field_for_most_commented(self):
 
@@ -377,7 +379,7 @@ class TestDataSources(unittest.TestCase):
 
 
         data_source_map = {'cheese': StubDataSource1(), 'pickle': StubDataSource2()}
-        retrieved_data = fetch_all(data_source_map)
+        retrieved_data = EmailTemplate.fetch_all(data_source_map)
 
         assert len(retrieved_data.keys()) == 2
         assert retrieved_data['cheese'] == 'stub data 1'
