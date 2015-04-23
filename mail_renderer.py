@@ -149,54 +149,6 @@ class EmailTemplate(webapp2.RequestHandler):
 
 import email_definitions as emails
 
-class MostViewed(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = ''
-    ad_config = {}
-
-    data_sources = {}
-    data_sources['v1'] = { 'most_viewed' : MostViewedDataSource(client) }
-    priority_list = {'v1': [('most_viewed', 3)]}
-    template_names = {'v1': 'most-viewed'}
-
-class EditorsPicks(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = ''
-    ad_config = {}
-
-    data_sources = {}
-    data_sources['v1'] = { 'editors_picks' : TopStoriesDataSource(client) }
-    priority_list = {'v1': [('editors_picks', 3)]}
-    template_names = {'v1': 'editors-picks'}
-
-class MostCommented(EmailTemplate):
-    recognized_versions = ['v1']
-    n_items=6
-
-    discussion_client = DiscussionClient(discussion_base_url)
-    discussion_fetcher = DiscussionFetcher(discussion_client)
-    multi_content_data_source = MultiContentDataSource(client=client, name='most_commented')
-    comment_count_interpolator = CommentCountInterpolator()
-
-    most_commented_data_source = MostCommentedDataSource(
-        discussion_fetcher=discussion_fetcher,
-        multi_content_data_source=multi_content_data_source,
-        comment_count_interpolator=comment_count_interpolator
-        )
-
-    ad_tag = ''
-    ad_config = {}
-
-    data_sources = {}
-    data_sources['v1'] = {
-        'most_commented': most_commented_data_source
-        }
-
-    priority_list = {'v1': [('most_commented', n_items)]}
-    template_names = {'v1': 'most-commented'}
-
 class CommentIsFree(EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
@@ -304,13 +256,13 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', TheFlyer),
                                ('/zip-file/(.+)', emails.technology.ZipFile),
-                               ('/most-commented/(.+)', MostCommented),
+                               ('/most-commented/(.+)', emails.developer.MostCommented),
                                ('/most-shared/uk/(.+)', emails.most_shared.MostSharedUK),
                                ('/most-shared/us/(.+)', emails.most_shared.MostSharedUS),
                                ('/most-shared/au/(.+)', emails.most_shared.MostSharedAU),
                                ('/most-shared/(.+)', emails.most_shared.MostShared),
-                               ('/most-viewed/(.+)', MostViewed),
-                               ('/editors-picks/(.+)', EditorsPicks),
+                               ('/most-viewed/(.+)', emails.developer.MostViewed),
+                               ('/editors-picks/(.+)', emails.developer.EditorsPicks),
                                webapp2.Route(r'/headline', handler=Headline),
                                webapp2.Route(r'/headline/<edition>', handler=Headline),
                                ('/', Index)],
