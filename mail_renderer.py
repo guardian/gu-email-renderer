@@ -10,7 +10,6 @@ from google.appengine.api import memcache
 import pysistence as immutable
 
 from guardianapi.apiClient import ApiClient
-from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import \
     CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
     CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
@@ -27,7 +26,6 @@ from data_source import \
 import data_sources.au as au
 import data_sources.technology as tech_data
 
-from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from template_filters import first_paragraph, urlencode
 import template_filters
 from ads import AdFetcher
@@ -149,50 +147,6 @@ class EmailTemplate(webapp2.RequestHandler):
 
 import email_definitions as emails
 
-class CommentIsFree(EmailTemplate):
-    recognized_versions = ['v1', 'v2']
-
-    ad_tag = 'email-speakers-corner'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
-    ophan_client = OphanClient(ophan_base_url, ophan_key)
-    most_shared_data_source = MostSharedDataSource(
-        most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree'),
-        multi_content_data_source=MultiContentDataSource(client=client, name='most_shared'),
-        shared_count_interpolator=MostSharedCountInterpolator()
-    )
-
-    discussion_client = DiscussionClient(discussion_base_url)
-    most_commented_data_source = MostCommentedDataSource (
-        discussion_fetcher = DiscussionFetcher(discussion_client, 'commentisfree'),
-        multi_content_data_source = MultiContentDataSource(client=client, name='most_commented'),
-        comment_count_interpolator = CommentCountInterpolator()
-    )
-
-    data_sources = {
-        'v1': {
-            'cif_most_shared': most_shared_data_source,
-            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
-        },
-        'v2': {
-            'cif_most_commented': most_commented_data_source,
-            'cif_cartoon': CommentIsFreeCartoonDataSource(client),
-        }
-    }
-
-    priority_list = {
-        'v1': [('cif_cartoon', 1), ('cif_most_shared', 5)],
-        'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
-    }
-
-    template_names = immutable.make_dict({
-        'v1': 'comment-is-free/v1',
-        'v2': 'comment-is-free/v2',
-    })
-
-
 class Headline(webapp2.RequestHandler):
 
     def get(self, edition="uk"):
@@ -227,7 +181,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/media-briefing/(.+)', emails.media.MediaBriefing),
                                ('/sleeve-notes/(.+)', emails.culture.SleeveNotes),
                                ('/bookmarks/(.+)', emails.culture.Bookmarks),
-                               ('/comment-is-free/(.+)', CommentIsFree),
+                               ('/comment-is-free/(.+)', emails.cif.CommentIsFree),
                                ('/film-today/(.+)', emails.culture.FilmToday),
                                ('/the-flyer/(.+)', emails.travel.TheFlyer),
                                ('/zip-file/(.+)', emails.technology.ZipFile),
