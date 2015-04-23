@@ -10,24 +10,10 @@ from google.appengine.api import memcache
 import pysistence as immutable
 
 from guardianapi.apiClient import ApiClient
-from data_source import \
-    CultureDataSource, TopStoriesDataSource, SportDataSource, EyeWitnessDataSource, \
-    CommentIsFreeCartoonDataSource, MostViewedDataSource, MediaDataSource, MediaMonkeyDataSource, \
-    MediaBriefingDataSource, BusinessDataSource, TravelDataSource, LifeAndStyleDataSource, \
-    TravelMostViewedDataSource, TravelTopTenDataSource, TravelTipsDataSource, TravelVideoDataSource, \
-    FilmEditorsPicksDataSource, FilmMostViewedDataSource, FilmInterviewsDataSource, \
-    FilmBlogsDataSource, FilmOfTheWeekDataSource, FilmQuizDataSource, FilmShowDataSource, \
-    MusicMostViewedDataSource, MusicNewsDataSource, MusicWatchListenDataSource, ContentDataSource, \
-    MusicBlogDataSource, MusicEditorsPicksDataSource, CommentIsFreeDataSource, ItemDataSource, \
-    MostCommentedDataSource, MostSharedDataSource, MostSharedCountInterpolator, ScienceDataSource, EnvironmentDataSource, VideoDataSource, \
-    MultiContentDataSource, CommentCountInterpolator, AusTopStoriesDataSource, FilmTodayLatestDataSource,  ItemPlusBlogDataSource, \
-    IndiaDataSource
-
-import data_sources.au as au
-import data_sources.technology as tech_data
 
 from template_filters import first_paragraph, urlencode
 import template_filters
+
 from ads import AdFetcher
 
 import deduplication
