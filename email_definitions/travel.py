@@ -1,8 +1,12 @@
+import pysistence as immutable
+
 import mail_renderer as mr
 
 import data_source as ds
 
-class TheFlyer(EmailTemplate):
+client = mr.client
+
+class TheFlyer(mr.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
 
     ad_tag = 'email-the-flyer'

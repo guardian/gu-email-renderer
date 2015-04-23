@@ -192,30 +192,6 @@ class CommentIsFree(EmailTemplate):
         'v2': 'comment-is-free/v2',
     })
 
-class TheFlyer(EmailTemplate):
-    recognized_versions = ['v1']
-
-    ad_tag = 'email-the-flyer'
-    ad_config = {
-        'leaderboard': 'Top'
-    }
-
-    data_sources = {
-        'v1': {
-            'travel_picks': TravelDataSource(client),
-            'travel_most_viewed': TravelMostViewedDataSource(client),
-            'travel_top_ten': TravelTopTenDataSource(client),
-            'travel_video': TravelVideoDataSource(client),
-            'travel_tips': TravelTipsDataSource(client),
-        }
-    }
-
-    priority_list = {
-        'v1': [('travel_video', 1), ('travel_picks', 5), ('travel_most_viewed', 3),
-               ('travel_top_ten', 5), ('travel_tips', 1)]
-    }
-
-    template_names = {'v1': 'travel/the-flyer'}
 
 class Headline(webapp2.RequestHandler):
 
@@ -253,7 +229,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/bookmarks/(.+)', emails.culture.Bookmarks),
                                ('/comment-is-free/(.+)', CommentIsFree),
                                ('/film-today/(.+)', emails.culture.FilmToday),
-                               ('/the-flyer/(.+)', TheFlyer),
+                               ('/the-flyer/(.+)', emails.travel.TheFlyer),
                                ('/zip-file/(.+)', emails.technology.ZipFile),
                                ('/most-commented/(.+)', emails.developer.MostCommented),
                                ('/most-shared/uk/(.+)', emails.most_shared.MostSharedUK),
