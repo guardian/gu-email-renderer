@@ -1,7 +1,6 @@
 import mail_renderer as mr
 
 import data_source as ds
-import data_sources as dss
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 

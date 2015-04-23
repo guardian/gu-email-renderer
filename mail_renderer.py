@@ -217,7 +217,6 @@ class TheFlyer(EmailTemplate):
 
     template_names = {'v1': 'travel/the-flyer'}
 
-
 class Headline(webapp2.RequestHandler):
 
     def get(self, edition="uk"):
