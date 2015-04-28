@@ -14,6 +14,8 @@ from guardianapi.apiClient import ApiClient
 from template_filters import first_paragraph, urlencode
 import template_filters
 
+import data_source as ds
+
 from ads import AdFetcher
 
 import deduplication
@@ -140,7 +142,7 @@ class Headline(webapp2.RequestHandler):
           clients = {'us' : clientUS, 'au' : clientAUS}
           return clients.get(edition, client)
 
-        data_sources = {'top_stories': TopStoriesDataSource(determine_client(edition))}
+        data_sources = {'top_stories': ds.TopStoriesDataSource(determine_client(edition))}
         priority_list = [('top_stories', 1)]
         template_data = {}
         retrieved_data = EmailTemplate.fetch_all(data_sources)
