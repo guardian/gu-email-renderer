@@ -3,7 +3,7 @@
 {% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
-{% set title = 'Australian Sport' %}
+{% set title = 'Guardian Australia Sport' %}
 {% set title_link = 'http://www.theguardian.com/au/sport' %}
 {% set title_colour = '#333333' %}
 {% set logo_background = '#004179' %}
@@ -20,8 +20,13 @@
     thumbnail=True,
     standfirst=False) }}
 
+{{ layout.story_trail(
+    heading_text='More sport',
+    stories=uk_sport,
+    heading_link='http://www.theguardian.com/au/sport',
+    heading_colour='#0061a6',
+    thumbnail=True,
+    standfirst=False) }}
 {% endblock content %}
-
-{% block footer %}{% endblock footer %}
 
 {% set sections = () %}

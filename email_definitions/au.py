@@ -164,12 +164,16 @@ class Sport(mr.EmailTemplate):
 
     data_sources = immutable.make_dict({
         'v1': {
-            'au_sport': au.SportDataSource(client)
+            'au_sport': au.SportDataSource(client),
+            'uk_sport': dss.sport.UK(client),
         }
     })
 
     priority_list = immutable.make_dict({
-        'v1': [('au_sport', 10)]
+        'v1': [
+            ('au_sport', 6),
+            ('uk_sport', 4)
+            ]
     })
 
     template_names = immutable.make_dict({
