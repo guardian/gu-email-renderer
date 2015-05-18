@@ -1,0 +1,8 @@
+from google.appengine.api import urlfetch
+
+class ContainerDataSource:
+	def __init__(self, container_id):
+		self.container_id = container_id
+
+	def fetch_data():
+		return []
