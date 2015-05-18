@@ -7,3 +7,6 @@ content_item_fields = ['trailText',
 	'commentable',
 	'thumbnail',
 	'byline']
+
+MAX_MEMCACHE_LENGTH=1000000
+CACHE_TIME=2*60

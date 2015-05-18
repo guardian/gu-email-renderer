@@ -4,6 +4,7 @@ import urllib
 import traceback
 
 from google.appengine.api import urlfetch
+from google.appengine.api import memcache
 
 import pysistence as immutable
 
@@ -21,12 +22,20 @@ def read_capi_item(internal_id):
 	capi_base_url = configuration.read('CAPI_BASE_URL')
 
 	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(default_fields))
+
+	cached_response = memcache.get(item_url)
+
+	if cached_response:
+		return cached_response
 	
 	result = urlfetch.fetch(item_url)
 
 	if result.status_code == 200:
 		data = json.loads(result.content)
 		item_data = data.get('response', {}).get('content', {})
+
+		if len(result.content) < defaults.MAX_MEMCACHE_LENGTH:
+			memcache.set(item_url, item_data, defaults.CACHE_TIME)
 		return item_data
 
 	return None
