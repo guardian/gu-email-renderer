@@ -81,7 +81,6 @@ class DailyEmailUS(mr.EmailTemplate):
 
 class Opinion(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2']
-    cache_bust=True
 
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
@@ -104,8 +103,9 @@ class Opinion(mr.EmailTemplate):
         'v1': [
         ('cif_most_shared', 5),],
         'v2': [
+        ('us_opinion', 3),
         ('cif_most_shared', 5),
-        ('us_opinion', 2),],
+        ],
     })
 
     template_names = immutable.make_dict({

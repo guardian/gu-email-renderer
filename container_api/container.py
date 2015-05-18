@@ -28,7 +28,7 @@ def read_capi_item(internal_id):
 	if cached_response:
 		return cached_response
 	
-	result = urlfetch.fetch(item_url)
+	result = urlfetch.fetch(item_url, deadline=8)
 
 	if result.status_code == 200:
 		data = json.loads(result.content)
