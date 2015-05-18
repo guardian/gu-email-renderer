@@ -7,5 +7,5 @@ class ContainerDataSource:
 	def __init__(self, container_id):
 		self.container_id = container_id
 
-	def fetch_data():
+	def fetch_data(self):
 		return []
