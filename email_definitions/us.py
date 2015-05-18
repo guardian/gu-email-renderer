@@ -104,7 +104,8 @@ class Opinion(mr.EmailTemplate):
         'v1': [
         ('cif_most_shared', 5),],
         'v2': [
-        ('cif_most_shared', 5),],
+        ('cif_most_shared', 5),
+        ('us_opinion', 2),],
     })
 
     template_names = immutable.make_dict({
