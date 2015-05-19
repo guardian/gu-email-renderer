@@ -27,16 +27,22 @@ def read_capi_item(internal_id):
 
 	if cached_response:
 		return cached_response
+
+	attempts = 3
+
+	while attempts > 0:
 	
-	result = urlfetch.fetch(item_url, deadline=8)
+		result = urlfetch.fetch(item_url, deadline=8)
 
-	if result.status_code == 200:
-		data = json.loads(result.content)
-		item_data = data.get('response', {}).get('content', {})
+		if result.status_code == 200:
+			data = json.loads(result.content)
+			item_data = data.get('response', {}).get('content', {})
 
-		if len(result.content) < defaults.MAX_MEMCACHE_LENGTH:
-			memcache.set(item_url, item_data, defaults.CACHE_TIME)
-		return item_data
+			if len(result.content) < defaults.MAX_MEMCACHE_LENGTH:
+				memcache.set(item_url, item_data, defaults.CACHE_TIME)
+			return item_data
+
+		attempts = attempts + 1
 
 	return None
 

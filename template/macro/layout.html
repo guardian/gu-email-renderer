@@ -109,7 +109,8 @@
 
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True) -%}
+{% if always_show or stories %}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
 {% endif %}
@@ -131,6 +132,7 @@
 		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
 	{% endfor %}
 </td></tr>
+{% endif %}
 {%- endmacro %}
 
 {% macro advert(ad_html) -%}
