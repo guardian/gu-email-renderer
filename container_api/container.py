@@ -11,8 +11,9 @@ import pysistence as immutable
 import defaults
 import configuration
 
-default_fields = immutable.make_dict({
-	'show-fields': ",".join(defaults.content_item_fields)
+default_params = immutable.make_dict({
+	'show-fields': ",".join(defaults.content_item_fields),
+	'api-key': configuration.read('CAPI_KEY')
 	})
 
 def for_id(container_id):
@@ -21,28 +22,24 @@ def for_id(container_id):
 def read_capi_item(internal_id):
 	capi_base_url = configuration.read('CAPI_BASE_URL')
 
-	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(default_fields))
-
+	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(default_params))
+	#logging.info(item_url)
+	
 	cached_response = memcache.get(item_url)
 
 	if cached_response:
 		return cached_response
 
-	attempts = 3
-
-	while attempts > 0:
 	
-		result = urlfetch.fetch(item_url, deadline=8)
+	result = urlfetch.fetch(item_url, deadline=8)
 
-		if result.status_code == 200:
-			data = json.loads(result.content)
-			item_data = data.get('response', {}).get('content', {})
+	if result.status_code == 200:
+		data = json.loads(result.content)
+		item_data = data.get('response', {}).get('content', {})
 
-			if len(result.content) < defaults.MAX_MEMCACHE_LENGTH:
-				memcache.set(item_url, item_data, defaults.CACHE_TIME)
-			return item_data
-
-		attempts = attempts + 1
+		if len(result.content) < defaults.MAX_MEMCACHE_LENGTH:
+			memcache.set(item_url, item_data, defaults.CACHE_TIME)
+		return item_data
 
 	return None
 
@@ -55,7 +52,7 @@ class ContainerDataSource:
 		try:
 			url = "{0}/{1}".format(container_base_url, self.container_id)
 			
-			result = urlfetch.fetch(url)
+			result = urlfetch.fetch(url, deadline=9)
 			if result.status_code == 200:
 				data = json.loads(result.content)
 				live_stories = data.get('collection', {}).get('live', [])
