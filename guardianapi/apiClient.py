@@ -18,13 +18,13 @@ class ApiClient(object):
     def _do_call(self, endpoint, **kwargs):
         fixed_kwargs = self._fix_kwargs(kwargs)
 
-        url = '%s?%s' % (
+        url = '{0}?{1}'.format(
             urlparse.urljoin(self.base_url, endpoint),
-            urllib.urlencode(fixed_kwargs),
+            urllib.urlencode(fixed_kwargs)
         )
 
         headers, response = self.fetcher.get(url)
-        logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
+        #logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
         return json.loads(response)
 
     def _fix_kwargs(self, kwargs):
