@@ -40,7 +40,7 @@
 	</style>
 </head>
 <body>
-<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" style="font-family: Georgia, serif; font-size: 12pt">
 	<tbody>
 		<tr>
 			<td align="center">
@@ -84,7 +84,7 @@
 							<tbody>
 								<tr valign="top">
 									<td align="left" style="padding: 0px 0px 0px 20px;">
-									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 14px;" class="section-heading">{{title}}</span>
+									<span style="font-style: normal; font-variant: normal; line-height: normal; display: block; padding: 10px 0px; font-weight: normal; color: #ffffff; text-decoration: none; font-family: Georgia,serif; font-size: 12pt;" class="section-heading">{{title}}</span>
 									</td>
 								</tr>
 							</tbody>
@@ -110,7 +110,7 @@
 													{% if loop.first %}
 
 													<p style="text-align: center;">
-													<a href="{{story.webUrl}}" title=""><img width="100%" border="0"style="width: 100%; border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></a></p>
+													<a href="{{story.webUrl}}" title=""><img width="270px" border="0"style="border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></a></p>
 													{% endif %}
 
 													<p><a href="{{story.webUrl}}" class="story-title">{{story.fields.headline}}</a><br />{{story.fields.trailText}}</p>

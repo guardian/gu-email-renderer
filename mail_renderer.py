@@ -19,6 +19,7 @@ import data_source as ds
 from ads import AdFetcher
 
 import deduplication
+import configuration
 
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
     URL_ROOT = ''
@@ -45,9 +46,9 @@ jinja_environment.cache=None
 
 
 # TODO: Hide me away somewhere warm and secret.
-api_key = '***REMOVED***'
+api_key = configuration.read('CAPI_KEY')
 ophan_key = '***REMOVED***'
-base_url='http://***REMOVED***'
+base_url=configuration.read('CAPI_BASE_URL')
 ophan_base_url = 'http://***REMOVED***'
 discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
