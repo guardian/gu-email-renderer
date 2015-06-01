@@ -7,7 +7,6 @@ import data_sources as dss
 
 class LongReads(mr.EmailTemplate):
     recognized_versions = ['v1']
-    cache_bust=True
 
     data_sources = immutable.make_dict({
         'v1': {
