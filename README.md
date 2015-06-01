@@ -53,8 +53,11 @@ http://***REMOVED***.appspot.com/daily-email
 
 ## Template
 
-The `master.html` template contains the basic layout of the
-email. Stories are rendered using macros found in the `macro`
+Emails are rendered using one of two base templates.
+
+Use `base_email.html` for a normal email structure and `base_scrape.html` for emails where the bulk of the rendering is done in ExactTarget and the application is just supplying a panel or two.
+
+Stories are rendered using macros found in the `macro`
 subfolder.
 
 ## ExactTarget integration
