@@ -11,3 +11,5 @@ import au
 import us
 
 import developer
+
+import long_reads
