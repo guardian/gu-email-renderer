@@ -104,3 +104,8 @@ class EmailTemplate(webapp2.RequestHandler):
             logging.debug('Cache hit with key: %s' % cache_key)
 
         self.response.out.write(page)
+
+class Index(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('index.html')
+        self.response.out.write(template.render())

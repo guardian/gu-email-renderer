@@ -7,3 +7,5 @@ import news
 import sport
 
 import long_reads
+
+import headlines

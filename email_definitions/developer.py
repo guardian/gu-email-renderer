@@ -1,7 +1,11 @@
+import webapp2
+
 import mail_renderer as mr
 import handlers
+import deduplication
 
 import data_source as ds
+import data_sources as dss
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 
@@ -46,3 +50,20 @@ class MostViewed(handlers.EmailTemplate):
     data_sources['v1'] = { 'most_viewed' : ds.MostViewedDataSource(client) }
     priority_list = {'v1': [('most_viewed', 3)]}
     template_names = {'v1': 'most-viewed'}
+
+class Headline(webapp2.RequestHandler):
+
+    def get(self, edition="uk"):
+
+        data_sources = {'top_stories': dss.headlines.for_edition(edition)}
+        priority_list = [('top_stories', 1)]
+        template_data = {}
+        retrieved_data = handlers.EmailTemplate.fetch_all(data_sources)
+        trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
+        stories = trail_block.get('top_stories')
+        headlines = [s.get('webTitle') for s in stories]
+        if headlines:
+            headline = headlines[0]
+            template_data['headline'] = headline
+        template = handlers.jinja_environment.get_template('headline.html')
+        self.response.out.write(template.render(template_data))
