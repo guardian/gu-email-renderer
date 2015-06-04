@@ -1,6 +1,7 @@
 import pysistence as immutable
 
 import mail_renderer as mr
+import handlers
 
 import data_source as ds
 
@@ -9,7 +10,7 @@ from ophan_calls import OphanClient, MostSharedFetcher
 
 client = mr.client
 
-class CommentIsFree(mr.EmailTemplate):
+class CommentIsFree(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v2')
 
     ad_tag = 'email-speakers-corner'

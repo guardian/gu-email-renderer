@@ -5,18 +5,15 @@ import datetime
 import math
 import logging
 
-from google.appengine.api import memcache
-
 import pysistence as immutable
 
 from guardianapi.apiClient import ApiClient
 
-from template_filters import first_paragraph, urlencode
 import template_filters
 
 import data_source as ds
 
-from ads import AdFetcher
+from handlers import EmailTemplate
 
 import deduplication
 import configuration

@@ -2,10 +2,11 @@ import logging
 
 import pysistence as immutable
 
+import handlers
 import mail_renderer as mr
 import data_sources as dss
 
-class LongReads(mr.EmailTemplate):
+class LongReads(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = immutable.make_dict({

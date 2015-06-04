@@ -12,6 +12,7 @@ import pysistence as immutable
 import deduplication
 import template_filters
 
+from ads import AdFetcher
 
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
     URL_ROOT = ''

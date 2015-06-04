@@ -1,3 +1,4 @@
+import handlers
 import mail_renderer as mr
 from ophan_calls import OphanClient, MostSharedFetcher
 from data_source import MultiContentDataSource, MostSharedCountInterpolator, MostSharedDataSource
@@ -6,7 +7,7 @@ import data_sources as dss
 
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 
-class MostShared(mr.EmailTemplate):
+class MostShared(handlers.EmailTemplate):
 	recognized_versions = ['v1']
 	n_items = 6
 

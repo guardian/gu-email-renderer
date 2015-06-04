@@ -2,6 +2,7 @@ from functools import partial
 
 import pysistence as immutable
 
+import handlers
 import mail_renderer as mr
 
 import data_source as ds
@@ -22,7 +23,7 @@ clientUS = mr.clientUS
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 discussion_client = DiscussionClient(mr.discussion_base_url)
 
-class DailyEmailUS(mr.EmailTemplate):
+class DailyEmailUS(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7')
 
     ad_tag = 'email-guardian-today-us'
@@ -79,7 +80,7 @@ class DailyEmailUS(mr.EmailTemplate):
         'v7': 'us/daily/v7',
     })
 
-class Opinion(mr.EmailTemplate):
+class Opinion(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2']
 
     most_shared_data_source = ds.MostSharedDataSource(

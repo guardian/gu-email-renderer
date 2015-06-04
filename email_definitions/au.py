@@ -6,6 +6,7 @@ import pysistence as immutable
 import pytz
 
 import mail_renderer as mr
+import handlers
 
 import data_source as ds
 import data_sources.au as au
@@ -21,7 +22,7 @@ clientAUS = mr.clientAUS
 ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 discussion_client = DiscussionClient(mr.discussion_base_url)
 
-class DailyEmailAUS(mr.EmailTemplate):
+class DailyEmailAUS(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-guardian-today-aus'
@@ -79,7 +80,7 @@ class DailyEmailAUS(mr.EmailTemplate):
         'v3': 'au/daily/v3',
     })
 
-class Politics(mr.EmailTemplate):
+class Politics(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
 
     ad_tag = 'email-australian-politics'
@@ -103,7 +104,7 @@ class Politics(mr.EmailTemplate):
     template_names = immutable.make_dict({'v1': 'au/politics'})
 
 
-class CommentIsFree(mr.EmailTemplate):
+class CommentIsFree(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     most_shared_data_source = ds.MostSharedDataSource(
@@ -128,7 +129,7 @@ class CommentIsFree(mr.EmailTemplate):
         'v1': 'au/comment-is-free/v1',
     })
 
-class Morning(mr.EmailTemplate):
+class Morning(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
 
     data_sources = immutable.make_dict({
@@ -156,7 +157,7 @@ class Morning(mr.EmailTemplate):
             sydney_date=datetime.datetime.now(sydney_tz).strftime(date_format)
         )
 
-class Sport(mr.EmailTemplate):
+class Sport(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = immutable.make_dict({

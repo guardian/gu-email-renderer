@@ -1,4 +1,5 @@
 import mail_renderer as mr
+import handlers
 
 import data_source as ds
 
@@ -6,7 +7,7 @@ from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 
 client = mr.client
 
-class EditorsPicks(mr.EmailTemplate):
+class EditorsPicks(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = {}
@@ -14,7 +15,7 @@ class EditorsPicks(mr.EmailTemplate):
     priority_list = {'v1': [('editors_picks', 3)]}
     template_names = {'v1': 'editors-picks'}
 
-class MostCommented(mr.EmailTemplate):
+class MostCommented(handlers.EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
 
@@ -38,7 +39,7 @@ class MostCommented(mr.EmailTemplate):
     template_names = {'v1': 'most-commented'}
 
 
-class MostViewed(mr.EmailTemplate):
+class MostViewed(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = {}

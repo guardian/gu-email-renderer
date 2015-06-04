@@ -5,12 +5,13 @@ import pysistence as immutable
 import data_source as ds
 import data_sources.technology as tech_data
 
+import handlers
 import mail_renderer as mr
 
 client = mr.client
 
 
-class DailyEmail(mr.EmailTemplate):
+class DailyEmail(handlers.EmailTemplate):
 	recognized_versions = ['v1', 'india']
 
 	ad_tag = 'email-guardian-today'
