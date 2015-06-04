@@ -14,6 +14,17 @@ in your home directory:
 
 You can then view the daily email at http://localhost:8888/daily-email.
 
+
+### Configuration
+
+To hide implementation details the application takes some of its service connection details from configuration (and these get bound at startup time).
+
+You will need to define configuration values for the following keys:
+
+* `CAPI_BASE_URL`: root url of CAPI
+* `CONTAINER_API_BASE_URL`: root url of the container service
+* `CAPI_KEY`: valid CAPI key for the CAPI instance you're running against
+
 ## Running the tests
 
 The script is in the root directory of the project:

@@ -109,7 +109,7 @@
 
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True) -%}
+{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False) -%}
 {% if always_show or stories %}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
@@ -119,17 +119,17 @@
 	{% for story in stories %}
 		{% if thumbnail == True %}
 			{% set use_thumbnail = True %}
-            {% set use_standfirst = standfirst %}
+            {% set show_text = standfirst %}
         {% else %}
             {% if loop.index == 1 and top_thumb %}
                 {% set use_thumbnail = True %}
-                {% set use_standfirst = True %}
+                {% set show_text = True %}
             {% else %}
                 {% set use_thumbnail = False %}
-                {% set use_standfirst = standfirst %}
+                {% set show_text = standfirst %}
             {% endif %}
         {% endif %}
-		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
+		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
 	{% endfor %}
 </td></tr>
 {% endif %}
