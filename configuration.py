@@ -18,7 +18,3 @@ def write(key, value):
 	config = Configuration(id=key, key=key, value=value)
 	config.put()
 	return config
-
-test_key = 'TEST_KEY'
-if not read(test_key):
-	write(test_key, 'Hello')
