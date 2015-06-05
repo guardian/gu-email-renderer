@@ -6,4 +6,4 @@ dependencies:
 
 test:
   override:
-    - python test_runner.py google_appengine
+    - python test_runner.py $HOME/google_appengine
