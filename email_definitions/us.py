@@ -73,7 +73,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': 'us/daily/v7',
     })
 
-class Opinion(mr.EmailTemplate):
+class Opinion(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
     most_shared_data_source = ds.MostSharedDataSource(
