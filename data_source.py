@@ -134,14 +134,14 @@ class OphanDataSource(DataSource):
 
     def _do_call(self, **criteria):
         urls = self.fetcher.fetch()
+        #logging.info(urls)
         content_ids = [urlparse(url).path for(url, count) in urls]
         self.multi_content_data_source.content_ids = content_ids
         return self.multi_content_data_source.fetch_data()
 
-    @perma_cache
     def fetch_data(self):
         # get data from
-        # put results in datastore with key made from self.__repr__
+        # put results in datastore with key mt_ids
         return DataSource.fetch_data(self)
 
 

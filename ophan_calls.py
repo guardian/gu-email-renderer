@@ -2,6 +2,10 @@ import logging
 import urllib
 import urllib2
 import json
+
+from django.utils import simplejson as json
+from urlparse import urlparse
+from urllib import urlencode
 from urlparse import urlparse, urljoin
 
 # TODO: pull this up into a generic http client
@@ -11,9 +15,18 @@ class OphanClient(object):
         self.base_url = base_url
         self.api_key = api_key
 
-    def do_get(self, url):
+    def do_get(self, url, params=None, add_base=False):
         try:
-            u = urllib2.urlopen(url)
+            final_url = url
+            if add_base:
+                final_url = self.base_url + url
+
+            if params:
+                final_url = final_url + "?" + urlencode(params)
+
+            #logging.info("Ophan url: {url}".format(url=final_url))
+
+            u = urllib2.urlopen(final_url)
         except urllib2.URLError as e:
             if hasattr(e, 'reason'):
                 logging.error('Could not reach server while accessing %s. Reason: %s' % (url, e.reason))
@@ -44,11 +57,9 @@ class MostSharedFetcher(object):
             "api-key" : self.client.api_key
         }
 
-        if self.section:
-            params["section"] = self.section
-
-        if self.country:
-            params['country'] = self.country
+        for name in ['section', 'country']:
+            if hasattr(self, name) and getattr(self, name):
+                params[name] = getattr(self, name)
 
         return params
 
@@ -69,3 +80,20 @@ class MostSharedFetcher(object):
     def _parse_response(self, response):
         shared_items = json.loads(response)
         return [(self._extract_path(item['path']), item['hits']) for item in shared_items]
+
+
+class MostPopularFetcher(object):
+    def __init__(self, ophan_client, edition=None):
+        self.ophan_client = ophan_client
+        self.edition = edition
+
+    def fetch(self):
+        params = None
+        if self.edition:
+            params = {'country' : self.edition}
+
+        headers, most_viewed_result = self.ophan_client.do_get('/api/mostread', params=params, add_base=True)
+        if not most_viewed_result:
+            return []
+
+        return [(entry['url'], entry['count']) for entry in json.loads(most_viewed_result)]
