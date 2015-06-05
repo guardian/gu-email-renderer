@@ -1,7 +1,7 @@
 
 dependencies:
   pre:
-    - curl -o $HOME/google_appengine_1.9.21.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.13.zip
+    - curl -o $HOME/google_appengine_1.9.21.zip https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.21.zip
     - unzip -q -d $HOME $HOME/google_appengine_1.9.21.zip
 
 test:
