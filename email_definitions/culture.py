@@ -34,6 +34,7 @@ class FilmToday(handlers.EmailTemplate):
 
 class SleeveNotes(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
+    cache_bust=True
 
     ad_tag = 'email-sleeve-notes'
     ad_config = {
@@ -41,26 +42,33 @@ class SleeveNotes(handlers.EmailTemplate):
         'leaderboard2': 'Bottom',
     }
 
+    music_editors_picks = dss.general.ItemDataSource(content_id='music', show_editors_picks=True, tags=['-tone/news'])
+
     base_data_sources = immutable.make_dict({
-        'music_most_viewed': ds.MusicMostViewedDataSource(client),
-        'music_picks': ds.MusicEditorsPicksDataSource(client),
-        'music_blog': ds.MusicBlogDataSource(client),
-        'music_watch_listen': ds.MusicWatchListenDataSource(client),
-        'music_further': ds.MusicEditorsPicksDataSource(client),        
+        'music_most_viewed': dss.general.ItemDataSource(content_id='music', show_most_viewed=True),
+        'music_picks': music_editors_picks,
+        'music_blog': dss.general.ItemDataSource(content_id='music/musicblog'),
+        'music_watch_listen': dss.general.ItemDataSource(content_id='music', tags=['(type/video|type/audio)']),
+        'music_further': music_editors_picks,        
         })
 
-    data_sources = {
+    data_sources = immutable.make_dict({
         'v1' : base_data_sources,
         'v2' : base_data_sources,
         'v3' : base_data_sources,
-    }
+    })
 
-    priority_list = {}
-    priority_list['v1'] = [('music_most_viewed', 3), ('music_picks', 5), ('music_blog', 5),
-                           ('music_watch_listen', 5), ('music_further', 3)]
+    priorities = immutable.make_list(('music_most_viewed', 3),
+        ('music_picks', 5),
+        ('music_blog', 5),
+        ('music_watch_listen', 5),
+        ('music_further', 3))
 
-    priority_list['v2'] = priority_list['v1']
-    priority_list['v3'] = priority_list['v1']
+    priority_list = immutable.make_dict({
+        'v1': priorities,
+        'v2': priorities,
+        'v3': priorities
+    })
 
     template_names = immutable.make_dict({
         'v1': 'culture/sleeve-notes/v1',

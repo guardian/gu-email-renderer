@@ -423,17 +423,6 @@ class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='world/india', show_editors_picks=True)
 
-class MusicMostViewedDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='music', show_most_viewed=True)
-
-
-class MusicEditorsPicksDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='music', show_editors_picks=True)
-        self.tags = ['-tone/news']
-
-
 class MusicNewsDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='music')
@@ -456,11 +445,6 @@ class MusicAudioDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['type/audio']
-
-
-class MusicBlogDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='music/musicblog')
 
 class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
