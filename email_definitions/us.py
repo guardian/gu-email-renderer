@@ -74,7 +74,6 @@ class DailyEmailUS(mr.EmailTemplate):
 
 class Opinion(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
-    cache_bust=True
 
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
