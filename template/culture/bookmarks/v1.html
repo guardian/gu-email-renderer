@@ -1,0 +1,67 @@
+{# Bookmarks email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Bookmarks' %}
+{% set title_link = 'http://www.theguardian.com/books' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page    = 'Guardian-Books' %}
+{% set twitter_account  = 'guardianbooks' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+
+{{ layout.story_trail(
+        heading_text='Today\'s top stories',
+        stories=books_picks,
+        heading_link='http://www.theguardian.com/books',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+{{ layout.story_trail(
+        heading_text='Most viewed in Books',
+        stories=books_most_viewed,
+        heading_link='http://www.theguardian.com/most-read/books',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.story_trail(
+        heading_text='Latest reviews',
+        stories=book_reviews,
+        heading_link='http://www.theguardian.com/books+tone/reviews',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.story_trail(
+        heading_text='Talking Points',
+        stories=books_blog,
+        heading_link='http://www.theguardian.com/books/booksblog',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard2) }}
+
+{{ layout.story_trail(
+        heading_text='Latest podcasts',
+        stories=book_podcasts,
+        heading_link='http://www.theguardian.com/books+type/audio',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.trail_image(
+    image=how_to_draw,
+    heading_text='How to draw',
+    heading_link='http://www.theguardian.com/childrens-books-site/series/how-to-draw',
+    heading_colour='#d1008b') }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+

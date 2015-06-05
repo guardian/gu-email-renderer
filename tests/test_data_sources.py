@@ -1,7 +1,7 @@
 #! /usr/bin/python
 
 import prefetch
-import unittest2
+import unittest
 import urllib
 
 from data_source import \
@@ -10,14 +10,15 @@ from data_source import \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
     ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
     MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
-    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, TechnologyDataSource, ItemPlusBlogDataSource, \
-    DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource, fetch_all
+    BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, ItemPlusBlogDataSource, \
+    DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource
 
 from urllib2 import urlparse
 from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient, MultiCalledApiStubFetcher
 
+from mail_renderer import EmailTemplate
 
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
@@ -32,7 +33,7 @@ class UrlCapturingFetcher(object):
 fetcher = UrlCapturingFetcher()
 url_capturing_client = ApiClient('http://***REMOVED***/', API_KEY, fetcher=fetcher)
 
-class TestDataSources(unittest2.TestCase):
+class TestDataSources(unittest.TestCase):
 
     def quote_params(self, query_params):
         quoted_params = {}
@@ -129,6 +130,7 @@ class TestDataSources(unittest2.TestCase):
                                    show_elements = 'image',
                                    show_most_viewed='true',
                                    user_tier='internal')
+    
     def test_content_data_source_should_call_api_with_correct_url(self):
         self.check_data_source_url(ContentDataSource(url_capturing_client, 'content_id'), '/content_id', show_fields='trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline',user_tier="internal")
 
@@ -184,9 +186,10 @@ class TestDataSources(unittest2.TestCase):
                                    page_size='10',
                                    user_tier='internal')
 
-
     def test_should_call_api_with_correct_url_for_life_and_technology(self):
-        self.check_data_source_url(TechnologyDataSource(url_capturing_client), '/technology',
+        tech_ds = ItemDataSource(url_capturing_client, 'technology', show_editors_picks=True)
+        tech_ds.name = 'technology' + url_capturing_client.edition
+        self.check_data_source_url(tech_ds, '/technology',
                                    show_fields=Fields,
                                    show_editors_picks='true',
                                    page_size='10',
@@ -235,7 +238,8 @@ class TestDataSources(unittest2.TestCase):
                                    show_fields=Fields,
                                    page_size='10',
                                    show_editors_picks='true',
-                                   user_tier='internal')
+                                   user_tier='internal',
+                                   show_elements='image')
 
     def test_short_url_must_be_specified_as_field_for_most_commented(self):
 
@@ -375,7 +379,7 @@ class TestDataSources(unittest2.TestCase):
 
 
         data_source_map = {'cheese': StubDataSource1(), 'pickle': StubDataSource2()}
-        retrieved_data = fetch_all(data_source_map)
+        retrieved_data = EmailTemplate.fetch_all(data_source_map)
 
         assert len(retrieved_data.keys()) == 2
         assert retrieved_data['cheese'] == 'stub data 1'
@@ -502,4 +506,4 @@ class TestDataSources(unittest2.TestCase):
 
 
 if __name__ == '__main__':
-    unittest2.main()
+    unittest.main()

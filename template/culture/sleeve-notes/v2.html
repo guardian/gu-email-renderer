@@ -1,0 +1,31 @@
+{# Sleeve notes email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Sleeve notes' %}
+{% set title_link = 'http://www.theguardian.com/music' %}
+{% set title_colour = '#d1008b' %}
+{% set logo_background  = '#92005e' %}
+{% set facebook_page    = 'musicguardian' %}
+{% set twitter_account  = 'guardianmusic' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+        heading_text='Most read',
+        stories=music_most_viewed,
+        heading_link='http://www.theguardian.com/most-read/music?view=mobile',
+        heading_colour='#d1008b',
+        top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard) }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% set sections = (('News', 'http://www.theguardian.com/music/music+tone/news'),
+                   ('Album reviews', 'http://www.theguardian.com/music/music+tone/albumreview'),
+                   ('Live reviews', 'http://www.theguardian.com/music/music+tone/livereview')) %}

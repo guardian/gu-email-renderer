@@ -21,6 +21,9 @@ class DataSource(object):
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
+        self.section = None
+        self.production_office = None
+        self.show_elements = None
 
 
     def fetch_data(self):
@@ -38,17 +41,17 @@ class DataSource(object):
         if self.content_type:
             self.tags.append('type/%s' % self.content_type)
 
-        self.tags += DEFAULT_TAGS
-        criteria['tag'] = ','.join(self.tags)
+        for default_tag in DEFAULT_TAGS:
+            if default_tag not in self.tags:
+                self.tags.append(default_tag)
+        
+        criteria['tag'] = ','.join(set(self.tags))
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
 
         if self.page_size:
             criteria['page-size'] = self.page_size
-
-        if self.show_elements:
-            criteria['show-elements'] = self.show_elements
 
         if self.from_date:
             criteria['from-date'] = self.from_date
@@ -58,6 +61,11 @@ class DataSource(object):
             criteria['short_url'] = self.short_url
 
         criteria['user-tier']='internal'
+
+        for attr in ['production_office', 'section', 'show_elements']:
+            attr_value = getattr(self,attr)
+            if attr_value:
+                criteria[attr] = attr_value
 
         return criteria
 
@@ -151,29 +159,29 @@ class OphanDataSource(DataSource):
 
 class MostSharedDataSource(DataSource):
 
-    def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10):
+    def __init__(self, multi_content_data_source, most_shared_fetcher, shared_count_interpolator, n_items=10, result_decorator=None):
         DataSource.__init__(self, None)
 
         self.multi_content_data_source = multi_content_data_source
+        self.multi_content_data_source.fields.append('shortUrl')
+
         self.most_shared_fetcher = most_shared_fetcher
         self.shared_count_interpolator  = shared_count_interpolator
         self.n_items = n_items
-
-
-    @perma_cache
-    def fetch_data(self):
-        # get data from
-        # put results in datastore with key made from self.__repr__
-        return DataSource.fetch_data(self)
+        self.result_decorator = result_decorator
 
     def _do_call(self, **criteria):
 
         shared_urls_with_counts = self.most_shared_fetcher.fetch_most_shared()
-        #import pdb; pdb.set_trace()
+
         content_ids = [urlparse(url).path for(url, count) in shared_urls_with_counts]
         self.multi_content_data_source.content_ids = content_ids
         most_shared_comment = self.multi_content_data_source.fetch_data()
-        return self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+        results = self.shared_count_interpolator.interpolate(shared_urls_with_counts, most_shared_comment)
+
+        if self.result_decorator:
+            results = self.result_decorator(results)
+        return results
 
     def __repr__(self):
         return os.environ['CURRENT_VERSION_ID'] + "OphanMostSharedData"
@@ -187,16 +195,17 @@ class SearchDataSource(DataSource):
 
 
 class ItemDataSource(DataSource):
-    def __init__(self, client, section='', show_editors_picks=False, show_most_viewed=False):
+    def __init__(self, client, content_id='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False):
         DataSource.__init__(self, client)
         if show_editors_picks and show_most_viewed:
             raise DataSourceException('Cannot show most_viewed and editors_picks at the same time')
-        self.section = section
+        self.content_id = content_id
         self.show_editors_picks = show_editors_picks
         self.show_most_viewed = show_most_viewed
+        self.only_editors_picks = only_editors_picks
 
     def _do_call(self, **criteria):
-        return self.client.item_query(self.section, self.show_editors_picks, self.show_most_viewed, **criteria)
+        return self.client.item_query(self.content_id, self.show_editors_picks, self.show_most_viewed, self.only_editors_picks, **criteria)
 
 
 class MultiContentDataSource(ItemDataSource):
@@ -220,11 +229,11 @@ class MultiContentDataSource(ItemDataSource):
 
 class ContentDataSource(ItemDataSource):
     def __init__(self, client, content_id):
-        ItemDataSource.__init__(self, client, section=content_id)
+        ItemDataSource.__init__(self, client, content_id=content_id)
         self.page_size = None
 
     def _do_call(self, **criteria):
-        return self.client.content_query(self.section, **criteria)
+        return self.client.content_query(self.content_id, **criteria)
 
 
 class CultureDataSource(ItemDataSource):
@@ -253,29 +262,11 @@ class CommentIsFreeDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
-
-class AusCommentIsFreeDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
-        self.tags = ['world/australia']
-
-
 class CommentIsFreeCartoonDataSource(SearchDataSource):
     def __init__(self, client):
         DataSource.__init__(self, client)
-        self.content_type = 'cartoon'
-        self.tags = ['theguardian/series/guardiancommentcartoon']
+        self.tags = ['commentisfree/series/guardian-comment-cartoon']
         self.show_elements = 'image'
-
-
-class TechnologyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'technology', show_editors_picks=True)
-        self.name = 'technology' + client.edition
-
-    def __repr__(self):
-        return str(self.__class__) + self.name
-
 
 class TravelDataSource(ItemDataSource):
     def __init__(self, client):
@@ -294,7 +285,7 @@ class TravelTopTenDataSource(ItemDataSource):
 
 class TravelTipsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'travel/series/been-there-readers-tips')
+        ItemDataSource.__init__(self, client, 'travel/series/readers-travel-tips')
 
 
 class TravelVideoDataSource(ItemDataSource):
@@ -322,17 +313,6 @@ class SportDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'sport', show_editors_picks=True)
 
-
-class SportUSDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'sport/us-sport', show_editors_picks=True)
-
-
-class AusSportDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'sport/australia-sport', show_editors_picks=True)
-
-
 class MediaDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'media', show_editors_picks=True)
@@ -340,24 +320,24 @@ class MediaDataSource(ItemDataSource):
 
 class MediaBlogDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/media-blog')
+        ItemDataSource.__init__(self, client, content_id='media/media-blog')
 
 
 class MediaMonkeyDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/mediamonkeyblog')
+        ItemDataSource.__init__(self, client, content_id='media/mediamonkeyblog')
         self.fields.append('body')
 
 
 class MediaCommentDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='media')
+        ItemDataSource.__init__(self, client, content_id='media')
         self.tags = ['tone/comment']
 
 
 class MediaBriefingDataSource(ItemDataSource):
     def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='media/series/media-briefing')
+        ItemDataSource.__init__(self, client, content_id='media/series/media-briefing')
 
 
 class PicOfDayDataSource(SearchDataSource):
@@ -384,7 +364,8 @@ class MostViewedDataSource(ItemDataSource):
         self.show_elements = 'image'
         self.show_most_viewed = True
         self.show_editors_picks = False
-        self.section=''
+        self.only_editors_picks = False
+        self.content_id=''
         self.name = 'most_viewed' + client.edition
 
     def __repr__(self):
@@ -398,220 +379,94 @@ class VideoDataSource(ItemDataSource):
     def __repr__(self):
         return str(self.__class__) + self.name
 
-
-class AusVideoDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
-        self.tags = ['(world/australia|sport/australia-sport|world/australian-politics|lifeandstyle/australia-food-blog|culture/australia-culture-blog|sport/series/guardian-australia-sports-highlights)']
-
-
-class AustralianPoliticsDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/australian-politics')
-
-
-class AustralianPoliticsCommentDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/australian-politics')
-        self.tags = ['commentisfree']
-
-
-class AustralianPoliticsVideoDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/australian-politics')
-        self.tags = ['type/video']
-
-
-class FashionEditorsPicksDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion', show_editors_picks=True)
-        self.page_size = 20
-
-
-class FashionMostViewedDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion', show_most_viewed=True)
-
-
-class FashionAskHadleyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
-        self.tags = ['fashion/series/ask-hadley']
-
-
-class FashionSaliHughesDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
-        self.tags = ['fashion/series/sali-hughes-beauty']
-
-
-class FashionNewsDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion')
-
-
-class FashionBlogDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='fashion/fashion-blog')
-
-
-class FashionNetworkDataSource(ItemDataSource):
-    def __init__(self, client ):
-        ItemDataSource.__init__(self, client, section='fashion/series/guardian-fashion-blogs-network')
-
-
-class FashionStylewatchDataSource(SearchDataSource):
-    def __init__(self, client):
-        DataSource.__init__(self, client)
-        self.tags = ['fashion/series/stylewatch']
-        # self.page_size = 1
-        self.show_elements = 'image'
-
-
-class FashionGalleryDataSource(SearchDataSource):
-    def __init__(self, client):
-        DataSource.__init__(self, client)
-        self.content_type = 'gallery'
-        self.tags = ['(fashion/series/fashion-for-all-ages|fashion/series/key-fashion-trends-of-the-season|fashion/series/fashion-line-up)']
-        # self.page_size = 1
-        self.show_elements = 'image'
-
-
-class FashionVideoDataSource(SearchDataSource):
-    def __init__(self, client):
-        DataSource.__init__(self, client)
-        self.content_type = 'video'
-        self.tags = ['theguardian/series/how-to-dress']
-        # self.page_size = 1
-        self.show_elements = 'video'
-
-
 class FilmEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='film', show_editors_picks=True)
 
 
 class FilmMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, content_id='film', show_most_viewed=True)
 
 
 class FilmBlogsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['(film/series/week-in-geek|film/series/reelhistory|film/series/at-the-british-box-office|film/series/bigger-picture|film/series/trailer-review)']
 
 
 class FilmInterviewsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['tone/interview']
 
 
 class FilmOfTheWeekDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['film/series/peter-bradshaw-film-of-the-week']
 
 
 class FilmQuizDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['type/quiz']
 
 
 class FilmShowDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.tags = ['film/series/guardian-film-show']
 
 
 class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='world/india', show_editors_picks=True)
-
-
-class USMoneyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='money/us-personal-finance')
-
+        ItemDataSource.__init__(self, client, content_id='world/india', show_editors_picks=True)
 
 class MusicMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music', show_most_viewed=True)
+        ItemDataSource.__init__(self, client, content_id='music', show_most_viewed=True)
 
 
 class MusicEditorsPicksDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music', show_editors_picks=True)
+        ItemDataSource.__init__(self, client, content_id='music', show_editors_picks=True)
         self.tags = ['-tone/news']
 
 
 class MusicNewsDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['tone/news']
 
 
 class MusicVideoDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['type/video']
 
 
 class MusicWatchListenDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['(type/video|type/audio)']
 
 
 class MusicAudioDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music')
+        ItemDataSource.__init__(self, client, content_id='music')
         self.tags = ['type/audio']
 
 
 class MusicBlogDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='music/musicblog')
-
-
-class TechnologyMostViewedDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology', show_most_viewed=True)
-
-
-class TechnologyBlogDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology')
-        self.tags = ['(technology/blog|technology/appsblog)']
-
-
-class TechnologyGamesDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology/games')
-        self.tags = ['-technology/series/chatterbox,-type/video']
-
-
-class TechnologyPodcastDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='technology')
-        self.tags = ['type/podcast']
-
-
-class TechnologyVideoDataSource(SearchDataSource):
-    def __init__(self, client):
-        DataSource.__init__(self, client)
-        self.content_type = 'video'
-        self.tags = ['technology/series/tech-sessions']
-        # self.page_size = 1
-        self.show_elements = 'video'
-
+        ItemDataSource.__init__(self, client, content_id='music/musicblog')
 
 class TopStoriesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
         self.name = 'top_stories' + client.edition
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name
@@ -625,49 +480,9 @@ class AusTopStoriesDataSource(TopStoriesDataSource):
 
 class FilmTodayLatestDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, section='film')
+        ItemDataSource.__init__(self, client, content_id='film')
         self.page_size = 10
 
 
 class DataSourceException(Exception):
     pass
-
-
-def build_unique_trailblocks(data, priority_list):
-    """
-    data is a map of type string->list list is a list of maps each of
-    which contains the field 'id'.  priority_list is a list of pairs:
-    (name, number). <name> is the is a key in data (the name of a
-    datasource) and <number> is the number of items to take from the
-    datasource.
-    """
-
-    items_seen_so_far = set()
-    unique_subsets = {}
-
-    for (data_set_name, size) in priority_list:
-        unique_subset = []
-        unique_subsets[data_set_name] = unique_subset
-        source_data = data[data_set_name]
-        for item in source_data:
-            if item['id'] not in items_seen_so_far and len(unique_subset) < size:
-                unique_subset.append(item)
-                items_seen_so_far.add(item['id'])
-
-    return unique_subsets
-
-
-# TODO: put me in email-template
-def fetch_all(data_sources):
-    """
-    data is a map of type string->data_source.
-    return a map with same keys as data, and retrieved data as values
-    """
-
-    #import pdb;pdb.set_trace()
-    retrieved_data_map = {}
-    for key in data_sources.keys():
-        retrieved_data = data_sources[key].fetch_data()
-        retrieved_data_map[key] = retrieved_data
-
-    return retrieved_data_map

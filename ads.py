@@ -16,7 +16,15 @@ class AdFetcher(object):
         Fetches the raw ad html from OAS
         """
         ad_url = self.root_url + "@" + ad_type
-        response = urlfetch.fetch(ad_url)
+
+        response = None
+        try:
+            response = urlfetch.fetch(ad_url)
+        except urlfetch.DeadlineExceededError as de:
+            logging.error("OAS call failed, returning no ad slots")
+            logging.error(de)
+            return None
+
         if response.status_code == 200:
             content = re.sub(r'width="\d{1,}" height="\d{1,}"', 'width="100%"', response.content)
 
@@ -24,6 +32,7 @@ class AdFetcher(object):
             # in which case the advert will be a single-pixel transparent gif,
             # let's just not bother with it
             if 'empty.gif' in content:
+                logging.info("OAS returned an empty gif")
                 return None
             else:
                 return content

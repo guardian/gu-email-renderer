@@ -1,8 +1,8 @@
-import unittest2
-from data_source import build_unique_trailblocks
+import unittest
+from deduplication import build_unique_trailblocks
 
 
-class TestResultSets(unittest2.TestCase):
+class TestResultSets(unittest.TestCase):
 
     def test_should_be_able_to_dedupe_result_sets(self):
         size = 3

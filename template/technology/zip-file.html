@@ -1,0 +1,51 @@
+{# Technology email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Zip File: Technology news from the Guardian' %}
+{% set title_link = 'http://www.theguardian.com/technology' %}
+{% set title_colour = '#c22d05' %}
+{% set logo_background  = '#961f02' %}
+{% set facebook_page = 'guardiantechnology' %}
+{% set twitter_account = 'guardiantech' %}
+{% set footer_link = 'http://www.theguardian.com' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Hot tech stories today',
+    stories=tech_news,
+    heading_link='http://www.theguardian.com/technology',
+    heading_colour='#c22d05',
+    thumbnail=True) }}
+
+{{ layout.advert(ads.leaderboard_v1) }}
+
+{{ layout.story_trail(
+    heading_text='Latest games news and reviews',
+    stories=tech_games,
+    heading_link='http://www.theguardian.com/technology/games',
+    heading_colour='#c22d05',
+    standfirst=False,
+    top_thumb=True) }}
+
+{{ layout.advert(ads.leaderboard_v2) }}
+
+{{ layout.story_trail(
+    heading_text='Latest podcast',
+    stories=tech_podcast,
+    heading_link='http://www.theguardian.com/technology/series/techweekly',
+    heading_colour='#c22d05') }}
+
+{{ layout.video(
+    video=tech_video,
+    bg_colour='#faf9f8',
+    heading_text='Latest technology video',
+    heading_link='http://www.theguardian.com/technology/technology+content/video',
+    heading_colour='#c22d05',
+    caption_colour='#555555') }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}

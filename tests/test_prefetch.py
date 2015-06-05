@@ -1,11 +1,10 @@
-import unittest2
+import unittest
+import json
 
 from prefetch import perma_cache
 from google.appengine.ext import db
 from google.appengine.ext import testbed
 from prefetch import CachedData
-from django.utils import simplejson as json
-
 
 class MockDataSource(object):
     def __init__(self, id):
@@ -15,7 +14,7 @@ class MockDataSource(object):
         return self.id
 
 
-class TestPrefetch(unittest2.TestCase):
+class TestPrefetch(unittest.TestCase):
     Cache_key_of_prestored = '9817263496'
     Prestored_data_string = json.dumps([{'cheese': 'toast', 'bed': 'spread'}])
 

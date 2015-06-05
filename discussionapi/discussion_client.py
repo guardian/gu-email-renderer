@@ -1,8 +1,11 @@
-from urlparse import urljoin
-from django.utils import simplejson as json
+from urlparse import urljoin, urlparse
+import json
+import urllib
 import urllib2
 import logging
 
+import pysistence as immutable
+from google.appengine.api import urlfetch
 
 class DiscussionClient(object):
     def __init__(self, base_url):
@@ -10,6 +13,7 @@ class DiscussionClient(object):
 
     def do_get(self, url):
         try:
+            logging.info("Discussion URL: " + url)
             u = urllib2.urlopen(url)
         except urllib2.URLError as e:
             if hasattr(e, 'reason'):
@@ -45,3 +49,39 @@ class DiscussionFetcher(object):
     def _parse_response(self, response):
         discussions = json.loads(response)['discussions']
         return [(discussion['key'], discussion['numberOfComments']) for discussion in discussions]
+
+def comment_counts(client, urls):
+    paths = [urlparse(url).path for url in urls]
+
+    counts_url = "{base_url}/getCommentCounts?short-urls={params}".format(
+        base_url=client.base_url,
+        params=','.join(paths))
+
+    result = urlfetch.fetch(counts_url)
+
+    if not result.status_code == 200:
+        logging.warning("Comment Count fetch failed: " + result.status_code)
+        return None
+
+    count_data = json.loads(result.content)
+
+    return dict([('http://gu.com' + key, value) for key, value in count_data.items()])
+
+def add_comment_counts(client, content_data):
+    def short_url(content):
+        return content.get('fields', {}).get('shortUrl', None)
+
+    def set_count(content, count_data):
+        surl =  short_url(content)
+
+        if not surl:
+            surl = ''
+            
+        content['comment_count'] = count_data.get(surl, 0)
+        return content
+
+    short_urls = [short_url(content) for content in content_data]
+    comment_count_data = comment_counts(client, short_urls)
+
+    [set_count(content, comment_count_data) for content in content_data]
+    return content_data

@@ -1,9 +1,7 @@
 import logging
 import os
-try:
-    from django.utils import simplejson
-except:
-    import simplejson
+import json
+
 import urllib, urlparse
 import fetchers
 
@@ -20,14 +18,14 @@ class ApiClient(object):
     def _do_call(self, endpoint, **kwargs):
         fixed_kwargs = self._fix_kwargs(kwargs)
 
-        url = '%s?%s' % (
+        url = '{0}?{1}'.format(
             urlparse.urljoin(self.base_url, endpoint),
-            urllib.urlencode(fixed_kwargs),
+            urllib.urlencode(fixed_kwargs)
         )
 
         headers, response = self.fetcher.get(url)
-        logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
-        return simplejson.loads(response)
+        #logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
+        return json.loads(response)
 
     def _fix_kwargs(self, kwargs):
         fixed_kwargs = {'format': 'json', 'api-key': self.api_key}
@@ -42,7 +40,7 @@ class ApiClient(object):
         json = self._do_call('search', **kwargs)
         return json['response']['results']
 
-    def item_query(self, section='', show_editors_picks=False, show_most_viewed=False, **kwargs):
+    def item_query(self, content_id='', show_editors_picks=False, show_most_viewed=False, only_editors_picks=False, **kwargs):
         if show_editors_picks:
             kwargs['show-editors-picks'] = 'true'
         if show_most_viewed:
@@ -50,7 +48,7 @@ class ApiClient(object):
         if self.edition:
             kwargs['edition'] = self.edition
 
-        json = self._do_call(section, **kwargs)
+        json = self._do_call(content_id, **kwargs)
 
         results = []
         if json['response'].has_key('results'):
@@ -64,6 +62,9 @@ class ApiClient(object):
         if show_most_viewed:
             return json['response']['mostViewed']
 
+        if only_editors_picks:
+            return editors_picks
+        
         return editors_picks + results
 
 

@@ -1,4 +1,4 @@
-{% macro story(story, first=False, thumbnail=False, standfirst=True, first_para=False) -%}
+{% macro story(story, first=False, thumbnail=False, standfirst=True, first_para=False, share_links=True, use_standfirst=False) -%}
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td style="padding: 10px 20px 20px 20px;{% if not first %} border-top: 1px solid #dedede;{% endif %}">
@@ -6,13 +6,13 @@
         <tr>
           <td align="left" valign="top"{% if not first %} style="{% if not story.fields.thumbnail %} height: 40px;{% endif %}"{% endif %}>
             <div>
-              {% if story.fields.thumbnail and thumbnail %}<img class="story-image" src="{{ story.fields.thumbnail }}" width="100" height="60" align="right" style="padding: 0 0 0 10px;" />{% endif %}
+              {% if story.fields.thumbnail and thumbnail %}<a href="{{ story.webUrl }}"><img class="story-image" src="{{ story.fields.thumbnail }}" width="100" height="60" align="right" style="padding: 0 0 0 10px;" /></a>{% endif %}
               <a class="story-title" href="{{ story.webUrl }}" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none; display: block; padding-bottom: 4px;">{{ story.webTitle }}</a>
             </div>
             {% if first_para %}<a href="{{ story.webUrl }}" style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4;">{{ story.fields.body|striptags|first_paragraph }}</a>
             {% elif standfirst %}<a href="{{ story.webUrl }}"
                                     style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #555555;">
-              {{ story.fields.trailText|striptags }}</a> <br>{% endif %}
+              {% if use_standfirst and story.fields.standfirst %}{{ story.fields.standfirst|striptags }}{% else %}{{ story.fields.trailText|striptags }}{% endif %}</a> <br>{% endif %}
             {% if story.comment_count %}
             <table style="padding-top: 8px;" cellpadding="0" cellspacing="0" border="0">
               <tr>
@@ -23,10 +23,11 @@
             </table>
             {% endif %}
 
-            {% if story.share_count %}
+            {% if story.share_count and share_links %}
               {% set encodedStoryUrl = story.webUrl|urlencode %}
+              {% set encodedStoryHeadline = story.fields.headline|urlencode %}
               {% set facebookShareUrl = 'http://www.facebook.com/share.php?u=%s' % encodedStoryUrl %}
-              {% set twitterShareUrl = 'http://twitter.com?status=%s' % encodedStoryUrl %}
+              {% set twitterShareUrl = 'https://twitter.com/intent/tweet?text={headline}&url={url}'.format(headline=encodedStoryHeadline, url=encodedStoryUrl) %}
 
             <table style="padding-top: 8px; color: #555;" cellpadding="0" cellspacing="0" border="0">
               <tr>

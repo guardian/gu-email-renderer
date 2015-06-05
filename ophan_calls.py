@@ -1,11 +1,12 @@
 import logging
+import urllib
 import urllib2
 import json
 
-from urlparse import urljoin
 from django.utils import simplejson as json
 from urlparse import urlparse
 from urllib import urlencode
+from urlparse import urlparse, urljoin
 
 # TODO: pull this up into a generic http client
 
@@ -38,9 +39,10 @@ class OphanClient(object):
 
 
 class MostSharedFetcher(object):
-    def __init__(self, client, section=''):
+    def __init__(self, client, section=None, country=None):
         self.client = client
         self.section = section
+        self.country = country
 
     def fetch_most_shared(self, age=86400):
         url = self._build_url(age)
@@ -48,17 +50,30 @@ class MostSharedFetcher(object):
         url_list = self._parse_response(response_string)
         return url_list
 
+    def build_params(self, age):
+        params = {
+            "mins" : str(age/60),
+            "referrer" : "social media",
+            "api-key" : self.client.api_key
+        }
+
+        if self.section:
+            params["section"] = self.section
+
+        if self.country:
+            params['country'] = self.country
+
+        return params
+
     def _build_url(self, age):
         url = self.client.base_url
         if url[-1] == '/':
             url = url[:-1]
 
-        return '{base_url}/api/viral?mins={mins:d}&referrer=social+media&api-key={api_key}&section={section}'.format(
-            base_url=url,
-            mins=age/60,
-            api_key=self.client.api_key,
-            section=self.section
-            )
+        url =  url + "/api/viral?" + urllib.urlencode(self.build_params(age))
+        logging.debug(url)
+        return url
+
 
     def _extract_path(self, url):
         return urlparse(url).path

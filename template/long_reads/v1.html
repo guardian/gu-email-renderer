@@ -1,0 +1,28 @@
+
+{% extends 'base_scrape.html' %}
+{% import 'macro/layout.html' as layout %}
+
+
+{% set title = 'Long Reads' %}
+{% set title_link = 'http://www.theguardian.com/news/series/the-long-read' %}
+{% set title_colour = '#333333' %}
+
+{% block title %}Long Reads v1{% endblock %}
+
+{% block content %}
+
+{{ layout.story_trail(heading_text="This week's long reads",
+    stories=long_reads,
+    heading_colour='#2470a6',
+    heading_link='http://www.theguardian.com/news/series/the-long-read',
+    thumbnail=True,
+    use_standfirst=True) }}
+
+{{ layout.story_trail(heading_text="The audio long read - podcasts",
+    stories=long_reads_audio,
+    heading_colour='#2470a6',
+    heading_link='http://www.theguardian.com/news/series/the-audio-long-read',
+    thumbnail=True,
+    use_standfirst=True) }}
+
+{% endblock content %}
