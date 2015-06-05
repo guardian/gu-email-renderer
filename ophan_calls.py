@@ -57,11 +57,9 @@ class MostSharedFetcher(object):
             "api-key" : self.client.api_key
         }
 
-        if self.section:
-            params["section"] = self.section
-
-        if self.country:
-            params['country'] = self.country
+        for name in ['section', 'country']:
+            if hasattr(self, name) and getattr(self, name):
+                params[name] = getattr(self, name)
 
         return params
 

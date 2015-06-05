@@ -80,7 +80,8 @@ class DailyEmailUS(mr.EmailTemplate):
     })
 
 class Opinion(mr.EmailTemplate):
-    recognized_versions = ['v1', 'v2']
+    recognized_versions = ['v1', 'v2', 'v3']
+    cache_bust=True
 
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
@@ -96,19 +97,28 @@ class Opinion(mr.EmailTemplate):
          'v2': {
             'cif_most_shared': most_shared_data_source,
             'us_opinion': container.for_id('us-alpha/contributors/feature-stories')
+        },
+        'v3': {
+            'cif_most_shared': most_shared_data_source,
+            #'latest_us_opinion': 
         }
     })
 
     priority_list = immutable.make_dict({
         'v1': [
-        ('cif_most_shared', 5),],
-        'v2': [
-        ('us_opinion', 3),
-        ('cif_most_shared', 5),
+            ('cif_most_shared', 5),
         ],
+        'v2': [
+            ('us_opinion', 3),
+            ('cif_most_shared', 5),
+            ],
+        'v3': [
+            ('cif_most_shared', 2),
+        ]
     })
 
     template_names = immutable.make_dict({
         'v1': 'us/opinion/v1',
         'v2': 'us/opinion/v2',
+        'v3': 'us/opinion/v3',
     })
