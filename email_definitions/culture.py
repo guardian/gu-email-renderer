@@ -34,7 +34,6 @@ class FilmToday(handlers.EmailTemplate):
 
 class SleeveNotes(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
-    cache_bust=True
 
     ad_tag = 'email-sleeve-notes'
     ad_config = {
