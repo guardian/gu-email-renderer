@@ -18,7 +18,7 @@ from guardianapi.apiClient import ApiClient
 from datetime import datetime
 from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient, MultiCalledApiStubFetcher
 
-from mail_renderer import EmailTemplate
+from handlers import EmailTemplate
 
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'

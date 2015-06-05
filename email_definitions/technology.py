@@ -1,5 +1,6 @@
 import pysistence as immutable
 
+import handlers
 import mail_renderer as mr
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from data_source import MostCommentedDataSource, \
@@ -7,7 +8,7 @@ from data_source import MostCommentedDataSource, \
 
 import data_sources as dss
 
-class ZipFile(mr.EmailTemplate):
+class ZipFile(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     ad_tag = 'email-technology-roundup'

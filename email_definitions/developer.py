@@ -1,12 +1,17 @@
+import webapp2
+
 import mail_renderer as mr
+import handlers
+import deduplication
 
 import data_source as ds
+import data_sources as dss
 
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 
 client = mr.client
 
-class EditorsPicks(mr.EmailTemplate):
+class EditorsPicks(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = {}
@@ -14,7 +19,7 @@ class EditorsPicks(mr.EmailTemplate):
     priority_list = {'v1': [('editors_picks', 3)]}
     template_names = {'v1': 'editors-picks'}
 
-class MostCommented(mr.EmailTemplate):
+class MostCommented(handlers.EmailTemplate):
     recognized_versions = ['v1']
     n_items=6
 
@@ -38,10 +43,27 @@ class MostCommented(mr.EmailTemplate):
     template_names = {'v1': 'most-commented'}
 
 
-class MostViewed(mr.EmailTemplate):
+class MostViewed(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     data_sources = {}
     data_sources['v1'] = { 'most_viewed' : ds.MostViewedDataSource(client) }
     priority_list = {'v1': [('most_viewed', 3)]}
     template_names = {'v1': 'most-viewed'}
+
+class Headline(webapp2.RequestHandler):
+
+    def get(self, edition="uk"):
+
+        data_sources = {'top_stories': dss.headlines.for_edition(edition)}
+        priority_list = [('top_stories', 1)]
+        template_data = {}
+        retrieved_data = handlers.EmailTemplate.fetch_all(data_sources)
+        trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
+        stories = trail_block.get('top_stories')
+        headlines = [s.get('webTitle') for s in stories]
+        if headlines:
+            headline = headlines[0]
+            template_data['headline'] = headline
+        template = handlers.jinja_environment.get_template('headline.html')
+        self.response.out.write(template.render(template_data))

@@ -1,9 +1,10 @@
+import handlers
 import mail_renderer as mr
 import data_source as ds
 
 import pysistence as immutable
 
-class MediaBriefing(mr.EmailTemplate):
+class MediaBriefing(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1')
 
     ad_tag = 'email-media-briefing'

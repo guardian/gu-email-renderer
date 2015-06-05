@@ -1,6 +1,6 @@
 import unittest
 import webapp2
-from mail_renderer import EmailTemplate
+from handlers import EmailTemplate
 from webob.exc import HTTPNotFound
 
 

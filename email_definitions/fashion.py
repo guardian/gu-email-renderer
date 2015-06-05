@@ -1,13 +1,14 @@
 import pysistence as immutable
 
 import mail_renderer as mr
+import handlers
 
 import data_source as ds
 import data_sources as dss
 
 client = mr.client
 
-class FashionStatement(mr.EmailTemplate):
+class FashionStatement(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
     
     ad_tag = 'email-fashion-statement'

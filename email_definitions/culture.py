@@ -1,6 +1,7 @@
 import pysistence as immutable
 
 import mail_renderer as mr
+import handlers
 
 import data_source as ds
 import data_sources as dss
@@ -9,7 +10,7 @@ from guardianapi.apiClient import ApiClient
 
 client = ApiClient(mr.base_url, mr.api_key, edition="uk")
 
-class FilmToday(mr.EmailTemplate):
+class FilmToday(handlers.EmailTemplate):
     recognized_versions = ['v1']
 
     ad_tag = 'email-film-today'
@@ -31,7 +32,7 @@ class FilmToday(mr.EmailTemplate):
         'v1': 'culture/film-today/v1',
     })
 
-class SleeveNotes(mr.EmailTemplate):
+class SleeveNotes(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-sleeve-notes'
@@ -67,7 +68,7 @@ class SleeveNotes(mr.EmailTemplate):
         'v3': 'culture/sleeve-notes/v3',
         })
 
-class CloseUp(mr.EmailTemplate):
+class CloseUp(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
 
     ad_tag = 'email-close-up'
@@ -105,7 +106,7 @@ class CloseUp(mr.EmailTemplate):
         'v3': 'culture/close-up/v3'
     })
 
-class Bookmarks(mr.EmailTemplate):
+class Bookmarks(handlers.EmailTemplate):
     
     recognized_versions = immutable.make_list('v1')
 
