@@ -22,6 +22,7 @@ from handlers import EmailTemplate
 API_KEY = '***REMOVED***'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 DEBUG = False
+DEFAULT_PAGE_SIZE=str(10)
 
 class UrlCapturingFetcher(object):
     def get(self, url):
@@ -84,6 +85,15 @@ class TestDataSources(unittest.TestCase):
         quoted_params = self.quote_params(expected_args)
         self.assert_expected_url_equals(fetcher.actual_url, expected_path, quoted_params)
 
+    def test_should_send_tags_to_capi(self):
+      ds = ItemDataSource(url_capturing_client, content_id='music')
+      ds.tags = ['-type/audio','tone/news']
+
+      self.check_data_source_url(ds, '/music',
+        show_fields=Fields,
+        user_tier='internal',
+        page_size=DEFAULT_PAGE_SIZE,
+        tag='-type/audio,tone/news')
 
     def test_should_call_api_with_correct_url_for_culture_section(self):
         self.check_data_source_url(CultureDataSource(url_capturing_client), '/culture',
