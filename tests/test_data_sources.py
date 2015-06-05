@@ -8,8 +8,7 @@ from data_source import \
     CultureDataSource, SportDataSource, MostViewedDataSource, \
     PicOfDayDataSource, TopStoriesDataSource, SearchDataSource, \
     MediaDataSource, MediaCommentDataSource, MediaMonkeyDataSource, \
-    ItemDataSource, EyeWitnessDataSource, MusicBlogDataSource, MusicNewsDataSource, MusicWatchListenDataSource, \
-    MusicVideoDataSource, MusicAudioDataSource, MusicEditorsPicksDataSource, MusicMostViewedDataSource, \
+    ItemDataSource, EyeWitnessDataSource, \
     BusinessDataSource, LifeAndStyleDataSource, TravelDataSource, ItemPlusBlogDataSource, \
     DataSourceException, ContentDataSource, MultiContentDataSource, MostCommentedDataSource
 
@@ -151,19 +150,6 @@ class TestDataSources(unittest.TestCase):
                                    tag='world/series/eyewitness,type/picture',
                                    user_tier='internal')
 
-    def test_should_call_api_with_correct_url_for_music_blog(self):
-        self.check_data_source_url(MusicBlogDataSource(url_capturing_client), '/music/musicblog',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   user_tier='internal')
-
-    def test_should_call_api_with_correct_url_for_music_watch_and_listen(self):
-        self.check_data_source_url(MusicWatchListenDataSource(url_capturing_client), '/music',
-                                   show_fields=Fields,
-                                   tag='(type/video|type/audio)',
-                                   page_size='10',
-                                   user_tier='internal')
-
     def test_should_call_api_with_correct_url_for_business(self):
         self.check_data_source_url(BusinessDataSource(url_capturing_client), '/business',
                                    show_fields=Fields,
@@ -194,44 +180,6 @@ class TestDataSources(unittest.TestCase):
                                    show_editors_picks='true',
                                    page_size='10',
                                    user_tier='internal')
-
-    def test_should_call_api_with_correct_url_for_music_most_viewed(self):
-        self.check_data_source_url(MusicMostViewedDataSource(url_capturing_client), '/music',
-                                   show_most_viewed='true',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   user_tier='internal')
-
-    def test_should_call_api_with_correct_url_for_music_video(self):
-        self.check_data_source_url(MusicVideoDataSource(url_capturing_client), '/music',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   tag='type/video',
-                                   user_tier='internal')
-
-    def test_should_call_api_with_correct_url_for_music_editors_picks(self):
-        self.check_data_source_url(MusicEditorsPicksDataSource(url_capturing_client), '/music',
-                                   show_editors_picks='true',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   tag='-tone/news',
-                                   user_tier='internal')
-
-    def test_should_call_api_with_correct_url_for_music_audio(self):
-        self.check_data_source_url(MusicAudioDataSource(url_capturing_client), '/music',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   tag='type/audio',
-                                   user_tier='internal')
-
-
-    def test_should_call_api_with_correct_url_for_music_news(self):
-        self.check_data_source_url(MusicNewsDataSource(url_capturing_client), '/music',
-                                   show_fields=Fields,
-                                   page_size='10',
-                                   tag='tone/news',
-                                   user_tier='internal')
-
 
     def test_should_call_api_with_correct_url_for_top_stories(self):
         self.check_data_source_url(TopStoriesDataSource(url_capturing_client), '/',
