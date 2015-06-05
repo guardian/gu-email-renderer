@@ -5,14 +5,7 @@ import pysistence as immutable
 import mail_renderer as mr
 
 import data_source as ds
-
-from data_source import BusinessDataSource, \
-	CommentIsFreeDataSource, CultureDataSource, TopStoriesDataSource, \
-	VideoDataSource
-from data_source import MultiContentDataSource, MostSharedCountInterpolator, MostSharedDataSource
-
-from data_sources import us as data
-from data_sources import technology as tech_data
+import data_sources as dss
 
 from ophan_calls import OphanClient, MostSharedFetcher
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, add_comment_counts
@@ -32,19 +25,19 @@ class DailyEmailUS(mr.EmailTemplate):
     }
 
     base_data_sources = immutable.make_dict({
-        'business': BusinessDataSource(clientUS),
-        'technology': tech_data.TechnologyDataSource(clientUS),
-        'sport': data.SportUSDataSource(clientUS),
-        'comment': CommentIsFreeDataSource(clientUS),
-        'culture': CultureDataSource(clientUS),
-        'top_stories': TopStoriesDataSource(clientUS),
-        'video': VideoDataSource(clientUS),
+        'business': ds.BusinessDataSource(clientUS),
+        'technology': dss.technology.TechnologyDataSource(clientUS),
+        'sport': dss.us.SportUSDataSource(clientUS),
+        'comment': ds.CommentIsFreeDataSource(clientUS),
+        'culture': ds.CultureDataSource(clientUS),
+        'top_stories': ds.TopStoriesDataSource(clientUS),
+        'video': ds.VideoDataSource(clientUS),
     })
 
-    most_shared_us = MostSharedDataSource(
+    most_shared_us = ds.MostSharedDataSource(
                 most_shared_fetcher=MostSharedFetcher(ophan_client, country='us'),
-                multi_content_data_source=MultiContentDataSource(client=clientUS, name='most_shared_us'),
-                shared_count_interpolator=MostSharedCountInterpolator()
+                multi_content_data_source=ds.MultiContentDataSource(client=clientUS, name='most_shared_us'),
+                shared_count_interpolator=ds.MostSharedCountInterpolator()
             )
 
     data_sources = immutable.make_dict({
@@ -80,7 +73,7 @@ class DailyEmailUS(mr.EmailTemplate):
     })
 
 class Opinion(mr.EmailTemplate):
-    recognized_versions = ['v1', 'v2']
+    recognized_versions = ['v1', 'v2', 'v3']
 
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
@@ -89,6 +82,8 @@ class Opinion(mr.EmailTemplate):
         result_decorator=partial(add_comment_counts, discussion_client)
     )
 
+    latest_us_opinion = dss.general.ItemDataSource('us/commentisfree', production_office='us')
+
     data_sources = immutable.make_dict({
         'v1': {
             'cif_most_shared': most_shared_data_source,
@@ -96,19 +91,29 @@ class Opinion(mr.EmailTemplate):
          'v2': {
             'cif_most_shared': most_shared_data_source,
             'us_opinion': container.for_id('us-alpha/contributors/feature-stories')
+        },
+        'v3': {
+            'cif_most_shared': most_shared_data_source,
+            'latest_us_opinion': latest_us_opinion,
         }
     })
 
     priority_list = immutable.make_dict({
         'v1': [
-        ('cif_most_shared', 5),],
-        'v2': [
-        ('us_opinion', 3),
-        ('cif_most_shared', 5),
+            ('cif_most_shared', 5),
         ],
+        'v2': [
+            ('us_opinion', 3),
+            ('cif_most_shared', 5),
+            ],
+        'v3': [
+            ('cif_most_shared', 2),
+            ('latest_us_opinion', 3),
+        ]
     })
 
     template_names = immutable.make_dict({
         'v1': 'us/opinion/v1',
         'v2': 'us/opinion/v2',
+        'v3': 'us/opinion/v3',
     })
