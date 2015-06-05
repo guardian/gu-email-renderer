@@ -73,13 +73,8 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': 'us/daily/v7',
     })
 
-<<<<<<< HEAD
-class Opinion(handlers.EmailTemplate):
-    recognized_versions = ['v1', 'v2']
-=======
 class Opinion(mr.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3']
->>>>>>> master
 
     most_shared_data_source = ds.MostSharedDataSource(
         most_shared_fetcher=MostSharedFetcher(ophan_client, section='commentisfree', country='us'),
