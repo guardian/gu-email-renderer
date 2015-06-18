@@ -19,7 +19,7 @@ class LongReads(handlers.EmailTemplate):
     priority_list = immutable.make_dict({
         'v1': [
             ('long_reads', 3),
-            ('long_reads_audio', 3)
+            ('long_reads_audio', 2)
             ]
     })
 
