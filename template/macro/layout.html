@@ -129,7 +129,7 @@
                 {% set show_text = standfirst %}
             {% endif %}
         {% endif %}
-		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, standfirst=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
+		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
 	{% endfor %}
 </td></tr>
 {% endif %}
