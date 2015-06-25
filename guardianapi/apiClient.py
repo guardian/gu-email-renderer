@@ -23,6 +23,8 @@ class ApiClient(object):
             urllib.urlencode(fixed_kwargs)
         )
 
+        #logging.info('Requesting url: {0}'.format(url))
+
         headers, response = self.fetcher.get(url)
         #logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
         return json.loads(response)
