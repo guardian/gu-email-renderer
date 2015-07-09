@@ -14,7 +14,6 @@ client = mr.client
 
 class CommentIsFree(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v2', 'v3')
-    cache_bust=True
 
     ad_tag = 'email-speakers-corner'
     ad_config = {
