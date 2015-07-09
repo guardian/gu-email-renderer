@@ -8,10 +8,13 @@ import data_source as ds
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient
 from ophan_calls import OphanClient, MostSharedFetcher
 
+from container_api import container
+
 client = mr.client
 
 class CommentIsFree(handlers.EmailTemplate):
-    recognized_versions = immutable.make_list('v1', 'v2')
+    recognized_versions = immutable.make_list('v1', 'v2', 'v3')
+    cache_bust=True
 
     ad_tag = 'email-speakers-corner'
     ad_config = {
@@ -34,6 +37,10 @@ class CommentIsFree(handlers.EmailTemplate):
 
     data_sources = immutable.make_dict({
         'v1': {
+            'uk_opinion_front': container.for_id('uk/commentisfree/regular-stories'),
+            'cif_cartoon': ds.CommentIsFreeCartoonDataSource(client),
+        },
+        'v3': {
             'cif_most_shared': most_shared_data_source,
             'cif_cartoon': ds.CommentIsFreeCartoonDataSource(client),
         },
@@ -44,12 +51,14 @@ class CommentIsFree(handlers.EmailTemplate):
     })
 
     priority_list = {
-        'v1': [('cif_cartoon', 1), ('cif_most_shared', 5)],
-        'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)]
+        'v3': [('cif_cartoon', 1), ('cif_most_shared', 5)],
+        'v2': [('cif_cartoon', 1), ('cif_most_commented', 5)],
+        'v1': [('uk_opinion_front', 10), ('cif_cartoon', 1),],
     }
 
     template_names = immutable.make_dict({
-        'v1': 'comment-is-free/v1',
+        'v3': 'comment-is-free/v3',
         'v2': 'comment-is-free/v2',
+        'v1': 'comment-is-free/v1',
     })
 
