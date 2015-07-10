@@ -47,7 +47,7 @@ class ContainerDataSource:
 	def __init__(self, container_id):
 		self.container_id = container_id
 
-	def fetch_data(self):
+	def fetch_data(self, retries=3):
 		container_base_url = configuration.read('CONTAINER_API_BASE_URL')
 		try:
 			url = "{0}/{1}".format(container_base_url, self.container_id)
@@ -65,5 +65,8 @@ class ContainerDataSource:
 		except Exception as e:
 			logging.warn('Container API call failed {0}'.format(e))
 			logging.warn(traceback.format_exc())
+
+			if retries > 0:
+				return self.fetch_data(retries=retries-1)
 
 		return []
