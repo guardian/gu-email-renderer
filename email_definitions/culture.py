@@ -14,7 +14,6 @@ client = ApiClient(mr.base_url, mr.api_key, edition="uk")
 
 class FilmToday(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2']
-    cache_bust=True
 
     ad_tag = 'email-film-today'
     ad_config = immutable.make_dict({
