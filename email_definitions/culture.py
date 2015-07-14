@@ -8,28 +8,36 @@ import data_sources as dss
 
 from guardianapi.apiClient import ApiClient
 
+from container_api import container
+
 client = ApiClient(mr.base_url, mr.api_key, edition="uk")
 
 class FilmToday(handlers.EmailTemplate):
-    recognized_versions = ['v1']
+    recognized_versions = ['v1', 'v2']
+    cache_bust=True
 
     ad_tag = 'email-film-today'
-    ad_config = {
+    ad_config = immutable.make_dict({
         'leaderboard': 'Top'
-    }
+    })
 
-    data_sources = {
+    data_sources = immutable.make_dict({
         'v1': {
             'film_today_latest': ds.FilmTodayLatestDataSource(client)
+        },
+        'v2': {
+            'film_front': container.for_id('1ce8-6c50-425f-9d32')
         }
-    }
+    })
 
-    priority_list = {
-        'v1': [('film_today_latest', 10)]
-    }
+    priority_list = immutable.make_dict({
+        'v1': [('film_today_latest', 10)],
+        'v2': [('film_front', 10)],
+    })
 
     template_names = immutable.make_dict({
         'v1': 'culture/film-today/v1',
+        'v2': 'culture/film-today/v2',
     })
 
 class SleeveNotes(handlers.EmailTemplate):
