@@ -25,7 +25,7 @@ class FilmToday(handlers.EmailTemplate):
             'film_today_latest': ds.FilmTodayLatestDataSource(client)
         },
         'v2': {
-            'film_front': container.for_id('1ce8-6c50-425f-9d32')
+            'film_front': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03')
         }
     })
 
