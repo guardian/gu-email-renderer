@@ -10,9 +10,9 @@ import handlers
 
 # TODO: Hide me away somewhere warm and secret.
 api_key = configuration.read('CAPI_KEY')
-ophan_key = '***REMOVED***'
+ophan_key = configuration.read('OPHAN_API_KEY')
 base_url=configuration.read('CAPI_BASE_URL')
-ophan_base_url = 'http://***REMOVED***'
+ophan_base_url = configuration.read('OPHAN_BASE_URL')
 discussion_base_url = 'http://discussion.guardianapis.com/discussion-api'
 
 client = ApiClient(base_url, api_key, edition="uk")
