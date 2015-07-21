@@ -17,7 +17,7 @@ from ads import AdFetcher
 if os.environ.has_key('SERVER_SOFTWARE') and os.environ['SERVER_SOFTWARE'].startswith('Development'):
     URL_ROOT = ''
 else:
-    URL_ROOT = 'http://***REMOVED***.appspot.com'
+    URL_ROOT = 'http://gu-email-renderer.appspot.com'
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), "template")),

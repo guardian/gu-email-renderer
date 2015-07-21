@@ -8,7 +8,7 @@ Status = """
          'keep-alive': '60', 'expires': 'Tue, 18 Dec 2012 15:19:33 GMT', 'server': 'Mashery Proxy', 'date': 'Tue, 18 Dec 2012 15:18:33 GMT',
          '-content-encoding': 'gzip', 'cache-control': 'max-age=20', 'x-gu-httpd': 'ea12a9802fea0a87cff65d3d23752cec', 'x-mashery-responder': 'prod-p-worker-eu-west-1a-14.mashery.com',
          'content-type': 'application/json; charset=utf-8',
-         'content-location': 'http://content.guardianapis.com/search?page-size=10&format=json&section=culture&api-key=***REMOVED***&tag=type%2Farticle&show-fields=trailText%2Cheadline%2CliveBloggingNow%2Cstandfirst%2Ccommentable%2Cthumbnail%2Cbyline'}
+         'content-location': 'http://content.guardianapis.com/search?page-size=10&format=json&section=culture&api-key=gu-email-renderer-unit-test&tag=type%2Farticle&show-fields=trailText%2Cheadline%2CliveBloggingNow%2Cstandfirst%2Ccommentable%2Cthumbnail%2Cbyline'}
         """
 
 ContentResponse = """

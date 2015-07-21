@@ -60,7 +60,7 @@ This content is also cached with memcached so the application will
 first try to serve the rendered content out of the cache. Remember to flush the cache when making and deploying changes!
 
 The application is hosted on appengine and is available at
-http://***REMOVED***.appspot.com/daily-email
+http://gu-email-renderer.appspot.com/daily-email
 
 ## Template
 

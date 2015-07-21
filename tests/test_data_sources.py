@@ -19,7 +19,7 @@ from test_fetchers import ApiStubFetcher, ContentIdRememberingStubClient, MultiC
 
 from handlers import EmailTemplate
 
-API_KEY = '***REMOVED***'
+API_KEY = 'gu-email-renderer-unit-tests'
 Fields = 'trailText,headline,liveBloggingNow,standfirst,commentable,thumbnail,byline'
 DEBUG = False
 DEFAULT_PAGE_SIZE=str(10)
@@ -31,7 +31,7 @@ class UrlCapturingFetcher(object):
 
 
 fetcher = UrlCapturingFetcher()
-url_capturing_client = ApiClient('http://***REMOVED***/', API_KEY, fetcher=fetcher)
+url_capturing_client = ApiClient('http://content.guardianapis.com/', API_KEY, fetcher=fetcher)
 
 class TestDataSources(unittest.TestCase):
 
