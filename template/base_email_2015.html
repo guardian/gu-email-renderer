@@ -1,0 +1,138 @@
+{% if not footer_colour %}
+{% set footer_colour = 'dark' %}
+{% endif %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+          "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+
+  <body style="background: #fff; margin: 0; padding: 0;">
+    <style>
+      .content-holder {
+        width: 320px !important;
+      }
+      @media only screen and (min-width: 480px) {
+        .section-heading {
+          font-size: 17px !important;
+          padding: 8px 0 !important;
+        }
+        .story-image {
+          height: 84px !important;
+          width: 140px !important;
+        }
+        .story-title {
+          font-size: 16px !important;
+          line-height: 20px !important;
+        }
+        .content-holder {
+          width: 480px !important;
+        }
+      }
+      @media only screen and (min-width: 600px) {
+        .content-holder {
+          width: 600px !important;
+        }
+      }
+      @media only screen and (max-width: 320px) {
+        .content-holder {
+          width: 100% !important;
+        }
+      }
+    </style>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+      <tr>
+        <td align="center">
+          <table class="content-holder" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="min-width: 320px; max-width: 600px; display: block;">
+            {% block header %}
+            <tr><td>
+                <!-- header -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 1px">
+                  <tr>
+                    <td style="padding: 10px 0 10px 20px;">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr align="left"><td style="font-family: Georgia, serif; font-size: 20px; color: {{ title_colour }};"><a style="color: {{ title_colour }}; text-decoration: none;" href="{{ title_link }}">{{ title }}</a></td></tr>
+                        <tr align="left"><td style="font-family: Arial, sans-serif; font-size: 12px; color: #666666; padding-top: 3px;">{{ date }}</td></tr>
+                      </table>
+                    </td>
+                    <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>
+                  </tr>
+                </table>
+                <!-- /header -->
+            </td></tr>
+            {% endblock %}
+
+            {% block content %}{% endblock %}
+
+            {% block footer %}
+            <tr><td>
+                <!-- footer -->
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#333333{% else %}#e8e5e2{% endif %}">
+                  <!-- logo-social -->
+                  <tr>
+                    <td style="padding: 20px 15px 0 15px;">
+                      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td align="left" width="50%">
+                              <a href="{% if footer_link %}{{ footer_link }}{% else %}{{ title_link }}{% endif %}"><img src="{{ URL_ROOT }}/static/img/logo-footer-{{ footer_colour }}.png" width="131" height="24" alt="The Guardian" border="0" /></a>
+                          </td>
+
+                          <td width="50%" align="right">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              {% block social %}
+                              <tr>
+                                {% if twitter_account %}
+                                <td align="left" width="50"><a href="https://www.twitter.com/{{ twitter_account }}"><img src="{{ URL_ROOT }}/static/img/twitter-{{ footer_colour }}.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+                                {% endif %}
+                                {% if facebook_page %}
+                                <td align="left" width="25"><a href="https://www.facebook.com/{{ facebook_page }}"><img src="{{ URL_ROOT }}/static/img/fb-{{ footer_colour }}.png" border="0" width="25" height="25" style="float: left;" /></a></td>
+                                {% endif %}
+                              </tr>
+                              {% endblock social %}
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- /logo-social -->
+
+                  <!-- sections -->
+                  {% block sections %}
+                  <tr>
+                    <td style="padding: 20px 15px 20px 15px;">
+                      {% if sections %}
+                      <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          {% for section in sections %}
+                          <td>
+                            <a style="font: 12px Helvetica, Arial, sans-serif; color: {% if footer_colour == 'dark' %}#ffffff{% else %}#005689{% endif %}; text-decoration: none; padding: 0 5px{% if loop.first %} 0 0{% endif %};{% if not loop.last %} border-right: 1px solid {% if footer_colour == 'dark' %}#bebebe{% else %}#999999{% endif %};{% endif %}; white-space: nowrap;" href="{{ section[1] }}">{{ section[0] }}</a>
+                          </td>
+                          {% endfor %}
+                        </tr>
+                      </table>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endblock sections %}
+                  <!-- /sections -->
+                </table>
+
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#444444{% else %}#ededed{% endif %}" style="border-bottom: 1px solid #bebebe;">
+                  <tr><td align="left" style="padding: 20px 15px 20px 15px;">
+                      <a href="https://profile.theguardian.com/email-prefs" style="font: 13px Helvetica, Arial, sans-serif; color: {% if footer_colour == 'dark' %}#ffffff{% else %}#005689{% endif %}; text-decoration: none;"><img src="{{ URL_ROOT }}/static/img/email-{{ footer_colour }}.png" border="0" style="vertical-align: -4px; margin-right: 5px;" width="25" height="18" alt="" /> Get more Guardian emails</a>
+                  </td></tr>
+                </table>
+
+                <!-- /footer -->
+            </td></tr>
+            {% endblock %}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
