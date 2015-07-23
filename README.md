@@ -24,6 +24,8 @@ You will need to define configuration values for the following keys:
 * `CAPI_BASE_URL`: root url of CAPI
 * `CONTAINER_API_BASE_URL`: root url of the container service
 * `CAPI_KEY`: valid CAPI key for the CAPI instance you're running against
+* `OPHAN_BASE_URL`: the base url for the Ophan API
+* `OPHAN_API_KEY`: a valid key for the Ophan API
 
 ## Running the tests
 
