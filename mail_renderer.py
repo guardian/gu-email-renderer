@@ -11,7 +11,7 @@ import handlers
 # TODO: Hide me away somewhere warm and secret.
 api_key = configuration.read('CAPI_KEY')
 ophan_key = configuration.read('OPHAN_API_KEY')
-base_url=configuration.read('CAPI_BASE_URL')
+base_url=configuration.read('CAPI_BASE_URL', 'https://content.guardianapis.com/')
 ophan_base_url = configuration.read('OPHAN_BASE_URL')
 discussion_base_url = 'https://discussion.guardianapis.com/discussion-api/'
 
