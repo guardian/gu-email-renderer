@@ -17,7 +17,7 @@ ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailUS(handlers.EmailTemplate):
-    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7')
+    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015')
 
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -50,6 +50,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': base_data_sources.using(
             most_shared_us = most_shared_us
         ),
+        'v2015': base_data_sources,
     })
 
     base_priorities = immutable.make_list(('top_stories', 6),
@@ -64,6 +65,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': base_priorities.without(('business', 2))
             .cons(('most_shared_us', 6))
             .cons(('business', 3)),
+        'v2015': base_priorities,
     })
 
     template_names = immutable.make_dict({
@@ -71,6 +73,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v3': 'us/daily/v3',
         'v6': 'us/daily/v6',
         'v7': 'us/daily/v7',
+        'v2015': 'us/daily/v2015'
     })
 
 class Opinion(handlers.EmailTemplate):

@@ -12,7 +12,7 @@ client = mr.client
 
 
 class DailyEmail(handlers.EmailTemplate):
-	recognized_versions = ['v1', 'india']
+	recognized_versions = ['v1', 'india', 'v2015']
 
 	ad_tag = 'email-guardian-today'
 	ad_config = {
@@ -34,26 +34,32 @@ class DailyEmail(handlers.EmailTemplate):
 		})
 
 	data_sources = immutable.make_dict({
-		'v1' : base_data_sources,
-		'india' : base_data_sources.using(
+		'v1': base_data_sources,
+		'india': base_data_sources.using(
 			india_recent = ds.IndiaDataSource(client),
-			)
+			),
+		'v2015': base_data_sources.without('most_viewed'),
 	})
 
+	base_priorities = immutable.make_list(('top_stories', 6),
+		('most_viewed', 6),
+		('sport', 3), ('comment', 3), ('culture', 3),
+		('business', 2), ('technology', 2), ('travel', 2),
+		('lifeandstyle', 2), ('eye_witness', 1))
+
 	priority_list = immutable.make_dict({
-		'v1': [('top_stories', 6), ('most_viewed', 6),
-					('sport', 3), ('comment', 3), ('culture', 3),
-					('business', 2), ('technology', 2), ('travel', 2),
-					('lifeandstyle', 2), ('eye_witness', 1)],
+		'v1': base_priorities,
 		'india': [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6),
 					('sport', 3), ('comment', 3), ('culture', 3),
 					('business', 2), ('technology', 2), ('travel', 2),
 					('lifeandstyle', 2), ('eye_witness', 1)],
+		'v2015': base_priorities.without(('most_viewed', 6)),
 		})
 
 	template_names = immutable.make_dict({
 		'v1': 'uk/daily/v1',
 		'india': 'uk/daily/india',
+		'v2015': 'uk/daily/v2015',
 	})
 
 	def exclude_from_deduplication(self):
