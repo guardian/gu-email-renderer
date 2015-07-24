@@ -13,7 +13,7 @@ api_key = configuration.read('CAPI_KEY')
 ophan_key = configuration.read('OPHAN_API_KEY')
 base_url=configuration.read('CAPI_BASE_URL', 'https://content.guardianapis.com/')
 ophan_base_url = configuration.read('OPHAN_BASE_URL')
-discussion_base_url = 'https://discussion.guardianapis.com/discussion-api/'
+discussion_base_url = 'http://discussion.guardianapis.com/discussion-api/'
 
 client = ApiClient(base_url, api_key, edition="uk")
 clientUS = ApiClient(base_url, api_key, edition='us')

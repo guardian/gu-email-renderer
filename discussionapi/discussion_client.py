@@ -60,8 +60,9 @@ def comment_counts(client, urls):
     result = urlfetch.fetch(counts_url)
 
     if not result.status_code == 200:
-        logging.warning("Comment Count fetch failed: " + result.status_code)
-        return None
+        logging.info(counts_url)
+        logging.warning("Comment Count fetch failed: {0}".format(result.status_code))
+        return {}
 
     count_data = json.loads(result.content)
 
