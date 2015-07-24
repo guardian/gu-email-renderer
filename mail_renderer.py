@@ -51,6 +51,7 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/editors-picks/(.+)', emails.developer.EditorsPicks),
                                ('/longreads/(.+)', emails.long_reads.LongReads),
                                webapp2.Route(r'/headline', handler=emails.developer.Headline),
+                               webapp2.Route(r'/headline/film', handler=emails.developer.FilmHeadline),
                                webapp2.Route(r'/headline/<edition>', handler=emails.developer.Headline),
                                webapp2.Route(r'/', handler=handlers.Index)],
                               debug=True)
