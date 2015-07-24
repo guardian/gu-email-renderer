@@ -2,6 +2,8 @@ import logging
 import os
 from urlparse import urlparse
 
+import pysistence as immutable
+
 if os.environ.has_key('RUNNING_UNIT_TESTS'):
     from prefetch import perma_cache_stub as perma_cache
 else:
@@ -9,6 +11,7 @@ else:
 
 # Always exclude picture desk due to media problems
 DEFAULT_TAGS = ['-news/series/picture-desk-live']
+DEFAULT_SHOW_TAGS = ['type', 'tone']
 
 class DataSource(object):
     def __init__(self, client):
@@ -24,7 +27,7 @@ class DataSource(object):
         self.section = None
         self.production_office = None
         self.show_elements = None
-
+        self.show_tags = None
 
     def fetch_data(self):
         criteria = self._build_criteria()
@@ -46,6 +49,13 @@ class DataSource(object):
                 self.tags.append(default_tag)
         
         criteria['tag'] = ','.join(set(self.tags))
+
+        show_tags = DEFAULT_SHOW_TAGS
+
+        if self.show_tags:
+            show_tags = show_tags + DEFAULT_SHOW_TAGS
+
+        criteria['show-tags'] = ','.join(set(show_tags))
 
         if self.show_most_viewed:
             criteria['show-most-viewed'] = 'true'
