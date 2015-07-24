@@ -38,7 +38,7 @@ class DailyEmail(handlers.EmailTemplate):
 		'india': base_data_sources.using(
 			india_recent = ds.IndiaDataSource(client),
 			),
-		'v2015': base_data_sources,
+		'v2015': base_data_sources.without('most_viewed'),
 	})
 
 	base_priorities = immutable.make_list(('top_stories', 6),
@@ -53,7 +53,7 @@ class DailyEmail(handlers.EmailTemplate):
 					('sport', 3), ('comment', 3), ('culture', 3),
 					('business', 2), ('technology', 2), ('travel', 2),
 					('lifeandstyle', 2), ('eye_witness', 1)],
-		'v2015': base_priorities,
+		'v2015': base_priorities.without(('most_viewed', 6)),
 		})
 
 	template_names = immutable.make_dict({
