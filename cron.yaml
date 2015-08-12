@@ -2,7 +2,3 @@ cron:
 - description: most shared prefetch
   url: /most-shared/v1
   schedule: every 10 minutes
-
-- description: warm the container api
-  url: /comment-is-free/v1
-  schedule: every 17 minutes
