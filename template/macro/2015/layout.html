@@ -1,25 +1,25 @@
 {% import 'macro/2015/stories.html' as story_blocks %}
 
-{% macro heading(heading_text, link, colour='#ffffff', bg_colour='#000000') -%}
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}">
+{% macro heading(heading_text, image=None, link, colour='#ffffff', bg_colour='#000000') -%}
+<table width="100%"  class="container" cellpadding="0" cellspacing="0" border="0">
 	<tr valign="top">
         {% if link %}
-            <td align="left" style="padding: 0 0 0 20px;">
-                <a class="section-heading" href="{{ link }}" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
+            <td align="left" style="padding: 0 0 0 10px;">
+                <!--<a class="section-heading" href="{{ link }}" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
                     {{ heading_text }}
-                </a>
-            </td>
-            <td width="80" align="center">
-                <a href="{{ link }}" style="font: 12px Arial, sans-serif; display: block; font-weight: normal; color: {{ colour }}; text-decoration: none;">
-                    <span style="display: block; padding: 10px 0; border-left: 1px solid #ffffff;">More <span style="font-size: 15px;">&#187;</span></span>
-                </a>
+                </a>-->
+                {% if image %}
+                    <a href="{{ link }}" style="color: #FFFFFF; text-decoration: none;">
+                        <img src="{{ URL_ROOT }}/static/img/{{image}}" width="200px">
+                    </a>
+                {% endif %}
             </td>
         {% else %}
-        <td align="left" style="padding: 0 0 1px 20px;">
+        <!--<td align="left" style="padding: 0 0 1px 20px;">
             <span class="section-heading" style="font: 14px Georgia, serif; display: block; padding: 10px 0; font-weight: normal; color: {{ colour }}; text-decoration: none;">
                 {{ heading_text }}
             </span>
-        </td>
+        </td>-->
         {% endif %}
 	</tr>
 </table>
@@ -109,12 +109,24 @@
 
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False) -%}
+{% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False) -%}
 {% if always_show or stories %}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
 {% endif %}
-<tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
+{% if not standfirst %}
+    <tr>
+        <td align="left">
+            <table width="100%" style="font: 24px Georgia, serif; font-weight: 600; color: #005689; margin-top: 20px;" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td style="padding: 5px 10px; border-top: 1px solid #4BC6DF; {% if not top_thumb %} padding-bottom:20px; {% endif %}">
+                        {{heading_text}} 
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endif %}   
 <tr><td align="left">
 	{% for story in stories %}
 		{% if thumbnail == True %}
@@ -129,9 +141,10 @@
                 {% set show_text = standfirst %}
             {% endif %}
         {% endif %}
-		{{ story_blocks.story(story, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
+		{{ story_blocks.story(story, standfirst, more_thumbs, loop.index, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links) }}
 	{% endfor %}
 </td></tr>
+<tr><td>{{ heading(heading_text=heading_text, image=image, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
 {% endif %}
 {%- endmacro %}
 
