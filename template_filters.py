@@ -17,7 +17,6 @@ def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
 def largest_image(content, image_type='thumbnail'):
-
 	if not 'elements' in content:
 		logging.debug(content)
 		return None

@@ -19,7 +19,8 @@ discussion_client = DiscussionClient(mr.discussion_base_url)
 class DailyEmailUS(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015')
     cachebust=True
-    ad_tag = 'email-guardian-today-us'
+    # ad_tag = 'email-guardian-today-us'
+    ad_tag = 'email-bookmarks'
     ad_config = {
         'leaderboard_v1': 'Top',
         'leaderboard_v2': 'Bottom'
