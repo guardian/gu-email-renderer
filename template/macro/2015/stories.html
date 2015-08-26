@@ -35,15 +35,16 @@
                   <!--<div class="story-image" style="margin-bottom: 9px; width: 100%; height: 272px; background-image: url('{{ story.fields.thumbnail }}'); background-size: cover; background-repeat: no-repeat;"></div>-->
                 </a>
               {% endif %}
-              <a {% if not thumbnail or not standfirst %}style="font: 19px Georgia, serif; line-height: 1.421; text-decoration: none;"{% else %}style="font: 24px Georgia, serif; line-height: 1.421; text-decoration: none;"{% endif %} href="{{ story.webUrl }}">
+              <a {% if not thumbnail or not standfirst %}style="font-size:19px;text-decoration: none;"{% else %}style="font-size:24px; text-decoration: none;"{% endif %} href="{{ story.webUrl }}">
               {% if story.sectionId == 'commentisfree' %}
-                <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg">&nbsp;<span style="color: #333333">{{story.fields.headline}}</span><br>
-                <span style="color: #E6711B;">{{story.fields.byline}}</span>
+                <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg">&nbsp;<span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #333333">{{story.fields.headline}}</span><br>
+                <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #E6711B;">{{story.fields.byline}}</span>
               {% else %}
                 {% if story.fields.liveBloggingNow == 'true' %}
-                  <span style="font-weight:600; line-height: 1.421; color:#B51800;">Live</span>
+                  <span {% if not thumbnail or not standfirst %}style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600; line-height: 1.421; text-decoration: none; color:#B51800;"{% else %}style="font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; line-height: 1.421; font-weight: 600; text-decoration: none; color:#B51800;"{% endif %}>Live</span>
                 {% else %}
-                  <span style="font-weight:600; line-height: 1.421;
+                  <span style="{% if not thumbnail or not standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600;{% else %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; font-weight: 600; {% endif %}
+                  line-height: 1.421;
                   {% if story.tags|length > 1 %}
                     {% if story.tags[1].id == 'tone/comment' or story.tags[0].id == 'tone/comment' %}
                       color: #E6711B;
@@ -56,7 +57,7 @@
                     color: #005689;
                   {% endif %}">{{story.sectionName}}</span>
                 {% endif %}
-                <span style="color: #DCDCDC">/&nbsp;</span><span style="color: #333333">{{story.webTitle}}</span>
+                <span style="color: #DCDCDC">/&nbsp;</span><span style="{% if not thumbnail or not standfirst %}font-family: 'DE3DisplayEgyptian', Georgia, serif;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333">{{story.webTitle}}</span>
               {% endif %}
               </a>
               <!--<a class="story-title" href="{{ story.webUrl }}" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none; display: block; padding-bottom: 4px;">{{ story.webTitle }}</a>-->
