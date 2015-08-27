@@ -1,128 +1,155 @@
-{% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False) -%}
+{% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False) -%}
 {% set tone = story|get_tone() %}
-<table class="container gmailfix" style="min-width: 600px;" width="600" cellpadding="0" cellspacing="0" border="0" {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}bgcolor="#333333"{% endif %}>
-  <tr>
-    <td {% if not first or not thumbnail %}style="padding: 10px 0;
-      {% if tone == 'tone/comment' %}
-        border-top: 1px solid #E6711B;
-      {% elif tone == 'tone/features' %}
-        border-top: 1px solid #951C55;
-      {% elif tone == 'tone/reviews' %}
-        border-top: 1px solid #FFBB00;
-      {% else %}
-        border-top: 1px solid #4BC6DF;
-      {% endif %}
-      {% if story.fields.liveBloggingNow == 'true' %}
-        border-top: 1px solid #B51800;
-      {% endif %}
-      {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}
-        border-top: 1px solid #FFFFFF;
-      {% endif %}"{% endif %}>
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        {% if first and thumbnail%}
+{% if popular %}
+  <table class="container gmailfix" style="min-width: 600px;" width="600" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td style="border-top: 1px solid #DCDCDC;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td bgcolor="#FFFFFF">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td width="10"></td>
-                  <td align="center">
-                    <a href="{{ story.webUrl }}">
-                      {% set picture = story|largest_image(image_type='thumbnail') %}
-                      <img class="top-image" src="{{ picture.file }}" width="580" align="left" alt="{{story.fields.headline}}" />
-                    </a>
-                  </td>
-                  <td width="10"></td>
-                </tr>
-                <tr>
-                  <td height="9"></td>
-                </tr>
-              </table>
+            <td align="left" valign="top" style="{% if not story.fields.thumbnail and not first %} height: 40px;{% endif %} padding: 0 10px;">
+              <a href="{{ story.webUrl }}">
+                <table>
+                  <tr>
+                    <td height="10"></td>
+                  </tr>
+                  <tr>
+                    <td width="35" valign="top">
+                      <span style="font-family: 'DE2DisplayEgyptianLight', Georgia, serif; font-size:44px; font-weight: 300; line-height: 1; text-decoration: none; color:#DCDCDC;">{{index}}</span>
+                    </td>
+                    <td valign="top">
+                      <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #333333;">{{story.webTitle}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="25"></td>
+                  </tr>
+                </table>
+              </a>
             </td>
           </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+{% else %}
+  <table class="container gmailfix" style="min-width: 600px;" width="600" cellpadding="0" cellspacing="0" border="0" {% if tone == 'tone/reviews' %}bgcolor="#615B52"{% endif %}{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}bgcolor="#333333"{% endif %}>
+    <tr>
+      <td {% if not first or not thumbnail %}style="padding: 10px 0;
+        {% if tone == 'tone/comment' %}
+          border-top: 1px solid #E6711B;
+        {% elif tone == 'tone/features' %}
+          border-top: 1px solid #951C55;
+        {% elif tone == 'tone/reviews' %}
+          border-top: 1px solid #FFFFFF;
+        {% else %}
+          border-top: 1px solid #4BC6DF;
         {% endif %}
-        <tr>
-          <td align="left" valign="top" style="{% if not story.fields.thumbnail and not first %} height: 40px;{% endif %} padding: 0 10px;">
-            {% if more_thumbs and (index == 2 or index == 3) %}
-              <a href="{{ story.webUrl }}">
-                {% set picture = story|largest_image(image_type='thumbnail') %}
-                <img class="story-image" src="{{ picture.file }}" width="188" align="left" style="margin: 0 10px 0 0;"  alt="{{story.fields.headline}}"/>
-                <!--<div class="story-image" style="margin-bottom: 9px; width: 100%; height: 272px; background-image: url('{{ story.fields.thumbnail }}'); background-size: cover; background-repeat: no-repeat;"></div>-->
-              </a>
-            {% endif %}
-            <a {% if not thumbnail or not standfirst %}style="font-size:19px;text-decoration: none;"{% else %}style="font-size:24px; text-decoration: none;"{% endif %} href="{{ story.webUrl }}">
-            {% if story.sectionId == 'commentisfree' %}
-              <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg">&nbsp;<span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #333333">{{story.fields.headline}}</span><br>
-              <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #E6711B;">{{story.fields.byline}}</span>
-            {% else %}
-              {% if story.fields.liveBloggingNow == 'true' %}
-                <span {% if not thumbnail or not standfirst %}style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600; line-height: 1.421; text-decoration: none; color:#B51800;"{% else %}style="font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; line-height: 1.421; font-weight: 600; text-decoration: none; color:#B51800;"{% endif %}>Live</span>
+        {% if story.fields.liveBloggingNow == 'true' %}
+          border-top: 1px solid #B51800;
+        {% endif %}
+        {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}
+          border-top: 1px solid #FFFFFF;
+        {% endif %}"{% endif %}>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          {% if first and thumbnail%}
+            <tr>
+              <td bgcolor="#FFFFFF">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td width="10"></td>
+                    <td align="center">
+                      <a href="{{ story.webUrl }}">
+                        {% set picture = story|largest_image(image_type='thumbnail') %}
+                        <img class="top-image" src="{{ picture.file }}" width="580" align="left" alt="{{story.fields.headline}}" />
+                      </a>
+                    </td>
+                    <td width="10"></td>
+                  </tr>
+                  <tr>
+                    <td height="9"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          {% endif %}
+          <tr>
+            <td align="left" valign="top" style="{% if not story.fields.thumbnail and not first %} height: 40px;{% endif %} padding: 0 10px;">
+              {% if more_thumbs and (index == 2 or index == 3) %}
+                <a href="{{ story.webUrl }}">
+                  {% set picture = story|largest_image(image_type='thumbnail') %}
+                  <img class="story-image" src="{{ picture.file }}" width="188" align="left" style="margin: 0 10px 0 0;"  alt="{{story.fields.headline}}"/>
+                </a>
+              {% endif %}
+              <a {% if not thumbnail or not standfirst %}style="font-size:19px;text-decoration: none;"{% else %}style="font-size:24px; text-decoration: none;"{% endif %} href="{{ story.webUrl }}">
+              {% if story.sectionId == 'commentisfree' %}
+                <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg">&nbsp;<span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #333333">{{story.fields.headline}}</span><br>
+                <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #E6711B;">{{story.fields.byline}}</span>
               {% else %}
-                <span style="{% if not thumbnail or not standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600;{% else %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; font-weight: 600; {% endif %}
-                line-height: 1.421;
-                {% if tone == 'tone/comment' %}
-                  color: #E6711B;
-                {% elif tone == 'tone/features' %}
-                  color: #951C55;
-                {% elif tone == 'tone/reviews' %}
-                  color: #FFBB00;
+                {% if story.fields.liveBloggingNow == 'true' %}
+                  <span {% if not thumbnail or not standfirst %}style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600; line-height: 1.421; text-decoration: none; color:#B51800;"{% else %}style="font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; line-height: 1.421; font-weight: 600; text-decoration: none; color:#B51800;"{% endif %}>Live</span>
                 {% else %}
-                  color: #005689;
+                  <span style="{% if not thumbnail or not standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600;{% else %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px; font-weight: 600; {% endif %}
+                  line-height: 1.421;
+                  {% if tone == 'tone/comment' %}
+                    color: #E6711B;
+                  {% elif tone == 'tone/features' %}
+                    color: #951C55;
+                  {% elif tone == 'tone/reviews' %}
+                    color: #FFBB00;
+                  {% else %}
+                    color: #005689;
+                  {% endif %}
+                  {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}
+                    color: #FFBB00;
+                  {% endif %}">
+                    {% set keyword = story|get_keyword() %}
+                    {{keyword}}
+                  </span>
                 {% endif %}
-                {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}
-                  color: #FFBB00;
-                {% endif %}">
-                  {% set keyword = story|get_keyword() %}
-                  {{keyword}}
-                </span>
+                <span style="color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
+                {% if story.type == 'gallery' or story.type == 'image' %}
+                  <img width="29" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
+                {% elif story.type == 'audio' %}
+                  <img width="29" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
+                {% elif story.type == 'video' %}
+                  <img height="15" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
+                {% endif %}
+                <span style="{% if not thumbnail or not standfirst %}font-family: 'DE3DisplayEgyptian', Georgia, serif;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFFFFF{% endif %}">{{story.webTitle}}</span>
               {% endif %}
-              <span style="color: #DCDCDC;{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
-              {% if story.type == 'gallery' or story.type == 'image' %}
-                <img width="29" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
-              {% elif story.type == 'audio' %}
-                <img width="29" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
-              {% elif story.type == 'video' %}
-                <img height="15" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
+              </a>
+              {% if story.comment_count %}
+              <table style="padding-top: 10px;" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="122">
+                    <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}#start-of-comments"><img src="http://resource.guim.co.uk/global/static/file/discussion/comment-icon12x12.gif" width="12" height="12" style="margin-right: 2px"> {{ '{:,}'.format(story.comment_count) }} comments</a>
+                  </td>
+                </tr>
+              </table>
               {% endif %}
-              <span style="{% if not thumbnail or not standfirst %}font-family: 'DE3DisplayEgyptian', Georgia, serif;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333;{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFFFFF{% endif %}">{{story.webTitle}}</span>
-            {% endif %}
-            </a>
-            <!--<a class="story-title" href="{{ story.webUrl }}" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none; display: block; padding-bottom: 4px;">{{ story.webTitle }}</a>-->
-            <!--{% if first_para %}<a href="{{ story.webUrl }}" style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4;">{{ story.fields.body|striptags|first_paragraph }}</a>
-            {% elif show_story_text %}<a href="{{ story.webUrl }}"
-                                    style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #555555;">
-              {% if use_standfirst and story.fields.standfirst %}{{ story.fields.standfirst|striptags }}{% else %}{{ story.fields.trailText|striptags }}{% endif %}</a> <br>{% endif %}-->
-            {% if story.comment_count %}
-            <table style="padding-top: 10px;" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td width="122">
-                  <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}#start-of-comments"><img src="http://resource.guim.co.uk/global/static/file/discussion/comment-icon12x12.gif" width="12" height="12" style="margin-right: 2px"> {{ '{:,}'.format(story.comment_count) }} comments</a>
-                </td>
-              </tr>
-            </table>
-            {% endif %}
 
-            {% if story.share_count and share_links %}
-              {% set encodedStoryUrl = story.webUrl|urlencode %}
-              {% set encodedStoryHeadline = story.fields.headline|urlencode %}
-              {% set facebookShareUrl = 'http://www.facebook.com/share.php?u=%s' % encodedStoryUrl %}
-              {% set twitterShareUrl = 'https://twitter.com/intent/tweet?text={headline}&url={url}'.format(headline=encodedStoryHeadline, url=encodedStoryUrl) %}
+              {% if story.share_count and share_links %}
+                {% set encodedStoryUrl = story.webUrl|urlencode %}
+                {% set encodedStoryHeadline = story.fields.headline|urlencode %}
+                {% set facebookShareUrl = 'http://www.facebook.com/share.php?u=%s' % encodedStoryUrl %}
+                {% set twitterShareUrl = 'https://twitter.com/intent/tweet?text={headline}&url={url}'.format(headline=encodedStoryHeadline, url=encodedStoryUrl) %}
 
-            <table style="padding-top: 8px; color: #555;" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px;">Share:
-                    <a style="text-decoration: none; padding-left: 5px; color: #005689;" href="{{ facebookShareUrl }}"><span class="spr-16 facebook" style="display: inline-block; width: 14px; height: 14px; margin-right: 4px; vertical-align: bottom; background: url(http://static.guim.co.uk/static/e072231164cb217e5263d6fe094fe353cf069815/common/images/sprite/ico-16x16.png) -129px -1px;"></span>Facebook</a>
-                    <a style="text-decoration: none; padding-left: 5px; color: #005689;" href="{{ twitterShareUrl }}"><span class="spr-16 twitter" style="display: inline-block; width: 14px; height: 14px; margin-right: 4px; vertical-align: bottom; background: url(http://static.guim.co.uk/static/e072231164cb217e5263d6fe094fe353cf069815/common/images/sprite/ico-16x16.png) -145px -1px;"></span>Twitter</a>
-                </td>
-              </tr>
-            </table>
-            {% endif %}
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td height="15" bgcolor="#FFFFFF"></td>
-  </tr>
-</table>
+              <table style="padding-top: 8px; color: #555;" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px;">Share:
+                      <a style="text-decoration: none; padding-left: 5px; color: #005689;" href="{{ facebookShareUrl }}"><span class="spr-16 facebook" style="display: inline-block; width: 14px; height: 14px; margin-right: 4px; vertical-align: bottom; background: url(http://static.guim.co.uk/static/e072231164cb217e5263d6fe094fe353cf069815/common/images/sprite/ico-16x16.png) -129px -1px;"></span>Facebook</a>
+                      <a style="text-decoration: none; padding-left: 5px; color: #005689;" href="{{ twitterShareUrl }}"><span class="spr-16 twitter" style="display: inline-block; width: 14px; height: 14px; margin-right: 4px; vertical-align: bottom; background: url(http://static.guim.co.uk/static/e072231164cb217e5263d6fe094fe353cf069815/common/images/sprite/ico-16x16.png) -145px -1px;"></span>Twitter</a>
+                  </td>
+                </tr>
+              </table>
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td height="15" bgcolor="#FFFFFF"></td>
+    </tr>
+  </table>
+{% endif %}
 {%- endmacro %}
