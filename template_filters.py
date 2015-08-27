@@ -41,7 +41,16 @@ def largest_image(content, image_type='thumbnail'):
 
 def get_tone(content):
 	d = build_dict(content["tags"], key="type")
-	return d["tone"]["id"]
+	if "tone" in d:
+		return d["tone"]["id"]
+	else:
+		return "Article"
+
+def get_keyword(content):
+	for tag in content["tags"]:
+		if tag["type"] == "keyword" and "sectionId" in tag and tag["id"].split("/")[1] != tag["sectionId"]:
+			return tag["webTitle"]
+	return "Article"
 
 def image_of_width(content, target_width, image_type='thumbnail'):
 	images = [element for element in content['elements'] if element['relation'] == image_type]

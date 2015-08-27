@@ -1,6 +1,6 @@
 {% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False) -%}
 {% set tone = story|get_tone() %}
-<table class="container gmailfix" style="min-width: 600px;" width="600" cellpadding="0" cellspacing="0" border="0" {% if tone == 'tone/reviews' %}bgcolor="#615B52"{% endif %}{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}bgcolor="#333333"{% endif %}>
+<table class="container gmailfix" style="min-width: 600px;" width="600" cellpadding="0" cellspacing="0" border="0" {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}bgcolor="#333333"{% endif %}>
   <tr>
     <td {% if not first or not thumbnail %}style="padding: 10px 0;
       {% if tone == 'tone/comment' %}
@@ -8,7 +8,7 @@
       {% elif tone == 'tone/features' %}
         border-top: 1px solid #951C55;
       {% elif tone == 'tone/reviews' %}
-        border-top: 1px solid #FFFFFF;
+        border-top: 1px solid #FFBB00;
       {% else %}
         border-top: 1px solid #4BC6DF;
       {% endif %}
@@ -70,17 +70,20 @@
                 {% endif %}
                 {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %}
                   color: #FFBB00;
-                {% endif %}">{{story.sectionName}}</span>
+                {% endif %}">
+                  {% set keyword = story|get_keyword() %}
+                  {{keyword}}
+                </span>
               {% endif %}
-              <span style="color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/&nbsp;</span>
+              <span style="color: #DCDCDC;{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
               {% if story.type == 'gallery' or story.type == 'image' %}
                 <img width="29" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
               {% elif story.type == 'audio' %}
                 <img width="29" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
               {% elif story.type == 'video' %}
-                <img width="29" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
+                <img height="15" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
               {% endif %}
-              <span style="{% if not thumbnail or not standfirst %}font-family: 'DE3DisplayEgyptian', Georgia, serif;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFFFFF{% endif %}">{{story.webTitle}}</span>
+              <span style="{% if not thumbnail or not standfirst %}font-family: 'DE3DisplayEgyptian', Georgia, serif;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333;{% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFFFFF{% endif %}">{{story.webTitle}}</span>
             {% endif %}
             </a>
             <!--<a class="story-title" href="{{ story.webUrl }}" style="color: #005689; font: 15px/19px Georgia, serif; text-decoration: none; display: block; padding-bottom: 4px;">{{ story.webTitle }}</a>-->

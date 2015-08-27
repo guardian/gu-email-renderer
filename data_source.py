@@ -11,7 +11,7 @@ else:
 
 # Always exclude picture desk due to media problems
 DEFAULT_TAGS = ['-news/series/picture-desk-live']
-DEFAULT_SHOW_TAGS = ['type', 'tone']
+DEFAULT_SHOW_TAGS = ['type', 'tone', 'keyword']
 
 class DataSource(object):
     def __init__(self, client):
