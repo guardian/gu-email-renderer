@@ -3,7 +3,7 @@
   {% set keyword = story|get_keyword() %}
   {% set picture = story|largest_image(image_type='thumbnail') %}
   {% if popular %}
-    <table cellspacing="0" cellpadding="0" border="0" width="600" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #333333; font-size:19px; font-weight:400;">
+    <table cellspacing="0" cellpadding="0" border="0" width="600">
       <tr>
         <td style="border-top: 1px solid #DCDCDC;">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -45,7 +45,7 @@
       </tr>
     </table>
   {% else %}
-    <table cellspacing="0" cellpadding="0" border="0" width="600" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; color: #333333; font-size:19px; font-weight:400;">
+    <table cellspacing="0" cellpadding="0" border="0" width="600">
       <tr>
         <td {% if not first or not thumbnail %}style="{% if tone == 'tone/comment' %} border-top: 1px solid #E6711B; {% elif tone == 'tone/features' %} border-top: 1px solid #951C55; {% elif tone == 'tone/reviews' %} border-top: 1px solid #FFBB00; {% else %} border-top: 1px solid #4BC6DF; {% endif %} {% if story.fields.liveBloggingNow == 'true' %} border-top: 1px solid #B51800; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} border-top: 1px solid #FFBB00; {% endif %}"{% endif %}>
           <table cellspacing="0" cellpadding="0" border="0" width="600">
@@ -76,17 +76,17 @@
               <td align="left">
                 <a href="{{ story.webUrl }}">
                   {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
-                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333">{{story.fields.headline}}</span><br>
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #E6711B;">{{story.fields.byline}}</span>
+                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #333333">{{story.fields.headline}}</span><br>
+                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #E6711B;">{{story.fields.byline}}</span>
                   {% else %}
                     {% if story.fields.liveBloggingNow == 'true' %}
                       <span class="{% if thumbnail and standfirst %}big-title{% else %}regular-title{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} font-weight: 600; color:#B51800;">Live</span>
                     {% else %}
-                      <span class="{% if thumbnail and standfirst %}big-title{% else %}regular-title{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} font-weight: 600; line-height: 1.421; {% if tone == 'tone/comment' %} color: #E6711B; {% elif tone == 'tone/features' %} color: #951C55; {% elif tone == 'tone/reviews' %} color: #FFBB00; {% else %} color: #005689; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color: #FFBB00; {% endif %}">
+                      <span class="{% if thumbnail and standfirst %}big-title{% else %}regular-title{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px;{% endif %} font-weight: 600; line-height: 1.421; {% if tone == 'tone/comment' %} color: #E6711B; {% elif tone == 'tone/features' %} color: #951C55; {% elif tone == 'tone/reviews' %} color: #FFBB00; {% else %} color: #005689; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color: #FFBB00; {% endif %}">
                         {{keyword}}
                       </span>
                     {% endif %}
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% endif %} color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
+                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
                     {% if story.type == 'gallery' or story.type == 'image' %}
                       <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
                     {% elif story.type == 'audio' %}
@@ -94,7 +94,7 @@
                     {% elif story.type == 'video' %}
                       <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
                     {% endif %}                    
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% endif %} color: #333333;">{{story.webTitle}}</span>
+                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #333333;">{{story.webTitle}}</span>
                   {% endif %}
                 </a>
                 {% if story.comment_count %}
