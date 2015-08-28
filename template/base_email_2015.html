@@ -73,64 +73,96 @@
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           -moz-osx-font-smoothing: grayscale;
       }
-      .content-holder {
-        width: 100% !important;
+      a {
+        text-decoration: none !important;
+        color: #003772 !important;
+        font-weight: normal !important;
       }
-      .top-image {
-        width: 100% !important;
+
+      a:hover {
+        text-decoration: none !important;
       }
-      @media only screen and (min-width: 480px) {
-        .section-heading {
-          font-size: 17px !important;
-          padding: 8px 0 !important;
-        }        
-        /*.story-image {
-          height: 84px !important;
-          width: 140px !important;
-        }*/
-        .story-title {
-          font-size: 16px !important;
-          line-height: 20px !important;
-        }
-        .content-holder {
-          width: 480px !important;
-        }
+      body img {
+        height: auto !important;
       }
       @media all and (max-width: 600px) {
-        .gmailfix {
+        body .hide {
+          display: none;
+          height: 0px;
+          line-height: 0px;
+        }
+
+        body .gmailfix {
           min-width: 0 !important;
         }
-      }
-      @media only screen and (min-width: 600px) {
-        .content-holder {
-          width: 600px !important;
+
+        body .big-title, body .big-text {
+          font-size: 20px !important;
         }
-      }
-      @media only screen and (max-width: 320px) {
-        .content-holder {
-          width: 100% !important;
+
+        body .heading-text {
+          font-size: 22px !important;
+        }
+
+        body .regular-title, body .regular-text {
+          font-size: 17px !important;
+        }
+
+        body .link-image {
+          width: 157px !important;
+        }
+
+        body .index {
+          font-size: 40px !important;
+        }
+
+        body table, div {
+          width:100% !important;
+          max-width: 600px !important;
+          position:relative !important;
+          height:auto !important;
+          overflow:visible !important;
+          top:0px !important;
+        }
+
+        table.media-logos {
+          max-width: 270px !important;
+        }
+
+        body img.top-image {
+          max-width:100%;
+        }
+        body img.story-image {
+          max-width: 124px;
         }
       }
     </style>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
       <tr>
         <td align="center">
-          <!--<table class="content-holder" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#faf9f8" style="min-width: 320px; max-width: 600px; display: block;">-->
-          <table class="content-holder" width="600" cellpadding="0" cellspacing="0" border="0" style="min-width: 320px; max-width: 600px; display: block;">
+          <table class="gmailfix" cellpadding="0" cellspacing="0" border="0" width="600" style="min-width: 600px;">
             {% block header %}
             <tr><td>
                 <!-- header -->
-                <!--<table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding-bottom: 1px">
+                <table width="600" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td style="padding: 10px 0 10px 20px;">
+                    <!--<td style="padding: 10px 0 10px 20px;">
                       <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr align="left"><td style="font-family: Georgia, serif; font-size: 20px; color: {{ title_colour }};"><a style="color: {{ title_colour }}; text-decoration: none;" href="{{ title_link }}">{{ title }}</a></td></tr>
                         <tr align="left"><td style="font-family: Arial, sans-serif; font-size: 12px; color: #666666; padding-top: 3px;">{{ date }}</td></tr>
                       </table>
                     </td>
-                    <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>
+                    <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>-->
+                    <!-- Fake header -->
+                    <td>
+                      <img class="top-image" width="600" src="{{URL_ROOT}}/static/img/header.jpg" alt="header">
+                    </td>
+                    <!-- /Fake header -->
                   </tr>
-                </table>-->
+                  <tr>
+                    <td height="20"></td>
+                  </tr>
+                </table>
                 <!-- /header -->
             </td></tr>
             {% endblock %}
@@ -138,7 +170,159 @@
             {% block content %}{% endblock %}
 
             {% block footer %}
-            <tr><td>
+            <tr><td align="center">
+                <!-- Mohawk made footer -->
+                <table width="600" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td height="59"></td>
+                  </tr>
+                  <tr>
+                    <td width="10"></td>
+                    <td align="left">
+                      <table width="270" cellpadding="0" cellspacing="0" border="0" class="media-logos">
+                        <tr>
+                          <td>
+                            <img width="44" src="{{URL_ROOT}}/static/img/fb-round.jpg" alt="facebook">
+                          </td>
+                          <td width="10"></td>
+                          <td>
+                            <img width="44" src="{{URL_ROOT}}/static/img/twitter-round.jpg" alt="twitter">
+                          </td>
+                          <td width="10"></td>
+                          <td>
+                            <img width="44" src="{{URL_ROOT}}/static/img/mail-round.jpg" alt="mail">
+                          </td>
+                          <td width="10"></td>
+                          <td>
+                            <img width="44" src="{{URL_ROOT}}/static/img/linkedin-round.jpg" alt="linkedin">
+                          </td>
+                          <td width="10"></td>
+                          <td>
+                            <img width="44" src="{{URL_ROOT}}/static/img/gplus-round.jpg" alt="google">
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td align="right">
+                      <img src="{{URL_ROOT}}/static/img/theguardian-round.jpg" width="44" alt="The Guardian">
+                    </td>                    
+                    <td width="10"></td>
+                  </tr>
+                  <tr>
+                    <td height="35"></td>
+                  </tr>
+                </table>
+                <table width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#333333" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">
+                  <tr>
+                    <td height="35"></td>
+                  </tr>
+                  <tr>
+                    <td width="300" class="hide">
+                      
+                    </td>
+                    <td width="10" class="hide"></td>
+                    <td align="left">
+                      <table cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td>
+                            <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td class="hide" colspan="5" height="10" style="border-top: 1px solid #DCDCDC"></td>
+                              </tr>
+                              <tr valign="top">
+                                <td width="10"></td>
+                                <td>Get more Guardian emails</td>
+                                <td width="10"></td>
+                                <td align="right">
+                                  <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
+                                </td>
+                                <td width="10"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="5" height="10"></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td colspan="5" height="10" style="border-top: 1px solid #DCDCDC"></td>
+                              </tr>
+                              <tr valign="top">
+                                <td width="10"></td>
+                                <td>Join the Guardian<br><span style="font-size: 12px;">Support open, independent journalism and experience it brought to life</span></td>
+                                <td width="10"></td>
+                                <td align="right">
+                                  <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
+                                </td>
+                                <td width="10"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="5" height="10"></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td colspan="5" height="10" style="border-top: 1px solid #DCDCDC"></td>
+                              </tr>
+                              <tr valign="top">
+                                <td width="10"></td>
+                                <td>Download the free Guardian app</td>
+                                <td width="10"></td>
+                                <td align="right">
+                                  <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
+                                </td>
+                                <td width="10"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="5" height="10"></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td colspan="5" height="10" style="border-top: 1px solid #DCDCDC"></td>
+                              </tr>
+                              <tr valign="top">
+                                <td width="10"></td>
+                                <td>Subscribe to the Guardian</td>
+                                <td width="10"></td>
+                                <td align="right">
+                                  <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
+                                </td>
+                                <td width="10"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="5" height="10"></td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="54"></td>
+                  </tr>
+                  <tr>
+                    <td align="center" colspan="3">
+                      View in browser | Unsubscribe
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="45"></td>
+                  </tr>
+                </table>
+                <!-- /Mohawk made footer -->
                 <!-- footer -->
                 <!--<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#333333{% else %}#e8e5e2{% endif %}">-->
                   <!-- logo-social -->
