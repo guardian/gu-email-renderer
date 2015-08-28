@@ -23,8 +23,8 @@
                         <span class="index" style="font-family: 'DE2DisplayEgyptianLight', Georgia, serif; font-size:44px; font-weight: 300; line-height: 1; text-decoration: none; color:#DCDCDC;">{{index}}</span>
                       </td>
                       <td valign="top">
-                        {% if story.sectionId == 'commentisfree' %}
-                          <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg">&nbsp;
+                        {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
+                          <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;
                         {% endif %}
                         <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}"  style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #333333;">{{story.webTitle}}</span>
                       </td>
@@ -76,7 +76,7 @@
               <td align="left">
                 <a href="{{ story.webUrl }}">
                   {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
-                    <img width="29" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333">{{story.fields.headline}}</span><br>
+                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #333333">{{story.fields.headline}}</span><br>
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% endif %} color: #E6711B;">{{story.fields.byline}}</span>
                   {% else %}
                     {% if story.fields.liveBloggingNow == 'true' %}
@@ -88,12 +88,12 @@
                     {% endif %}
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% endif %} color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
                     {% if story.type == 'gallery' or story.type == 'image' %}
-                      <img width="29" style="margin-bottom: -5px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
                     {% elif story.type == 'audio' %}
-                      <img width="29" style="margin-bottom: -5px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
                     {% elif story.type == 'video' %}
-                      <img width="29" style="margin-bottom: -5px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
-                    {% endif %}
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
+                    {% endif %}                    
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% endif %} color: #333333;">{{story.webTitle}}</span>
                   {% endif %}
                 </a>
