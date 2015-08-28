@@ -100,23 +100,23 @@
         }
 
         body .big-title, body .big-text {
-          font-size: 20px !important;
+          font-size: 18px !important;
         }
 
         body .heading-text {
-          font-size: 22px !important;
+          font-size: 20px !important;
         }
 
         body .regular-title, body .regular-text {
-          font-size: 17px !important;
+          font-size: 16px !important;
         }
 
         body .link-image {
-          width: 157px !important;
+          width: 140px !important;
         }
 
         body .index {
-          font-size: 40px !important;
+          font-size: 35px !important;
         }
 
         body table, div {
@@ -135,11 +135,16 @@
         body img.top-image {
           max-width:100%;
         }
+        body img.head-image {
+          height: 193px !important;
+          width: auto !important;
+          max-width:100%;
+        }
         body img.story-image {
-          max-width: 124px;
+          max-width: 110px;
         }
         body img.icon {
-          max-width: 22px;
+          max-width: 20px;
         }
         body img.media-icon {
           max-width: 40px;
@@ -147,11 +152,21 @@
         body img.icon.no-margin {
           margin-bottom: 0 !important;
         }
+        body td.mobile {
+          width: 10px !important;
+        }
+        body td.mobile-height {
+          height: 25px !important;
+        }
+        body td.mobile-footer img {
+          height: auto !important;
+          width: 100% !important;
+        }
       }
     </style>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
       <tr>
-        <td align="center">
+        <td align="center" style="background-color: #005689;">
           <table class="gmailfix" cellpadding="0" cellspacing="0" border="0" width="600" style="min-width: 600px;">
             {% block header %}
             <tr><td>
@@ -166,29 +181,39 @@
                     </td>
                     <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>-->
                     <!-- Fake header -->
-                    <td>
-                      <img class="top-image" width="600" src="{{URL_ROOT}}/static/img/header.jpg" alt="header">
+                    <td align="center">
+                      <img class="head-image" width="600" src="{{URL_ROOT}}/static/img/header.jpg" alt="header">
                     </td>
                     <!-- /Fake header -->
-                  </tr>
-                  <tr>
-                    <td height="20"></td>
                   </tr>
                 </table>
                 <!-- /header -->
             </td></tr>
+            </table>
+            </td>
+            </tr>
+            <tr>
+              <td height="20"></td>
+            </tr>
+            <tr>
+            <td align="center">
             {% endblock %}
 
             {% block content %}{% endblock %}
 
             {% block footer %}
-            <tr><td align="center">
+            <tr>
+            <td align="center">
                 <!-- Mohawk made footer -->
                 <table width="600" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                    <td height="59"></td>
+                    <td height="25" colspan="6"></td>
                   </tr>
                   <tr>
+                    <td height="34" colspan="6" class="hide"></td>
+                  </tr>
+                  <tr>
+                    <td class="mobile" width="0"></td>
                     <td width="10"></td>
                     <td align="left">
                       <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/fb-round.jpg" alt="facebook">
@@ -205,17 +230,22 @@
                       <img class="media-icon" src="{{URL_ROOT}}/static/img/theguardian-round.jpg" width="44" alt="The Guardian">
                     </td>                    
                     <td width="10"></td>
+                    <td class="mobile" width="0"></td>
                   </tr>
                   <tr>
-                    <td height="35"></td>
+                    <td height="35" colspan="6"></td>
                   </tr>
                 </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="background-color: #333333;">
                 <table width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#333333">
                   <tr>
-                    <td class="hide" height="25" colspan="3"></td>
+                    <td class="hide" height="25"></td>
                   </tr>
                   <tr>
-                    <td height="10" colspan="3"></td>
+                    <td height="10"></td>
                   </tr>
                   <tr valign="top">
                     <td width="300" class="hide">
@@ -309,6 +339,11 @@
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="mobile-footer" width="600" colspan="3">
+                      <img height="0" width="0" src="{{URL_ROOT}}/static/img/dummy-footer.jpg" alt="google">
                     </td>
                   </tr>
                   <tr>
