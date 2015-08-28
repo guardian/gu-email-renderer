@@ -85,6 +85,9 @@
       body img {
         height: auto !important;
       }
+      .advert img {
+        width: 100% !important;
+      }
       @media all and (max-width: 600px) {
         body .hide {
           display: none;
@@ -138,6 +141,9 @@
         body img.icon {
           max-width: 22px;
         }
+        body img.media-icon {
+          max-width: 40px;
+        }
         body img.icon.no-margin {
           margin-bottom: 0 !important;
         }
@@ -185,32 +191,18 @@
                   <tr>
                     <td width="10"></td>
                     <td align="left">
-                      <table width="270" cellpadding="0" cellspacing="0" border="0" class="media-logos">
-                        <tr>
-                          <td>
-                            <img width="44" src="{{URL_ROOT}}/static/img/fb-round.jpg" alt="facebook">
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                            <img width="44" src="{{URL_ROOT}}/static/img/twitter-round.jpg" alt="twitter">
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                            <img width="44" src="{{URL_ROOT}}/static/img/mail-round.jpg" alt="mail">
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                            <img width="44" src="{{URL_ROOT}}/static/img/linkedin-round.jpg" alt="linkedin">
-                          </td>
-                          <td width="10"></td>
-                          <td>
-                            <img width="44" src="{{URL_ROOT}}/static/img/gplus-round.jpg" alt="google">
-                          </td>
-                        </tr>
-                      </table>
+                      <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/fb-round.jpg" alt="facebook">
+                      <span class="hide">&nbsp;</span>
+                      <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/twitter-round.jpg" alt="twitter">
+                      <span class="hide">&nbsp;</span>
+                      <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/mail-round.jpg" alt="mail">
+                      <span class="hide">&nbsp;</span>
+                      <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/linkedin-round.jpg" alt="linkedin">
+                      <span class="hide">&nbsp;</span>
+                      <img class="media-icon" width="44" src="{{URL_ROOT}}/static/img/gplus-round.jpg" alt="google">
                     </td>
                     <td align="right">
-                      <img src="{{URL_ROOT}}/static/img/theguardian-round.jpg" width="44" alt="The Guardian">
+                      <img class="media-icon" src="{{URL_ROOT}}/static/img/theguardian-round.jpg" width="44" alt="The Guardian">
                     </td>                    
                     <td width="10"></td>
                   </tr>
@@ -218,13 +210,13 @@
                     <td height="35"></td>
                   </tr>
                 </table>
-                <table width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#333333" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">
+                <table width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#333333">
                   <tr>
                     <td height="35" colspan="3"></td>
                   </tr>
-                  <tr>
+                  <tr valign="top">
                     <td width="300" class="hide">
-                      
+                      <img width="300" src="{{URL_ROOT}}/static/img/dummy-footer.jpg" alt="google">
                     </td>
                     <td width="10" class="hide"></td>
                     <td align="left">
@@ -237,7 +229,7 @@
                               </tr>
                               <tr valign="top">
                                 <td width="10"></td>
-                                <td>Get more Guardian emails</td>
+                                <td><span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">Get more Guardian emails</span></td>
                                 <td width="10"></td>
                                 <td align="right">
                                   <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
@@ -258,7 +250,7 @@
                               </tr>
                               <tr valign="top">
                                 <td width="10"></td>
-                                <td>Join the Guardian<br><span style="font-size: 12px;">Support open, independent journalism and experience it brought to life</span></td>
+                                <td><span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">Join the Guardian</span><br><span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; text-decoration: none; color: #DCDCDC; font-size: 12px;">Support open, independent journalism and experience it brought to life</span></td>
                                 <td width="10"></td>
                                 <td align="right">
                                   <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
@@ -279,7 +271,7 @@
                               </tr>
                               <tr valign="top">
                                 <td width="10"></td>
-                                <td>Download the free Guardian app</td>
+                                <td><span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">Download the free Guardian app</span></td>
                                 <td width="10"></td>
                                 <td align="right">
                                   <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
@@ -300,7 +292,7 @@
                               </tr>
                               <tr valign="top">
                                 <td width="10"></td>
-                                <td>Subscribe to the Guardian</td>
+                                <td><span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">Subscribe to the Guardian</span></td>
                                 <td width="10"></td>
                                 <td align="right">
                                   <img src="{{URL_ROOT}}/static/img/footer-link.jpg" width="45" alt="Link">
@@ -317,11 +309,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td height="54" colspan="3"></td>
+                    <td height="34" colspan="3"></td>
                   </tr>
                   <tr>
                     <td align="center" colspan="3">
-                      View in browser | Unsubscribe
+                      <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">View in browser | Unsubscribe</span>
                     </td>
                   </tr>
                   <tr>
