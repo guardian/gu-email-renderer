@@ -90,9 +90,13 @@
       }
       @media all and (max-width: 600px) {
         body .hide {
-          display: none;
+          display: none !important;
           height: 0px;
           line-height: 0px;
+        }
+
+        body .hidden {
+          display: none !important;
         }
 
         body .gmailfix {
@@ -424,4 +428,7 @@
         </td>
       </tr>
     </table>
+    <div class="hidden" style="display:none; white-space:nowrap; font:15px courier; color:#ffffff;">
+        - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    </div>
   </body>
