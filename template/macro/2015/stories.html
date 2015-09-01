@@ -84,7 +84,7 @@
               <td width="5"></td>
               {% if more_thumbs and (index == 2 or index == 3) %}
                 <td>
-                  <a href="{{ story.webUrl }}">
+                  <a href="{{ story.webUrl }}" style=" text-decoration: none;">
                     <img class="story-image" src="{{ picture.file }}" width="188" align="left"  alt="{{story.fields.headline}}" border="0"/>
                   </a>
                 </td>
@@ -92,7 +92,7 @@
                 <td width="5"></td>
               {% endif %}
               <td align="left">
-                <a href="{{ story.webUrl }}">
+                <a href="{{ story.webUrl }}" style=" text-decoration: none;">
                   {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
                     <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333">{{story.fields.headline}}</span><br>
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #E6711B;">{{story.fields.byline}}</span>
