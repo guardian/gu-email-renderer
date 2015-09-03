@@ -15,7 +15,7 @@
   </head>
 
   <body style="background: #fff; margin: 0; padding: 0;">
-    <style>
+    <style type="text/css">
       @font-face {
         font-family: "DE2DisplayEgyptianLight";
         /*src: url("{{ URL_ROOT }}/static/font/gdnegyde2lig-webfont.eot");
@@ -164,6 +164,7 @@
         }
         body td.mobile-footer img {
           height: auto !important;
+          display: inherit !important;
           width: 100% !important;
         }
       }
@@ -345,11 +346,13 @@
                       </table>
                     </td>
                   </tr>
+                  <!--[if !mso 9]><!-->
                   <tr>
                     <td class="mobile-footer" width="600" colspan="3">
-                      <img height="0" width="0" src="{{URL_ROOT}}/static/img/dummy-footer.jpg" alt="google">
+                      <img style="display: none;" height="0" width="0" src="{{URL_ROOT}}/static/img/dummy-footer.jpg" alt="google">
                     </td>
                   </tr>
+                  <!--<![endif]-->
                   <tr>
                     <td height="34" colspan="3"></td>
                   </tr>

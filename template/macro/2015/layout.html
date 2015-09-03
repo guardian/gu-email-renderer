@@ -9,7 +9,7 @@
                 <td align="left">
                     {% if image %}
                         <a href="{{ link }}" style="color: #FFFFFF; text-decoration: none;">
-                            <img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0">
+                            <img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0" alt="{{heading_text}}">
                         </a>
                     {% endif %}
                 </td>
@@ -117,7 +117,7 @@
                         <tr>
                             <td class="hide" width="5" style="border-top: 1px solid #4BC6DF;"></td>
                             <td width="5" style="border-top: 1px solid #4BC6DF;"></td>
-                            <td style="border-top: 1px solid #4BC6DF;" align="left">
+                            <td align="left" style="border-top: 1px solid #4BC6DF;">
                                 <span class="heading-text" style="font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689;">{{heading_text}}</span>
                             </td>
                             <td width="5" style="border-top: 1px solid #4BC6DF;"></td>
@@ -129,12 +129,12 @@
                     </table>
                 </td>
                 <td class="mobile" width="0"></td>
-                {% if not top_thumb %}
-                    <tr>
-                        <td height="10"></td>
-                    </tr>
-                {% endif %}
             </tr>
+            {% if not top_thumb %}
+                <tr>
+                    <td height="10"></td>
+                </tr>
+            {% endif %}
         {% endif %}
         <tr>
             <td class="mobile" width="0"></td>

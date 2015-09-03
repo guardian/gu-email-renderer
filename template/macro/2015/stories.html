@@ -30,7 +30,7 @@
                       </td>
                       <td valign="top">
                         {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
-                          <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;
+                          <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0" alt="commentisfree">&nbsp;
                         {% endif %}
                         <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}"  style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #333333;">{{story.webTitle}}</span>
                       </td>
@@ -66,7 +66,7 @@
                 <td width="5"></td>
                 <td>
                   <a href="{{ story.webUrl }}">
-                    <img class="top-image" src="{{ picture.file }}" width="580" alt="{{story.fields.headline}}" border="0"/>
+                    <img class="top-image" src="{{ picture.file }}" width="580" alt="{{story.fields.headline}}" border="0" alt="{{story.fields.headline}}"/>
                   </a>
                 </td>
                 <td class="hide" width="5"></td>
@@ -94,7 +94,7 @@
               <td align="left">
                 <a href="{{ story.webUrl }}" style=" text-decoration: none;">
                   {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
-                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0">&nbsp;<span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333">{{story.fields.headline}}</span><br>
+                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0" alt="commentisfree">&nbsp;<span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333">{{story.fields.headline}}</span><br>
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #E6711B;">{{story.fields.byline}}</span>
                   {% else %}
                     {% if story.fields.liveBloggingNow == 'true' %}
@@ -106,11 +106,11 @@
                     {% endif %}
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
                     {% if story.type == 'gallery' or story.type == 'image' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg" alt="image">&nbsp;
                     {% elif story.type == 'audio' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg" alt="audio">&nbsp;
                     {% elif story.type == 'video' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg" alt="video">&nbsp;
                     {% endif %}                    
                     <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333;">{{story.webTitle}}</span>
                   {% endif %}
@@ -119,7 +119,7 @@
                   <table style="padding-top: 10px;" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td width="122">
-                        <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}#start-of-comments"><img src="http://resource.guim.co.uk/global/static/file/discussion/comment-icon12x12.gif" width="12" height="12" style="margin-right: 2px"> {{ '{:,}'.format(story.comment_count) }} comments</a>
+                        <a style="text-decoration: none; font-family: helvetica, arial, sans-serif; font-size: 12px; color: #005689; vertical-align: top;" href="{{ story.webUrl }}#start-of-comments"><img src="http://resource.guim.co.uk/global/static/file/discussion/comment-icon12x12.gif" width="12" height="12" style="margin-right: 2px" alt="commentcount"> {{ '{:,}'.format(story.comment_count) }} comments</a>
                       </td>
                     </tr>
                   </table>
