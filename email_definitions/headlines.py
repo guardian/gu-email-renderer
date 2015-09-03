@@ -12,6 +12,8 @@ import data_sources as dss
 
 from container_api import container
 
+import mail_renderer as mr
+
 class Headline(webapp2.RequestHandler):
 
     def get(self, edition="uk"):
@@ -37,6 +39,7 @@ class GenericHeadline(webapp2.RequestHandler):
         path_mapping = immutable.make_dict({
             'film': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03'),
             'uk/opinion/v1': container.for_id('uk/commentisfree/regular-stories'),
+            'film/v1': ds.FilmTodayLatestDataSource(mr.client),
         })
 
         if not path in path_mapping.keys():
