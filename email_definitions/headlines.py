@@ -1,4 +1,8 @@
+import logging
+
 import webapp2
+
+import pysistence as immutable
 
 import handlers
 import deduplication
@@ -25,35 +29,33 @@ class Headline(webapp2.RequestHandler):
         template = handlers.jinja_environment.get_template('headline.html')
         self.response.out.write(template.render(template_data))
 
-class FilmHeadline(webapp2.RequestHandler):
+class GenericHeadline(webapp2.RequestHandler):
 
     def get(self, path="film"):
+        logging.info(path)
 
-        data_sources = {'stories': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03')}
+        path_mapping = immutable.make_dict({
+            'film': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03'),
+            'uk/opinion/v1': container.for_id('uk/commentisfree/regular-stories'),
+        })
+
+        if not path in path_mapping.keys():
+            webapp2.abort(404, "Path {0} not mapped to a datasource".format(path))
+            return
+
+        stories_data_source = path_mapping[path]
+
+        data_sources = {'stories': stories_data_source}
         priority_list = [('stories', 1)]
         template_data = {}
         retrieved_data = handlers.EmailTemplate.fetch_all(data_sources)
         trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
         stories = trail_block.get('stories')
+
         headlines = [s.get('webTitle') for s in stories]
         if headlines:
             headline = headlines[0]
             template_data['headline'] = headline
-        template = handlers.jinja_environment.get_template('headline.html')
-        self.response.out.write(template.render(template_data))
 
-class UKOpinion(webapp2.RequestHandler):
-
-    def get(self):
-        data_sources = {'stories': container.for_id('uk/commentisfree/regular-stories')}
-        priority_list = [('stories', 1)]
-        template_data = {}
-        retrieved_data = handlers.EmailTemplate.fetch_all(data_sources)
-        trail_block = deduplication.build_unique_trailblocks(retrieved_data,priority_list)
-        stories = trail_block.get('stories')
-        headlines = [s.get('fields', {}).get('headline') for s in stories]
-        if headlines:
-            headline = headlines[0]
-            template_data['headline'] = headline
         template = handlers.jinja_environment.get_template('headline.html')
         self.response.out.write(template.render(template_data))

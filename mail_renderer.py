@@ -52,7 +52,6 @@ app = webapp2.WSGIApplication([('/daily-email/(.+)', emails.uk.DailyEmail),
                                ('/longreads/(.+)', emails.long_reads.LongReads),
                                webapp2.Route(r'/headline', handler=emails.headlines.Headline),
                                webapp2.Route(r'/headline/<edition:uk|us|au>', handler=emails.headlines.Headline),
-                               webapp2.Route(r'/headline/film', handler=emails.headlines.FilmHeadline),
-                               webapp2.Route(r'/headline/uk/opinion/v1', handler=emails.headlines.UKOpinion),
+                               webapp2.Route(r'/headline/<path:.*?>', handler=emails.headlines.GenericHeadline),
                                webapp2.Route(r'/', handler=handlers.Index)],
                               debug=True)
