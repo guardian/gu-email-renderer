@@ -65,9 +65,8 @@
         font-family: "DS3DisplaySans";
         /*src: url("{{ URL_ROOT }}/static/font/GdnSanDS3Reg.eot");
         src: url("{{ URL_ROOT }}/static/font/GdnSanDS3Reg.eot?#iefix") format("embedded-opentype"), url("{{ URL_ROOT }}/static/font/GdnSanDS3Reg.woff") format("woff"), url("{{ URL_ROOT }}/static/font/GdnSanDS3Reg.ttf") format("truetype");*/
-        src: url("http://advertising.theguardian.com/static/font/gdnegyde5sem-webfont.eot");
-        src: url("http://advertising.theguardian.com/static/font/gdnegyde5sem-webfont.eot?#iefix") format("embedded-opentype"), url("http://advertising.theguardian.com/static/font/gdnegyde5sem-webfont.woff") format("woff"), url("http://advertising.theguardian.com/static/font/gdnegyde5sem-webfont.ttf") format("truetype");
-        font-weight: 600;
+        src: url("http://campaigns.mohawkhq.com/media/assets/unpacked/a74f1ac5-6de5-4afe-a56e-4f3aa9eba90f/GdnSanDS3Reg.eot");
+        src: url("http://campaigns.mohawkhq.com/media/assets/unpacked/a74f1ac5-6de5-4afe-a56e-4f3aa9eba90f/GdnSanDS3Reg.eot?#iefix") format("embedded-opentype"), url("http://campaigns.mohawkhq.com/media/assets/unpacked/a74f1ac5-6de5-4afe-a56e-4f3aa9eba90f/GdnSanDS3Reg.woff") format("woff"), url("http://campaigns.mohawkhq.com/media/assets/unpacked/a74f1ac5-6de5-4afe-a56e-4f3aa9eba90f/GdnSanDS3Reg.ttf") format("truetype");
         font-style: normal;
       }
       * {
@@ -149,7 +148,7 @@
           max-width:100%;
         }
         body img.head-image {
-          height: 193px !important;
+          /*height: 193px !important;*/
           width: auto !important;
           max-width:100%;
         }
@@ -176,9 +175,25 @@
           display: inherit !important;
           width: 100% !important;
         }
+        body span.bottom-link {
+          height: 26.5px !important;
+          line-height: 26.5px !important;
+          font-size: 13px !important;
+          padding-left: 12px !important;
+          min-width: 128px !important;
+        }
+        body span.bottom-link img {
+          width: 15px !important;
+          margin-bottom: -3px !important;
+        }
       }
     </style>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+      <tr>
+        <td align="center" style="background-color: #2e3192;">
+          <img class="head-image" width="600" src="{{URL_ROOT}}/static/img/Email header_mobile-03.png" alt="header">
+        </td>
+      </tr>
       <tr>
         <td align="center" style="background-color: #005689;">
           <table class="gmailfix" cellpadding="0" cellspacing="0" border="0" width="600" style="min-width: 600px;">
@@ -195,9 +210,12 @@
                     </td>
                     <td align="center" width="64" bgcolor="{{ logo_background }}" style="font-weight: bold; font-family: Georgia, serif; color: #ffffff;"><div style="font-size: 47px; padding-bottom: 22px; line-height: 47px;">g</div></td>-->
                     <!-- Fake header -->
-                    <td align="center">
+                    <!--<td align="center">
                       <img class="head-image" width="600" src="{{URL_ROOT}}/static/img/header.jpg" alt="header">
-                    </td>
+                    </td>-->
+                    <!--<td align="center">
+                      <img class="head-image" width="300" src="{{URL_ROOT}}/static/img/header.jpg" alt="header">
+                    </td>-->
                     <!-- /Fake header -->
                   </tr>
                 </table>
@@ -367,7 +385,7 @@
                   </tr>
                   <tr>
                     <td align="center" colspan="3">
-                      <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">View in browser | Unsubscribe</span>
+                      <span style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #DCDCDC;">Manage your emails | One click unsubscribe</span>
                     </td>
                   </tr>
                   <tr>
