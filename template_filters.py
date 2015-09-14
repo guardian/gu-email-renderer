@@ -24,7 +24,7 @@ def largest_image(content, image_type='thumbnail'):
 
 	images = [element for element in content['elements'] if element['relation'] == image_type]
 	if not images:
-		return {}
+		return None
 
 	def widest_image(current_largest_image, image):
 		if not current_largest_image:
