@@ -27,13 +27,11 @@ class FashionStatement(handlers.EmailTemplate):
     data_sources = {
     	'v1' : base_data_sources.using(
     		fashion_news = dss.fashion.FashionNewsDataSource(client),
-    		fashion_hadley = dss.fashion.FashionAskHadleyDataSource(client),
     		fashion_blog = dss.fashion.FashionBlogDataSource(client),
             fashion_network = dss.fashion.FashionNetworkDataSource(client),
     		),
         'v3': base_data_sources.using(
             fashion_picks = dss.fashion.FashionEditorsPicksDataSource(client),
-            fashion_hadley = dss.fashion.FashionAskHadleyDataSource(client),
             fashion_sali = dss.fashion.FashionSaliHughesDataSource(client),
             fashion_stylewatch = dss.fashion.FashionStylewatchDataSource(client),
             fashion_most_viewed = dss.fashion.FashionMostViewedDataSource(client),
@@ -42,8 +40,8 @@ class FashionStatement(handlers.EmailTemplate):
     data_sources['v2'] = data_sources['v1']
 
     priority_list = {
-        'v1': [('jcm_on_fashion', 1), ('fashion_hadley', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)],
-        'v3': [('jcm_on_fashion', 1), ('fashion_hadley', 1), ('fashion_sali', 1), ('fashion_stylewatch', 1), ('fashion_picks', 5), ('fashion_most_viewed', 6), ('fashion_gallery', 1)]
+        'v1': [('jcm_on_fashion', 1), ('fashion_most_viewed', 6), ('fashion_news', 3), ('fashion_blog', 6), ('fashion_network', 6), ('fashion_gallery', 1)],
+        'v3': [('jcm_on_fashion', 1), ('fashion_sali', 1), ('fashion_stylewatch', 1), ('fashion_picks', 5), ('fashion_most_viewed', 6), ('fashion_gallery', 1)]
     }
     priority_list['v2'] = priority_list['v1']
 
