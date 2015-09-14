@@ -10,13 +10,6 @@ class FashionMostViewedDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='fashion', show_most_viewed=True)
 
-
-class FashionAskHadleyDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='fashion')
-        self.tags = ['fashion/series/ask-hadley']
-
-
 class FashionSaliHughesDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='fashion')
