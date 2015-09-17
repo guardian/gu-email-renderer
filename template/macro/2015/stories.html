@@ -9,7 +9,6 @@
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td class="hide" width="5"></td>
-              <td width="5"></td>
             </tr>
             <tr>
               <td align="left" valign="top" style="{% if not story.fields.thumbnail and not first %} height: 40px;{% endif %}">
@@ -17,14 +16,13 @@
                   <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     {% if index > 1 %}
                       <tr>
-                        <td height="5"></td>
+                        <td colspan="2" height="5"></td>
                       </tr>
                       <tr>
-                        <td class="hide" height="5"></td>
+                        <td colspan="2" class="hide" height="5"></td>
                       </tr>
                     {% endif %}
                     <tr>
-                      <td width="10"></td>
                       <td width="35" valign="top">
                         <span class="index" style="font-family: 'DE2DisplayEgyptianLight', Georgia, serif; font-size:44px; font-weight: 300; line-height: 1; text-decoration: none; color:#DCDCDC;">{{index}}</span>
                       </td>
@@ -34,14 +32,12 @@
                         {% endif %}
                         <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}"  style="font-family: 'DE3DisplayEgyptian', Georgia, serif; line-height: 1.421; font-size:19px;text-decoration: none; color: #333333;">{{story.webTitle}}</span>
                       </td>
-                      <td class="hide" width="5"></td>
-                      <td width="5"></td>
                     </tr>
                     <tr>
-                      <td height="15"></td>
+                      <td colspan="2" height="15"></td>
                     </tr>
                     <tr>
-                      <td class="hide" height="10"></td>
+                      <td colspan="2" class="hide" height="10"></td>
                     </tr>
                   </table>
                 </a>
@@ -49,7 +45,6 @@
             </tr>
             <tr>
               <td class="hide" width="5"></td>
-              <td width="5"></td>
             </tr>
           </table>
         </td>
@@ -62,15 +57,11 @@
           <table cellspacing="0" cellpadding="0" border="0" width="600">
             {% if thumbnail %}
               <tr>
-                <td class="hide" width="5"></td>
-                <td width="5"></td>
                 <td>
                   <a href="{{ story.webUrl }}">
-                    <img class="top-image" src="{{ picture.file }}" width="580" alt="{{story.fields.headline}}" border="0" alt="{{story.fields.headline}}"/>
+                    <img class="top-image" src="{{ picture.file }}" width="600" alt="{{story.fields.headline}}" border="0" alt="{{story.fields.headline}}"/>
                   </a>
                 </td>
-                <td class="hide" width="5"></td>
-                <td width="5"></td>
               </tr>
             {% endif %}
             <tr>
@@ -80,13 +71,20 @@
               <td height="5"></td>
             </tr>
             <tr valign="top">
-              <td class="hide" width="5"></td>
-              <td width="5"></td>
               {% if more_thumbs and (index == 2 or index == 3) %}
                 <td>
-                  <a href="{{ story.webUrl }}" style=" text-decoration: none;">
-                    <img class="story-image" src="{{ picture.file }}" width="188" align="left"  alt="{{story.fields.headline}}" border="0"/>
-                  </a>
+                  <table cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                      <td height="6"></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <a href="{{ story.webUrl }}" style=" text-decoration: none;">
+                          <img class="story-image" src="{{ picture.file }}" width="188" align="left" style="vertical-align: text-top;" alt="{{story.fields.headline}}" border="0"/>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
                 <td class="hide" width="5"></td>
                 <td width="5"></td>
@@ -94,25 +92,25 @@
               <td align="left">
                 <a href="{{ story.webUrl }}" style=" text-decoration: none;">
                   {% if story.sectionId == 'commentisfree' or tone == 'tone/comment' %}
-                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0" alt="commentisfree">&nbsp;<span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333">{{story.fields.headline}}</span><br>
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #E6711B;">{{story.fields.byline}}</span>
+                    <img class="icon no-margin" width="29" style="margin-bottom:-3px;" src="{{URL_ROOT}}/static/img/speech-icon.jpg" border="0" alt="commentisfree">&nbsp;<span class="regular-text" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400; line-height: 1.421; color: #333333">{{story.fields.headline}}</span><br>
+                    <span class="regular-text" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400; line-height: 1.421; color: #E6711B;">{{story.fields.byline}}</span>
                   {% else %}
                     {% if story.fields.liveBloggingNow == 'true' %}
-                      <span class="{% if thumbnail and standfirst %}big-title{% else %}regular-title{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px;{% endif %} line-height: 1.421; font-weight: 600; color:#B51800;">Live</span>
+                      <span class="regular-title" style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; line-height: 1.421; font-weight: 600; color:#B51800;">Live</span>
                     {% else %}
-                      <span class="{% if thumbnail and standfirst %}big-title{% else %}regular-title{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE6DisplayEgyptianBold', Georgia, serif; font-size:24px;{% else %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px;{% endif %} font-weight: 600; line-height: 1.421; {% if tone == 'tone/comment' %} color: #E6711B; {% elif tone == 'tone/features' %} color: #951C55; {% elif tone == 'tone/reviews' %} color: #FFBB00; {% else %} color: #005689; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color: #FFBB00; {% endif %}">
+                      <span class="regular-title" style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600; line-height: 1.421; {% if tone == 'tone/comment' %} color: #E6711B; {% elif tone == 'tone/features' %} color: #951C55; {% elif tone == 'tone/reviews' %} color: #FFBB00; {% else %} color: #005689; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color: #FFBB00; {% endif %}">
                         {{keyword}}
                       </span>
                     {% endif %}
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
+                    <span class="regular-text" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400; color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
                     {% if story.type == 'gallery' or story.type == 'image' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg" alt="image">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg" alt="image" border="0">&nbsp;
                     {% elif story.type == 'audio' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg" alt="audio">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/speaker-icon.jpg" alt="audio" border="0">&nbsp;
                     {% elif story.type == 'video' %}
-                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg" alt="video">&nbsp;
+                      <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/camera-icon.jpg" alt="video" border="0">&nbsp;
                     {% endif %}                    
-                    <span class="{% if thumbnail and standfirst %}big-text{% else %}regular-text{% endif %}" style="{% if thumbnail and standfirst %}font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:24px;{% else %}font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400;{% endif %} line-height: 1.421; color: #333333;">{{story.webTitle}}</span>
+                    <span class="regular-text" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400; line-height: 1.421; color: #333333;">{{story.webTitle}}</span>
                   {% endif %}
                 </a>
                 {% if story.comment_count %}
@@ -141,8 +139,6 @@
                   </table>
                 {% endif %}
               </td>
-              <td class="hide" width="5"></td>
-              <td width="5"></td>
             </tr>
             <tr>
               <td height="20"></td>

@@ -51,11 +51,11 @@
         stories=culture,
         heading_link='http://www.theguardian.com/us/culture',
         heading_colour='#d1008b',
+        top_thumb=True,
         standfirst=False,
         more_thumbs=False) }}
 
-    <!--{{ layout.advert(ads.leaderboard_v2) }}-->
-    {{ layout.advert(ads.leaderboard_v1) }}
+    {{ layout.advert(ads.leaderboard_v2) }}
 
     {{ layout.story_trail(
         heading_text='Business',
@@ -78,7 +78,7 @@
 
     {{ layout.story_trail(heading_text='Popular',
         image='more-popular.jpg',
-        stories=top_stories,
+        stories=most_shared_us,
         heading_link='http://www.theguardian.com/us#most-popular',
         heading_colour='#2470a6',
         standfirst=False,

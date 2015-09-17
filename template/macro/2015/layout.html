@@ -4,13 +4,10 @@
         <tr valign="top">
             {% if link %}
                 <td class="mobile" width="0"></td>
-                <td width="5"></td>
-                <td class="hide" width="5"></td>
                 <td align="left">
                     {% if image %}
                         <a href="{{ link }}" style="color: #FFFFFF; text-decoration: none;">
-                            <!--[if !mso]><!-->
-                            <span class="bottom-link" style="display:inline-block; font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; padding-left: 17px; min-width: 183px; border-radius: 19px; height: 38px; line-height: 38px; color: #FFFFFF;"><img src="{{ URL_ROOT }}/static/img/plus-sign.jpg" width="21" style="margin-bottom: -5px;" alt="plus">&nbsp;&nbsp;More {{heading_text|lower}}</span>
+                            <!--[if !mso]><!--><span class="bottom-link" style="display:inline-block; font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; padding-left: 17px; min-width: 183px; border-radius: 19px; height: 38px; line-height: 38px; color: #FFFFFF;"><img src="https://image.mail.theguardian.com/lib/fe961570706d047f7d/m/2/plus-sign.jpg" width="21" style="margin-bottom: -5px;" alt="plus">&nbsp;&nbsp;More {{heading_text|lower}}</span>
                             <!--<![endif]-->
                             <!--[if mso]><img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0" alt="{{heading_text}}"><![endif]-->
                         </a>
@@ -115,19 +112,15 @@
                 <td align="center">
                     <table cellspacing="0" cellpadding="0" border="0" width="600" bgcolor="transparent">
                         <tr>
-                            <td colspan="5" height="25"></td>
+                            <td height="25"></td>
                         </tr>
                         <tr>
-                            <td class="hide" width="5" style="border-top: 1px solid #4BC6DF;"></td>
-                            <td width="5" style="border-top: 1px solid #4BC6DF;"></td>
                             <td align="left" style="border-top: 1px solid #4BC6DF;">
                                 <span class="heading-text" style="font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689;">{{heading_text}}</span>
                             </td>
-                            <td width="5" style="border-top: 1px solid #4BC6DF;"></td>
-                            <td class="hide" width="5" style="border-top: 1px solid #4BC6DF;"></td>
                         </tr>
                         <tr>
-                            <td colspan="5" height="10"></td>
+                            <td height="10"></td>
                         </tr>
                     </table>
                 </td>
@@ -135,7 +128,7 @@
             </tr>
             {% if not top_thumb %}
                 <tr>
-                    <td height="10"></td>
+                    <td colspan="3" height="10"></td>
                 </tr>
             {% endif %}
         {% endif %}
@@ -173,10 +166,10 @@
     {% if ad_html %}
         <table cellspacing="0" cellpadding="0" border="0" style="margin: 0px; padding: 0px; font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689; width: 100%;">
             <tr>
-                <td class="mobile-height" height="0"></td>
+                <td class="mobile-height" colspan="3" height="0"></td>
             </tr>
             <tr>
-                <td class="hide" height="26"></td>
+                <td class="hide" colspan="3" height="26"></td>
             </tr>
             <tr>
                 <td class="mobile" width="0"></td>
