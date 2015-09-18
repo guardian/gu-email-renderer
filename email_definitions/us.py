@@ -66,7 +66,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': base_priorities.without(('business', 2))
             .cons(('most_shared_us', 6))
             .cons(('business', 3)),
-        'v2015': base_priorities,
+        'v2015': base_priorities.cons(('most_shared_us', 6)),
     })
 
     template_names = immutable.make_dict({

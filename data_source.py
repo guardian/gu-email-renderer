@@ -20,13 +20,12 @@ class DataSource(object):
         self.fields = ['trailText', 'headline', 'liveBloggingNow', 'standfirst', 'commentable', 'thumbnail', 'byline']
         self.page_size = 10
         self.content_type = None
-        self.show_elements = "image"
+        self.show_elements = None
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
         self.section = None
         self.production_office = None
-        self.show_elements = "image"
         self.show_tags = None
 
     def fetch_data(self):
