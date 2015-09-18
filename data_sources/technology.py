@@ -5,6 +5,8 @@ class TechnologyDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'technology', show_editors_picks=True)
         self.name = 'technology' + client.edition
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name

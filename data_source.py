@@ -223,6 +223,8 @@ class MultiContentDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client)
         self.content_ids = None
         self.name = name
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
 
     def _do_call(self, **criteria):
         if not self.content_ids:
@@ -250,6 +252,8 @@ class CultureDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'culture', show_editors_picks=True)
         self.name = 'culture' + client.edition
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name
@@ -259,6 +263,8 @@ class BusinessDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'business', show_editors_picks=True)
         self.name = 'business' + client.edition
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name
@@ -268,6 +274,8 @@ class CommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'commentisfree', show_editors_picks=True)
         self.name = 'comment' + client.edition
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
 
     def __repr__(self):
         return str(self.__class__) + self.name
@@ -385,6 +393,9 @@ class MostViewedDataSource(ItemDataSource):
 class VideoDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, 'video', show_editors_picks=True)
+        self.show_tags = ['keyword']
+        self.show_elements = 'image'
+
 
     def __repr__(self):
         return str(self.__class__) + self.name
@@ -438,6 +449,8 @@ class TopStoriesDataSource(ItemDataSource):
         ItemDataSource.__init__(self, client, show_editors_picks=True)
         self.name = 'top_stories' + client.edition
         self.show_elements = 'image'
+        self.show_tags = ['keyword']
+
 
     def __repr__(self):
         return str(self.__class__) + self.name
