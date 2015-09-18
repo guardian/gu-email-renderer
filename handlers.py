@@ -31,6 +31,8 @@ jinja_environment.filters.update({
         'first_paragraph': template_filters.first_paragraph,
         'urlencode': template_filters.urlencode,
         'largest_image': template_filters.largest_image,
+        'get_tone': template_filters.get_tone,
+        'get_keyword': template_filters.get_keyword,
         'image_of_width': template_filters.image_of_width,
         'asset_url': template_filters.asset_url,
     })

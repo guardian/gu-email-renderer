@@ -18,7 +18,6 @@ discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailUS(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015')
-
     ad_tag = 'email-guardian-today-us'
     ad_config = {
         'leaderboard_v1': 'Top',
@@ -50,7 +49,9 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v7': base_data_sources.using(
             most_shared_us = most_shared_us
         ),
-        'v2015': base_data_sources,
+        'v2015': base_data_sources.using(
+            most_shared_us = most_shared_us
+        ),
     })
 
     base_priorities = immutable.make_list(('top_stories', 6),
