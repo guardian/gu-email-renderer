@@ -16,9 +16,6 @@ def first_paragraph(text):
 def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
-def build_dict(seq, key):
-	return dict((d[key], dict(d, index=i)) for (i, d) in enumerate(seq))
-
 def largest_image(content, image_type='thumbnail'):
 	if not 'elements' in content:
 		logging.debug(content)
@@ -40,7 +37,7 @@ def largest_image(content, image_type='thumbnail'):
 	return biggest_image
 
 def get_tone(content):
-	d = build_dict(content["tags"], key="type")
+	d = {d["type"]: dict(d, index=i) for (i, d) in enumerate(content["tags"])}
 	if "tone" in d:
 		return d["tone"]["id"]
 	else:
