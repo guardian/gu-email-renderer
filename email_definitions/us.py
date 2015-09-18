@@ -23,7 +23,6 @@ class DailyEmailUS(handlers.EmailTemplate):
         'leaderboard_v1': 'Top',
         'leaderboard_v2': 'Bottom'
     }
-    cache_bust=True
 
     base_data_sources = immutable.make_dict({
         'business': ds.BusinessDataSource(clientUS),
