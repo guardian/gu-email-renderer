@@ -7,7 +7,30 @@
                 <td align="left">
                     {% if image %}
                         <a href="{{ link }}" style="color: #FFFFFF; text-decoration: none;">
-                            <!--[if !mso]><!--><span class="bottom-link" style="display:inline-block; font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; padding-left: 17px; min-width: 183px; border-radius: 19px; height: 38px; line-height: 38px; color: #FFFFFF;"><img src="https://image.mail.theguardian.com/lib/fe961570706d047f7d/m/2/plus-sign.jpg" width="21" style="margin-bottom: -5px;" alt="plus">&nbsp;&nbsp;More {{heading_text|lower}}</span>
+                            <!--[if !mso]><!--><span class="bottom-link" style="display:inline-block; font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; padding-left: 17px; min-width: 183px; border-radius: 19px; height: 38px; line-height: 38px; color: #FFFFFF;">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td valign="top" style="text-align: center;" width="21">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td height="5"></td>
+                                                </tr>
+                                                <tr class="hide">
+                                                    <td height="3"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="{{ URL_ROOT }}/static/img/plus-sign.jpg" width="21" alt="plus">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="5" class="hide"></td>
+                                        <td width="5"></td>
+                                        <td valign="middle">More {{heading_text|lower}}</td>
+                                    </tr>
+                                </table>
+                            </span>
                             <!--<![endif]-->
                             <!--[if mso]><img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0" alt="{{heading_text}}"><![endif]-->
                         </a>
