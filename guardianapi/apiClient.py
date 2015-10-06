@@ -26,6 +26,9 @@ class ApiClient(object):
         #logging.info('Requesting url: {0}'.format(url))
 
         headers, response = self.fetcher.get(url)
+
+        if not response:
+            return {}
         #logging.info('Retrieved url: %s. Headers: %s' % (url, headers))
         return json.loads(response)
 
@@ -74,7 +77,7 @@ class ApiClient(object):
         json = self._do_call(content_id, **kwargs)
 
         results = []
-        if json['response'].has_key('content'):
+        if 'response' in json and json['response'].has_key('content'):
             results = [json['response']['content']]
 
         return results
