@@ -1,4 +1,4 @@
-{% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False) -%}
+{% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False, show_kicker=True) -%}
   {% set tone = story|get_tone() %}
   {% set keyword = story|get_keyword() %}
   {% set picture = story|largest_image(image_type='thumbnail') %}
@@ -98,11 +98,17 @@
                     {% if story.fields.liveBloggingNow == 'true' %}
                       <span class="regular-title" style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; line-height: 1.421; font-weight: 600; color:#B51800;">Live</span>
                     {% else %}
+                      {% if show_kicker %}
                       <span class="regular-title" style="font-family: 'DE4DisplayEgyptianMedium', Georgia, serif; font-size:19px; font-weight: 600; line-height: 1.421; {% if tone == 'tone/comment' %} color: #E6711B; {% elif tone == 'tone/features' %} color: #951C55; {% elif tone == 'tone/reviews' %} color: #FFBB00; {% else %} color: #005689; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color: #FFBB00; {% endif %}">
                         {{keyword}}
                       </span>
+                      {% endif %}
                     {% endif %}
+                    
+                    {% if not story.sectionId == 'commentisfree' and not tone == 'tone/comment' and not story.fields.liveBloggingNow == 'true' and show_kicker %}
                     <span class="regular-text" style="font-family: 'DE3DisplayEgyptian', Georgia, serif; font-size:19px; font-weight:400; color: #DCDCDC;{% if tone == 'tone/reviews' or story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} color:#FFBB00{% endif %}">/</span>
+                    {% endif %}
+
                     {% if story.type == 'gallery' or story.type == 'image' %}
                       <img class="icon" width="29" style="margin-bottom: -3px;" src="{{URL_ROOT}}/static/img/photo-icon.jpg" alt="image" border="0">&nbsp;
                     {% elif story.type == 'audio' %}
