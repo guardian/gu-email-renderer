@@ -22,7 +22,8 @@
         top_thumb=True,
         standfirst=True,
         more_thumbs=True,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.advert(ads.leaderboard_v1) }}
 
@@ -35,7 +36,8 @@
         top_thumb=True,
         standfirst=False,
         more_thumbs=False,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Opinion',
@@ -46,7 +48,8 @@
         top_thumb=True,
         standfirst=False,
         more_thumbs=False,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Culture',
@@ -57,7 +60,8 @@
         top_thumb=True,
         standfirst=False,
         more_thumbs=False,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.advert(ads.leaderboard_v2) }}
 
@@ -70,7 +74,8 @@
         thumbnail=False,
         standfirst=False,
         more_thumbs=False,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Technology',
@@ -80,7 +85,8 @@
         heading_colour='#d61d00',
         standfirst=False,
         more_thumbs=False,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(heading_text='Most shared in the last 24 hours',
         image='more-popular.jpg',
@@ -91,7 +97,8 @@
         share_links=False,
         more_thumbs=False,
         popular=True,
-        show_kicker=False) }}
+        show_kicker=False,
+        show_heading_links=True) }}
 
 {% endblock content %}
 
