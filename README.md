@@ -41,7 +41,11 @@ On my machine this is:
 
 Push a unique revision (normally the next number on from the last release) and use the dashboard to make it the default version when you want to actually release the changes. Due to caching you might also want to flush memcache if the data needs to be changed immediately.
 
-To revert to a historic version use the Appengine dashboard to set a new default version.
+To revert to a historic version use the Appengine dashboard to set a new default version. This will usually take effect immediately but you may need to flush Memcache to regenerate the emails.
+
+### Testing a release
+
+To test a release you can use the [checker script](https://github.com/guardian/gdn-email-renderer-check) which will look for a 200 status on all links on the top index page.
 
 ### Historic releases
 
