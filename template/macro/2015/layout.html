@@ -7,7 +7,32 @@
                 <td align="left">
                     {% if image %}
                         <a href="{{ link }}" style="color: #FFFFFF; text-decoration: none;">
-                            <img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0" alt="{{heading_text}}">
+                            <!--[if !mso]><!--><span class="bottom-link" style="display:inline-block; font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; padding-left: 17px; min-width: 183px; border-radius: 19px; height: 38px; line-height: 38px; color: #FFFFFF;">
+                                <table cellspacing="0" cellpadding="0" border="0">
+                                    <tr>
+                                        <td valign="top" style="text-align: center;" width="21">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td height="5"></td>
+                                                </tr>
+                                                <tr class="hide">
+                                                    <td height="3"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="{{ URL_ROOT }}/static/img/plus-sign.jpg" width="21" alt="plus">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="5" class="hide"></td>
+                                        <td width="5"></td>
+                                        <td valign="middle"><span class="inner-bottom-link" style="font-family: 'DS3DisplaySans', Arial, serif; font-size: 18px; background-color: #005689; height: 38px; line-height: 38px; color: #FFFFFF;">More {{heading_text|lower}}</span></td>
+                                    </tr>
+                                </table>
+                            </span>
+                            <!--<![endif]-->
+                            <!--[if mso]><img src="{{ URL_ROOT }}/static/img/{{image}}" width="200" class="link-image" border="0" alt="{{heading_text}}"><![endif]-->
                         </a>
                     {% endif %}
                 </td>
@@ -16,6 +41,27 @@
         </tr>
     </table>
 {%- endmacro %}
+
+
+{% macro image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff') -%}
+
+{% set picture = image[0]|largest_image(image_type='main') %}
+    <tr><td>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
+            <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}</td></tr>
+            <tr><td align="left"><a href="{{ picture.webUrl }}" border="0"><img src="{{ picture.file }}" width="100%" alt="{{ picture.typeData.altText }}" border="0" /></a></td></tr>
+            <tr>
+                <td align="left" style="color: {{ caption_colour }}; font-weight: bold; font: 12px Helvetica, Arial, sans-serif; padding: 12px 25px 0 25px;">{{ picture.typeData.caption }}</td>
+            </tr>
+            <tr>
+                <td align="left" style="color: {{ source_colour }}; font: 12px Helvetica, Arial, sans-serif; padding: 0 25px 0 25px;">{{ picture.typeData.source }}</td>
+            </tr>
+        </table>
+    </td></tr>
+
+{% endmacro %}
+
+
 
 {% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False, popular=False) -%}
 {% if always_show or stories %}

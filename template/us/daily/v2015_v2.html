@@ -1,0 +1,100 @@
+{# Daily (Guardian Today) email template #}
+
+{% extends 'base_email_2015.html' %}
+
+{% set title = 'the guardian today - US edition' %}
+{% set title_link = 'http://www.theguardian.com/us' %}
+{% set title_colour = '#333333' %}
+{% set logo_background = '#004179' %}
+{% set facebook_page = 'GuardianUs' %}
+{% set twitter_account = 'GuardianUS' %}
+{% set footer_colour = 'light' %}
+
+{% block title %}Guardian Today - US edition{% endblock %}
+
+{% block content %}
+
+    {{ layout.story_trail(heading_text='highlights',
+        image='more-highlights.jpg',
+        stories=top_stories,
+        heading_link='http://www.theguardian.com/us',
+        heading_colour='#c22d05',
+        top_thumb=True,
+        standfirst=True,
+        more_thumbs=True,
+        show_kicker=False) }}
+
+    {{ layout.advert(ads.leaderboard_v1) }}
+
+    {{ layout.story_trail(
+        heading_text='Sports',
+        image='more-sports.jpg',
+        stories=sport,
+        heading_link='http://www.theguardian.com/us/sport',
+        heading_colour='#20a111',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Opinion',
+        image='more-opinion.jpg',
+        stories=comment,
+        heading_link='http://www.theguardian.com/us/commentisfree',
+        heading_colour='#0061a6',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Culture',
+        image='more-culture.jpg',
+        stories=culture,
+        heading_link='http://www.theguardian.com/us/culture',
+        heading_colour='#d1008b',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False) }}
+
+    {{ layout.advert(ads.leaderboard_v2) }}
+
+    {{ layout.story_trail(
+        heading_text='Business',
+        image='more-business.jpg',
+        stories=business,
+        heading_link='http://www.theguardian.com/us/business',
+        heading_colour='#004179',
+        thumbnail=False,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False) }}
+
+    {{ layout.story_trail(
+        heading_text='Technology',
+        image='more-technology.jpg',
+        stories=technology,
+        heading_link='http://www.theguardian.com/technology',
+        heading_colour='#d61d00',
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False) }}
+
+    {{ layout.story_trail(heading_text='Most shared in the last 24 hours',
+        image='more-popular.jpg',
+        stories=most_shared_us,
+        heading_link='http://www.theguardian.com/us#most-popular',
+        heading_colour='#2470a6',
+        standfirst=False,
+        share_links=False,
+        more_thumbs=False,
+        popular=True,
+        show_kicker=False) }}
+
+{% endblock content %}
+
+{% set sections = (
+    ('Interactive Journalism', 'http://www.theguardian.com/profile/guardian-us-interactive-team'),
+    ('Go Below the Line', 'http://www.theguardian.com/commentisfree/series/below-the-line')) %}

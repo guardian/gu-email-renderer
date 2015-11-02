@@ -17,7 +17,7 @@ def read_url(url, retries=1, timeout=5):
             logging.error('Could not reach server while accessing %s. Reason: %s' % (url, e.reason))
         elif hasattr(e, 'code'):
             logging.error('Server could not fulfill request at %s. Error: %s' % (url, e.code))
-        raise e
+        return None
     except httplib.HTTPException as he:
         logging.warning("HTTP Exception thrown, retries {0} remaining".format(retries))
         if retries:
@@ -32,6 +32,9 @@ class Fetcher(object):
             return api_response
 
         u = read_url(url)
+
+        if not u:
+            return None, None
 
         headers = u.headers.dict
         api_response = (headers, u.read())
