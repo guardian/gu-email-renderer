@@ -63,7 +63,7 @@
 
 
 
-{% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False, popular=False) -%}
+{% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False, popular=False, show_kicker=True, show_heading_links=False) -%}
 {% if always_show or stories %}
     {% if not more_text %}
         {% set more_text = heading_text|lower %}
@@ -79,7 +79,11 @@
                         </tr>
                         <tr>
                             <td align="left" style="border-top: 1px solid #4BC6DF;">
-                                <span class="heading-text" style="font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689;">{{heading_text}}</span>
+                                {% if show_heading_links and heading_link %}
+                                    <a class="heading-text" style="font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689; text-decoration: none;" href="{{heading_link}}">{{heading_text}}</a>
+                                {% else %}
+                                    <span class="heading-text" style="font-family: 'DE5DisplayEgyptianSemiBold', Georgia, serif; font-weight: 600; font-size: 24px; color: #005689;">{{heading_text}}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
@@ -111,7 +115,7 @@
                             {% set show_text = standfirst %}
                         {% endif %}
                     {% endif %}
-                    {{ story_blocks.story(story, standfirst, more_thumbs, loop.index, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links, popular=popular) }}
+                    {{ story_blocks.story(story, standfirst, more_thumbs, loop.index, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links, popular=popular, show_kicker=show_kicker) }}
                 {% endfor %}
             </td>
             <td class="mobile" width="0"></td>

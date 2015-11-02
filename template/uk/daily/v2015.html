@@ -16,64 +16,88 @@
 
     {{ layout.story_trail(heading_text='Editor\'s picks',
         stories=top_stories,
+        image='more-editors-picks.jpg',
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
         top_thumb=True,
-        standfirst=False) }}
+        standfirst=True,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
         heading_text='Sport',
         stories=sport,
+        image='more-sports.jpg',
         heading_link='http://www.theguardian.com/sport',
         heading_colour='#20a111',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Comment is free',
         stories=comment,
+        image='more-comment.jpg',
         heading_link='http://www.theguardian.com/commentisfree',
         heading_colour='#0061a6',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Culture',
         stories=culture,
+        image='more-culture.jpg',
         heading_link='http://www.theguardian.com/culture',
         heading_colour='#d1008b',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Business',
+        image='more-business.jpg',
         stories=business,
         heading_link='http://www.theguardian.com/business',
         heading_colour='#004179',
         thumbnail=False,
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.advert(ads.leaderboard_v2) }}
 
     {{ layout.story_trail(
         heading_text='Technology',
+        image='more-technology.jpg',
         stories=technology,
         heading_link='http://www.theguardian.com/technology',
         heading_colour='#d61d00',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Travel',
         stories=travel,
+        image='more-travel.jpg',
         heading_link='http://www.theguardian.com/travel',
         heading_colour='#066ec9',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
     {{ layout.story_trail(
         heading_text='Life and style',
+        image='more-lifestyle.jpg',
         stories=lifeandstyle,
         heading_link='http://www.theguardian.com/lifeandstyle',
         heading_colour='#ea721e',
-        standfirst=False) }}
+        standfirst=False,
+        show_kicker=False,
+        show_heading_links=True) }}
 
 {% endblock content %}
 
