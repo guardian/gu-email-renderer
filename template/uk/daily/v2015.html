@@ -28,6 +28,20 @@
     {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
+        heading_text='Most viewed in last 24 hours',
+        image='more-popular.jpg',
+        stories=most_viewed,
+        heading_link='http://www.theguardian.com/mostviewed',
+        heading_colour='#004179',
+        top_thumb=True,
+        standfirst=False,
+        share_links=False,
+        more_thumbs=False,
+        popular=True,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.story_trail(
         heading_text='Sport',
         stories=sport,
         image='more-sports.jpg',
@@ -102,6 +116,12 @@
         standfirst=False,
         show_kicker=False,
         show_heading_links=True) }}
+
+    {{ layout.image(
+        image=eye_witness,
+        image_heading="eye-witness.jpg",
+        heading_text='Eyewitness picture of the day',
+        heading_link='http://www.theguardian.com/world/series/eyewitness') }}
 
 {% endblock content %}
 
