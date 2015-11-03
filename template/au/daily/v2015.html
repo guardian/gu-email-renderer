@@ -112,6 +112,19 @@
     show_kicker=False,
     show_heading_links=True) }}
 
+    {{ layout.story_trail(heading_text='Most viewed in last 24 hours',
+        stories=most_viewed,
+        image='more-popular.jpg',
+        heading_link='http://www.theguardian.com/mostviewed',
+        heading_colour='#2470a6',
+        top_thumb=True,
+        standfirst=False,
+        share_links=False,
+        more_thumbs=False,
+        popular=True,
+        show_kicker=False,
+        show_heading_links=True) }}
+
 {% endblock content %}
 
 {% set sections = (('Sport', 'http://www.theguardian.com/au/sport'),
