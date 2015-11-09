@@ -1,0 +1,1 @@
+from jinja2htmlcompress import HTMLCompress
