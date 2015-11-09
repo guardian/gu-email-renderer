@@ -55,7 +55,7 @@
       <tr>
         <td {% if not first or not thumbnail %}style="{% if tone == 'tone/comment' %} border-top: 1px solid #E6711B; {% elif tone == 'tone/features' %} border-top: 1px solid #951C55; {% elif tone == 'tone/reviews' %} border-top: 1px solid #FFBB00; {% else %} border-top: 1px solid #4BC6DF; {% endif %} {% if story.fields.liveBloggingNow == 'true' %} border-top: 1px solid #B51800; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} border-top: 1px solid #FFBB00; {% endif %}"{% endif %}>
           <table cellspacing="0" cellpadding="0" border="0" width="600">
-            {% if thumbnail %}
+            {% if thumbnail and picture %}
               <tr>
                 <td>
                   <a href="{{ story.webUrl }}">
