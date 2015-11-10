@@ -54,7 +54,7 @@ class DailyEmailAUS(handlers.EmailTemplate):
         'v3': base_data_sources.using(
             eye_witness=ds.EyeWitnessDataSource(clientAUS),
             most_shared=dss.social.most_shared(clientAUS, ophan_client, 'au')),
-        'v2015': base_data_sources.without('most_viewed'),
+        'v2015': base_data_sources,
     }
 
     base_priorities = immutable.make_list(
@@ -73,7 +73,7 @@ class DailyEmailAUS(handlers.EmailTemplate):
         'v1': base_priorities,
         'v2': base_priorities.concat(immutable.make_list(('eye_witness', 1))),
         'v3': base_priorities.concat(immutable.make_list(('most_shared', 6))),
-        'v2015': base_priorities.without(('most_viewed', 6)),
+        'v2015': base_priorities,
         })
 
     template_names = immutable.make_dict({
