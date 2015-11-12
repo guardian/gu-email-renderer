@@ -1,7 +1,7 @@
 {% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False, show_kicker=True) -%}
   {% set tone = story|get_tone() %}
   {% set keyword = story|get_keyword() %}
-  {% set picture = story|largest_image(image_type='thumbnail') %}
+  {% set picture = story|get_image(image_type='thumbnail', max_width=600) %}
   {% if popular %}
     <table cellspacing="0" cellpadding="0" border="0" width="600">
       <tr>
