@@ -45,7 +45,7 @@
 
 {% macro image(image, image_heading, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff') -%}
 
-{% set picture = image[0]|largest_image(image_type='main') %}
+{% set picture = image[0]|get_image(image_type='main') %}
     <table cellspacing="0" cellpadding="0" border="0" style="margin: 0px; padding: 0px; width: 100%;">
         <tr>
             <td class="mobile" width="0"></td>

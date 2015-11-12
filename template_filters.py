@@ -16,7 +16,7 @@ def first_paragraph(text):
 def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
-def largest_image(content, image_type='thumbnail', max_width=None):
+def get_image(content, image_type='thumbnail', max_width=None):
 	if not 'elements' in content:
 		logging.debug(content)
 		return None
@@ -30,17 +30,17 @@ def largest_image(content, image_type='thumbnail', max_width=None):
 		width = int(image['typeData']['width'])
 		return max_width and width > max_width
 
-	def widest_image(current_largest_image, image):
-		if not current_largest_image:
+	def best_image(current_best_image, image):
+		if not current_best_image:
 			return image
 
-		if current_largest_image['typeData']['width'] > image['typeData']['width']:
-			return current_largest_image
+		if current_best_image['typeData']['width'] > image['typeData']['width']:
+			return current_best_image
 		return image
 
 	assets = [asset for asset in images[0]['assets'] if not too_big(asset)]
 
-	biggest_image = reduce(widest_image, assets)
+	biggest_image = reduce(best_image, assets)
 	return biggest_image
 
 def get_tone(content):
