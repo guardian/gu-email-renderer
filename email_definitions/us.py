@@ -17,6 +17,7 @@ ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailUS(handlers.EmailTemplate):
+    minify = True
     recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015', 'v2015_v2', 'v2015_v3')
     ad_tag = 'email-guardian-today-us'
     ad_config = {
