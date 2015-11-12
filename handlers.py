@@ -4,6 +4,7 @@ import datetime
 
 import jinja2
 import webapp2
+import htmlmin
 
 from google.appengine.api import memcache
 
@@ -44,6 +45,7 @@ class EmailTemplate(webapp2.RequestHandler):
     cache = memcache
     cache_bust = False
     default_ad_tag = 'email-guardian-today'
+    minify = False
 
     def check_version_id(self, version_id):
         if not version_id in self.recognized_versions:
@@ -101,6 +103,10 @@ class EmailTemplate(webapp2.RequestHandler):
                     ads[name] = ad_fetcher.fetch_type(type)
 
             page = template.render(ads=ads, date=date, data=self.additional_template_data(), **trail_blocks)
+
+            if self.minify:
+                page = htmlmin.minify(page)
+
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)
