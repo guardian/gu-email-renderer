@@ -16,7 +16,7 @@ def first_paragraph(text):
 def urlencode(url):
     return  urllib.quote_plus(url.encode('utf8'))
 
-def largest_image(content, image_type='thumbnail', hard_limit=None):
+def largest_image(content, image_type='thumbnail', max_width=None):
 	if not 'elements' in content:
 		logging.debug(content)
 		return None
@@ -28,7 +28,7 @@ def largest_image(content, image_type='thumbnail', hard_limit=None):
 
 	def too_big(image):
 		width = int(image['typeData']['width'])
-		return hard_limit and width > hard_limit
+		return max_width and width > max_width
 
 	def widest_image(current_largest_image, image):
 		if not current_largest_image:
