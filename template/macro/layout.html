@@ -26,9 +26,9 @@
 {%- endmacro %}
 
 
-{% macro image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff') -%}
+{% macro image(image, heading_text, heading_link, heading_colour='#424242', heading_text_colour='#ffffff', bg_colour='#424242', caption_colour='#ffffff', source_colour='#ffffff', max_width=None) -%}
 
-{% set picture = image[0]|get_image(image_type='main') %}
+{% set picture = image[0]|get_image(image_type='main', max_width=max_width) %}
 
 <tr><td>
     <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{{ bg_colour }}" style="padding-bottom: 20px;">
