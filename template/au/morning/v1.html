@@ -81,7 +81,7 @@
 													{% if loop.first %}
 
 													<p style="text-align: center;">
-													<a href="{{story.webUrl}}" title=""><img width="270px" border="0"style="border-color: #000000; margin: 0px;" alt="" src="{{story|largest_image|asset_url}}" /></a></p>
+													<a href="{{story.webUrl}}" title=""><img width="270px" border="0"style="border-color: #000000; margin: 0px;" alt="" src="{{story|get_image|asset_url}}" /></a></p>
 													{% endif %}
 
 													<p><a href="{{story.webUrl}}" class="story-title">{{story.fields.headline}}</a><br />{{story.fields.trailText}}</p>
