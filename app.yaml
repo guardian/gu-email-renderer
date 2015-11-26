@@ -9,6 +9,10 @@ threadsafe: false
 handlers:
 - url: /static
   static_dir: template/static
+- url: /admin/.*
+  secure: always
+  login: admin
+  script: admin.app
 - url: /.*
   script: mail_renderer.app
 
