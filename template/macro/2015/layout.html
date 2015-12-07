@@ -147,7 +147,7 @@
                         {% set use_thumbnail = True %}
                         {% set show_text = standfirst %}
                     {% else %}
-                        {% if loop.index == 1 and top_thumb and not show_small_img %}
+                        {% if loop.index == 1 and top_thumb %}
                             {% set use_thumbnail = True %}
                             {% set show_text = True %}
                         {% else %}
