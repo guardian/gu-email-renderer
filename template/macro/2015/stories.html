@@ -1,4 +1,4 @@
-{% macro story(story, standfirst=False, more_thumbs, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False, show_kicker=True) -%}
+{% macro story(story, standfirst=False, more_thumbs, small_first_img=False, index, first=False, thumbnail=False, show_story_text=True, first_para=False, share_links=True, use_standfirst=False, popular=False, show_kicker=True) -%}
   {% set tone = story|get_tone() %}
   {% set keyword = story|get_keyword() %}
   {% set picture = story|get_image(image_type='thumbnail', max_width=600) %}
@@ -55,7 +55,7 @@
       <tr>
         <td {% if not first or not thumbnail %}style="{% if tone == 'tone/comment' %} border-top: 1px solid #E6711B; {% elif tone == 'tone/features' %} border-top: 1px solid #951C55; {% elif tone == 'tone/reviews' %} border-top: 1px solid #FFBB00; {% else %} border-top: 1px solid #4BC6DF; {% endif %} {% if story.fields.liveBloggingNow == 'true' %} border-top: 1px solid #B51800; {% endif %} {% if story.type == 'gallery' or story.type == 'video' or story.type == 'audio' or story.type == 'image' %} border-top: 1px solid #FFBB00; {% endif %}"{% endif %}>
           <table cellspacing="0" cellpadding="0" border="0" width="600">
-            {% if thumbnail and picture %}
+            {% if thumbnail and picture and not small_first_img %}
               <tr>
                 <td>
                   <a href="{{ story.webUrl }}">
@@ -71,7 +71,7 @@
               <td height="5"></td>
             </tr>
             <tr valign="top">
-              {% if more_thumbs and (index == 2 or index == 3) %}
+              {% if (small_first_img and index == 1) or (more_thumbs and (index == 2 or index == 3)) %}
                 <td>
                   <table cellspacing="0" cellpadding="0" border="0">
                     <tr>

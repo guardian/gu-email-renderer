@@ -18,7 +18,7 @@ discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailUS(handlers.EmailTemplate):
     minify = True
-    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015', 'v2015_v2', 'v2015_v3')
+    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015', 'v2015_v2', 'v2015_v3', 'v2015_v4')
     ad_tag = 'email-guardian-today-us'
     ad_config = {
         'leaderboard_v1': 'Top',
@@ -58,6 +58,9 @@ class DailyEmailUS(handlers.EmailTemplate):
         ),
         'v2015_v3': base_data_sources.using(
             most_shared_us = most_shared_us
+        ),
+        'v2015_v4': base_data_sources.using(
+            most_shared_us = most_shared_us
         )
     })
 
@@ -75,7 +78,8 @@ class DailyEmailUS(handlers.EmailTemplate):
             .cons(('business', 3)),
         'v2015': base_priorities.cons(('most_shared_us', 6)),
         'v2015_v2': base_priorities.cons(('most_shared_us', 6)),
-        'v2015_v3': base_priorities.cons(('most_shared_us', 6))
+        'v2015_v3': base_priorities.cons(('most_shared_us', 6)),
+        'v2015_v4': base_priorities.cons(('most_shared_us', 6))
     })
 
     template_names = immutable.make_dict({
@@ -86,6 +90,7 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v2015': 'us/daily/v2015',
         'v2015_v2': 'us/daily/v2015_v2',
         'v2015_v3': 'us/daily/v2015_v3',
+        'v2015_v4': 'us/daily/v2015_v4'
     })
 
 class Opinion(handlers.EmailTemplate):
