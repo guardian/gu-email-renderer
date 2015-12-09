@@ -13,30 +13,41 @@ from container_api import container
 client = ApiClient(mr.base_url, mr.api_key, edition="uk")
 
 class FilmToday(handlers.EmailTemplate):
-    recognized_versions = ['v1', 'v2']
+    recognized_versions = ['v1', 'v2', 'v3', 'v4']
+    cache_bust=True
 
     ad_tag = 'email-film-today'
     ad_config = immutable.make_dict({
         'leaderboard': 'Top'
     })
 
+    film_today_latest = immutable.make_dict({
+        'film_today_latest': ds.FilmTodayLatestDataSource(client)
+    })
+
+    film_front = immutable.make_dict({
+        'film_front': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03')
+    })
+
     data_sources = immutable.make_dict({
-        'v1': {
-            'film_today_latest': ds.FilmTodayLatestDataSource(client)
-        },
-        'v2': {
-            'film_front': container.for_id('6d84cd8d-d159-4e9a-ba2f-8852528d2d03')
-        }
+        'v1': film_today_latest,
+        'v2': film_front,
+        'v3': film_today_latest,
+        'v4': film_front,
     })
 
     priority_list = immutable.make_dict({
         'v1': [('film_today_latest', 10)],
         'v2': [('film_front', 10)],
+        'v3': [('film_today_latest', 7)],
+        'v4': [('film_front', 7)],
     })
 
     template_names = immutable.make_dict({
         'v1': 'culture/film-today/v1',
         'v2': 'culture/film-today/v2',
+        'v3': 'culture/film-today/v3',
+        'v4': 'culture/film-today/v4',
     })
 
 class SleeveNotes(handlers.EmailTemplate):
