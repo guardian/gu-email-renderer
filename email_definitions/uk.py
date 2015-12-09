@@ -12,7 +12,7 @@ client = mr.client
 
 
 class DailyEmail(handlers.EmailTemplate):
-	recognized_versions = ['v1', 'india', 'v2015']
+	recognized_versions = ['v1', 'v1-register', 'india', 'v2015']
 
 	ad_tag = 'email-guardian-today'
 	ad_config = {
@@ -35,6 +35,7 @@ class DailyEmail(handlers.EmailTemplate):
 
 	data_sources = immutable.make_dict({
 		'v1': base_data_sources,
+		'v1-register': base_data_sources,
 		'india': base_data_sources.using(
 			india_recent = ds.IndiaDataSource(client),
 			),
@@ -49,6 +50,7 @@ class DailyEmail(handlers.EmailTemplate):
 
 	priority_list = immutable.make_dict({
 		'v1': base_priorities,
+		'v1-register': base_priorities,
 		'india': [('top_stories', 6), ('india_recent', 5), ('most_viewed', 6),
 					('sport', 3), ('comment', 3), ('culture', 3),
 					('business', 2), ('technology', 2), ('travel', 2),
@@ -58,6 +60,7 @@ class DailyEmail(handlers.EmailTemplate):
 
 	template_names = immutable.make_dict({
 		'v1': 'uk/daily/v1',
+		'v1-register': 'uk/daily/v1-register',
 		'india': 'uk/daily/india',
 		'v2015': 'uk/daily/v2015',
 	})
