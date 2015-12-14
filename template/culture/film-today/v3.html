@@ -12,6 +12,14 @@
 
 {% block content %}
 
+<!-- Fix thumbnail size for Boomtrain testing -->
+<style>
+	.story-image {
+		width: 100px;
+		height: 60px;
+	}
+</style>
+
 {{ layout.story_trail(
     heading_text='Today\'s latest film articles',
     stories=film_today_latest,
