@@ -1,6 +1,6 @@
 {# Film Today email template #}
 
-{% extends 'base_scrape.html' %}
+{% extends 'base_email.html' %}
 {% import 'macro/layout.html' as layout %}
 
 {% set title = 'Film Today' %}
@@ -15,8 +15,8 @@
 <!-- Fix thumbnail size for Boomtrain testing -->
 <style>
 	.story-image {
-		width: 100px;
-		height: 60px;
+		width: 100px !important;
+		height: 60px !important;
 	}
 </style>
 
