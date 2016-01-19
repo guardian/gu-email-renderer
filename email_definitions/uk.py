@@ -62,7 +62,7 @@ class DailyEmail(handlers.EmailTemplate):
 					('business', 2), ('technology', 2), ('travel', 2),
 					('lifeandstyle', 2), ('eye_witness', 1)],
 		'v2015': base_priorities,
-		'nhs': base_priorities.cons(('nhs_special', 1)),
+		'nhs': base_priorities.cons(('nhs_special', 2)),
 		})
 
 	template_names = immutable.make_dict({

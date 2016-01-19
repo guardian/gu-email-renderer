@@ -16,13 +16,6 @@
 
 {% block content %}
 
-    {{ layout.story_trail(heading_text='This is the NHS',
-        stories=nhs_special,
-        heading_link='http://www.theguardian.com/society/series/this-is-the-nhs',
-        heading_colour='#63717a',
-        top_thumb=True,
-        standfirst=False) }}
-
     {{ layout.story_trail(heading_text='Editor\'s picks',
         stories=top_stories,
         heading_link='http://www.theguardian.com',
@@ -30,6 +23,14 @@
         top_thumb=True,
         standfirst=False) }}
 
+
+    {{ layout.story_trail(heading_text='This is the NHS',
+        stories=nhs_special,
+        heading_link='http://www.theguardian.com/society/series/this-is-the-nhs',
+        heading_colour='#63717a',
+        top_thumb=True,
+        standfirst=False) }}
+        
     {{ layout.advert(ads.leaderboard_v1) }}
 
     {{ layout.story_trail(
