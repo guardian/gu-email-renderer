@@ -8,11 +8,13 @@ import data_sources.technology as tech_data
 import handlers
 import mail_renderer as mr
 
+from container_api import container
+
 client = mr.client
 
 
 class DailyEmail(handlers.EmailTemplate):
-	recognized_versions = ['v1', 'v1-register', 'india', 'v2015']
+	recognized_versions = ['v1', 'v1-register', 'india', 'v2015', 'nhs']
 
 	ad_tag = 'email-guardian-today'
 	ad_config = {
@@ -40,6 +42,10 @@ class DailyEmail(handlers.EmailTemplate):
 			india_recent = ds.IndiaDataSource(client),
 			),
 		'v2015': base_data_sources,
+		'nhs': base_data_sources.using(
+			nhs_special = container.for_id('346f91dc-60a5-41f1-a78e-513f6f379cec'),
+			top_stories = container.for_id('uk-alpha/news/regular-stories')
+			),
 	})
 
 	base_priorities = immutable.make_list(('top_stories', 6),
@@ -56,6 +62,7 @@ class DailyEmail(handlers.EmailTemplate):
 					('business', 2), ('technology', 2), ('travel', 2),
 					('lifeandstyle', 2), ('eye_witness', 1)],
 		'v2015': base_priorities,
+		'nhs': base_priorities.cons(('nhs_special', 2)),
 		})
 
 	template_names = immutable.make_dict({
@@ -63,6 +70,7 @@ class DailyEmail(handlers.EmailTemplate):
 		'v1-register': 'uk/daily/v1-register',
 		'india': 'uk/daily/india',
 		'v2015': 'uk/daily/v2015',
+		'nhs': 'uk/daily/nhs',
 	})
 
 	def exclude_from_deduplication(self):
