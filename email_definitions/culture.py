@@ -132,7 +132,7 @@ class CloseUp(handlers.EmailTemplate):
 
 class Bookmarks(handlers.EmailTemplate):
     
-    recognized_versions = immutable.make_list('v1')
+    recognized_versions = immutable.make_list('v1', 'v2')
 
     ad_tag = 'email-bookmarks'
     ad_config = immutable.make_dict({
@@ -150,7 +150,9 @@ class Bookmarks(handlers.EmailTemplate):
     })
 
     data_sources = immutable.make_dict({
-        'v1' : base_data_sources,
+        'v1': base_data_sources,
+        'v2': base_data_sources.using(
+            talking_points=container.for_id('c04946d0-6483-4b29-ad3c-37bd2e2058c8')),
     })
  
     priority_list = immutable.make_dict({
@@ -160,8 +162,16 @@ class Bookmarks(handlers.EmailTemplate):
             ('book_reviews', 3),
             ('books_blog', 3),
             ('book_podcasts', 1),
-            ('how_to_draw', 1))    
-    })
+            ('how_to_draw', 1)),   
+       'v2': immutable.make_list(
+            ('books_picks', 5),
+            ('books_most_viewed', 3),
+            ('book_reviews', 3),
+            ('talking_points', 6),
+            ('book_podcasts', 1),
+            ('how_to_draw', 1)),   
+     })
     template_names = immutable.make_dict({
         'v1': 'culture/bookmarks/v1',
+        'v2': 'culture/bookmarks/v2',
     })
