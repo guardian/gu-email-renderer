@@ -98,16 +98,18 @@ class FrontDataSource:
 			logging.debug(url)
 
 			result = urlfetch.fetch(url, deadline=9)
-			logging.info(result)
+			
 			if result.status_code == 200:
 				data = json.loads(result.content)
-				logging.info(data)
+
 				containers = data.get('data', [])
-				logging.debug(containers)
 				
 				resolved_containers = [read_container(container_id) for container_id in containers]
 				logging.info(resolved_containers)
-				return [capi_item for container_items in resolved_containers for capi_item in container_items]
+				stories = [capi_item for container_items in resolved_containers for capi_item in container_items]
+
+				logging.info(stories)
+				return stories
 
 			return []
 

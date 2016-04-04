@@ -49,7 +49,9 @@ class DailyEmail(handlers.EmailTemplate):
 			top_stories = container.for_id('uk-alpha/news/regular-stories')
 			),
 		'categories': base_data_sources.using(
-			specials = container.for_front('uk', 'special'),
+			breaking = container.for_front('uk', 'breaking'),
+			canonical = container.for_front('uk', 'canonical'),
+			special = container.for_front('uk', 'special'),
 		),
 	})
 
@@ -68,7 +70,11 @@ class DailyEmail(handlers.EmailTemplate):
 					('lifeandstyle', 2), ('eye_witness', 1)],
 		'v2015': base_priorities,
 		'nhs': base_priorities.cons(('nhs_special', 2)),
-		'categories': base_priorities.cons(('specials', 1)),
+		'categories': base_priorities.without(('top_stories', 6)).concat(immutable.make_list(
+			('breaking', 1),
+			('canonical', 6),
+			('special', 1),
+			)),
 		})
 
 	template_names = immutable.make_dict({

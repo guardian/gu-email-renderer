@@ -16,15 +16,23 @@
 
 {% block content %}
 
-    {{ layout.story_trail(heading_text='Editor\'s picks',
-        stories=top_stories,
+    {{ layout.story_trail(heading_text='Breaking news',
+        stories=breaking,
+        heading_link='http://www.theguardian.com',
+        heading_colour='#c22d05',
+        top_thumb=True,
+        standfirst=False,
+        always_show=False) }}
+
+    {{ layout.story_trail(heading_text='Top Stories',
+        stories=canonical,
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
         top_thumb=True,
         standfirst=False) }}
 
-    {{ layout.story_trail(heading_text='Special investigations',
-        stories=specials,
+    {{ layout.story_trail(heading_text='Special investigation',
+        stories=special,
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
         top_thumb=True,
