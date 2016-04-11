@@ -13,6 +13,8 @@ import data_sources.au as au
 import data_sources.technology as tech_data
 import data_sources as dss
 
+from container_api import container
+
 from ophan_calls import OphanClient, MostSharedFetcher
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, add_comment_counts
 
@@ -84,7 +86,8 @@ class DailyEmailAUS(handlers.EmailTemplate):
     })
 
 class Politics(handlers.EmailTemplate):
-    recognized_versions = immutable.make_list('v1')
+    recognized_versions = immutable.make_list('v1', 'v2')
+    cache_bust=True
 
     ad_tag = 'email-australian-politics'
     ad_config = {}
@@ -94,7 +97,14 @@ class Politics(handlers.EmailTemplate):
             'politics_latest': au.AustralianPoliticsDataSource(client),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
             'politics_video': au.AustralianPoliticsVideoDataSource(client)
-        }
+        },
+        'v2': {
+            'headlines': container.for_id('au-alpha/news/regular-stories'),
+            'highlights': container.for_id('999b69fc-6eb9-4763-a7af-03c839511fc5'),
+            'most_viewed': ds.MostViewedDataSource(clientAUS),
+            'politics_latest': au.AustralianPoliticsDataSource(client),
+            'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
+            'politics_video': au.AustralianPoliticsVideoDataSource(client),       }
     })
 
     priority_list = {
@@ -102,9 +112,21 @@ class Politics(handlers.EmailTemplate):
             ('politics_comment', 1),
             ('politics_video', 1),
             ('politics_latest', 4)],
+        'v2': [
+            ('headlines', 2),
+            ('highlights', 2),
+            ('most_viewed', 4),
+            ('politics_latest', 2),
+            ('politics_comment', 1),
+            ('politics_video', 1),
+
+        ]
     }
 
-    template_names = immutable.make_dict({'v1': 'au/politics'})
+    template_names = immutable.make_dict({
+            'v1': 'au/politics/v1',
+            'v2': 'au/politics/v2'
+        })
 
 
 class CommentIsFree(handlers.EmailTemplate):
