@@ -100,7 +100,6 @@ class Politics(handlers.EmailTemplate):
         },
         'v2': {
             'headlines': container.for_id('au-alpha/news/regular-stories'),
-            'highlights': container.for_id('999b69fc-6eb9-4763-a7af-03c839511fc5'),
             'most_viewed': ds.MostViewedDataSource(clientAUS),
             'politics_latest': au.AustralianPoliticsDataSource(client),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
@@ -114,8 +113,7 @@ class Politics(handlers.EmailTemplate):
             ('politics_video', 1),
             ('politics_latest', 4)],
         'v2': [
-            ('headlines', 2),
-            ('highlights', 2),
+            ('headlines', 4),
             ('most_viewed', 4),
             ('politics_latest', 2),
             ('politics_comment', 1),

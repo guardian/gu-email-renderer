@@ -14,20 +14,13 @@
 {% block content %}
 
 {{ layout.story_trail(
-    heading_text='Headlines',
+    heading_text='Latest',
     stories=headlines,
     heading_link='http://www.theguardian.com/au',
     heading_colour='#c22d05',
     top_thumb=True) }}
 
-{{ layout.story_trail(
-    heading_text='Highlights',
-    stories=highlights,
-    heading_link='http://www.theguardian.com/au',
-    heading_colour='#c22d05',
-    top_thumb=True) }}
-
-{{ layout.story_trail(heading_text='Most viewed in last 24 hours',
+{{ layout.story_trail(heading_text='Popular',
     stories=most_viewed,
     heading_link='http://www.theguardian.com/mostviewed',
     heading_colour='#c22d05',
@@ -35,14 +28,14 @@
     standfirst=False) }}
 
 {{ layout.story_trail(
-    heading_text='Latest',
+    heading_text='Politics',
     stories=politics_latest,
     heading_link='http://www.theguardian.com/world/australian-politics',
     heading_colour='#c22d05',
     top_thumb=True) }}
 
 {{ layout.story_trail(
-    heading_text='Comment is free',
+    heading_text='Opinion',
     stories=politics_comment,
     heading_link='http://www.theguardian.com/au/commentisfree',
     heading_colour='#c22d05',
