@@ -1,0 +1,54 @@
+{# Australian politics email template #}
+
+{% extends 'base_email.html' %}
+{% import 'macro/layout.html' as layout %}
+
+{% set title = 'Australian politics' %}
+{% set title_link = 'http://www.theguardian.com/world/australian-politics' %}
+{% set title_colour = '#c22d05' %}
+{% set logo_background  = '#961f02' %}
+{% set facebook_page = 'theguardianaustralia' %}
+{% set twitter_account = 'GuardianAus' %}
+{% set footer_link = 'http://www.theguardian.com/au' %}
+
+{% block content %}
+
+{{ layout.story_trail(
+    heading_text='Latest',
+    stories=headlines,
+    heading_link='http://www.theguardian.com/au',
+    heading_colour='#c22d05',
+    top_thumb=True) }}
+
+{{ layout.story_trail(heading_text='Popular',
+    stories=most_viewed,
+    heading_link='http://www.theguardian.com/mostviewed',
+    heading_colour='#c22d05',
+    top_thumb=True,
+    standfirst=False) }}
+
+{{ layout.story_trail(
+    heading_text='Politics',
+    stories=politics_latest,
+    heading_link='http://www.theguardian.com/world/australian-politics',
+    heading_colour='#c22d05',
+    top_thumb=True) }}
+
+{{ layout.story_trail(
+    heading_text='Opinion',
+    stories=politics_comment,
+    heading_link='http://www.theguardian.com/au/commentisfree',
+    heading_colour='#c22d05',
+    top_thumb=True) }}
+
+{{ layout.story_trail(
+    heading_text='Video',
+    stories=politics_video,
+    heading_link='http://www.theguardian.com/world/australian-politics+type/video',
+    heading_colour='#c22d05',
+    top_thumb=True) }}
+
+{% endblock content %}
+
+{% set sections = (('Australian politics', 'http://www.theguardian.com/world/australian-politics'),
+                   ('Comment is free', 'http://www.theguardian.com/au/commentisfree')) %}
