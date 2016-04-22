@@ -55,6 +55,10 @@ class ApiClient(object):
 
         json = self._do_call(content_id, **kwargs)
 
+        if not 'response' in json:
+            logging.warning('Item query did not send expected response')
+            logging.warning(json)
+
         results = []
         if json['response'].has_key('results'):
             results = json['response']['results']

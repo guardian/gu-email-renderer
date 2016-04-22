@@ -46,7 +46,7 @@ def read_capi_item(internal_id):
 
 	return None
 
-def read_container(container_id):
+def read_container(container_id, retries=3):
 	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
 	try:
 		url = "{0}/{1}".format(container_base_url, container_id)
@@ -66,7 +66,7 @@ def read_container(container_id):
 		logging.warn(traceback.format_exc())
 
 		if retries > 0:
-			return self.fetch_data(retries=retries-1)
+			return read_container(container_id, retries=retries-1)
 
 	return []
 
@@ -105,10 +105,10 @@ class FrontDataSource:
 				containers = data.get('data', [])
 				
 				resolved_containers = [read_container(container_id) for container_id in containers]
-				logging.info(resolved_containers)
+				#logging.info(resolved_containers)
 				stories = [capi_item for container_items in resolved_containers for capi_item in container_items]
 
-				logging.info(stories)
+				#logging.info(stories)
 				return stories
 
 			return []
