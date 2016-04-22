@@ -16,7 +16,7 @@
 
 {% block content %}
 
-    {{ layout.story_trail(heading_text='Breaking news',
+    {{ layout.story_trail(heading_text='Top story',
         stories=breaking,
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
@@ -24,14 +24,14 @@
         standfirst=False,
         always_show=False) }}
 
-    {{ layout.story_trail(heading_text='Top Stories',
+    {{ layout.story_trail(heading_text='Editor\'s picks',
         stories=canonical,
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
         top_thumb=True,
         standfirst=False) }}
 
-    {{ layout.story_trail(heading_text='Special investigation',
+    {{ layout.story_trail(heading_text='Special report',
         stories=special,
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
