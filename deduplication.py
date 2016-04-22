@@ -1,3 +1,4 @@
+import logging
 
 def build_unique_trailblocks(data, priority_list, excluded=None):
     """

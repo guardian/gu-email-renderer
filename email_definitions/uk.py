@@ -14,13 +14,15 @@ client = mr.client
 
 
 class DailyEmail(handlers.EmailTemplate):
-	recognized_versions = ['v1', 'v1-register', 'india', 'v2015', 'nhs']
+	recognized_versions = ['v1', 'v1-register', 'india', 'v2015', 'nhs', 'categories']
 
 	ad_tag = 'email-guardian-today'
 	ad_config = {
 		'leaderboard_v1': 'Top',
 		'leaderboard_v2': 'Bottom'
 	}
+
+	cache_bust=True
 
 	base_data_sources = immutable.make_dict({
 		'business': ds.BusinessDataSource(client),
@@ -46,6 +48,11 @@ class DailyEmail(handlers.EmailTemplate):
 			nhs_special = container.for_id('346f91dc-60a5-41f1-a78e-513f6f379cec'),
 			top_stories = container.for_id('uk-alpha/news/regular-stories')
 			),
+		'categories': base_data_sources.using(
+			breaking = container.for_front('uk', 'breaking'),
+			canonical = container.for_front('uk', 'canonical'),
+			special = container.for_front('uk', 'special'),
+		),
 	})
 
 	base_priorities = immutable.make_list(('top_stories', 6),
@@ -63,6 +70,11 @@ class DailyEmail(handlers.EmailTemplate):
 					('lifeandstyle', 2), ('eye_witness', 1)],
 		'v2015': base_priorities,
 		'nhs': base_priorities.cons(('nhs_special', 2)),
+		'categories': base_priorities.without(('top_stories', 6)).concat(immutable.make_list(
+			('breaking', 1),
+			('canonical', 6),
+			('special', 1),
+			)),
 		})
 
 	template_names = immutable.make_dict({
@@ -71,6 +83,7 @@ class DailyEmail(handlers.EmailTemplate):
 		'india': 'uk/daily/india',
 		'v2015': 'uk/daily/v2015',
 		'nhs': 'uk/daily/nhs',
+		'categories': 'uk/daily/categories',
 	})
 
 	def exclude_from_deduplication(self):
