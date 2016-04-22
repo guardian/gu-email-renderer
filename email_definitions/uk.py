@@ -70,11 +70,11 @@ class DailyEmail(handlers.EmailTemplate):
 					('lifeandstyle', 2), ('eye_witness', 1)],
 		'v2015': base_priorities,
 		'nhs': base_priorities.cons(('nhs_special', 2)),
-		'categories': base_priorities.without(('top_stories', 6)).concat(immutable.make_list(
+		'categories': immutable.make_list(
 			('breaking', 1),
 			('canonical', 6),
 			('special', 1),
-			)),
+			).concat(base_priorities.without(('top_stories', 6))),
 		})
 
 	template_names = immutable.make_dict({
