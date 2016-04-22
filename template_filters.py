@@ -38,9 +38,26 @@ def get_image(content, image_type='thumbnail', max_width=None):
 			return current_best_image
 		return image
 
-	assets = [asset for asset in images[0]['assets'] if not too_big(asset)]
+	def smallest_image(current_smallest_image, image):
+		if not current_smallest_image:
+			return image
 
-	biggest_image = reduce(best_image, assets)
+		if current_smallest_image['typeData']['width'] < image['typeData']['width']:
+			return current_smallest_image
+
+		return image
+
+	all_assets = [asset for asset in images[0]['assets']]
+
+	if not all_assets:
+		logging.warning("No image assets found for content item: {}".format(content.get("id", "Unknown")))
+
+	filtered_assets = [asset for asset in all_assets if not too_big(asset)]
+
+	if not filtered_assets and all_assets:
+		return reduce(smallest_image, all_assets)
+
+	biggest_image = reduce(best_image, filtered_assets)
 	return biggest_image
 
 def get_tone(content):
