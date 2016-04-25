@@ -68,6 +68,10 @@ class TestDataSources(unittest.TestCase):
     def check_data_source_url(self, data_source, expected_path, **expected_args):
         expected_args['api-key'] = API_KEY
         expected_args['format'] = 'json'
+        expected_args['show-elements'] = 'image'
+
+        if not 'show-tags' in expected_args:
+          expected_args['show-tags'] = 'tone,type,keyword'
 
         if not expected_args.has_key('tag'):
             expected_args['tag'] = '-news/series/picture-desk-live'
@@ -424,15 +428,6 @@ class TestDataSources(unittest.TestCase):
         assert result['id'] == 'section id'
         assert result['sectionName'] == 'Politics'
         assert result['sectionId'] == 'politics'
-
-
-
-
-
-    def test_multi_content_data_source_should_barf_if_content_ids_is_left_unset(self):
-        data_source = MultiContentDataSource('cheese_client', 'cheese_name')
-        with self.assertRaises(DataSourceException):
-            data_source.fetch_data()
 
     def test_multi_content_data_source_should_return_data_in_correct_format(self):
         client = ContentIdRememberingStubClient()

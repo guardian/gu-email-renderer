@@ -4,7 +4,6 @@ import sys
 import os
 import unittest
 
-
 USAGE = """%prog SDK_PATH
 Run unit tests for App Engine apps.
 
@@ -17,7 +16,7 @@ def main(sdk_path, test_path):
     import dev_appserver
     dev_appserver.fix_sys_path()
     suite = unittest.loader.TestLoader().discover(test_path)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    return unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 if __name__ == '__main__':
@@ -29,4 +28,10 @@ if __name__ == '__main__':
         sys.exit(1)
     TEST_PATH = "tests"
     SDK_PATH = args[0]
-    main(SDK_PATH, TEST_PATH)
+    result = main(SDK_PATH, TEST_PATH)
+    if result.wasSuccessful():
+        sys.exit(0)
+
+    print 'Tests failed'
+
+    sys.exit(1)
