@@ -231,7 +231,8 @@ class MultiContentDataSource(ItemDataSource):
 
     def _do_call(self, **criteria):
         if not self.content_ids:
-            raise DataSourceException("content_ids must be set before calling fetch_data()")
+            logging.warning("content_ids must be set before calling fetch_data()")
+            return []
 
         result = []
         for id in self.content_ids:
