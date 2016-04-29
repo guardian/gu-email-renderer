@@ -18,6 +18,8 @@ from container_api import container
 from ophan_calls import OphanClient, MostSharedFetcher
 from discussionapi.discussion_client import DiscussionFetcher, DiscussionClient, add_comment_counts
 
+import tags
+
 client = mr.client
 clientAUS = mr.clientAUS
 
@@ -87,10 +89,15 @@ class DailyEmailAUS(handlers.EmailTemplate):
 
 class Politics(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v2')
-    cache_bust=False
+    cache_bust=True
 
     ad_tag = 'email-australian-politics'
     ad_config = {}
+
+    def politics_first_sort(a, b):
+        logging.info(tags.has_tag("australia-news/victorian-politics", a))
+        logging.info(tags.has_tag("australia-news/victorian-politics", b))
+        return 1
 
     data_sources = immutable.make_dict({
         'v1': {
@@ -99,7 +106,7 @@ class Politics(handlers.EmailTemplate):
             'politics_video': au.AustralianPoliticsVideoDataSource(client)
         },
         'v2': {
-            'headlines': container.for_id('au-alpha/news/regular-stories'),
+            'headlines': container.for_id('au-alpha/news/regular-stories', sort_function=politics_first_sort),
             'most_viewed': ds.MostViewedDataSource(clientAUS),
             'politics_latest': au.AustralianPoliticsDataSource(client),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
