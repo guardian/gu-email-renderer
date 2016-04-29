@@ -128,7 +128,7 @@ class ItemPlusBlogDataSource(DataSource):
 class MostSharedCountInterpolator(object):
     def interpolate(self, shared_count_list, content_list ):
         for( url, shared_count ) in shared_count_list:
-            if not url in [content_item for content_item in content_list
+            if not url in [content_item['webUrl'] for content_item in content_list
              if 'webUrl' in content_item and url in content_item['webUrl']]:
                 continue
             [content_item for content_item in content_list
