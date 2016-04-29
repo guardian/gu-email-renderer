@@ -20,7 +20,7 @@ def build_unique_trailblocks(data, priority_list, excluded=None):
 
         unique_subset = []
         unique_subsets[data_set_name] = unique_subset
-        source_data = data[data_set_name]
+        source_data = [item for item in data[data_set_name] if item]
         for item in source_data:
             if item['id'] not in items_seen_so_far and len(unique_subset) < size:
                 unique_subset.append(item)
