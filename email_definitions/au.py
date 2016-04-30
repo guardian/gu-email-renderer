@@ -97,7 +97,7 @@ class Politics(handlers.EmailTemplate):
     def politics_first_sort(a, b):
         logging.info(tags.has_tag("australia-news/victorian-politics", a))
         logging.info(tags.has_tag("australia-news/victorian-politics", b))
-        return 1
+        return 0
 
     data_sources = immutable.make_dict({
         'v1': {
