@@ -87,7 +87,7 @@ class DailyEmailAUS(handlers.EmailTemplate):
 
 class Politics(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v2')
-    cache_bust=True
+    cache_bust=False
 
     ad_tag = 'email-australian-politics'
     ad_config = {}

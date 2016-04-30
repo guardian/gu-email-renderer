@@ -25,7 +25,7 @@ def read_item(internal_id, additional_params=None):
 		combined_params = default_params.using(**additional_params)
 
 	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(combined_params))
-	logging.info(item_url)
+	#logging.info(item_url)
 	
 	cached_response = memcache.get(item_url)
 
