@@ -10,13 +10,15 @@ import defaults
 import configuration
 import capi
 
-def for_id(container_id, sort_function=None):
-	return ContainerDataSource(container_id, sort_function=sort_function)
+def for_id(container_id, sort_function=None, additional_capi_params=None):
+	return ContainerDataSource(container_id,
+			sort_function=sort_function,
+			additional_capi_params=additional_capi_params)
 
 def for_front(front_id, metadata=None):
 	return FrontDataSource(front_id, metadata)
 
-def read_container(container_id, retries=3, sort_function=None):
+def read_container(container_id, retries=3, sort_function=None, additional_capi_params=None):
 	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
 	try:
 		url = "{0}/{1}".format(container_base_url, container_id)
@@ -27,7 +29,7 @@ def read_container(container_id, retries=3, sort_function=None):
 			live_stories = data.get('collection', {}).get('live', [])
 			live_story_ids = [item['id'] for item in live_stories]
 			
-			stories = [capi.read_item(item_id) for item_id in live_story_ids]
+			stories = [capi.read_item(item_id, additional_params=additional_capi_params) for item_id in live_story_ids]
 
 			if sort_function:
 				return sorted(stories, sort_function)
@@ -46,13 +48,15 @@ def read_container(container_id, retries=3, sort_function=None):
 	return []
 
 class ContainerDataSource:
-	def __init__(self, container_id, sort_function=None):
+	def __init__(self, container_id, sort_function=None, additional_capi_params=None):
 		self.container_id = container_id
 		self.sort_function = sort_function
+		self.additional_capi_params = additional_capi_params
 
 	def fetch_data(self, retries=3):
 		return read_container(self.container_id,
-			sort_function=self.sort_function)
+			sort_function=self.sort_function,
+			additional_capi_params=self.additional_capi_params)
 
 
 class FrontDataSource:

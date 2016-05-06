@@ -89,7 +89,7 @@ class DailyEmailAUS(handlers.EmailTemplate):
 
 class Politics(handlers.EmailTemplate):
     recognized_versions = immutable.make_list('v1', 'v2')
-    cache_bust=False
+    cache_bust=True
 
     ad_tag = 'email-australian-politics'
     ad_config = {}
@@ -101,7 +101,9 @@ class Politics(handlers.EmailTemplate):
             'politics_video': au.AustralianPoliticsVideoDataSource(client)
         },
         'v2': {
-            'headlines': container.for_id('au-alpha/news/regular-stories', sort_function=sorts.au.politics_first),
+            'headlines': container.for_id('au-alpha/news/regular-stories',
+                sort_function=sorts.au.politics_first,
+                additional_capi_params=immutable.make_dict({"show-tags": "keyword"})),
             'most_viewed': ds.MostViewedDataSource(clientAUS),
             'politics_latest': au.AustralianPoliticsDataSource(client),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
