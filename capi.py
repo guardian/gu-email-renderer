@@ -1,5 +1,6 @@
 import json
 import urllib
+import logging
 
 from google.appengine.api import urlfetch
 from google.appengine.api import memcache
@@ -15,10 +16,15 @@ default_params = immutable.make_dict({
 	'api-key': configuration.read('CAPI_KEY')
 	})
 
-def read_item(internal_id):
+def read_item(internal_id, additional_params=None):
 	capi_base_url = configuration.read('CAPI_BASE_URL')
 
-	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(default_params))
+	combined_params = default_params
+
+	if additional_params:
+		combined_params = default_params.using(**additional_params)
+
+	item_url = "{0}/{1}?{2}".format(capi_base_url, internal_id, urllib.urlencode(combined_params))
 	#logging.info(item_url)
 	
 	cached_response = memcache.get(item_url)
