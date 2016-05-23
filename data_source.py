@@ -435,7 +435,7 @@ class FilmOfTheWeekDataSource(ItemDataSource):
 class FilmQuizDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='film')
-        self.tags = ['type/quiz']
+        self.tags = ['tone/quizzes']
 
 
 class FilmShowDataSource(ItemDataSource):
