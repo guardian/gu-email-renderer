@@ -104,7 +104,6 @@ class CloseUp(handlers.EmailTemplate):
     base_data_sources = immutable.make_dict({
         'film_week': ds.FilmOfTheWeekDataSource(client),
         'film_picks': ds.FilmEditorsPicksDataSource(client),
-        'film_show': ds.FilmShowDataSource(client),
         'film_most_viewed': ds.FilmMostViewedDataSource(client),
         'film_interviews': ds.FilmInterviewsDataSource(client),
         'film_blogs': ds.FilmBlogsDataSource(client),
@@ -118,7 +117,7 @@ class CloseUp(handlers.EmailTemplate):
     })
 
     priority_list = {}
-    priority_list['v1'] = [('film_week', 1), ('film_show', 1), ('film_interviews', 3),
+    priority_list['v1'] = [('film_week', 1), ('film_interviews', 3),
                            ('film_blogs', 5), ('film_quiz', 1), ('film_picks', 2), ('film_most_viewed', 3)]
 
     priority_list['v2'] = priority_list['v1']

@@ -438,12 +438,6 @@ class FilmQuizDataSource(ItemDataSource):
         self.tags = ['tone/quizzes']
 
 
-class FilmShowDataSource(ItemDataSource):
-    def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='film')
-        self.tags = ['film/series/guardian-film-show']
-
-
 class IndiaDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='world/india', show_editors_picks=True)
