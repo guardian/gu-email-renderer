@@ -71,7 +71,7 @@ class DailyEmail(handlers.EmailTemplate):
 		'v2015': base_priorities,
 		'nhs': base_priorities.cons(('nhs_special', 2)),
 		'categories': immutable.make_list(
-			('breaking', 1),
+			('breaking', 5),
 			('canonical', 6),
 			('special', 1),
 			).concat(base_priorities.without(('top_stories', 6))),
