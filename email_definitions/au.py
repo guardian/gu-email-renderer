@@ -27,7 +27,8 @@ ophan_client = OphanClient(mr.ophan_base_url, mr.ophan_key)
 discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailAUS(handlers.EmailTemplate):
-    recognized_versions = ['v1', 'v2', 'v3', 'v2015']
+    recognized_versions = ['v1', 'v2', 'v3', 'v2015', 'v4']
+    cache_bust=False
 
     ad_tag = 'email-guardian-today-aus'
     ad_config = {
@@ -59,6 +60,11 @@ class DailyEmailAUS(handlers.EmailTemplate):
             eye_witness=ds.EyeWitnessDataSource(clientAUS),
             most_shared=dss.social.most_shared(clientAUS, ophan_client, 'au')),
         'v2015': base_data_sources,
+        'v4': base_data_sources.using(
+            breaking = container.for_front('au', 'breaking'),
+            canonical = container.for_front('au', 'canonical'),
+            special = container.for_front('au', 'special'),
+        ),
     }
 
     base_priorities = immutable.make_list(
@@ -78,13 +84,19 @@ class DailyEmailAUS(handlers.EmailTemplate):
         'v2': base_priorities.concat(immutable.make_list(('eye_witness', 1))),
         'v3': base_priorities.concat(immutable.make_list(('most_shared', 6))),
         'v2015': base_priorities,
+        'v4': immutable.make_list(
+            ('breaking', 5),
+            ('canonical', 6),
+            ('special', 1),
+            ).concat(base_priorities.without(('top_stories', 6))),
         })
 
     template_names = immutable.make_dict({
         'v1': 'au/daily/v1',
         'v2': 'au/daily/v2',
         'v3': 'au/daily/v3',
-        'v2015': 'au/daily/v2015'
+        'v2015': 'au/daily/v2015',
+        'v4': 'au/daily/v4',
     })
 
 class Politics(handlers.EmailTemplate):
