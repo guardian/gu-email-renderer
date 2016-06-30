@@ -28,7 +28,7 @@ discussion_client = DiscussionClient(mr.discussion_base_url)
 
 class DailyEmailAUS(handlers.EmailTemplate):
     recognized_versions = ['v1', 'v2', 'v3', 'v2015', 'v4']
-    cache_bust=True
+    cache_bust=False
 
     ad_tag = 'email-guardian-today-aus'
     ad_config = {
