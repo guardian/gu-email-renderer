@@ -1,13 +1,9 @@
 import logging
 import urllib
 import urllib2
-import json
-
 from django.utils import simplejson as json
-from urlparse import urlparse
 from urllib import urlencode
-from urllib import quote
-from urlparse import urlparse, urljoin
+from urlparse import urlparse
 
 # TODO: pull this up into a generic http client
 
@@ -104,17 +100,17 @@ class MostPopularByTagFetcher(object):
     def __init__(self, ophan_client, keywordTag=None):
         self.ophan_client = ophan_client
         self.keywordTag = keywordTag
+        self.age = 86400 #seconds in a day
 
     def fetch(self):
         params = {
-            "age" : str(86400),
+            "age" : str(self.age),
             "api-key" : self.ophan_client.api_key
         }
 
         path = '/api/mostread/keywordtag/'+ urllib.quote(self.keywordTag, safe='')
 
         headers, most_viewed_result = self.ophan_client.do_get(path, params=params, add_base=True)
-        if not most_viewed_result:
-            return []
 
-        return [(entry['url'], entry['count']) for entry in json.loads(most_viewed_result)]
+        if most_viewed_result:
+            return [(entry['url'], entry['count']) for entry in json.loads(most_viewed_result)]
