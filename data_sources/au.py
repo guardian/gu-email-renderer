@@ -16,6 +16,11 @@ class AusCommentIsFreeDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, '/au/commentisfree', show_editors_picks=True, only_editors_picks=True)
 
+class AusCommentIsFreeDataSourceLatest(ItemDataSource):
+    def __init__(self, client):
+        ItemDataSource.__init__(self, client, content_id='australia-news/australian-politics')
+        self.tags = ['tone/comment']
+
 class AustralianPoliticsDataSource(ItemDataSource):
     def __init__(self, client):
         ItemDataSource.__init__(self, client, content_id='australia-news/australian-politics')
