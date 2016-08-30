@@ -100,7 +100,7 @@ class DailyEmailAUS(handlers.EmailTemplate):
     })
 
 class Politics(handlers.EmailTemplate):
-    recognized_versions = immutable.make_list('v1', 'v2', 'v3')
+    recognized_versions = immutable.make_list('v1', 'v2', 'v3', 'v4')
     cache_bust=False
 
     ad_tag = 'email-australian-politics'
@@ -124,6 +124,12 @@ class Politics(handlers.EmailTemplate):
             'politics_most_popular': dss.mostPopular.mostPopularByTag(client, ophan_client, 'australia-news/australian-politics'),
             'politics_comment': au.AusCommentIsFreeDataSource(clientAUS),
             'politics_video': au.AustralianPoliticsVideoDataSource(client)
+        },
+        'v4': {
+            'politics_latest': au.AustralianPoliticsDataSource(client),
+            'politics_most_popular': dss.mostPopular.mostPopularByTag(client, ophan_client, 'australia-news/australian-politics'),
+            'politics_comment': au.AusCommentIsFreeDataSourceLatest(clientAUS),
+            'politics_video': au.AustralianPoliticsVideoDataSource(client)
         }
     })
 
@@ -142,13 +148,20 @@ class Politics(handlers.EmailTemplate):
             ('politics_most_popular', 4),
             ('politics_comment', 1),
             ('politics_video', 1),
+        ],
+        'v4': [
+            ('politics_latest', 4),
+            ('politics_most_popular', 4),
+            ('politics_comment', 1),
+            ('politics_video', 1),
         ]
     }
 
     template_names = immutable.make_dict({
             'v1': 'au/politics/v1',
             'v2': 'au/politics/v2',
-            'v3': 'au/politics/v3'
+            'v3': 'au/politics/v3',
+            'v4': 'au/politics/v3'
         })
 
 
