@@ -41,6 +41,9 @@ class MockDataSource(object):
     def fetch_data(self):
         self.data_fetched = True
         return [{'id': i} for i in range(20)]
+    
+    def fetch_title_override(self):
+        return None
 
 
 class TestRenderer(EmailTemplate):
