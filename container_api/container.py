@@ -110,7 +110,7 @@ class FrontDataSource:
 				if len(containers) == 1:
 					return read_container_title(containers[0])
 				elif len(containers) >= 1:
-					logging.error("More than one container with metadata {metadata} found, not providing headling override".format(
+					logging.error("More than one container with metadata {metadata} found, not providing title override".format(
 						metadata=self.metadata
 					))
 				
@@ -121,7 +121,7 @@ class FrontDataSource:
 			logging.warn(traceback.format_exc())
 
 			if retries > 0:
-				return self.fetch_headline_override(retries=retries-1)
+				return self.fetch_title_override(retries=retries-1)
 
 		return None
 	
