@@ -33,6 +33,8 @@ class DataSource(object):
         data = self._do_call(**criteria)
         return list(data)
 
+    def fetch_title_override(self):
+        return None
 
     def _build_criteria(self):
         criteria = {}

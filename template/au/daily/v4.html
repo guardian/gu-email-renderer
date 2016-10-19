@@ -22,14 +22,16 @@
         heading_colour='#c22d05',
         top_thumb=True,
         standfirst=False,
-        always_show=False) }}
+        always_show=False,
+        title_override=title_overrides.get("breaking")) }}
 
     {{ layout.story_trail(heading_text='Headlines',
         stories=canonical,
         heading_link='http://www.theguardian.com/au',
         heading_colour='#c22d05',
         top_thumb=True,
-        standfirst=False) }}
+        standfirst=False,
+        title_override=title_overrides.get("canonical")) }}
 
     {{ layout.story_trail(heading_text='Special report',
         stories=special,
@@ -37,7 +39,8 @@
         heading_colour='#c22d05',
         top_thumb=True,
         standfirst=False,
-        always_show=False) }}
+        always_show=False,
+        title_override=title_overrides.get("special")) }}
 
     {{ layout.advert(ads.leaderboard_v1) }}
 
