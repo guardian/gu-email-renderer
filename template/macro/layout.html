@@ -118,7 +118,7 @@
 	{% set more_text = heading_text|lower %}
 {% endif %}
 {% if title_override %}
-    {% set heading_text = title_override|capitalize %}
+    {% set heading_text = title_override[0]|upper + title_override[1:] %}
 {% endif %}
 <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
 <tr><td align="left">
