@@ -18,6 +18,27 @@ def for_id(container_id, sort_function=None, additional_capi_params=None):
 def for_front(front_id, metadata=None):
 	return FrontDataSource(front_id, metadata)
 
+def read_container_title(container_id, retries=3):
+	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
+	try:
+		url = "{0}/{1}".format(container_base_url, container_id)
+		logging.info(url)
+		result = urlfetch.fetch(url, deadline=9)
+		if result.status_code == 200:
+			data = json.loads(result.content)
+			return data.get("config", {}).get("displayName")
+
+		return None
+
+	except Exception as e:
+		logging.warn('Container API call failed {0}'.format(e))
+		logging.warn(traceback.format_exc())
+
+		if retries > 0:
+			return read_container_title(container_id, retries=retries-1)
+
+	return None
+
 def read_container(container_id, retries=3, sort_function=None, additional_capi_params=None):
 	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
 	try:
@@ -57,6 +78,9 @@ class ContainerDataSource:
 		return read_container(self.container_id,
 			sort_function=self.sort_function,
 			additional_capi_params=self.additional_capi_params)
+		
+	def fetch_title_override(self):
+		return read_container_title(self.container_id)
 
 
 class FrontDataSource:
@@ -64,7 +88,7 @@ class FrontDataSource:
 		self.front_id = front_id
 		self.metadata = metadata
 
-	def fetch_data(self, retries=3):
+	def _fetch_containers_for_front(self, retries=3):
 		container_api_host = configuration.read('CONTAINER_API_HOST')
 		try:
 			url = "http://{host}/list/collections/by/front/{front_id}".format(
@@ -76,29 +100,41 @@ class FrontDataSource:
 					url=url,
 					metadata=self.metadata)
 			
-			logging.debug(url)
-
 			result = urlfetch.fetch(url, deadline=9)
 			
 			if result.status_code == 200:
 				data = json.loads(result.content)
 
-				containers = data.get('data', [])
+				return data.get('data', [])
 				
-				resolved_containers = [read_container(container_id) for container_id in containers]
-				#logging.info(resolved_containers)
-				stories = [capi_item for container_items in resolved_containers for capi_item in container_items]
-
-				#logging.info(stories)
-				return stories
-
 			return []
-
+		
 		except Exception as e:
 			logging.warn('Container API call failed {0}'.format(e))
 			logging.warn(traceback.format_exc())
 
 			if retries > 0:
-				return self.fetch_data(retries=retries-1)
+				return self.fetch_title_override(retries=retries-1)
 
 		return []
+		
+	
+	def fetch_title_override(self, retries=3):
+		containers = self._fetch_containers_for_front()
+
+		if len(containers) == 1:
+			return read_container_title(containers[0])
+		elif len(containers) >= 1:
+			logging.error("More than one container with metadata {metadata} found, not providing title override".format(
+				metadata=self.metadata
+			))
+				
+		return None
+	
+	def fetch_data(self, retries=3):
+		
+		containers = self._fetch_containers_for_front()
+
+		resolved_containers = [read_container(container_id) for container_id in containers]
+		stories = [capi_item for container_items in resolved_containers for capi_item in container_items]
+		return stories

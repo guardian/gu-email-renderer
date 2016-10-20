@@ -76,6 +76,18 @@ class EmailTemplate(webapp2.RequestHandler):
             retrieved_data_map[key] = datasource.fetch_data()
 
         return retrieved_data_map
+    
+    @staticmethod
+    def fetch_all_title_overrides(data_sources):
+        retrieved_data_map = {}
+
+        for key, datasource in data_sources.items():
+            title = datasource.fetch_title_override()
+            if title is not None: 
+                retrieved_data_map[key] = title
+
+        return retrieved_data_map
+
 
     def get(self, version_id):
         self.check_version_id(version_id)
@@ -86,6 +98,7 @@ class EmailTemplate(webapp2.RequestHandler):
         if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
             retrieved_data = EmailTemplate.fetch_all(self.data_sources[version_id])
+            title_overrides = EmailTemplate.fetch_all_title_overrides(self.data_sources[version_id])
             trail_blocks = deduplication.build_unique_trailblocks(retrieved_data,
                 self.priority_list[version_id],
                 excluded=self.exclude_from_deduplication())
@@ -102,7 +115,7 @@ class EmailTemplate(webapp2.RequestHandler):
                 for name, type in self.ad_config.iteritems():
                     ads[name] = ad_fetcher.fetch_type(type)
 
-            page = template.render(ads=ads, date=date, data=self.additional_template_data(), **trail_blocks)
+            page = template.render(ads=ads, date=date, data=self.additional_template_data(), title_overrides=title_overrides, **trail_blocks)
 
             if self.minify:
                 page = htmlmin.minify(page)
@@ -110,7 +123,7 @@ class EmailTemplate(webapp2.RequestHandler):
             self.cache.add(cache_key, page, 300)
         else:
             logging.debug('Cache hit with key: %s' % cache_key)
-
+        
         self.response.out.write(page)
 
 class Index(webapp2.RequestHandler):

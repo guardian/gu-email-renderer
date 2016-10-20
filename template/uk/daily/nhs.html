@@ -21,8 +21,8 @@
         heading_link='http://www.theguardian.com',
         heading_colour='#c22d05',
         top_thumb=True,
-        standfirst=False) }}
-
+        standfirst=False,
+        title_override=title_overrides.get("top_stories")) }}
 
     {{ layout.story_trail(heading_text='This is the NHS',
         stories=nhs_special,
@@ -30,7 +30,8 @@
         heading_colour='#63717a',
         top_thumb=True,
         standfirst=False,
-        always_show=False) }}
+        always_show=False,
+        title_override=title_overrides.get("nhs_special")) }}
         
     {{ layout.advert(ads.leaderboard_v1) }}
 

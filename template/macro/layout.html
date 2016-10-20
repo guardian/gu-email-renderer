@@ -112,10 +112,13 @@
 
 
 
-{% macro story_trail(heading_text, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False) -%}
+{% macro story_trail(heading_text, stories, title_override=None, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False) -%}
 {% if always_show or stories %}
 {% if not more_text %}
 	{% set more_text = heading_text|lower %}
+{% endif %}
+{% if title_override %}
+    {% set heading_text = title_override|capitalize %}
 {% endif %}
 <tr><td>{{ heading(heading_text=heading_text, link=heading_link, bg_colour=heading_colour, colour=heading_text_colour) }}<td></tr>
 <tr><td align="left">
