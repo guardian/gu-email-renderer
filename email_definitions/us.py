@@ -20,7 +20,7 @@ class DailyEmailUS(handlers.EmailTemplate):
     minify = True
     cache_bust = False
 
-    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015', 'v2015_v2', 'v2015_v3', 'v2015_v4')
+    recognized_versions = immutable.make_list('v1', 'v3', 'v6', 'v7', 'v2015', 'v2015_v2', 'v2015_v3', 'v2015_v4', 'v2016')
     
     ad_tag = 'email-guardian-today-us'
     ad_config = {
@@ -44,6 +44,10 @@ class DailyEmailUS(handlers.EmailTemplate):
                 shared_count_interpolator=ds.MostSharedCountInterpolator()
             )
 
+    breaking = container.for_front('us', 'breaking')
+    canonical = container.for_front('us', 'canonical')
+    special = container.for_front('us', 'special')
+
     data_sources = immutable.make_dict({
         'v1': base_data_sources,
         'v3': base_data_sources,
@@ -64,7 +68,13 @@ class DailyEmailUS(handlers.EmailTemplate):
         ),
         'v2015_v4': base_data_sources.using(
             most_shared_us = most_shared_us
-        )
+        ),
+        'v2016': base_data_sources.using(
+            breaking = breaking,
+            canonical = canonical,
+            special = special,
+            most_shared_us = most_shared_us
+        ),
     })
 
     base_priorities = immutable.make_list(('top_stories', 6),
@@ -82,7 +92,10 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v2015': base_priorities.cons(('most_shared_us', 6)),
         'v2015_v2': base_priorities.cons(('most_shared_us', 6)),
         'v2015_v3': base_priorities.cons(('most_shared_us', 6)),
-        'v2015_v4': base_priorities.cons(('most_shared_us', 6))
+        'v2015_v4': base_priorities.cons(('most_shared_us', 6)),
+        'v2016': immutable.make_list(
+            ('breaking', 5), ('canonical', 6), ('special', 1), ('most_shared_us', 6))
+            .concat(base_priorities)
     })
 
     template_names = immutable.make_dict({
@@ -93,7 +106,8 @@ class DailyEmailUS(handlers.EmailTemplate):
         'v2015': 'us/daily/v2015',
         'v2015_v2': 'us/daily/v2015_v2',
         'v2015_v3': 'us/daily/v2015_v3',
-        'v2015_v4': 'us/daily/v2015_v4'
+        'v2015_v4': 'us/daily/v2015_v4',
+        'v2016': 'us/daily/v2016'
     })
 
 class Opinion(handlers.EmailTemplate):
