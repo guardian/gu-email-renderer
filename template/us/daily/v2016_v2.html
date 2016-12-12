@@ -1,0 +1,145 @@
+{# Daily (Guardian Today) email template #}
+
+{% extends 'base_email_2015.html' %}
+
+{% set title = 'the guardian today - US edition' %}
+{% set title_link = 'http://www.theguardian.com/us' %}
+{% set title_colour = '#333333' %}
+{% set logo_background = '#004179' %}
+{% set facebook_page = 'GuardianUs' %}
+{% set twitter_account = 'GuardianUS' %}
+{% set footer_colour = 'light' %}
+
+{% block title %}Guardian Today - US edition{% endblock %}
+
+{{ title_overrides }}
+{% block content %}
+
+
+    {{ layout.story_trail(heading_text='Top stories',
+        image=None,
+        stories=breaking,
+        heading_link='http://www.theguardian.com/us',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True,
+        title_override=title_overrides.get("breaking"),
+        is_container=True,
+        always_show=False
+        )
+    }}
+
+    {{ layout.story_trail(heading_text='Headlines',
+        image=None,
+        stories=canonical,
+        heading_link='http://www.theguardian.com/us',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True,
+        title_override=title_overrides.get("canonical"),
+        is_container=True,
+        always_show=True
+
+        )
+    }}
+
+    {{ layout.story_trail(heading_text='Special report',
+        image=None,
+        stories=special,
+        heading_link='http://www.theguardian.com/us',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True,
+        title_override=title_overrides.get("special"),
+        is_container=True,
+        always_show=False
+
+        )
+    }}
+
+    {{ layout.advert(ads.leaderboard_v1) }}
+
+    {{ layout.story_trail(
+        heading_text='Sports',
+        image='more-sports.jpg',
+        stories=sport,
+        heading_link='http://www.theguardian.com/us/sport',
+        heading_colour='#20a111',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.story_trail(
+        heading_text='Opinion',
+        image='more-opinion.jpg',
+        stories=comment,
+        heading_link='http://www.theguardian.com/us/commentisfree',
+        heading_colour='#0061a6',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.story_trail(
+        heading_text='Culture',
+        image='more-culture.jpg',
+        stories=culture,
+        heading_link='http://www.theguardian.com/us/culture',
+        heading_colour='#d1008b',
+        top_thumb=True,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.advert(ads.leaderboard_v2) }}
+
+    {{ layout.story_trail(
+        heading_text='Business',
+        image='more-business.jpg',
+        stories=business,
+        heading_link='http://www.theguardian.com/us/business',
+        heading_colour='#004179',
+        thumbnail=False,
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.story_trail(
+        heading_text='Technology',
+        image='more-technology.jpg',
+        stories=technology,
+        heading_link='http://www.theguardian.com/technology',
+        heading_colour='#d61d00',
+        standfirst=False,
+        more_thumbs=False,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+    {{ layout.story_trail(heading_text='Most shared',
+        image='more-popular.jpg',
+        stories=most_shared_us,
+        heading_link='http://www.theguardian.com/us#most-popular',
+        heading_colour='#2470a6',
+        standfirst=False,
+        share_links=False,
+        more_thumbs=False,
+        popular=True,
+        show_kicker=False,
+        show_heading_links=True) }}
+
+{% endblock content %}
+
+{% set sections = (
+    ('Interactive Journalism', 'http://www.theguardian.com/profile/guardian-us-interactive-team'),
+    ('Go Below the Line', 'http://www.theguardian.com/commentisfree/series/below-the-line')) %}

@@ -103,11 +103,15 @@
 
 
 
-{% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, small_first_img=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False, popular=False, show_kicker=True, show_heading_links=False) -%}
+{% macro story_trail(heading_text, image=None, stories, heading_link=None, heading_colour='#000000', heading_text_colour='#ffffff', more_text=None, thumbnail=False, top_thumb=False, small_first_img=False, standfirst=True, show_more=True, first_para=False, share_links=True, always_show=True, use_standfirst=False, more_thumbs=False, popular=False, show_kicker=True, show_heading_links=False, title_override=None, is_container=False) -%}
 {% if always_show or stories %}
     {% if not more_text %}
         {% set more_text = heading_text|lower %}
     {% endif %}
+    {% if title_override %}
+    {% set heading_text = title_override[0]|upper + title_override[1:] %}
+    {% endif %}
+
     <table cellspacing="0" cellpadding="0" border="0" style="margin: 0px; padding: 0px; width: 100%;">
         {% if not standfirst %}
             <tr>
@@ -155,7 +159,7 @@
                             {% set show_text = standfirst %}
                         {% endif %}
                     {% endif %}
-                    {{ story_blocks.story(story, standfirst, more_thumbs, small_first_img, loop.index, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links, popular=popular, show_kicker=show_kicker) }}
+                    {{ story_blocks.story(story, standfirst, more_thumbs, small_first_img, loop.index, loop.index == 1, thumbnail=use_thumbnail, show_story_text=show_text, use_standfirst=use_standfirst, first_para=first_para, share_links=share_links, popular=popular, show_kicker=show_kicker, is_container=is_container) }}
                 {% endfor %}
             </td>
             <td class="mobile" width="0"></td>
