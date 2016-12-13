@@ -44,9 +44,9 @@ class DailyEmailUS(handlers.EmailTemplate):
                 shared_count_interpolator=ds.MostSharedCountInterpolator()
             )
 
-    breaking = container.for_front('us', 'breaking')
-    canonical = container.for_front('us', 'canonical')
-    special = container.for_front('us', 'special')
+    breaking = container.for_front('us', 'breaking', additional_capi_params=immutable.make_dict({"show-elements": "image"}))
+    canonical = container.for_front('us', 'canonical', additional_capi_params=immutable.make_dict({"show-elements": "image"}))
+    special = container.for_front('us', 'special', additional_capi_params=immutable.make_dict({"show-elements": "image"}))
 
     data_sources = immutable.make_dict({
         'v1': base_data_sources,
