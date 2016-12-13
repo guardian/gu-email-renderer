@@ -15,8 +15,8 @@ def for_id(container_id, sort_function=None, additional_capi_params=None):
 			sort_function=sort_function,
 			additional_capi_params=additional_capi_params)
 
-def for_front(front_id, metadata=None):
-	return FrontDataSource(front_id, metadata)
+def for_front(front_id, metadata=None, additional_capi_params=None):
+	return FrontDataSource(front_id, metadata, additional_capi_params)
 
 def read_container_title(container_id, retries=3):
 	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
@@ -43,7 +43,7 @@ def read_container(container_id, retries=3, sort_function=None, additional_capi_
 	container_base_url = configuration.read('CONTAINER_API_BASE_URL')
 	try:
 		url = "{0}/{1}".format(container_base_url, container_id)
-		
+
 		result = urlfetch.fetch(url, deadline=9)
 		if result.status_code == 200:
 			data = json.loads(result.content)
@@ -84,9 +84,10 @@ class ContainerDataSource:
 
 
 class FrontDataSource:
-	def __init__(self, front_id, metadata=None):
+	def __init__(self, front_id, metadata=None, additional_capi_params=None):
 		self.front_id = front_id
 		self.metadata = metadata
+		self.additional_capi_params = additional_capi_params
 
 	def _fetch_containers_for_front(self, retries=3):
 		container_api_host = configuration.read('CONTAINER_API_HOST')
@@ -135,6 +136,6 @@ class FrontDataSource:
 		
 		containers = self._fetch_containers_for_front()
 
-		resolved_containers = [read_container(container_id) for container_id in containers]
+		resolved_containers = [read_container(container_id, additional_capi_params=self.additional_capi_params) for container_id in containers]
 		stories = [capi_item for container_items in resolved_containers for capi_item in container_items]
 		return stories
