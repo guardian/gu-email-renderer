@@ -110,11 +110,6 @@ class EmailTemplate(webapp2.RequestHandler):
 
             ads = {}
 
-            if hasattr(self, 'ad_tag') and self.ad_tag:
-                ad_fetcher = AdFetcher(self.ad_tag)
-                for name, type in self.ad_config.iteritems():
-                    ads[name] = ad_fetcher.fetch_type(type)
-
             page = template.render(ads=ads, date=date, data=self.additional_template_data(), title_overrides=title_overrides, **trail_blocks)
 
             if self.minify:
