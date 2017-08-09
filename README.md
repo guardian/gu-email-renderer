@@ -12,7 +12,7 @@ in your home directory:
 
     ~/linux-dev/google_appengine/dev_appserver.py . --port=8888
 
-You can then view the daily email at http://localhost:8888/daily-email.
+You can then view the daily emails at http://localhost:8888/.
 
 
 ### Configuration
