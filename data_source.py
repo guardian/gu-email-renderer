@@ -21,6 +21,7 @@ class DataSource(object):
         self.page_size = 10
         self.content_type = None
         self.show_elements = None
+        self.show_atoms = None
         self.from_date = None
         self.show_most_viewed = False
         self.short_url = None
@@ -73,7 +74,7 @@ class DataSource(object):
 
         criteria['user-tier']='internal'
 
-        for attr in ['production_office', 'section', 'show_elements']:
+        for attr in ['production_office', 'section', 'show_elements', 'show_atoms']:
             attr_value = getattr(self,attr)
             if attr_value:
                 criteria[attr] = attr_value

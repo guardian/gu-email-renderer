@@ -31,4 +31,5 @@ class TechnologyVideoDataSource(SearchDataSource):
         self.content_type = 'video'
         self.tags = ['technology/technology']
         self.show_elements = 'video'
+        self.show_atoms='media'
 
