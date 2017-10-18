@@ -36,6 +36,7 @@ jinja_environment.filters.update({
         'get_keyword': template_filters.get_keyword,
         'image_of_width': template_filters.image_of_width,
         'asset_url': template_filters.asset_url,
+        'get_video_assets': template_filters.get_video_assets
     })
 
 jinja_environment.cache=None

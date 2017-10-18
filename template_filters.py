@@ -2,6 +2,8 @@ import re
 import logging
 import urllib, urlparse
 import copy
+from exceptions import ValueError
+from util import safeget
 
 first_paragraph_pattern = re.compile('.*?<p>(.+?)</p>.*', re.DOTALL | re.IGNORECASE)
 
@@ -98,3 +100,30 @@ def asset_url(asset):
 		return None
 
 	return asset.get('typeData', {}).get('secureFile', None)
+
+def get_video_assets(video):
+	if len(video['elements']) > 0:
+		assets = safeget(video, 'video page', 'elements', 0, 'assets')
+		assetToUse = assets[0]
+		for asset in assets:
+			typeData = asset.get('typeData', {})
+			width = typeData.get('width', None)
+			height = typeData.get('height', None)
+			if '480' == width or '460' == height:
+				assetToUse = asset
+		return {
+			'file': assetToUse['file'],
+			'alt_text': assetToUse.get('typeData', {}).get('altText', 'video image')
+		}
+	elif video['atoms'] and video['atoms']['media']:
+		page_type = 'video atom page'
+		atom_data = safeget(video, page_type, 'atoms', 'media', 0, 'data', 'media')
+		file = safeget(atom_data, page_type, 'posterImage', 'assets', 0, 'file')
+		title = atom_data.get('title', 'video image')
+		return {
+			'file': file,
+			'alt_text': title
+		}
+	else:
+		logging.error("Could not find image assets for video page with id " + video.id)
+		raise ValueError('Cannot render email due to missing image for a video')
