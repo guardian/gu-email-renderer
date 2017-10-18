@@ -77,6 +77,11 @@ Use `base_email.html` for a normal email structure and `base_scrape.html` for em
 Stories are rendered using macros found in the `macro`
 subfolder.
 
+## Data sources
+Data sources come from a combination of Content API, Ophan and Fronts API.
+
+Examples of Fronts API queries can be can be found in the README of the [facia-tool-node-api repo](https://github.com/guardian/facia-tool-node-api)
+
 ## ExactTarget integration
 
 The email content is scraped out of the daily-email page by
