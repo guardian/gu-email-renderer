@@ -39,7 +39,11 @@ On my machine this is:
 
 ## Releasing
 
-Push a unique revision (normally the next number on from the last release) and use the dashboard to make it the default version when you want to actually release the changes. Due to caching you might also want to flush memcache if the data needs to be changed immediately.
+Merge your change to master, then push with the NEXT VERSION NUMBER, which you can work out from the [google cloud console](https://console.cloud.google.com/appengine/versions?project=gu-email-renderer&serviceId=default):
+
+    appcfg.py -A gu-email-renderer -V [NEXT VERSION NUMBER] update .
+
+Use the dashboard to make it the default version when you want to actually release the changes. Due to caching you might also want to flush memcache if the data needs to be changed immediately.
 
 To revert to a historic version use the Appengine dashboard to set a new default version. This will usually take effect immediately but you may need to flush Memcache to regenerate the emails.
 
