@@ -17,7 +17,7 @@ class TechnologyMostViewedDataSource(ItemDataSource):
 
 class TechnologyGamesDataSource(ItemDataSource):
     def __init__(self, client):
-        ItemDataSource.__init__(self, client, content_id='technology/games')
+        ItemDataSource.__init__(self, client, content_id='games')
         self.tags = ['-technology/series/chatterbox,-type/video']
 
 class TechnologyPodcastDataSource(ItemDataSource):
