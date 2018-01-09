@@ -53,7 +53,7 @@ To test a release you can use the [checker script](https://github.com/guardian/g
 
 ### Historic releases
 
-The application used to deploy just to the `prod` and `qa` revisions. The qa revision is still the default target.
+The application used to deploy just to the `prod` and `qa` revisions. The `qa` revision is still the default target.
 
 ## Details
 
