@@ -27,6 +27,8 @@ You will need to define configuration values for the following keys:
 * `OPHAN_BASE_URL`: the base url for the Ophan API
 * `OPHAN_API_KEY`: a valid key for the Ophan API
 
+To add/update keys visit http://localhost:8000/datastore?kind=Configuration
+
 ## Running the tests
 
 The script is in the root directory of the project:
