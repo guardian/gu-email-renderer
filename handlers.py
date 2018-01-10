@@ -88,7 +88,13 @@ class EmailTemplate(webapp2.RequestHandler):
                 retrieved_data_map[key] = title
 
         return retrieved_data_map
-
+    
+    def show_header_and_footer(self):
+        show_them = self.request.GET.get('showHeaderAndFooter')
+        if show_them is None:
+            return True
+        else:
+            return not show_them == 'false'
 
     def get(self, version_id):
         self.check_version_id(version_id)
@@ -111,7 +117,14 @@ class EmailTemplate(webapp2.RequestHandler):
 
             ads = {}
 
-            page = template.render(ads=ads, date=date, data=self.additional_template_data(), title_overrides=title_overrides, **trail_blocks)
+            page = template.render(
+                ads=ads,
+                date=date,
+                data=self.additional_template_data(),
+                title_overrides=title_overrides,
+                show_header_and_footer=self.show_header_and_footer(),
+                **trail_blocks
+            )
 
             if self.minify:
                 page = htmlmin.minify(page)
