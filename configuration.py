@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*- 
+
 from google.appengine.ext import ndb
 
 class Configuration(ndb.Model):
@@ -18,3 +20,7 @@ def write(key, value):
 	config = Configuration(id=key, key=key, value=value)
 	config.put()
 	return config
+
+# You cannot edit the datastore locally without something in it!
+# Write this key so we can view/edit stuff (the value is not used)
+write("TEST", "test")
