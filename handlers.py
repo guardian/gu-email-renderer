@@ -88,20 +88,16 @@ class EmailTemplate(webapp2.RequestHandler):
                 retrieved_data_map[key] = title
 
         return retrieved_data_map
-    
-    def show_header_and_footer(self):
-        show_them = self.request.GET.get('showHeaderAndFooter')
-        if show_them is None:
-            return True
-        else:
-            return not show_them == 'false'
 
     def get(self, version_id):
         self.check_version_id(version_id)
 
-        show_header_and_footer=self.show_header_and_footer()
-        cache_key = "{}-{}-showHeaderAndFooter={}".format(version_id, str(self.__class__), show_header_and_footer)
+        display = self.request.GET.get('display') or 'all'
+        cache_key = "{}-{}-{}".format(version_id, str(self.__class__), display)
         page = self.cache.get(cache_key)
+
+        show_header_and_footer = not display == 'content'
+        show_footer_links = not display == 'logo-footer'
 
         if self.cache_bust or not page:
             logging.debug('Cache miss with key: %s' % cache_key)
@@ -124,6 +120,7 @@ class EmailTemplate(webapp2.RequestHandler):
                 data=self.additional_template_data(),
                 title_overrides=title_overrides,
                 show_header_and_footer=show_header_and_footer,
+                show_footer_links=show_footer_links,
                 **trail_blocks
             )
 

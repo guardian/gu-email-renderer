@@ -77,13 +77,14 @@
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#333333{% else %}#e8e5e2{% endif %}">
                   <!-- logo-social -->
                   <tr>
-                    <td style="padding: 20px 15px 0 15px;">
+                    <td style="padding: 20px 15px;">
                       <table width="100%" cellpadding="0" cellspacing="0" border="0">
                         <tr>
                           <td align="left" width="50%">
                               <a href="{% if footer_link %}{{ footer_link }}{% else %}{{ title_link }}{% endif %}"><img src="{{ URL_ROOT }}/static/img/logo-footer-{{ footer_colour }}.png" width="131" height="24" alt="The Guardian" border="0" /></a>
                           </td>
 
+                          {% if show_footer_links %}
                           <td width="50%" align="right">
                             <table cellpadding="0" cellspacing="0" border="0">
                               {% block social %}
@@ -98,13 +99,16 @@
                               {% endblock social %}
                             </table>
                           </td>
+                          {% endif %}
                         </tr>
                       </table>
                     </td>
                   </tr>
+                  <tr></tr>
                   <!-- /logo-social -->
 
                   <!-- sections -->
+                  {% if show_footer_links %}
                   {% block sections %}
                   <tr>
                     <td style="padding: 20px 15px 20px 15px;">
@@ -122,9 +126,11 @@
                     </td>
                   </tr>
                   {% endblock sections %}
+                  {% endif %}
                   <!-- /sections -->
                 </table>
 
+                {% if show_footer_links %}
                 {% block footer_link %}
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="{% if footer_colour == 'dark' %}#444444{% else %}#ededed{% endif %}" style="border-bottom: 1px solid #bebebe;">
                   <tr><td align="left" style="padding: 20px 15px 20px 15px;">
@@ -132,6 +138,7 @@
                   </td></tr>
                 </table>
                 {% endblock footer_link %}
+                {% endif %}
 
                 <!-- /footer -->
             </td></tr>
