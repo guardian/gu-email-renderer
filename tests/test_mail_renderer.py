@@ -72,7 +72,6 @@ class TestRenderer(EmailTemplate):
 
 
 class TestMailRenderer(unittest.TestCase):
-    @unittest.skip("test runner needs updating for latest SDK")
     def test_should_use_data_sources_appropriate_to_version(self):
         renderer = TestRenderer()
         renderer.get('v2')
@@ -82,7 +81,6 @@ class TestMailRenderer(unittest.TestCase):
         for data_source in renderer.data_sources['v2'].values():
             self.assertTrue(data_source.data_fetched)
 
-    @unittest.skip("test runner needs updating for latest SDK")
     def test_should_use_template_appropriate_to_version(self):
         renderer = TestRenderer()
         renderer.get('v2')

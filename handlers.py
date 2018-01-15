@@ -129,5 +129,8 @@ class EmailTemplate(webapp2.RequestHandler):
 
 class Index(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('index.html')
+        show_all = self.request.GET.get('showAll')
+        template_name = 'index.jan2018.html' if show_all else 'index.html'
+
+        template = jinja_environment.get_template(template_name)
         self.response.out.write(template.render())
