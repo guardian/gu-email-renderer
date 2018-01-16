@@ -88,19 +88,11 @@ class EmailTemplate(webapp2.RequestHandler):
                 retrieved_data_map[key] = title
 
         return retrieved_data_map
-    
-    def show_header_and_footer(self):
-        show_them = self.request.GET.get('showHeaderAndFooter')
-        if show_them is None:
-            return True
-        else:
-            return not show_them == 'false'
 
     def get(self, version_id):
         self.check_version_id(version_id)
 
-        show_header_and_footer=self.show_header_and_footer()
-        cache_key = "{}-{}-showHeaderAndFooter={}".format(version_id, str(self.__class__), show_header_and_footer)
+        cache_key = "{}-{}".format(version_id, str(self.__class__))
         page = self.cache.get(cache_key)
 
         if self.cache_bust or not page:
@@ -123,7 +115,6 @@ class EmailTemplate(webapp2.RequestHandler):
                 date=date,
                 data=self.additional_template_data(),
                 title_overrides=title_overrides,
-                show_header_and_footer=show_header_and_footer,
                 **trail_blocks
             )
 
@@ -138,5 +129,8 @@ class EmailTemplate(webapp2.RequestHandler):
 
 class Index(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('index.html')
+        show_all = self.request.GET.get('showAll')
+        template_name = 'index.jan2018.html' if show_all else 'index.html'
+
+        template = jinja_environment.get_template(template_name)
         self.response.out.write(template.render())

@@ -4,8 +4,7 @@
 
 {% set title = 'Email renderer' %}
 {% set title_link = '/' %}
-{% set title_colour = '#333' %}
-{% set logo_background  = '#333' %}
+{% set footer_colour = 'light' %}
 
 {% block content %}
 <style>
@@ -20,151 +19,69 @@
     <table width="600px" cellpadding="0" cellspacing="0" border="0">
         <tr><td style="padding: 10px 20px 20px 20px; border-top: 1px solid #dedede; color: #999;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tbody><tr>
+                <tbody>
+                    <tr>
+                        This tool should not be used for new emails.
+                        Please contact the <a href="mailto:digitalcms.dev@guardian.co.uk">Digital CMS Team</a>.
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            UK Daily Email
+                            <a class="story-title" href="/daily-email/categories" >Categories</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            Best of US Opinion
+                            <a class="story-title" href="/us-opinion/v1" >v1</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                        Daily Email - Australia edition
+                            <a class="story-title" href="/daily-email-aus/v4" >v4</a>
+                        </td>
+                    </tr> 
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            Australian politics
+                            <a class="story-title" href="/australian-politics/v4" >v4</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            <a class="story-title" href="/australian-cif/v1" >Australian CiF</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            <a class="story-title" href="/australia-sport/v1" >Australian Sport</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 10px 20px 20px 20px;">
+                            Close up
+                            <a class="story-title" href="/close-up/v2" >v2</a> |
+                            <a class="story-title" href="/close-up/v3" >v3</a>
+                        </td>
+                    </tr>
+
+                <tr>
                     <td style="padding: 10px 20px 20px 20px;">
-                        UK Daily Email, <a class="story-title" href="/daily-email/v1" > v1</a> |
-                        <a class="story-title" href="/daily-email/v1-register" > v1-register</a> |
-                        <a class="story-title" href="/daily-email/v2015" > v2015</a> |
-                         <a class="story-title" href="/headline" >headline</a> |
-                        <a class="story-title" href="/daily-email/india" >India</a> |
-                        <a class="story-title" href="/daily-email/nhs" >NHS special</a> |
-                        <a class="story-title" href="/daily-email/categories" >Categories</a>
-                    </td>
-                </tr><tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Daily Email - US edition: <a class="story-title" href="/daily-email-us/v1" >v1</a> |
-                        <a class="story-title" href="/daily-email-us/v3" >v3</a> |
-                        <a class="story-title" href="/daily-email-us/v6" >v6</a> |
-                        <a class="story-title" href="/daily-email-us/v7" >v7</a> |
-                        <a class="story-title" href="/daily-email-us/v2015" >v2015</a> |
-                        <a class="story-title" href="/daily-email-us/v2015_v2" >v2015_v2</a> |
-                        <a class="story-title" href="/daily-email-us/v2015_v3" >v2015_v3</a> |
-                        <a class="story-title" href="/daily-email-us/v2015_v4" >v2015_v4</a> |
-                        <a class="story-title" href="/daily-email-us/categories_us" >categories_us</a> |
-                        <a class="story-title" href="/headline/us">headline</a>
+                        Film today email
+                        <a class="story-title" href="/film-today/v2" >v2</a>
                     </td>
                 </tr>
 
                 <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Best of US Opinion <a class="story-title" href="/us-opinion/v1" >v1</a> | <a class="story-title" href="/us-opinion/v2" >v2</a> | <a class="story-title" href="/us-opinion/v3" >v3</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                    Daily Email - Australia edition
-                        <a class="story-title" href="/daily-email-aus/v1" >v1</a> | <a class="story-title" href="/daily-email-aus/v2" >v2 - with Eyewitness</a> | <a class="story-title" href="/daily-email-aus/v3" >v3 - with MostShared</a> | <a class="story-title" href="/daily-email-aus/v2015" >v2015</a> | <a class="story-title" href="/daily-email-aus/v4" >v4</a> | <a class="story-title" href="/headline/au">headline</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Australian politics <a class="story-title" href="/australian-politics/v1" >v1</a>
-                        | <a class="story-title" href="/australian-politics/v2" >v2</a>
-                        | <a class="story-title" href="/australian-politics/v3" >v3</a>
-                        | <a class="story-title" href="/australian-politics/v4" >v4</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/australian-cif/v1" >Australian CiF</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/australia-morning/v1" >Australian Morning Mail</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/australia-sport/v1" >Australian Sport</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Long Reads: <a class="story-title" href="/longreads/v1" >v1</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/comment-is-free/v1" >Comment is free, v1</a> |
-                        <a class="story-title" href="/comment-is-free/v2" >v2</a> | <a class="story-title" href="/comment-is-free/v3">v3</a> | <a class="story-title" href="/headline/uk/opinion/v1">v1 headline</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/fashion-statement/v1" >Fashion statement, v1</a> | <a class="story-title" href="/fashion-statement/v2" >v2</a>
- | <a class="story-title" href="/fashion-statement/v3" >v3</a>
-                    </td>
-                </tr><tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/media-briefing/v1" >Media briefing</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Bookmarks: <a class="story-title" href="/bookmarks/v1" >v1</a> | <a class="story-title" href="/bookmarks/v2" >v2</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/close-up/v1" >Close up, v1</a> |
-                        <a class="story-title" href="/close-up/v2" >v2</a> |
-                        <a class="story-title" href="/close-up/v3" >v3</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Film today email <a class="story-title" href="/film-today/v1" >v1</a> | <a class="story-title" href="/film-today/v2" >v2</a> | <a class="story-title" href="/film-today/v3" >v3</a> | <a class="story-title" href="/film-today/v4" >v4</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        Film Today headlines <a href="/headline/film/v1" class="story-title">v1</a> | <a href="/headline/film" class="story-title">v2</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/sleeve-notes/v1" >Sleeve notes, v1</a> |
-                        <a class="story-title" href="/sleeve-notes/v2" >v2</a> |
-                        <a class="story-title" href="/sleeve-notes/v3" >v3</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/the-flyer/v1" >The Flyer</a>
-                    </td>
-                </tr><tr>
                     <td style="padding: 10px 20px 20px 20px;">
                         <a class="story-title" href="/zip-file/v1" >Zip file</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/most-commented/v1" >Most commented</a>
-                    </td>
-                </tr><tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/most-shared/v1" >Most shared (Global)</a> | <a class="story-title" href="/most-shared/uk/v1" >Most shared (UK)</a> | <a class="story-title" href="/most-shared/au/v1" >Most shared (AU)</a> | <a class="story-title" href="/most-shared/us/v1" >Most shared (US)</a>
-                    </td>
-                </tr><tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/most-viewed/v1" >Most viewed</a>
-                    </td>
-                </tr><tr>
-                    <td style="padding: 10px 20px 20px 20px;">
-                        <a class="story-title" href="/editors-picks/v1" >Editor's picks</a>
                     </td>
                 </tr>
 
