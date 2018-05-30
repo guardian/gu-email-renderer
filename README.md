@@ -88,6 +88,8 @@ Data sources come from a combination of Content API, Ophan and Fronts API.
 
 Examples of Fronts API queries can be can be found in the README of the [facia-tool-node-api repo](https://github.com/guardian/facia-tool-node-api)
 
+If Editors Picks is selected, the tool uses the Editors Picks (top 25 articles every hour in the fronts tool) that is populated via [this Lambda](https://github.com/guardian/editors-picks-uploader) into CAPI.
+
 ## ExactTarget integration
 
 The email content is scraped out of the daily-email page by
